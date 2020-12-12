@@ -31,8 +31,8 @@ public class InterfaceNameFragment extends Fragment {
         russian = root.findViewById(R.id.russian).findViewById(R.id.tvInterfaceName);
         english = root.findViewById(R.id.english).findViewById(R.id.tvInterfaceName);
 
-        russian.setText("Росiйська");
-        english.setText("Англiйська");
+        russian.setText(R.string.russian);
+        english.setText(R.string.english);
 
         cbUkrainian = root.findViewById(R.id.ukrainian).findViewById(R.id.cbShowHide);
         cbRussian = root.findViewById(R.id.russian).findViewById(R.id.cbShowHide);

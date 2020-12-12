@@ -11,11 +11,11 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="36sp"
+        android:textSize="@dimen/login_title_text_size"
         android:textColor="@color/black"
-        android:text="Введіть Ваш&#10;логін і пароль."
-        android:layout_marginTop="@dimen/_90sdp"
-        android:layout_marginStart="@dimen/_20sdp"
+        android:text="@string/login_password"
+        android:layout_marginTop="@dimen/login_title_margin_top"
+        android:layout_marginStart="@dimen/default_margin_horizontal"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,21 +26,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/login_input_bg"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_70sdp">
+        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+        android:layout_marginTop="@dimen/login_input_margin_top">
 
         <EditText
             android:id="@+id/etInputLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Логин"
-            android:textSize="16sp"
+            android:hint="@string/login"
+            android:textSize="@dimen/login_input_text_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/vDevideLine"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginVertical="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/login_input_margin_horizontal"
+            android:layout_marginVertical="@dimen/login_input_margin_vertical"
             />
 
         <View
@@ -51,7 +51,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/light_grey"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/login_input_margin_vertical"
             />
 
         <EditText
@@ -59,20 +59,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="Пароль"
-            android:textSize="16sp"
+            android:hint="@string/password"
+            android:textSize="@dimen/login_input_text_size"
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@id/vDevideLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:layout_marginVertical="@dimen/_16sdp"
+            android:layout_marginHorizontal="@dimen/login_input_margin_horizontal"
+            android:layout_marginVertical="@dimen/login_input_margin_vertical"
             />
         <CheckBox
             android:id="@+id/cbShowHide"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="@dimen/_12sdp"
+            android:layout_width="@dimen/login_checkbox_size"
+            android:layout_height="@dimen/login_checkbox_size"
+            android:layout_marginEnd="@dimen/login_input_margin_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/vDevideLine"
@@ -82,16 +82,15 @@
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        android:text="Увiйти"
+        android:layout_height="@dimen/login_button_height"
+        android:text="@string/enter"
         app:layout_constraintTop_toBottomOf="@id/clLoginPasswordField"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_18sdp"
+        android:layout_marginTop="@dimen/default_margin_horizontal"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

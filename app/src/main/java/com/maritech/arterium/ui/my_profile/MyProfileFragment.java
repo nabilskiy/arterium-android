@@ -28,7 +28,7 @@ public class MyProfileFragment extends Fragment {
         arrow = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.ivArrow);
         toolbarTitle = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.tvToolbarTitle);
 
-        toolbarTitle.setText("Мій профіль");
+        toolbarTitle.setText(R.string.my_profile);
         arrow.setVisibility(View.INVISIBLE);
 
         setMyProfileContentList(root);
@@ -44,9 +44,9 @@ public class MyProfileFragment extends Fragment {
         contact = root.findViewById(R.id.contactWithUs).findViewById(R.id.tvMyProfileListTitle);
         setting = root.findViewById(R.id.myProfileMainContentSettings).findViewById(R.id.tvMyProfileListTitle);
 
-        notification.setText("Повідомлення");
-        contact.setText("Зв'язатися з нами");
-        setting.setText("Налаштування");
+        notification.setText(R.string.notification);
+        contact.setText(R.string.contact_with_us);
+        setting.setText(R.string.settings);
 
         imageNotification.setBackgroundResource(R.drawable.ic_bell);
         imageSetting.setBackgroundResource(R.drawable.ic_blue_settings);

@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/interfaceToolbar"
-        android:layout_marginHorizontal="@dimen/_14sdp">
+        android:layout_marginHorizontal="@dimen/default_margin_horizontal">
 
         <include
             android:layout_width="match_parent"
@@ -55,14 +55,14 @@
         android:id="@+id/tvInterfaceNameDescriptionWhatToDo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
+        android:textSize="@dimen/default_small_text_size"
         android:textColor="@color/gray"
-        android:text="Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу."
+        android:text="@string/description_what_to_do"
         app:layout_constraintTop_toBottomOf="@id/clNamesList"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+        android:layout_marginTop="@dimen/interface_name_description_margin_top"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

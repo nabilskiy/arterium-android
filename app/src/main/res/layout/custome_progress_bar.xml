@@ -21,24 +21,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="6"
-        android:layout_marginStart="@dimen/_20sdp"
+        android:text="@string/six"
+        android:layout_marginStart="@dimen/default_margin_horizontal"
         android:textColor="@color/white"
-        android:textSize="40sp"
-        android:layout_marginVertical="@dimen/_20sdp"
+        android:textSize="@dimen/custom_progress_bar_text_size_amount"
+        android:layout_marginVertical="@dimen/default_margin_vertical"
         />
 
     <TextView
         android:id="@+id/tvCpbValueDescribe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Первиннi&#10; покупки"
+        android:text="@string/original_purchases"
         android:textColor="@color/white"
-        android:textSize="13sp"
+        android:textSize="@dimen/custom_progress_bar_text_size_describe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvCpbValue"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/custom_progress_bar_describe_margin_start"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
