@@ -8,4 +8,26 @@
     <string name="title_statistics">Statistic</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_profile">Мій профіль</string>
+    <string name="notification">Повідомлення</string>
+    <string name="contact_with_us">Зв\'язатися з нами</string>
+    <string name="settings">Налаштування</string>
+    <string name="russian">Росiйська</string>
+    <string name="ukrainian">Українська</string>
+    <string name="english">Англiйська</string>
+    <string name="six">6</string>
+    <string name="original_purchases">Первиннi <br/> покупки</string>
+    <string name="description_what_to_do">Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу.</string>
+    <string name="login_password">Введіть Ваш <br/> логін і пароль.</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Увiйти</string>
+    <string name="berezniakov">Юрiй Березняков</string>
+    <string name="cardiologist">Кардіолог</string>
+    <string name="whole_shopping_items">Всього 8 покупок</string>
+    <string name="vinich">Анастасия Винич</string>
+    <string name="pharmacy_list">Список аптек</string>
+    <string name="interfaces_name">Мова інтерфейсу</string>
+
+
 </resources>
