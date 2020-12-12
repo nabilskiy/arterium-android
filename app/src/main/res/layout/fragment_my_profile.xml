@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/myProfileToolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_84sdp"
+        app:layout_constraintTop_toBottomOf="@id/myProfileToolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/llMyProfileLogo"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_26sdp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/ic_profile_bg">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:elevation="12dp"
+            android:id="@+id/view2"
+            app:cardCornerRadius="40dp"
+            android:layout_centerHorizontal="true"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9">
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/ivMyProfileLogo"
+                android:src="@drawable/logo"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMyProfileName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/llMyProfileLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Юрiй Березняков"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+    <TextView
+        android:id="@+id/tvMyProfileSkill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvMyProfileName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Кардіолог"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+    <TextView
+        android:id="@+id/tvMyProfileShopingAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvMyProfileSkill"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Всього 8 покупок"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:alpha="0.4"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMyProfileMainContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvMyProfileShopingAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp">
+
+        <include
+            android:id="@+id/myProfileCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/my_profile_card"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <include
+            android:id="@+id/pharmacyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/my_profile_list_item"
+            app:layout_constraintTop_toBottomOf="@id/myProfileCard"
+            android:layout_marginTop="@dimen/_18sdp"
+            />
+
+        <include
+            android:id="@+id/myProfileMainContentNotifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/my_profile_list_item"
+            app:layout_constraintTop_toBottomOf="@id/pharmacyList"
+            android:layout_marginTop="@dimen/_18sdp"
+            />
+
+        <include
+            android:id="@+id/contactWithUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/my_profile_list_item"
+            app:layout_constraintTop_toBottomOf="@id/vDevideNotificationAndContact"
+            android:layout_marginTop="@dimen/_18sdp"
+            />
+        <include
+            android:id="@+id/myProfileMainContentSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/my_profile_list_item"
+            app:layout_constraintTop_toBottomOf="@id/contactWithUs"
+            android:layout_marginTop="@dimen/_18sdp"
+            />
+
+        <View
+            android:id="@+id/vDevideNotificationAndContact"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            app:layout_constraintTop_toBottomOf="@id/myProfileMainContentNotifications"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/light_grey"
+            android:layout_marginTop="@dimen/_18sdp"
+            />
+
+        <View
+            android:id="@+id/vDevideSettingAndExit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            app:layout_constraintTop_toBottomOf="@id/myProfileMainContentSettings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/light_grey"
+            android:layout_marginTop="@dimen/_18sdp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vDevideSettingAndExit"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginVertical="@dimen/_18sdp">
+
+            <ImageView
+                android:id="@+id/ivLogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_log_out"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivLogOut"
+                android:text="Вийти"
+                android:textSize="17sp"
+                android:textColor="@color/red"
+                android:layout_marginStart="@dimen/_14sdp"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

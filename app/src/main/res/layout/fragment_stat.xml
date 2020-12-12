@@ -20,14 +20,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.maritech.arterium.ui.widgets.CustomProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        app:cp_value="5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
