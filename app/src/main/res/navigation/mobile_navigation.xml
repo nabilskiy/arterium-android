@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_dashboard">
+    app:startDestination="@id/myProfileFragment">
 
 
     <fragment
@@ -33,6 +33,24 @@
         android:name="com.maritech.arterium.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.maritech.arterium.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"
+        />
+    <fragment
+        android:id="@+id/interfaceNameFragment"
+        android:name="com.maritech.arterium.ui.interface_name.InterfaceNameFragment"
+        android:label="InterfaceNameFragment"
+        tools:layout="@layout/fragment_interface_name"
+        />
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.maritech.arterium.ui.my_profile.MyProfileFragment"
+        android:label="MyProfileFragment"
+        tools:layout="@layout/fragment_my_profile"
+        />
 
     <fragment
         android:id="@+id/settingsFragment"

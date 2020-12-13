@@ -14,4 +14,11 @@
     <color name="white_gray_border">#E0E0E0</color>
     <color name="gray_view_line">#D7D8D9</color>
     <color name="black_gray">#333333</color>
+    <color name="pb_bg_color">#F2F3F5</color>
+    <color name="light_grey">#D1D5DB</color>
+    <color name="purple_light">#C17AA6</color>
+    <color name="purple_medium">#A53163</color>
+    <color name="red">#E64646</color>
+
+
 </resources>
