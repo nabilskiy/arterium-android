@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/myProfileFragment">
+    app:startDestination="@id/achievementsFragment">
 
 
     <fragment
@@ -17,11 +17,6 @@
         android:name="com.maritech.arterium.ui.statistics.StatFragment"
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_stat" />
-    <fragment
-        android:id="@+id/navigation_achives"
-        android:name="com.maritech.arterium.ui.achieves.AchievesFragment"
-        android:label="@string/title_achives"
-        tools:layout="@layout/fragment_achives" />
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.maritech.arterium.ui.profile.HomeFragment"
@@ -51,4 +46,9 @@
         android:label="MyProfileFragment"
         tools:layout="@layout/fragment_my_profile"
         />
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.maritech.arterium.ui.achievements.AchievementsFragment"
+        android:label="AchievementsFragment"
+        tools:layout="@layout/fragment_achievement"/>
 </navigation>
