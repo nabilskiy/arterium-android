@@ -1,73 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_10sdp">
 
     <ImageView
-        android:id="@+id/ivAchievementOne"
+        android:id="@+id/ivAchievement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_achievement_closed" />
 
-    <ImageView
-        android:id="@+id/ivAchievementTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginEnd="@dimen/_24sdp"
-        app:layout_constraintEnd_toStartOf="@+id/ivAchievementThree"
-        app:layout_constraintStart_toEndOf="@+id/ivAchievementOne"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_achievement_closed" />
-
-    <ImageView
-        android:id="@+id/ivAchievementThree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_24sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_achievement_closed" />
-
     <TextView
-        android:id="@+id/tvAchievementOne"
+        android:id="@+id/tvAchievement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivAchievementOne"
-        app:layout_constraintStart_toStartOf="@+id/ivAchievementOne"
-        app:layout_constraintTop_toBottomOf="@+id/ivAchievementOne" />
-
-    <TextView
-        android:id="@+id/tvAchievementTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivAchievementTwo"
-        app:layout_constraintStart_toStartOf="@+id/ivAchievementTwo"
-        app:layout_constraintTop_toBottomOf="@+id/ivAchievementTwo" />
-
-    <TextView
-        android:id="@+id/tvAchievementThree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:text="TextView"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="@+id/ivAchievementThree"
-        app:layout_constraintStart_toStartOf="@+id/ivAchievementThree"
-        app:layout_constraintTop_toBottomOf="@+id/ivAchievementThree" />
+        app:layout_constraintEnd_toEndOf="@+id/ivAchievement"
+        app:layout_constraintStart_toStartOf="@+id/ivAchievement"
+        app:layout_constraintTop_toBottomOf="@+id/ivAchievement" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

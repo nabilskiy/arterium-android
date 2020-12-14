@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 public class AchievementsFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    private GridLayoutManager layoutManager;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,42 +35,14 @@ public class AchievementsFragment extends Fragment {
 
 
         RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.rvAchievement);
-        AchievementsAdapter mAdapter = new AchievementsAdapter(prepareDataList(dataList));
+        AchievementsAdapter mAdapter = new AchievementsAdapter(dataList);
+
+        layoutManager = new GridLayoutManager(getContext(), 3);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         mRecyclerView.setAdapter(mAdapter);
 
-
-        //final TextView textView = root.findViewById(R.id.text_home);
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
         return root;
-    }
-
-
-    private ArrayList<ArrayList<AchievementsContent>> prepareDataList(ArrayList<AchievementsContent> dataList) {
-
-        ArrayList<ArrayList<AchievementsContent>> listForHolder = new ArrayList<>();
-
-
-        for (int i = 0; i < dataList.size(); i++) {
-            if (i == 0 || i % 3 == 0) {
-                ArrayList<AchievementsContent> tmpList = new ArrayList<>();
-                tmpList.add(dataList.get(i));
-                if (dataList.size() > i + 1) {
-                    tmpList.add(dataList.get(i + 1));
-                }
-                if (dataList.size() > i + 2) {
-                    tmpList.add(dataList.get(i + 2));
-                }
-                listForHolder.add(tmpList);
-            }
-        }
-
-        return listForHolder;
     }
 
     private void prepareList(ArrayList<AchievementsContent> dataList) {
