@@ -15,6 +15,6 @@
     <color name="purple_light">#C17AA6</color>
     <color name="purple_medium">#A53163</color>
     <color name="red">#E64646</color>
-
+    <color name="white_for_view_line">#D7D8D9</color>
 
 </resources>
