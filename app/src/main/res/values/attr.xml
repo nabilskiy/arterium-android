@@ -3,4 +3,9 @@
     <declare-styleable name="CustomProgressBar">
         <attr name="cp_value" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomInput">
+        <attr name="ci_title" format="string"/>
+        <attr name="ci_field_value" format="string"/>
+    </declare-styleable>
 </resources>

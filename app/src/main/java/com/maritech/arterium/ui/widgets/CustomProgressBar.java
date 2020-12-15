@@ -4,9 +4,11 @@ import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Point;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,12 +25,14 @@ import androidx.constraintlayout.solver.widgets.Rectangle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.utils.ScreenSize;
 
 import static android.widget.Toast.*;
 
 public class CustomProgressBar extends LinearLayout {
 
     private TextView amount;
+    private Integer maxVal = 20;
 
     public CustomProgressBar(Context context) {
         super(context);
@@ -44,7 +48,7 @@ public class CustomProgressBar extends LinearLayout {
         Integer value = typedArray.getInteger(R.styleable.CustomProgressBar_cp_value, 0);
         initControl(context, value);
 
-        setInsideProgress(170);
+        setInsideProgress(7);
         typedArray.recycle();
     }
 
@@ -58,26 +62,15 @@ public class CustomProgressBar extends LinearLayout {
     }
 
     private void setInsideProgress(Integer value){
-        int width;
-        ConstraintLayout view = findViewById(R.id.cpbGreen);
+        View view = findViewById(R.id.cpbInsideBgColor);
+        View layout = findViewById(R.id.clCustomProgress);
 
-        width = view.getWidth();
-        Toast.makeText(getContext(), width, LENGTH_LONG).show();
-
-        ViewTreeObserver viewTreeObserver = view.getViewTreeObserver();
-        if (viewTreeObserver.isAlive()) {
-            viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-                @Override
-                public void onGlobalLayout() {
-                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    int width = view.getMeasuredWidth();
-                }
-            });
-        }
+        int screenWidth = ScreenSize.getViewHeight(layout);
+            screenWidth = (int) (screenWidth - 0.14 * screenWidth);
+        int insideBgColor = (int) (screenWidth * value / maxVal);
 
 
-        //makeText(getContext(), String.valueOf(view.getRootView().getWidth()), Toast.LENGTH_LONG).show();
-
-        //view.setLayoutParams(new ConstraintLayout.LayoutParams((ConstraintLayout.LayoutParams.MATCH_PARENT), ConstraintLayout.LayoutParams.MATCH_PARENT));
+        layout.setLayoutParams(new LayoutParams(screenWidth, LayoutParams.MATCH_PARENT ));
+        view.setLayoutParams(new ConstraintLayout.LayoutParams(insideBgColor, ConstraintLayout.LayoutParams.MATCH_PARENT));
     }
 }
