@@ -152,7 +152,7 @@
         <View
             android:id="@+id/vDevideNotificationAndContact"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/default_devider_line_height"
+            android:layout_height="@dimen/default_divider_line_height"
             app:layout_constraintTop_toBottomOf="@id/myProfileMainContentNotifications"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +163,7 @@
         <View
             android:id="@+id/vDevideSettingAndExit"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/default_devider_line_height"
+            android:layout_height="@dimen/default_divider_line_height"
             app:layout_constraintTop_toBottomOf="@id/myProfileMainContentSettings"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
