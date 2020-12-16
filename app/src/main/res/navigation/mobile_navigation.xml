@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/achievementsFragment">
-
+    app:startDestination="@id/patientCardFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -46,6 +45,31 @@
         android:label="MyProfileFragment"
         tools:layout="@layout/fragment_my_profile"
         />
+    <fragment
+        android:id="@+id/patientCardFragment"
+        android:name="com.maritech.arterium.ui.patient_card.PatientCardFragment"
+        android:label="PatientCardFragment"
+        tools:layout="@layout/fragment_patient_card"
+        />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.maritech.arterium.ui.fragment.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/loginSplashFragment"
+        android:name="com.maritech.arterium.ui.fragment.loginSplash.LoginSplashFragment"
+        android:label="LoginSplashFragment"
+        tools:layout="@layout/fragment_login_splash" />
+    <fragment
+        android:id="@+id/pinCodeFragment"
+        android:name="com.maritech.arterium.ui.fragment.pinCode.PinCodeFragment"
+        android:label="PinCodeFragment"
+        tools:layout="@layout/fragment_pin"/>
+
+
     <fragment
         android:id="@+id/achievementsFragment"
         android:name="com.maritech.arterium.ui.achievements.AchievementsFragment"

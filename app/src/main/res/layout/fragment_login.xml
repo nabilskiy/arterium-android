@@ -38,13 +38,13 @@
             android:textSize="@dimen/login_input_text_size"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/vDevideLine"
+            app:layout_constraintBottom_toTopOf="@id/vDivideLine"
             android:layout_marginHorizontal="@dimen/login_input_margin_horizontal"
             android:layout_marginVertical="@dimen/login_input_margin_vertical"
             />
 
         <View
-            android:id="@+id/vDevideLine"
+            android:id="@+id/vDivideLine"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1sdp"
             app:layout_constraintTop_toBottomOf="@id/etInputLogin"
@@ -62,7 +62,7 @@
             android:hint="@string/password"
             android:textSize="@dimen/login_input_text_size"
             android:inputType="textPassword"
-            app:layout_constraintTop_toBottomOf="@id/vDevideLine"
+            app:layout_constraintTop_toBottomOf="@id/vDivideLine"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="@dimen/login_input_margin_horizontal"
@@ -75,7 +75,7 @@
             android:layout_marginEnd="@dimen/login_input_margin_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vDevideLine"
+            app:layout_constraintTop_toBottomOf="@id/vDivideLine"
             android:button="@null"
             android:background="@drawable/ic_password_icon"
             android:checked="true"
