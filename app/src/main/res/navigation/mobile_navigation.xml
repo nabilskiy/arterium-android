@@ -56,4 +56,23 @@
         android:label="PatientCardFragment"
         tools:layout="@layout/fragment_patient_card"
         />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.maritech.arterium.ui.fragment.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/loginSplashFragment"
+        android:name="com.maritech.arterium.ui.fragment.loginSplash.LoginSplashFragment"
+        android:label="LoginSplashFragment"
+        tools:layout="@layout/fragment_login_splash" />
+    <fragment
+        android:id="@+id/pinCodeFragment"
+        android:name="com.maritech.arterium.ui.fragment.pinCode.PinCodeFragment"
+        android:label="PinCodeFragment"
+        tools:layout="@layout/fragment_pin"/>
+
+
 </navigation>
