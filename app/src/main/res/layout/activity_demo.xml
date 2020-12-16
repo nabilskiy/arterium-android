@@ -12,5 +12,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        layout="@layout/toolbar_search_list"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
