@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <com.github.iielse.switchbutton.SwitchView-->
-<!--        android:id="@+id/switchView"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    <com.github.iielse.switchbutton.SwitchView-->
+    <!--        android:id="@+id/switchView"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.maritech.arterium.ui.widgets.CustomTabComponent
         android:id="@+id/ccTab"
@@ -27,5 +27,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <include
+        layout="@layout/toolbar_search_list"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
