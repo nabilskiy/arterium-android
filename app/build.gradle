@@ -85,4 +85,7 @@ dependencies {
    // implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
 
     implementation 'com.github.iielse:switchbutton:1.0.4'
+
+    //google map
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
 }

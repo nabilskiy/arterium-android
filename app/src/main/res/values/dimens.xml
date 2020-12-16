@@ -12,7 +12,6 @@
     <dimen name="default_padding_vertical">@dimen/_20sdp</dimen>
     <dimen name="default_padding_horizontal">@dimen/_20sdp</dimen>
 
-
     <!-- Custom progress bar   -->
     <dimen name="custom_progress_bar_text_size_amount">40sp</dimen>
     <dimen name="custom_progress_bar_text_size_describe">13sp</dimen>

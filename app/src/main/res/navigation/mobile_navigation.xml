@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/patientCardFragment">
+    app:startDestination="@id/mapFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -56,4 +56,17 @@
         android:label="PatientCardFragment"
         tools:layout="@layout/fragment_patient_card"
         />
+    <fragment
+        android:id="@+id/pharmacyListFragment"
+        android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyListFragment"
+        android:label="PharmacyListFragment"
+        tools:layout="@layout/fragment_pharmacy_list"
+        />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.maritech.arterium.ui.map.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map"
+        />
+
 </navigation>

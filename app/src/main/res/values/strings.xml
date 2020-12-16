@@ -55,5 +55,11 @@
     <string name="potassium_end">Рівень калію в кінці лікування, ммоль/л</string>
     <string name="potassium_end_value">4</string>
     <string name="patient_card">Карта пацієнта</string>
+    <string name="good_day_pharmacy">Аптека Доброго Дня</string>
+    <string name="pharmacy_address">Велика Василькiвська, 114а​, 1 поверх​ Липки, Шевченківський район, Київ,</string>
+    <string name="wholesale_pharmacy">Аптека Оптовых Цен</string>
+    <string name="tas_pharmacy">Аптека TAS</string>
+    <string name="monet_pharmacy">Аптека Копейка</string>
+    <string name="swiss_pharmacy">Аптека Swiss Pharmacy</string>
 
 </resources>
