@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CustomProgressBar">
-        <attr name="cp_value" format="string"/>
+        <attr name="cp_value" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTabComponent">
+        <attr name="csc_count" format="integer" />
+        <attr name="csc_text_one" format="string" />
+        <attr name="csc_text_two" format="string" />
+        <attr name="csc_text_three" format="string" />
+        <attr name="csc_text_four" format="string" />
     </declare-styleable>
 </resources>
