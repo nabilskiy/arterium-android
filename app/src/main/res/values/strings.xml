@@ -28,6 +28,32 @@
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">Список аптек</string>
     <string name="interfaces_name">Мова інтерфейсу</string>
-
+    <string name="last_shopping">Остання покупка 01.02.2020</string>
+    <string name="personal_data">Персональні дані</string>
+    <string name="edit">Редагувати</string>
+    <string name="telephone_number">Номер телефону</string>
+    <string name="number">+38 097 099 99 11</string>
+    <string name="card_number">8172282819192</string>
+    <string name="data_of_issue">Видана 26.01.2020</string>
+    <string name="medical_data">Медичні дані</string>
+    <string name="sex">Стать</string>
+    <string name="men">Чоловіча</string>
+    <string name="weight_value">80кг</string>
+    <string name="weight">Вага</string>
+    <string name="growth">Рiст</string>
+    <string name="growth_value">178см</string>
+    <string name="dose">Доза препарату</string>
+    <string name="dose_value">10мг</string>
+    <string name="heart_attack">Дата інфаркту</string>
+    <string name="heart_attack_value">03.01.2020</string>
+    <string name="drug_administration">Дата призначення препарату</string>
+    <string name="drug_administration_value">03.01.2020</string>
+    <string name="ejection_fraction">Фракція викиду</string>
+    <string name="ejection_fraction_value">55%</string>
+    <string name="potassium_start">Рівень калію на початку лікування, ммоль/л</string>
+    <string name="potassium_start_value">3,1</string>
+    <string name="potassium_end">Рівень калію в кінці лікування, ммоль/л</string>
+    <string name="potassium_end_value">4</string>
+    <string name="patient_card">Карта пацієнта</string>
 
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tvPatientDataCardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/telephone_number"
+        android:textSize="@dimen/default_small_text_size"
+        android:textColor="@color/gray"
+        />
+    <TextView
+        android:id="@+id/tvPatientDataCardValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size"
+        android:textColor="@color/black"
+        android:text="@string/card_number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPatientDataCardTitle"
+        />
+    <TextView
+        android:id="@+id/tvPatientDataCardDateOfIssue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/data_of_issue"
+        android:textSize="@dimen/patient_card_small_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPatientDataCardValue"
+        />
+    <ImageView
+        android:id="@+id/ivPatientDataCardIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/ic_camera_icon"
+        />
+
+    <View
+        android:id="@+id/vDivideLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_divider_line_height"
+        app:layout_constraintTop_toBottomOf="@id/tvPatientDataCardDateOfIssue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/light_grey"
+        android:layout_marginTop="@dimen/patient_card_data_divide_line_margin_top"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
