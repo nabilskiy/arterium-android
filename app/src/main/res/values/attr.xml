@@ -12,4 +12,12 @@
     <declare-styleable name="OrangeProgressBar">
         <attr name="opb_value" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="CustomTabComponent">
+        <attr name="csc_count" format="integer" />
+        <attr name="csc_text_one" format="string" />
+        <attr name="csc_text_two" format="string" />
+        <attr name="csc_text_three" format="string" />
+        <attr name="csc_text_four" format="string" />
+    </declare-styleable>
 </resources>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import com.maritech.arterium.R;
 
 public class InterfaceNameFragment extends Fragment {
 
+    ImageView edit;
     ConstraintLayout constraintLayout;
     TextView ukrainian;
     TextView russian;
@@ -26,13 +28,15 @@ public class InterfaceNameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_interface_name, container, false);
 
+        edit = root.findViewById(R.id.ivRight);
+        edit.setVisibility(View.INVISIBLE);
         constraintLayout = root.findViewById(R.id.clNamesList);
         ukrainian = root.findViewById(R.id.ukrainian).findViewById(R.id.tvInterfaceName);
         russian = root.findViewById(R.id.russian).findViewById(R.id.tvInterfaceName);
         english = root.findViewById(R.id.english).findViewById(R.id.tvInterfaceName);
 
-        russian.setText("Росiйська");
-        english.setText("Англiйська");
+        russian.setText(R.string.russian);
+        english.setText(R.string.english);
 
         cbUkrainian = root.findViewById(R.id.ukrainian).findViewById(R.id.cbShowHide);
         cbRussian = root.findViewById(R.id.russian).findViewById(R.id.cbShowHide);

@@ -21,10 +21,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivMyProfileListIcon"
-        android:text="Список аптек"
-        android:textSize="17sp"
+        android:text="@string/pharmacy_list"
+        android:textSize="@dimen/my_profile_small_text_size"
         android:textColor="@color/black"
-        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginStart="@dimen/my_profile_list_item_margin_start"
         />
 
     <ImageView

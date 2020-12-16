@@ -14,6 +14,7 @@ import com.maritech.arterium.R;
 public class MyProfileFragment extends Fragment {
 
     ImageView arrow;
+    ImageView edit;
     TextView toolbarTitle;
     ImageView imageNotification;
     ImageView imageSetting;
@@ -27,8 +28,10 @@ public class MyProfileFragment extends Fragment {
 
         arrow = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.ivArrow);
         toolbarTitle = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.tvToolbarTitle);
+        edit = root.findViewById(R.id.ivRight);
 
-        toolbarTitle.setText("Мій профіль");
+        edit.setVisibility(View.INVISIBLE);
+        toolbarTitle.setText(R.string.my_profile);
         arrow.setVisibility(View.INVISIBLE);
 
         setMyProfileContentList(root);
@@ -37,15 +40,16 @@ public class MyProfileFragment extends Fragment {
 
     public void setMyProfileContentList(View root){
         imageNotification = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.ivMyProfileListIcon);
-        imageSetting = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.ivMyProfileListIcon);
-        imageContact = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.ivMyProfileListIcon);
-        notification = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.tvMyProfileListTitle);
-        contact = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.tvMyProfileListTitle);
-        setting = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.tvMyProfileListTitle);
+        imageSetting = root.findViewById(R.id.myProfileMainContentSettings).findViewById(R.id.ivMyProfileListIcon);
+        imageContact = root.findViewById(R.id.contactWithUs).findViewById(R.id.ivMyProfileListIcon);
 
-        notification.setText("Повідомлення");
-        contact.setText("Зв'язатися з нами");
-        setting.setText("Налаштування");
+        notification = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.tvMyProfileListTitle);
+        contact = root.findViewById(R.id.contactWithUs).findViewById(R.id.tvMyProfileListTitle);
+        setting = root.findViewById(R.id.myProfileMainContentSettings).findViewById(R.id.tvMyProfileListTitle);
+
+        notification.setText(R.string.notification);
+        contact.setText(R.string.contact_with_us);
+        setting.setText(R.string.settings);
 
         imageNotification.setBackgroundResource(R.drawable.ic_bell);
         imageSetting.setBackgroundResource(R.drawable.ic_blue_settings);
