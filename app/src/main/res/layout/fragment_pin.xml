@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    android:id="@+id/txt_pin_entry"-->
+
+    <com.alimuzaffar.lib.pin.PinEntryEditText
+
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_72sdp"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:cursorVisible="true"
+        android:digits="1234567890"
+        android:inputType="number"
+        android:layoutDirection="ltr"
+        android:maxLength="4"
+        android:textColor="@color/purple"
+        android:textCursorDrawable="@color/purple"
+        android:textIsSelectable="false"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnterPin"
+        app:pinBackgroundDrawable="@drawable/bg_item_pin"
+        app:pinTextBottomPadding="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/tvEnterPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_86sdp"
+        android:text="Введіть Ваш пін-код."
+        android:textColor="@color/black"
+        android:textSize="@dimen/_36sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
