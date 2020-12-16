@@ -28,4 +28,15 @@
         android:textColor="@color/white"
         android:layout_marginBottom="@dimen/toolbar_title_bottom"
         />
+
+    <ImageView
+        android:id="@+id/ivRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/default_margin_horizontal"
+        android:layout_marginBottom="@dimen/toolbar_title_bottom"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
