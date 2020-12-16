@@ -14,6 +14,7 @@ import com.maritech.arterium.R;
 public class MyProfileFragment extends Fragment {
 
     ImageView arrow;
+    ImageView edit;
     TextView toolbarTitle;
     ImageView imageNotification;
     ImageView imageSetting;
@@ -27,7 +28,9 @@ public class MyProfileFragment extends Fragment {
 
         arrow = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.ivArrow);
         toolbarTitle = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.tvToolbarTitle);
+        edit = root.findViewById(R.id.ivRight);
 
+        edit.setVisibility(View.INVISIBLE);
         toolbarTitle.setText(R.string.my_profile);
         arrow.setVisibility(View.INVISIBLE);
 

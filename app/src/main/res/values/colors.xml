@@ -16,6 +16,6 @@
     <color name="purple_medium">#A53163</color>
     <color name="red">#E64646</color>
     <color name="white_low_opacity">#66FFFFFF</color>
-
+    <color name="white_for_view_line">#D7D8D9</color>
 
 </resources>

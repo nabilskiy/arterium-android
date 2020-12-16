@@ -15,5 +15,8 @@
     <include
         layout="@layout/toolbar_with_progress_bar"/>
 
+    <include
+        layout="@layout/toolbar_search_list"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
