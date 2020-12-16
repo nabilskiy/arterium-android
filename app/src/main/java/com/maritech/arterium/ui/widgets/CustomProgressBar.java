@@ -48,7 +48,7 @@ public class CustomProgressBar extends LinearLayout {
         Integer value = typedArray.getInteger(R.styleable.CustomProgressBar_cp_value, 0);
         initControl(context, value);
 
-        setInsideProgress(7);
+        setInsideProgress(value);
         typedArray.recycle();
     }
 
@@ -69,8 +69,7 @@ public class CustomProgressBar extends LinearLayout {
             screenWidth = (int) (screenWidth - 0.14 * screenWidth);
         int insideBgColor = (int) (screenWidth * value / maxVal);
 
-
-        layout.setLayoutParams(new LayoutParams(screenWidth, LayoutParams.MATCH_PARENT ));
+        layout.setLayoutParams(new LayoutParams(screenWidth, 300 ));
         view.setLayoutParams(new ConstraintLayout.LayoutParams(insideBgColor, ConstraintLayout.LayoutParams.MATCH_PARENT));
     }
 }

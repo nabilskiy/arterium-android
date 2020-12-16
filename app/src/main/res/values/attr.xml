@@ -6,6 +6,10 @@
 
     <declare-styleable name="CustomInput">
         <attr name="ci_title" format="string"/>
-        <attr name="ci_field_value" format="string"/>
+        <attr name="ci_field_value" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="OrangeProgressBar">
+        <attr name="opb_value" format="integer"/>
     </declare-styleable>
 </resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/clOrange"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_progress_bar">
+
+    <View
+        android:id="@+id/vOrangeBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_orange_progress_bar"/>
+
+    <TextView
+        android:id="@+id/tvOrangeProgressValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="16"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:layout_marginVertical="@dimen/_20sdp"
+        />
+
+    <TextView
+        android:id="@+id/tvOrangeDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Повторні &#10; покупки"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvOrangeProgressValue"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/_12sdp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
