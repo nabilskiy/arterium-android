@@ -28,6 +28,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <include
+        layout="@layout/toolbar_with_progress_bar"/>
+
+    <include
         layout="@layout/toolbar_search_list"/>
 
 

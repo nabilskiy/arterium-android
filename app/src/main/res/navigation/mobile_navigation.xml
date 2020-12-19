@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/mapFragment">
+    app:startDestination="@id/patientCardFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -56,17 +56,23 @@
         android:label="PatientCardFragment"
         tools:layout="@layout/fragment_patient_card"
         />
+
     <fragment
-        android:id="@+id/pharmacyListFragment"
-        android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyListFragment"
-        android:label="PharmacyListFragment"
-        tools:layout="@layout/fragment_pharmacy_list"
-        />
+        android:id="@+id/settingsFragment"
+        android:name="com.maritech.arterium.ui.fragment.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.maritech.arterium.ui.map.MapFragment"
-        android:label="MapFragment"
-        tools:layout="@layout/fragment_map"
-        />
+        android:id="@+id/loginSplashFragment"
+        android:name="com.maritech.arterium.ui.fragment.loginSplash.LoginSplashFragment"
+        android:label="LoginSplashFragment"
+        tools:layout="@layout/fragment_login_splash" />
+    <fragment
+        android:id="@+id/pinCodeFragment"
+        android:name="com.maritech.arterium.ui.fragment.pinCode.PinCodeFragment"
+        android:label="PinCodeFragment"
+        tools:layout="@layout/fragment_pin"/>
+
 
 </navigation>
