@@ -14,10 +14,134 @@
         app:layout_constraintStart_toStartOf="parent"
         />
 
-    <CalendarView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clStatisticPeriod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layerType="software"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="151dp" />
+        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+        android:layout_marginTop="@dimen/default_margin_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statisticToolbar">
+
+        <TextView
+            android:id="@+id/tvStatisticMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/february"
+            android:textColor="@color/black"
+            android:textSize="@dimen/statistic_month_text_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvStatisticPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.4"
+            android:text="@string/statistic_period"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatisticMonth" />
+
+        <ImageView
+            android:id="@+id/ivPreviousMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_menu_map"
+            android:paddingHorizontal="@dimen/statistic_arrow_padding_horizontal"
+            android:paddingVertical="@dimen/statistic_arrow_padding_vertical"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivNextMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_menu_map"
+            android:paddingHorizontal="@dimen/statistic_arrow_padding_horizontal"
+            android:paddingVertical="@dimen/statistic_arrow_padding_vertical"
+            android:rotation="180"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clStatisticWholeShoppingAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/clStatisticPeriod"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+        android:layout_marginTop="@dimen/statistic_whole_amount_margin_top">
+
+        <TextView
+            android:id="@+id/tvStatisticShoppingAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="49"
+            android:textColor="@color/black"
+            android:textSize="@dimen/statistic_amount_text_size"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_purchases"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvStatisticShoppingAmount"
+            android:textSize="@dimen/default_small_text_size"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/_6sdp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/restart"
+                android:textSize="@dimen/statistic_restart_text_size"
+                android:textColor="@color/gray"
+                />
+            <TextView
+                android:id="@+id/tvStatisticRestartData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restart_data"
+                android:textSize="@dimen/statistic_restart_text_size"
+                android:textColor="@color/gray"
+                />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/vStatisticDivideIne"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        app:layout_constraintTop_toBottomOf="@id/clStatisticWholeShoppingAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/light_grey"
+        android:layout_marginTop="@dimen/default_margin_vertical"
+        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
