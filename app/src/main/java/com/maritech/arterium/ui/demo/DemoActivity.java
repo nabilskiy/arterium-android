@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseActivity;
+import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 
 public class DemoActivity extends BaseActivity {
 
@@ -47,7 +48,7 @@ public class DemoActivity extends BaseActivity {
     public void showDialog() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         DialogWithRecycler newFragment = new DialogWithRecycler();
-        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransparentDialog);
+//        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_AppCompat_Dialog);
         newFragment.show(fragmentManager, "dialog");
     }
 }

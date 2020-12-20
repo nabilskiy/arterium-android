@@ -7,37 +7,59 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.maritech.arterium.R;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.adapter.AdapterDialog;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
-
-import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.ItemDialogRecyclerBinding;
+import com.maritech.arterium.ui.base.BaseAdapter;
+import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
+
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class DialogWithRecycler extends DialogFragment {
 
 
     ArrayList<DialogContent> dataList;
     RecyclerView mRecyclerView;
-    AdapterDialog mAdapter;
+    BaseAdapter adapter;
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        LayoutInflater inflater = getActivity().getLayoutInflater();
+//        View view = inflater.inflate(R.layout.dialog_with_recycler, null);
+//        builder.setView(view);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_with_recycler, null);
-        builder.setView(view);
+//        dataList = new ArrayList<>();
+//        prepareList(dataList);
+      //  mAdapter = new AdapterDialog(dataList);
 
+
+
+//
+//        adapter = new BaseAdapter(ItemDialogRecyclerBinding.class, DialogContent.class);
+
+
+
+       // return builder.create();
+
+        FragmentActivity activity = getActivity();
+
+        ItemDialogRecyclerBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),
+                R.layout.dialog_with_recycler, null, false);
         dataList = new ArrayList<>();
         prepareList(dataList);
-        mAdapter = new AdapterDialog(dataList);
 
-        return builder.create();
+       // binding.setData();
+
+        return new AlertDialog.Builder(getActivity(),R.style.Theme_AppCompat_Dialog)
+                .setView(binding.getRoot())
+                .create();
     }
 
     @Override
@@ -45,10 +67,16 @@ public class DialogWithRecycler extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_with_recycler, container, false);
 
+        adapter = new BaseAdapter(ItemDialogRecyclerBinding.class, DialogContent.class);
 
+//        mRecyclerView = view.findViewById(R.id.recyclerView);
+//        mRecyclerView.setAdapter(mAdapter);
 
-        mRecyclerView = view.findViewById(R.id.recyclerView);
-        mRecyclerView.setAdapter(mAdapter);
+        RecyclerView rcv = (RecyclerView) view.findViewById(R.id.recyclerView);
+
+        rcv.setAdapter(adapter);
+
+        adapter.setDataList(dataList);
 
         return view;
     }

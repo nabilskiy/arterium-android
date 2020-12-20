@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.achievements.data;
 
 public class AchievementsContent {
+
     private int idImage;
     private int idName;
     private int idDescription;
@@ -34,4 +35,5 @@ public class AchievementsContent {
     public void setIdDescription(int idDescription) {
         this.idDescription = idDescription;
     }
+
 }

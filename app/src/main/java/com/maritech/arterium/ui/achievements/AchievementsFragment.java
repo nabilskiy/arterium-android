@@ -12,8 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.ItemAchievementsBinding;
 import com.maritech.arterium.ui.achievements.data.AchievementsContent;
-import com.maritech.arterium.ui.achievements.holder.AchievementsAdapter;
+import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.profile.HomeViewModel;
 
 import java.util.ArrayList;
@@ -33,14 +34,13 @@ public class AchievementsFragment extends Fragment {
         ArrayList<AchievementsContent> dataList = new ArrayList<AchievementsContent>();
         prepareList(dataList);
 
-
-        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.rvAchievement);
-        AchievementsAdapter mAdapter = new AchievementsAdapter(dataList);
-
         layoutManager = new GridLayoutManager(getContext(), 3);
-        mRecyclerView.setLayoutManager(layoutManager);
+        BaseAdapter adapter = new BaseAdapter(ItemAchievementsBinding.class, AchievementsContent.class);
+        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvAchievement);
+        rcv.setLayoutManager(layoutManager);
+        rcv.setAdapter(adapter);
 
-        mRecyclerView.setAdapter(mAdapter);
+        adapter.setDataList(dataList);
 
         return root;
     }
