@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +25,9 @@ public class AchievementsFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private GridLayoutManager layoutManager;
+    ImageView btnClose;
+
+    AchievementsNavigator navigator = new AchievementsNavigator();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -31,8 +36,17 @@ public class AchievementsFragment extends Fragment {
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievement, container, false);
 
+        btnClose = root.findViewById(R.id.ivClose);
+
         ArrayList<AchievementsContent> dataList = new ArrayList<AchievementsContent>();
         prepareList(dataList);
+
+//        btnClose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigator.goToDashboard(navController);
+//            }
+//        });
 
         layoutManager = new GridLayoutManager(getContext(), 3);
         BaseAdapter adapter = new BaseAdapter(ItemAchievementsBinding.class, AchievementsContent.class);
@@ -41,7 +55,7 @@ public class AchievementsFragment extends Fragment {
         rcv.setAdapter(adapter);
 
         adapter.setDataList(dataList);
-
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 

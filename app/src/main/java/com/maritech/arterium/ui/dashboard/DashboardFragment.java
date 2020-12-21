@@ -71,6 +71,7 @@ public class DashboardFragment extends Fragment {
         prepareList(listDoctors);
 
         adapter.setDataList(listDoctors);
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
 
         return root;
     }
