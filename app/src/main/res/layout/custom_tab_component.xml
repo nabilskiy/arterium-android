@@ -14,12 +14,13 @@
         android:background="@drawable/selector_bg_custom_tab_item"
         android:gravity="center"
         android:text="TextView"
-        android:textColor="@color/purple"
+        android:textColor="@drawable/selector_text_color"
         android:textSize="15sp"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginStart="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"/>
+        android:layout_marginBottom="@dimen/_2sdp"
+        />
 
     <View
         android:id="@+id/viewOne"
@@ -36,12 +37,13 @@
         android:background="@drawable/selector_bg_custom_tab_item"
         android:gravity="center"
         android:text="TextView"
-        android:textColor="@color/purple"
+        android:textColor="@drawable/selector_text_color"
         android:textSize="15sp"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginStart="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"/>
+        android:layout_marginBottom="@dimen/_2sdp"
+        />
 
     <View
         android:id="@+id/viewTwo"
@@ -58,12 +60,13 @@
         android:background="@drawable/selector_bg_custom_tab_item"
         android:gravity="center"
         android:text="TextView"
-        android:textColor="@color/purple"
+        android:textColor="@drawable/selector_text_color"
         android:textSize="15sp"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginStart="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp" />
+        android:layout_marginBottom="@dimen/_2sdp"
+        />
 
     <View
         android:id="@+id/viewThree"
@@ -80,10 +83,11 @@
         android:background="@drawable/selector_bg_custom_tab_item"
         android:gravity="center"
         android:text="TextView"
-        android:textColor="@color/purple"
+        android:textColor="@drawable/selector_text_color"
         android:textSize="15sp"
         android:layout_marginEnd="@dimen/_2sdp"
         android:layout_marginStart="@dimen/_2sdp"
         android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"/>
+        android:layout_marginBottom="@dimen/_2sdp"
+        />
 </LinearLayout>
