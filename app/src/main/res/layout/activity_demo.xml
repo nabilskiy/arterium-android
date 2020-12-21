@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/purple">
 
-    <!--    <com.github.iielse.switchbutton.SwitchView-->
-    <!--        android:id="@+id/switchView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+<!--        <com.github.iielse.switchbutton.SwitchView-->
+<!--            android:id="@+id/switchView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.maritech.arterium.ui.widgets.CustomTabComponent
         android:id="@+id/ccTab"

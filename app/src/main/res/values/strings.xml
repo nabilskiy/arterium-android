@@ -16,7 +16,7 @@
     <string name="ukrainian">Українська</string>
     <string name="english">Англiйська</string>
     <string name="six">6</string>
-    <string name="original_purchases">Первиннi <br/> покупки</string>
+    <string name="original_purchases">Первиннi \n покупки</string>
     <string name="description_what_to_do">Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу.</string>
     <string name="login_password">Введіть Ваш <br/> логін і пароль.</string>
     <string name="login">Логин</string>
@@ -55,6 +55,37 @@
     <string name="potassium_end">Рівень калію в кінці лікування, ммоль/л</string>
     <string name="potassium_end_value">4</string>
     <string name="patient_card">Карта пацієнта</string>
+    <string name="good_day_pharmacy">Аптека Доброго Дня</string>
+    <string name="pharmacy_address">Велика Василькiвська, 114а​, 1 поверх​ Липки, Шевченківський район, Київ,</string>
+    <string name="wholesale_pharmacy">Аптека Оптовых Цен</string>
+    <string name="tas_pharmacy">Аптека TAS</string>
+    <string name="monet_pharmacy">Аптека Копейка</string>
+    <string name="swiss_pharmacy">Аптека Swiss Pharmacy</string>
+    <string name="repeat_shopping">Повторні \n покупки</string>
+    <string name="january">Січень</string>
+    <string name="february">Лютий</string>
+    <string name="march">Березень</string>
+    <string name="april">Квітень</string>
+    <string name="may">Травень</string>
+    <string name="june">Червень</string>
+    <string name="july">Липень</string>
+    <string name="august">Серпень</string>
+    <string name="september">Вересень</string>
+    <string name="october">Жовтень</string>
+    <string name="november">Листопад</string>
+    <string name="december">Грудень</string>
+    <string name="statistic_period">Статистика з 01.02.2020</string>
+    <string name="total_purchases">Всего \nпокупок</string>
+    <string name="restart">Вiдновленно</string>
+    <string name="restart_data">14 лютого, 11:44</string>
+    <string name="fourty_nine">49</string>
+    <string name="february_purchases">Покупки за лютий</string>
+    <string name="all">Усi</string>
+    <string name="without_purchases">Без покупок</string>
+    <string name="with_purchases">З покупками</string>
+    <string name="simple_data">10 ЛЮТОГО 2020</string>
+    <string name="eugenii">Евгений Петров</string>
+    <string name="last_purchases">Остання покупка в середу 10.08.20</string>
+    <string name="statistic">Статистика</string>
 
-    <string name="repeat_shopping">Повторні &#10; покупки</string>
 </resources>

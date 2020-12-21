@@ -34,7 +34,7 @@
         android:id="@+id/tvOrangeDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Повторні &#10; покупки"
+        android:text="@string/repeat_shopping"
         android:textColor="@color/white"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"

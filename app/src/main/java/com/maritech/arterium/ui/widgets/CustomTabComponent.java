@@ -155,5 +155,15 @@ public class CustomTabComponent extends ConstraintLayout {
         viewThree = findViewById(R.id.viewThree);
     }
 
+    public void initForDetails(){
+        tvOne.setActivated(true);
+        tvOne.setText(textOne);
+        tvTwo.setText(textTwo);
+        tvThree.setText(textThree);
+
+        tvFour.setVisibility(GONE);
+
+        viewThree.setVisibility(GONE);
+    }
 
 }

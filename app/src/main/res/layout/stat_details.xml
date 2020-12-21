@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="@dimen/statistic_detail_padding_horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_details_line"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/statistic_detail_image_margin_top"
+        />
+
+    <TextView
+        android:id="@+id/tvPurchasesForCurrentMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/february_purchases"
+        android:textColor="@color/black"
+        android:textSize="@dimen/default_big_text_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/statistic_detail_purchases_margin_top"
+        />
+
+    <ImageView
+        android:id="@+id/ivStatDetailSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_search"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/statistic_detail_purchases_margin_top"
+        />
+
+    <ImageView
+        android:id="@+id/ivStatDetailFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_filter"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivStatDetailSearch"
+        android:layout_marginTop="@dimen/statistic_detail_purchases_margin_top"
+        android:layout_marginEnd="@dimen/default_margin_horizontal"
+        />
+
+    <com.maritech.arterium.ui.widgets.CustomTabComponent
+        android:id="@+id/ctcStatDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:csc_count="3"
+        app:csc_text_one="@string/all"
+        app:csc_text_three="@string/without_purchases"
+        app:csc_text_two="@string/with_purchases"
+        app:layout_constraintTop_toBottomOf="@id/tvPurchasesForCurrentMonth"
+        android:layout_marginTop="@dimen/default_margin_vertical"
+        />
+
+    <TextView
+        android:id="@+id/tvStatDetailsData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ctcStatDetails"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/simple_data"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/default_small_text_size"
+        android:layout_marginTop="@dimen/default_margin_vertical"
+        />
+
+    <TextView
+        android:id="@+id/tvStatDetailPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvStatDetailsData"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/eugenii"
+        android:textColor="@color/black"
+        android:textSize="@dimen/default_text_size"
+        android:layout_marginTop="@dimen/default_margin_vertical"
+        />
+
+    <TextView
+        android:id="@+id/tvStatDetailLastPurchase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvStatDetailPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/last_purchases"
+        android:textSize="@dimen/default_small_text_size"
+        android:textColor="@color/gray"
+        />
+
+    <View
+        android:id="@+id/vStatDetailDivideLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_divider_line_height"
+        app:layout_constraintTop_toBottomOf="@id/tvStatDetailLastPurchase"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/light_grey"
+        android:layout_marginTop="@dimen/default_margin_vertical"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

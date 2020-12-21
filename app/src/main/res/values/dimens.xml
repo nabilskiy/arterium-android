@@ -12,7 +12,6 @@
     <dimen name="default_padding_vertical">@dimen/_20sdp</dimen>
     <dimen name="default_padding_horizontal">@dimen/_20sdp</dimen>
 
-
     <!-- Custom progress bar   -->
     <dimen name="custom_progress_bar_text_size_amount">40sp</dimen>
     <dimen name="custom_progress_bar_text_size_describe">13sp</dimen>
@@ -63,6 +62,19 @@
     <dimen name="patient_card_data_elevation">@dimen/_8sdp</dimen>
     <dimen name="patient_card_medical_data_margin_bottom">@dimen/_40sdp</dimen>
     <dimen name="patient_card_data_divide_line_margin_top">@dimen/_10sdp</dimen>
+
+    <!-- Statistics  -->
+    <dimen name="statistic_month_text_size">24sp</dimen>
+    <dimen name="statistic_arrow_padding_horizontal">@dimen/_20sdp</dimen>
+    <dimen name="statistic_arrow_padding_vertical">@dimen/_10sdp</dimen>
+    <dimen name="statistic_amount_text_size">40sp</dimen>
+    <dimen name="statistic_restart_text_size">11sp</dimen>
+    <dimen name="statistic_whole_amount_margin_top">@dimen/_34sdp</dimen>
+    <dimen name="statistic_progress_bar_margin_top">@dimen/_10sdp</dimen>
+    <dimen name="statistic_total_purchases_margin_start">@dimen/_6sdp</dimen>
+    <dimen name="statistic_detail_padding_horizontal">@dimen/_14sdp</dimen>
+    <dimen name="statistic_detail_image_margin_top">@dimen/_10sdp</dimen>
+    <dimen name="statistic_detail_purchases_margin_top">@dimen/_30sdp</dimen>
 
 
 </resources>
