@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/patientCardFragment">
+    app:startDestination="@id/loginSplashFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -17,11 +17,6 @@
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_stat" />
     <fragment
-        android:id="@+id/navigation_achives"
-        android:name="com.maritech.arterium.ui.achieves.AchievesFragment"
-        android:label="@string/title_achives"
-        tools:layout="@layout/fragment_achives" />
-    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.maritech.arterium.ui.profile.HomeFragment"
         android:label="@string/title_home"
@@ -32,12 +27,16 @@
         android:name="com.maritech.arterium.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <fragment
+     <fragment
         android:id="@+id/loginFragment"
         android:name="com.maritech.arterium.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login"
-        />
+        >
+         <action
+             android:id="@+id/action_loginFragment_to_pinCodeFragment"
+             app:destination="@id/pinCodeFragment" />
+     </fragment>
     <fragment
         android:id="@+id/interfaceNameFragment"
         android:name="com.maritech.arterium.ui.interface_name.InterfaceNameFragment"
@@ -49,7 +48,14 @@
         android:name="com.maritech.arterium.ui.my_profile.MyProfileFragment"
         android:label="MyProfileFragment"
         tools:layout="@layout/fragment_my_profile"
-        />
+        >
+        <action
+            android:id="@+id/action_myProfileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_patientCardFragment"
+            app:destination="@id/patientCardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/patientCardFragment"
         android:name="com.maritech.arterium.ui.patient_card.PatientCardFragment"
@@ -61,18 +67,39 @@
         android:id="@+id/settingsFragment"
         android:name="com.maritech.arterium.ui.fragment.settings.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_interfaceNameFragment"
+            app:destination="@id/interfaceNameFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginSplashFragment"
         android:name="com.maritech.arterium.ui.fragment.loginSplash.LoginSplashFragment"
         android:label="LoginSplashFragment"
-        tools:layout="@layout/fragment_login_splash" />
+        tools:layout="@layout/fragment_login_splash" >
+        <action
+            android:id="@+id/action_loginSplashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pinCodeFragment"
         android:name="com.maritech.arterium.ui.fragment.pinCode.PinCodeFragment"
         android:label="PinCodeFragment"
-        tools:layout="@layout/fragment_pin"/>
+        tools:layout="@layout/fragment_pin">
+        <action
+            android:id="@+id/action_pinCodeFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
 
 
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.maritech.arterium.ui.achievements.AchievementsFragment"
+        android:label="AchievementsFragment"
+        tools:layout="@layout/fragment_achievement">
+        <action
+            android:id="@+id/action_achievementsFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+    </fragment>
 </navigation>
