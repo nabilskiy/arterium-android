@@ -8,7 +8,7 @@
     <!--    android:id="@+id/txt_pin_entry"-->
 
     <com.alimuzaffar.lib.pin.PinEntryEditText
-
+        android:id="@+id/verificationCodeInput"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_72sdp"
         android:layout_marginStart="@dimen/_24sdp"

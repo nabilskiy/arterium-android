@@ -11,7 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.base.BaseNavigator;
 
 public class InterfaceNameFragment extends Fragment {
 
@@ -23,6 +25,7 @@ public class InterfaceNameFragment extends Fragment {
     CheckBox cbUkrainian;
     CheckBox cbRussian;
     CheckBox cbEnglish;
+    BaseNavigator navigator = new BaseNavigator();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,26 +50,26 @@ public class InterfaceNameFragment extends Fragment {
         return root;
     }
 
-    public void setCheckboxStatus(CheckBox view){
-        for (int i=0; i<constraintLayout.getChildCount(); i++){
+    public void setCheckboxStatus(CheckBox view) {
+        for (int i = 0; i < constraintLayout.getChildCount(); i++) {
             CheckBox checkBox = constraintLayout.getChildAt(i).findViewById(R.id.cbShowHide);
-            if (view.isChecked() && view == checkBox){
+            if (view.isChecked() && view == checkBox) {
                 constraintLayout.getChildAt(i).findViewById(R.id.cbShowHide).setVisibility(View.VISIBLE);
-            } else{
+            } else {
                 constraintLayout.getChildAt(i).findViewById(R.id.cbShowHide).setVisibility(View.INVISIBLE);
                 checkBox.setChecked(false);
             }
         }
     }
 
-    public void changeInterfaceName(){
-        for (int i=0; i<constraintLayout.getChildCount(); i++){
+    public void changeInterfaceName() {
+        for (int i = 0; i < constraintLayout.getChildCount(); i++) {
             constraintLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                CheckBox checkBox = view.findViewById(R.id.cbShowHide);
-                checkBox.setChecked(true);
-                setCheckboxStatus(checkBox);
+                    CheckBox checkBox = view.findViewById(R.id.cbShowHide);
+                    checkBox.setChecked(true);
+                    setCheckboxStatus(checkBox);
                 }
             });
 
