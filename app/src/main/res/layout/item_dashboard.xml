@@ -6,10 +6,11 @@
 
         <variable
             name="data"
-            type="com.maritech.arterium.ui.dashboard.data.DoctorsContent" />
+            type="com.maritech.arterium.ui.dashboardMp.data.DoctorsContent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clItemDashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -41,6 +42,7 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_26sdp"
             android:layout_marginEnd="@dimen/_26sdp"
+            android:onClick="@{data::goToItem}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_chevron_right_grey" />
@@ -58,3 +60,5 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
+
+    <!--    android:onClick="@{() -> data.onLike()}"-->

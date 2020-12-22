@@ -6,13 +6,13 @@
 
         <variable
             name="data"
-            type="com.maritech.arterium.ui.dashboard.data.DoctorsContent" />
+            type="com.maritech.arterium.ui.dashboardMp.data.DoctorsContent" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_purple">
+        android:background="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
