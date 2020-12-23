@@ -1,16 +1,16 @@
-package com.maritech.arterium.ui.dashboard;
+package com.maritech.arterium.ui.dashboardRm;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class DashboardViewModel extends ViewModel {
+public class DashboardRmViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public DashboardViewModel() {
+    public DashboardRmViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard  fragment");
+        mText.setValue("This is dashboard Rm fragment");
     }
 
     public LiveData<String> getText() {

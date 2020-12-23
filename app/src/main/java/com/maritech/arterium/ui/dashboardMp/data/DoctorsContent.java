@@ -1,4 +1,11 @@
-package com.maritech.arterium.ui.dashboard.data;
+package com.maritech.arterium.ui.dashboardMp.data;
+
+import android.view.View;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
+import com.maritech.arterium.ui.dashboardMp.DashboardMpNavigator;
 
 public class DoctorsContent {
 
@@ -9,6 +16,8 @@ public class DoctorsContent {
     String link;
     String textForTvInfo = "";
 
+    DoctorsNavigator navigator = new DoctorsNavigator();
+
     public DoctorsContent(int id, String name, String allBuy, String level, String link) {
         this.id = id;
         this.name = name;
@@ -16,6 +25,8 @@ public class DoctorsContent {
         this.level = level;
         this.link = link;
         setTextForTvInfo();
+
+
     }
 
     public String getTextForTvInfo() {
@@ -64,6 +75,17 @@ public class DoctorsContent {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public void goToItem(View v) {
+        NavController navController = Navigation.findNavController(v);
+
+
+        if ("DashboardMpFragment".equals(navController.getCurrentDestination().getLabel())) {
+            navigator.goToDashboardMp(navController);
+        } else if ("DashboardRmFragment".equals(navController.getCurrentDestination().getLabel())) {
+            navigator.goToDashboardRp(navController);
+        }
     }
 
 }
