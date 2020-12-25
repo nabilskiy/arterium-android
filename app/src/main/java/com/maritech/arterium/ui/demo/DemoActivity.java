@@ -42,13 +42,13 @@ public class DemoActivity extends BaseActivity {
 //            });
 //        }
 
-        showDialog();
+      //  showDialog();
 
     }
-    public void showDialog() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        DialogWithRecycler newFragment = new DialogWithRecycler();
-//        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_AppCompat_Dialog);
-        newFragment.show(fragmentManager, "dialog");
-    }
+//    public void showDialog() {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        DialogWithRecycler newFragment = new DialogWithRecycler();
+////        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_AppCompat_Dialog);
+//        newFragment.show(fragmentManager, "dialog");
+//    }
 }

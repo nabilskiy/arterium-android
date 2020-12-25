@@ -1,13 +1,16 @@
 package com.maritech.arterium.ui.dashboard;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -83,6 +86,7 @@ public class DashboardFragment extends BaseFragment {
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+        DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "我是透明的");
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +120,8 @@ public class DashboardFragment extends BaseFragment {
         clProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog();
+               // showDialog();
+                customDialog.show();
             }
         });
 
@@ -184,13 +189,29 @@ public class DashboardFragment extends BaseFragment {
         dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
     }
 
-
-    public void showDialog() {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        DialogWithRecycler newFragment = new DialogWithRecycler();
-        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_AppCompat_Dialog);
-        newFragment.show(fragmentManager, "dialog");
-    }
+//
+//    public void showDialog() {
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        DialogWithRecycler newFragment = new DialogWithRecycler();
+//        //WindowManager.LayoutParams params = newFragment.getAttributes();
+//        WindowManager.LayoutParams params = newFragment.getFragmentManager().getAttributes();
+//        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.ChooseProgramDialog);
+//        newFragment.show(fragmentManager, "dialog");
+//        params.gravity = Gravity.BOTTOM;
+//        params.y = 50;
+//        newFragment.
+//        newFragment.getActivity().getWindow().setAttributes(params);
+//
+////        AlertDialog.Builder builder = new Builder(this);
+////        builder.setTitle("Are you sure?").setPositiveButton("OK", new DialogInterface.OnClickListener(){
+////            public void onClick(DialogInterface dialog, int which){
+////                dialog.dismiss();
+////            }
+////        });
+//////
+////        Dialog dialog = builder.create();
+////        dialog.show();
+//    }
 
     public void setLvlTheme(int clProgramColor, int clInfoUserColor) {
         clProgram.setBackgroundResource(clProgramColor);
