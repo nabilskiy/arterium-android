@@ -14,7 +14,8 @@
     <item
         android:id="@+id/achievementsFragment"
         android:icon="@drawable/ic_achives"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        android:checked="true"/>
 
 
     <item

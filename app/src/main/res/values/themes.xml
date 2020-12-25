@@ -30,4 +30,18 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="PurpleRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlActivated">@color/purple</item>
+    </style>
+
+    <style name="ChooseProgramDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowIsFloating">true</item>
+
+    </style>
 </resources>

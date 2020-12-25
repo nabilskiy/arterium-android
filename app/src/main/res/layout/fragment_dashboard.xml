@@ -19,7 +19,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_210sdp"
+            android:layout_height="@dimen/_220sdp"
             android:fitsSystemWindows="true"
             android:visibility="visible">
 
@@ -51,7 +51,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:visibility="invisible">
+                        android:visibility="gone">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvItDoctorPage"
@@ -141,14 +141,49 @@
                         app:srcCompat="@drawable/ic_lvl_c" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/clProgram"
+                        android:id="@+id/clBtnAddNewPersonal"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_90sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:background="@drawable/ic_switcher_bg"
+                        android:layout_height="@dimen/_43sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:background="@drawable/bg_btn_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvAllBuy">
+
+
+                        <ImageView
+                            android:id="@+id/ivPlus"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
+                            android:layout_marginStart="@dimen/_54sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_plus" />
+
+                        <TextView
+                            android:id="@+id/tvAddNew"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:text="Додати нового пацієнта"
+                            android:textColor="@color/purple"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivPlus"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clProgram"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_60sdp"
+                        android:background="@drawable/ic_switcher_bg"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvCurrentProgram"
@@ -172,8 +207,6 @@
                             android:textSize="12sp"
                             app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
                             app:layout_constraintTop_toBottomOf="@+id/tvCurrentProgram" />
-
-
 
 
                         <ImageView

@@ -1,113 +1,110 @@
 package com.maritech.arterium.ui.dialogs.dialog_with_recycler;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.ItemDialogRecyclerBinding;
-import com.maritech.arterium.ui.base.BaseAdapter;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
 
-import java.util.ArrayList;
+public class DialogWithRecycler extends Dialog {
 
-public class DialogWithRecycler extends DialogFragment {
+    ConstraintLayout clOne;
+    ConstraintLayout clTwo;
+    ConstraintLayout clThree;
 
+    ImageView ivBtnCheckOne;
+    ImageView ivBtnCheckTwo;
+    ImageView ivBtnCheckThree;
 
-    ArrayList<DialogContent> dataList;
-    RecyclerView mRecyclerView;
-    BaseAdapter mAdapter;
+    TextView btnClose;
+    Toast toast;
+    private String data;
 
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_with_recycler, null);
-        builder.setView(view);
-
-       // dataList = new ArrayList<>();
-        //prepareList(dataList);
-        //mAdapter = new AdapterDialog(dataList);
-
-
-
-
-       // mAdapter = new BaseAdapter(ItemDialogRecyclerBinding.class, DialogContent.class);
-
-
-
-        return builder.create();
-//
-//        FragmentActivity activity = getActivity();
-//
-//        ItemDialogRecyclerBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()),
-//                R.layout.dialog_with_recycler, null, false);
-//        dataList = new ArrayList<>();
-//        prepareList(dataList);
-//
-//       // binding.setData();
-//
-//        return new AlertDialog.Builder(getActivity(),R.style.Theme_AppCompat_Dialog)
-//                .setView(binding.getRoot())
-//                .create();
+    public DialogWithRecycler(Context context, String data) {
+        super(context, R.style.ChooseProgramDialog);
+        this.data = data;
+        initView(context);
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//
-//        View view = inflater.inflate(R.layout.dialog_with_recycler, container, false);
-//
-//        adapter = new BaseAdapter(ItemDialogRecyclerBinding.class, DialogContent.class);
-//
-////        mRecyclerView = view.findViewById(R.id.recyclerView);
-////        mRecyclerView.setAdapter(mAdapter);
-//
-//        RecyclerView rcv = (RecyclerView) view.findViewById(R.id.recyclerView);
-//
-//        rcv.setAdapter(adapter);
-//
-//        adapter.setDataList(dataList);
-//
-//        return view;
-//    }
+    private void initView(Context context) {
+        setContentView(R.layout.dialog_with_recycler);
 
-    private void prepareList(ArrayList<DialogContent> dataList) {
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.ukrainian, R.string.ukrainian, false, R.color.black));
+        clOne = ((ConstraintLayout) findViewById(R.id.clOne));
+        clTwo = ((ConstraintLayout) findViewById(R.id.clTwo));
+        clThree = ((ConstraintLayout) findViewById(R.id.clThree));
 
+        ivBtnCheckOne = ((ImageView) findViewById(R.id.ivBtnCheckOne));
+        ivBtnCheckTwo = ((ImageView) findViewById(R.id.ivBtnCheckTwo));
+        ivBtnCheckThree = ((ImageView) findViewById(R.id.ivBtnCheckThree));
+
+        btnClose = ((TextView) findViewById(R.id.tvBack));
+
+        ivBtnCheckOne.setActivated(true);
+
+        clOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivBtnCheckOne.setActivated(true);
+                ivBtnCheckTwo.setActivated(false);
+                ivBtnCheckThree.setActivated(false);
+
+                toast = Toast.makeText(context.getApplicationContext(),
+                        "Рениаль – «Ключ до життя»", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
+            }
+        });
+
+        clTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivBtnCheckOne.setActivated(false);
+                ivBtnCheckTwo.setActivated(true);
+                ivBtnCheckThree.setActivated(false);
+
+                toast = Toast.makeText(context.getApplicationContext(),
+                        "Гліптар – «Ключ до балансу»", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
+            }
+        });
+
+        clThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivBtnCheckOne.setActivated(false);
+                ivBtnCheckTwo.setActivated(false);
+                ivBtnCheckThree.setActivated(true);
+
+                toast = Toast.makeText(context.getApplicationContext(),
+                        "Саграда – «Квиток у майбутнє»", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        setCanceledOnTouchOutside(true);
+        WindowManager.LayoutParams attributes = getWindow().getAttributes();
+        attributes.gravity = Gravity.BOTTOM;
+        attributes.y = 50;
+
+        getWindow().setAttributes(attributes);
     }
-
-
 }

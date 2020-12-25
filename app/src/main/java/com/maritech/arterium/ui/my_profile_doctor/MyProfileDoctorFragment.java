@@ -1,5 +1,6 @@
-package com.maritech.arterium.ui.my_profile;
+package com.maritech.arterium.ui.my_profile_doctor;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.fragment.pinCode.PinCodeNavigator;
 
-public class MyProfileFragment extends BaseFragment {
+public class MyProfileDoctorFragment extends BaseFragment {
 
     ImageView arrow;
     ImageView edit;
@@ -28,13 +29,14 @@ public class MyProfileFragment extends BaseFragment {
     View myProfileMainContentSettings;
     View myProfileCard;
     View pharmacyList;
-    MyProfileNavigator navigator = new MyProfileNavigator();
-
+    MyProfileDoctorNavigator navigator = new MyProfileDoctorNavigator();
     View navigation_statistics;
     View achievementsFragment;
     View myProfileFragment;
     View navigation_dashboard;
 
+
+    @SuppressLint("ResourceAsColor")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
@@ -50,7 +52,7 @@ public class MyProfileFragment extends BaseFragment {
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
 
         edit.setVisibility(View.INVISIBLE);
-        toolbarTitle.setText(R.string.my_profile);
+        toolbarTitle.setText("Профіль доктора");
         arrow.setVisibility(View.INVISIBLE);
 
 
@@ -77,24 +79,37 @@ public class MyProfileFragment extends BaseFragment {
 
         setMyProfileContentList(root);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-        navigation_statistics.setVisibility(View.GONE);
-        achievementsFragment.setVisibility(View.GONE);
 
 
         myProfileFragment.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                navigator.goToMyProfile(navController);
+                navigator.bottomGoToMyProfileDoctor(navController);
             }
         });
+
 
         navigation_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigator.goToDashboard(navController);
+                navigator.bottomGoToDashboardDoctor(navController);
+                navigation_dashboard.setActivated(true);
+            }
+        });
+        achievementsFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToAchievements(navController);
             }
         });
 
+        navigation_statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToStat(navController);
+            }
+        });
         return root;
     }
 

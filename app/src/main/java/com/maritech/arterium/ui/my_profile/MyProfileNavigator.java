@@ -14,4 +14,15 @@ public class MyProfileNavigator extends BaseNavigator {
     void goPatientCard(NavController navController) {
         navController.navigate(R.id.action_myProfileFragment_to_patientCardFragment);
     }
+
+    void goToMap(NavController navController) {
+        navController.navigate(R.id.action_myProfileFragment_to_mapFragment);
+    }
+
+    public void goToDashboard(NavController navController) {
+        navController.navigate(R.id.action_myProfileFragment_to_navigation_dashboard);
+    }
+    public void goToMyProfile(NavController navController) {
+        navController.navigate(R.id.action_myProfileFragment_self);
+    }
 }

@@ -13,13 +13,33 @@
         <action
             android:id="@+id/action_dashboardMpFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_navigation_dashboard_self"
+            app:destination="@id/navigation_dashboard" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_statistics"
         android:name="com.maritech.arterium.ui.statistics.StatFragment"
         android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_stat" />
+        tools:layout="@layout/fragment_stat" >
+
+        <action
+            android:id="@+id/action_navigation_statistics_to_myProfileDoctorFragment"
+            app:destination="@id/myProfileDoctorFragment" />
+        <action
+            android:id="@+id/action_navigation_statistics_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_navigation_statistics_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
+        <action
+            android:id="@+id/action_navigation_statistics_self"
+            app:destination="@id/navigation_statistics" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.maritech.arterium.ui.profile.HomeFragment"
@@ -59,6 +79,15 @@
         <action
             android:id="@+id/action_myProfileFragment_to_patientCardFragment"
             app:destination="@id/patientCardFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_self"
+            app:destination="@id/myProfileFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
     </fragment>
     <fragment
         android:id="@+id/patientCardFragment"
@@ -106,8 +135,8 @@
         android:label="AchievementsFragment"
         tools:layout="@layout/fragment_achievement">
         <action
-            android:id="@+id/action_achievementsFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_achievementsFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardRmFragment"
@@ -122,5 +151,62 @@
         android:id="@+id/dashboardFragment"
         android:name="com.maritech.arterium.ui.dashboard.DashboardFragment"
         android:label="DashboardFragment"
-        tools:layout="@layout/fragment_dashboard"/>
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_addNewPersonalFragment"
+            app:destination="@id/addNewPersonalFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_myProfileDoctorFragment"
+            app:destination="@id/myProfileDoctorFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_self"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_navigation_statistics"
+            app:destination="@id/navigation_statistics" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewPersonalFragment"
+        android:name="com.maritech.arterium.ui.add_new_personal.AddNewPersonalFragment"
+        android:label="AddNewPersonalFragment"
+        tools:layout="@layout/fragment_add_new_personal">
+        <action
+            android:id="@+id/action_addNewPersonalFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.maritech.arterium.ui.map.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map"/>
+    <fragment
+        android:id="@+id/myProfileDoctorFragment"
+        android:name="com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment"
+        android:label="MyProfileDoctorFragment"
+        tools:layout="@layout/fragment_my_profile">
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_patientCardFragment"
+            app:destination="@id/patientCardFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_self"
+            app:destination="@id/myProfileDoctorFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_navigation_statistics"
+            app:destination="@id/navigation_statistics" />
+    </fragment>
 </navigation>
