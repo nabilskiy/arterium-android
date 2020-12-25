@@ -59,6 +59,8 @@ public class StatFragment extends BaseFragment {
         CustomTabComponent tabComponent = root.findViewById(R.id.ctcStatDetails);
         tabComponent.initForDetails();
 
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
+
         myProfileFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
