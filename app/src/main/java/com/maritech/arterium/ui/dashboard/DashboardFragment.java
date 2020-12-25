@@ -122,6 +122,7 @@ public class DashboardFragment extends BaseFragment {
             public void onClick(View v) {
                // showDialog();
                 customDialog.show();
+
             }
         });
 

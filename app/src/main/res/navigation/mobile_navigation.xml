@@ -135,8 +135,8 @@
         android:label="AchievementsFragment"
         tools:layout="@layout/fragment_achievement">
         <action
-            android:id="@+id/action_achievementsFragment_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            android:id="@+id/action_achievementsFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardRmFragment"

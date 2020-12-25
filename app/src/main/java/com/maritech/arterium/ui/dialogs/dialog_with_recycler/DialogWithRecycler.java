@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -23,15 +24,16 @@ public class DialogWithRecycler extends Dialog {
     ImageView ivBtnCheckThree;
 
     TextView btnClose;
+    Toast toast;
     private String data;
 
     public DialogWithRecycler(Context context, String data) {
         super(context, R.style.ChooseProgramDialog);
         this.data = data;
-        initView();
+        initView(context);
     }
 
-    private void initView() {
+    private void initView(Context context) {
         setContentView(R.layout.dialog_with_recycler);
 
         clOne = ((ConstraintLayout) findViewById(R.id.clOne));
@@ -52,6 +54,12 @@ public class DialogWithRecycler extends Dialog {
                 ivBtnCheckOne.setActivated(true);
                 ivBtnCheckTwo.setActivated(false);
                 ivBtnCheckThree.setActivated(false);
+
+                toast = Toast.makeText(context.getApplicationContext(),
+                        "Рениаль – «Ключ до життя»", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
             }
         });
 
@@ -61,6 +69,12 @@ public class DialogWithRecycler extends Dialog {
                 ivBtnCheckOne.setActivated(false);
                 ivBtnCheckTwo.setActivated(true);
                 ivBtnCheckThree.setActivated(false);
+
+                toast = Toast.makeText(context.getApplicationContext(),
+                        "Гліптар – «Ключ до балансу»", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
             }
         });
 
@@ -70,6 +84,12 @@ public class DialogWithRecycler extends Dialog {
                 ivBtnCheckOne.setActivated(false);
                 ivBtnCheckTwo.setActivated(false);
                 ivBtnCheckThree.setActivated(true);
+
+                toast = Toast.makeText(context.getApplicationContext(),
+                        "Саграда – «Квиток у майбутнє»", Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
             }
         });
 

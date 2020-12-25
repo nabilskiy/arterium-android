@@ -17,11 +17,12 @@ import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.ItemAchievementsBinding;
 import com.maritech.arterium.ui.achievements.data.AchievementsContent;
 import com.maritech.arterium.ui.base.BaseAdapter;
+import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.profile.HomeViewModel;
 
 import java.util.ArrayList;
 
-public class AchievementsFragment extends Fragment {
+public class AchievementsFragment extends BaseFragment {
 
     private HomeViewModel homeViewModel;
     private GridLayoutManager layoutManager;
@@ -41,12 +42,12 @@ public class AchievementsFragment extends Fragment {
         ArrayList<AchievementsContent> dataList = new ArrayList<AchievementsContent>();
         prepareList(dataList);
 
-//        btnClose.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.goToDashboard(navController);
-//            }
-//        });
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboard(navController);
+            }
+        });
 
         layoutManager = new GridLayoutManager(getContext(), 3);
         BaseAdapter adapter = new BaseAdapter(ItemAchievementsBinding.class, AchievementsContent.class);
