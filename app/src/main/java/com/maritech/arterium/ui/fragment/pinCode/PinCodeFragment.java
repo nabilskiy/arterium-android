@@ -28,7 +28,7 @@ public class PinCodeFragment extends BaseFragment {
                 @Override
                 public void onPinEntered(CharSequence str) {
                     if (str.toString().equals("1111")) {
-                        navigator.goToDashboardRmAfterEnterPin(navController);
+                        navigator.goToDashboardMpAfterEnterPin(navController);
                     } else {
                         pinEntry.setText(null);
                     }

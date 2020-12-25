@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_104sdp"
+    android:layout_height="@dimen/_84sdp"
     android:background="@drawable/bg_toolbar">
 
 
@@ -11,7 +11,7 @@
         android:id="@+id/tvToolbarTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_44sdp"
+        android:layout_marginTop="@dimen/_24sdp"
         android:text="TextView"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -57,7 +57,7 @@
         android:layout_width="@dimen/_142sdp"
         android:layout_height="@dimen/_3sdp"
         android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_92sdp"
+        android:layout_marginTop="@dimen/_72sdp"
         android:background="@drawable/selector_bg_progress_toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -66,7 +66,7 @@
         android:id="@+id/viewTwo"
         android:layout_width="@dimen/_142sdp"
         android:layout_height="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_92sdp"
+        android:layout_marginTop="@dimen/_72sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:background="@drawable/selector_bg_progress_toolbar"
         app:layout_constraintEnd_toEndOf="parent"

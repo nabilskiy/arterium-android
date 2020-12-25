@@ -30,4 +30,9 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    <style name="PurpleRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlActivated">@color/purple</item>
+    </style>
 </resources>

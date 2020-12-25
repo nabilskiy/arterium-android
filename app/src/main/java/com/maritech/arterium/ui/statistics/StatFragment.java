@@ -14,10 +14,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.dashboard.DashboardNavigator;
 import com.maritech.arterium.ui.profile.HomeViewModel;
 import com.maritech.arterium.ui.widgets.CustomTabComponent;
 
-public class StatFragment extends Fragment {
+public class StatFragment extends BaseFragment {
 
     View toolbar;
     TextView title;
@@ -27,12 +29,24 @@ public class StatFragment extends Fragment {
     TextView month;
     Integer count = 1;
 
+    View navigation_statistics;
+    View achievementsFragment;
+    View myProfileFragment;
+    View navigation_dashboard;
+
+    StatNavigator navigator = new StatNavigator();
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_stat, container, false);
         toolbar = root.findViewById(R.id.statisticToolbar);
         toolbar.findViewById(R.id.ivArrow).setVisibility(View.INVISIBLE);
         toolbar.findViewById(R.id.ivRight).setVisibility(View.INVISIBLE);
+
+        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
+        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
+        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
+        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
 
         title = toolbar.findViewById(R.id.tvToolbarTitle);
         title.setText(R.string.statistic);
@@ -44,6 +58,34 @@ public class StatFragment extends Fragment {
 
         CustomTabComponent tabComponent = root.findViewById(R.id.ctcStatDetails);
         tabComponent.initForDetails();
+
+        myProfileFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToMyProfileDoctor(navController);
+            }
+        });
+
+        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToDashboardDoctor(navController);
+            }
+        });
+
+        achievementsFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToAchievements(navController);
+            }
+        });
+
+        navigation_statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToStat(navController);
+            }
+        });
 
         changeMonth(root);
         return root;

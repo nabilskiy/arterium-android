@@ -42,11 +42,15 @@ public class DashboardFragment extends BaseFragment {
     private ConstraintLayout clSearch;
     private ConstraintLayout clProgram;
     private ConstraintLayout clInfoUser;
-
-    DashboardNavigator navigator = new DashboardNavigator();
+    private ConstraintLayout clBtnAddNewPersonal;
 
     View navigation_statistics;
     View achievementsFragment;
+    View myProfileFragment;
+    View navigation_dashboard;
+
+    DashboardNavigator navigator = new DashboardNavigator();
+
 
 
     private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
@@ -67,15 +71,18 @@ public class DashboardFragment extends BaseFragment {
         final int clInfoUserColorGliptar = R.drawable.ic_gliptar;
         final int clInfoUserColorSagrada = R.drawable.ic_sagrada;
 
-
+        clBtnAddNewPersonal = root.findViewById(R.id.clBtnAddNewPersonal);
         ivSearch = root.findViewById(R.id.ivSearch);
         tvDoctors = root.findViewById(R.id.tvDoctors);
         ivClose = root.findViewById(R.id.ivClose);
         clSearch = root.findViewById(R.id.clSearch);
         clProgram = root.findViewById(R.id.clProgram);
         clInfoUser = root.findViewById(R.id.clInfoUser);
+
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
+        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
+        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +106,13 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
+        clBtnAddNewPersonal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            navigator.addNewPersonal(navController);
+            }
+        });
+
         clProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,12 +130,38 @@ public class DashboardFragment extends BaseFragment {
 
         navigation_statistics.setVisibility(View.VISIBLE);
         achievementsFragment.setVisibility(View.VISIBLE);
+
+        myProfileFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToMyProfileDoctor(navController);
+            }
+        });
+
+        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToDashboardDoctor(navController);
+            }
+        });
+        achievementsFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToAchievements(navController);
+            }
+        });
+
+        navigation_statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.bottomGoToStat(navController);
+            }
+        });
+
         return root;
     }
 
-    public void goToItem() {
-        navigator.goToDashboard(navController);
-    }
+
 
     private void prepareList(ArrayList<DoctorsContent> dataList) {
         dataList.add(new DoctorsContent(1, "Евгений Петров", "40", "A", "vas"));

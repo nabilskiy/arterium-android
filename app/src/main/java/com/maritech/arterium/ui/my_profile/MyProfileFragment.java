@@ -27,7 +27,13 @@ public class MyProfileFragment extends BaseFragment {
     TextView setting;
     View myProfileMainContentSettings;
     View myProfileCard;
+    View pharmacyList;
     MyProfileNavigator navigator = new MyProfileNavigator();
+
+    View navigation_statistics;
+    View achievementsFragment;
+    View myProfileFragment;
+    View navigation_dashboard;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
@@ -37,6 +43,11 @@ public class MyProfileFragment extends BaseFragment {
         edit = root.findViewById(R.id.ivRight);
         myProfileMainContentSettings = root.findViewById(R.id.myProfileMainContentSettings);
         myProfileCard = root.findViewById(R.id.myProfileCard);
+        pharmacyList = root.findViewById(R.id.pharmacyList);
+        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
+        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
+        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
+        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
 
         edit.setVisibility(View.INVISIBLE);
         toolbarTitle.setText(R.string.my_profile);
@@ -57,8 +68,33 @@ public class MyProfileFragment extends BaseFragment {
             }
         });
 
+        pharmacyList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToMap(navController);
+            }
+        });
+
         setMyProfileContentList(root);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
+        navigation_statistics.setVisibility(View.GONE);
+        achievementsFragment.setVisibility(View.GONE);
+
+
+        myProfileFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToMyProfile(navController);
+            }
+        });
+
+        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboard(navController);
+            }
+        });
+
         return root;
     }
 

@@ -33,6 +33,8 @@ public class DashboardMpFragment extends BaseFragment {
 
     View navigation_statistics;
     View achievementsFragment;
+    View myProfileFragment;
+    View navigation_dashboard;
 
 
     private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
@@ -52,7 +54,8 @@ public class DashboardMpFragment extends BaseFragment {
         clSearch = root.findViewById(R.id.clSearch);
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-
+        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
+        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +86,25 @@ public class DashboardMpFragment extends BaseFragment {
 
         navigation_statistics.setVisibility(View.GONE);
         achievementsFragment.setVisibility(View.GONE);
+
+
+        myProfileFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToMyProfile(navController);
+            }
+        });
+
+        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboard(navController);
+            }
+        });
+
+
         return root;
     }
-
 
 
     private void prepareList(ArrayList<DoctorsContent> dataList) {
