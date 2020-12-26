@@ -17,18 +17,6 @@ public class MainActivity extends BaseActivity {
 
     CharSequence currentFragment;
    public BottomNavigationView navView;
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        currentFragment = Navigation.findNavController(this, R.id.nav_host_fragment).getCurrentDestination().getLabel();
-//        //isActivePin = currentFragment != "LoginFragment" && showPin
-//        if ("LoginSplashFragment".contentEquals(currentFragment) || "loginFragment".contentEquals(currentFragment) || "PinCodeFragment".contentEquals(currentFragment) || "AchievementsFragment".contentEquals(currentFragment)){
-//            navView.setVisibility(View.GONE);
-//        }
-//        else {
-//            navView.setVisibility(View.VISIBLE);
-//        }
-//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +29,6 @@ public class MainActivity extends BaseActivity {
 //                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
-
-//        currentFragment = Navigation.findNavController(this, R.id.nav_host_fragment).getCurrentDestination().getLabel();
-//        //isActivePin = currentFragment != "LoginFragment" && showPin
-//        if ("LoginSplashFragment".contentEquals(currentFragment) || "loginFragment".contentEquals(currentFragment) || "PinCodeFragment".contentEquals(currentFragment) || "AchievementsFragment".contentEquals(currentFragment)){
-//            navView.setVisibility(View.GONE);
-//        }
-//        else {
-//            navView.setVisibility(View.VISIBLE);
-//        }
-
-
 
     }
 
