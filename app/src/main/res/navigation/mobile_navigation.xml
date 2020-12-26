@@ -85,9 +85,6 @@
         <action
             android:id="@+id/action_myProfileFragment_to_navigation_dashboard"
             app:destination="@id/navigation_dashboard" />
-        <action
-            android:id="@+id/action_myProfileFragment_to_pharmacyFragment"
-            app:destination="@id/pharmacyFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientCardFragment"
@@ -128,6 +125,9 @@
             app:destination="@id/dashboardRmFragment" />
     </fragment>
 
+
+    <action android:id="@+id/action_global_pharmacyFragment"
+        app:destination="@id/pharmacyFragment"/>
 
     <fragment
         android:id="@+id/achievementsFragment"

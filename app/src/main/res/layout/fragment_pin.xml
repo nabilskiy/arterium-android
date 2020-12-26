@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_72sdp"
         android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_52sdp"
         android:layout_marginEnd="@dimen/_24sdp"
         android:cursorVisible="true"
         android:digits="1234567890"
@@ -32,13 +32,14 @@
 
     <TextView
         android:id="@+id/tvEnterPin"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_86sdp"
+        android:layout_marginTop="@dimen/_60sdp"
         android:text="Введіть Ваш пін-код."
         android:textColor="@color/black"
         android:textSize="@dimen/_36sdp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

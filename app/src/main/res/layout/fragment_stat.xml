@@ -159,18 +159,18 @@
         android:id="@+id/cpbStatisticGreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cp_value="7"
+        app:cp_value="10"
         app:layout_constraintTop_toBottomOf="@id/vStatisticDivideLine"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/statistic_progress_bar_margin_top"
-        />
+        android:elevation="10dp"/>
 
     <com.maritech.arterium.ui.widgets.OrangeProgressBar
         android:id="@+id/opbStatisticOrange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:opb_value="9"
+        app:opb_value="11"
         app:layout_constraintTop_toBottomOf="@id/cpbStatisticGreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
