@@ -123,6 +123,9 @@
         <action
             android:id="@+id/action_pinCodeFragment_to_dashboardRmFragment"
             app:destination="@id/dashboardRmFragment" />
+        <action
+            android:id="@+id/action_pinCodeFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
 
 
