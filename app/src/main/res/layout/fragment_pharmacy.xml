@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/pharmacyListToolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/toolbar_search_list"/>
+
+    <fragment
+        android:id="@+id/nav_pharmacy"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        android:layout_marginTop="@dimen/_128sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pharmacyListToolbar"
+        app:navGraph="@navigation/pharmacy_navigation" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lcListMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/pharmacyListToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginVertical="@dimen/default_margin_vertical"
+        android:layout_marginEnd="@dimen/default_margin_horizontal"
+        android:background="@drawable/bg_menu_map">
+
+        <ImageView
+            android:id="@+id/ivPharmacyList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_pharmacy_list"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/vListMapDividerLine"
+            android:layout_margin="@dimen/_6sdp"
+            />
+
+        <ImageView
+            android:id="@+id/vListMapDividerLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_separator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/ivPharmacyMap"
+            app:layout_constraintStart_toEndOf="@id/ivPharmacyList"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivPharmacyMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_pharmacy_map"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/vListMapDividerLine"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/_6sdp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
