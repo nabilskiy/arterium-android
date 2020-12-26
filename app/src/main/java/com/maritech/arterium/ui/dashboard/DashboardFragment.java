@@ -86,7 +86,7 @@ public class DashboardFragment extends BaseFragment {
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
-        DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "我是透明的");
+        DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override

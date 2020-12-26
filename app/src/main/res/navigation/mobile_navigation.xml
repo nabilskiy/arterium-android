@@ -88,6 +88,12 @@
         <action
             android:id="@+id/action_myProfileFragment_to_pharmacyFragment"
             app:destination="@id/pharmacyFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_dashboardRmFragment"
+            app:destination="@id/dashboardRmFragment" />
+        <action
+            android:id="@+id/action_myProfileFragment_to_pharmacyFragment"
+            app:destination="@id/pharmacyFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientCardFragment"
@@ -146,6 +152,15 @@
         <action
             android:id="@+id/action_dashboardRmFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_dashboardRmFragment_self"
+            app:destination="@id/dashboardRmFragment" />
+        <action
+            android:id="@+id/action_dashboardRmFragment_to_myProfileFragment"
+            app:destination="@id/myProfileFragment" />
+        <action
+            android:id="@+id/action_dashboardRmFragment_to_addNewPersonalFragment"
+            app:destination="@id/addNewPersonalFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
