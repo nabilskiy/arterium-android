@@ -7,9 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,7 +28,6 @@ public class AchievementsFragment extends BaseFragment {
 
     AchievementsNavigator navigator = new AchievementsNavigator();
 
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
@@ -45,10 +42,9 @@ public class AchievementsFragment extends BaseFragment {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigator.goToDashboard(navController);
+                requireActivity().onBackPressed();
             }
         });
-
         layoutManager = new GridLayoutManager(getContext(), 3);
         BaseAdapter adapter = new BaseAdapter(ItemAchievementsBinding.class, AchievementsContent.class);
         RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvAchievement);
