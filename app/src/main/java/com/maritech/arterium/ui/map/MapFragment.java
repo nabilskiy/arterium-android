@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +27,10 @@ public class MapFragment extends Fragment {
 
     MapView mMapView;
     private GoogleMap googleMap;
+    ViewPager mViewPager;
+    int[] pharmacyList = {R.string.good_day_pharmacy, R.string.wholesale_pharmacy, R.string.tas_pharmacy, R.string.monet_pharmacy, R.string.swiss_pharmacy};
+    ViewPagerAdapter mViewPagerAdapter;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_map, container, false);
@@ -64,6 +69,11 @@ public class MapFragment extends Fragment {
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
+        mViewPager = root.findViewById(R.id.viewPager);
+        mViewPagerAdapter = new ViewPagerAdapter(getContext(), pharmacyList);
+        mViewPager.setAdapter(mViewPagerAdapter);
+
         return root;
     }
 
