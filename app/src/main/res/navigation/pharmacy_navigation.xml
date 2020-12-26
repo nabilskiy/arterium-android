@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pharmacy_navigation"
+    app:startDestination="@id/pharmacyListFragment">
+
+    <fragment
+        android:id="@+id/pharmacyListFragment"
+        android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyListFragment"
+        android:label="PharmacyListFragment"
+        tools:layout="@layout/fragment_pharmacy_list"
+        >
+        <action
+            android:id="@+id/action_pharmacyListFragment_to_mapFragment2"
+            app:destination="@id/mapFragment2" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapFragment2"
+        android:name="com.maritech.arterium.ui.map.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map"
+        >
+        <action
+            android:id="@+id/action_mapFragment2_to_pharmacyListFragment"
+            app:destination="@id/pharmacyListFragment" />
+    </fragment>
+
+</navigation>
