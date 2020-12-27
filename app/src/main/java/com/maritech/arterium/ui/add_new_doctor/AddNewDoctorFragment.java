@@ -1,39 +1,25 @@
-package com.maritech.arterium.ui.add_new_personal;
+package com.maritech.arterium.ui.add_new_doctor;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.ItemDashboardBinding;
-import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboard.DashboardNavigator;
-import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
-import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 
-import java.util.ArrayList;
-
-public class AddNewPersonalFragment extends BaseFragment {
+public class AddNewDoctorFragment extends BaseFragment {
 
 
     private View viewProgressOne;
     private View viewProgressTwo;
-    private RadioGroup radioGroup;
     private TextView btnNextOne;
     private Boolean isTwoStep = false;
     private ImageView btnBack;
@@ -45,34 +31,46 @@ public class AddNewPersonalFragment extends BaseFragment {
 
     private ConstraintLayout clProgressStepOne;
     private ConstraintLayout clProgressStepTwo;
-    private ConstraintLayout clInfoUser;
+    private ConstraintLayout clRenial;
+    private ConstraintLayout clGliptar;
+    private ConstraintLayout clSagrada;
 
-    AddNewPersonalNavigator navigator = new AddNewPersonalNavigator();
-    private AddNewPersonalViewModel addNewPersonalViewModel;
+    private ImageView ivBtnCheckOne;
+    private ImageView ivBtnCheckTwo;
+    private ImageView ivBtnCheckThree;
+
+    private Boolean btnCheckOneIsActive = false;
+    private Boolean btnCheckTwoIsActive = false;
+    private Boolean btnCheckThreeIsActive = false;
+
+    AddNewDoctorNavigator navigator = new AddNewDoctorNavigator();
+    private AddNewDoctorViewModel addNewPersonalViewModel;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewPersonalViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_add_new_personal, container, false);
+        addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewDoctorViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_add_new_doctor, container, false);
 
         clProgressStepOne = root.findViewById(R.id.clProgressStepOne);
         clProgressStepTwo = root.findViewById(R.id.clProgressStepTwo);
         tvToolbarTitle = root.findViewById(R.id.toolbar).findViewById(R.id.tvToolbarTitle);
         tvHint = root.findViewById(R.id.toolbar).findViewById(R.id.tvHint);
-        radioGroup = root.findViewById(R.id.radioGroup);
         btnNextOne = root.findViewById(R.id.btnNextOne);
         viewProgressOne = root.findViewById(R.id.toolbar).findViewById(R.id.viewOne);
         viewProgressOne.setActivated(true);
         viewProgressTwo = root.findViewById(R.id.toolbar).findViewById(R.id.viewTwo);
         btnBack = root.findViewById(R.id.toolbar).findViewById(R.id.ivRight);
         btnAuto = root.findViewById(R.id.toolbar).findViewById(R.id.ivLeft);
+        clRenial = root.findViewById(R.id.clRenial);
+        clGliptar = root.findViewById(R.id.clGliptar);
+        clSagrada = root.findViewById(R.id.clSagrada);
+        ivBtnCheckOne = root.findViewById(R.id.ivBtnCheckOne);
+        ivBtnCheckTwo = root.findViewById(R.id.ivBtnCheckTwo);
+        ivBtnCheckThree = root.findViewById(R.id.ivBtnCheckThree);
 
-
-        tvToolbarTitle.setText("Новий пацієнт");
-        tvHint.setText("Медичні дані");
-
-//        ivSearch = root.findViewById(R.id.ivSearch);
+        tvToolbarTitle.setText("Новий доктор");
+        tvHint.setText("Персональнi данi");
 
 
         btnNextOne.setOnClickListener(new View.OnClickListener() {
@@ -83,9 +81,7 @@ public class AddNewPersonalFragment extends BaseFragment {
 
                 clProgressStepOne.setVisibility(View.GONE);
                 clProgressStepTwo.setVisibility(View.VISIBLE);
-
-                btnAuto.setVisibility(View.VISIBLE);
-
+                tvHint.setText("Персональнi данi");
             }
         });
 
@@ -98,20 +94,45 @@ public class AddNewPersonalFragment extends BaseFragment {
 
                     clProgressStepOne.setVisibility(View.VISIBLE);
                     clProgressStepTwo.setVisibility(View.GONE);
-
-                    btnAuto.setVisibility(View.GONE);
+                    tvHint.setText("Робочі дані");
 
                 } else {
                     requireActivity().onBackPressed();
                 }
+            }
+        });
 
-
+        clRenial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickOnBtnCheck(ivBtnCheckOne);
+            }
+        });
+        clGliptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickOnBtnCheck(ivBtnCheckTwo);
+            }
+        });
+        clSagrada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickOnBtnCheck(ivBtnCheckThree);
             }
         });
 
 
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
+    }
+
+    private void clickOnBtnCheck(ImageView imageView){
+        if (imageView.isActivated()){
+            imageView.setActivated(false);
+        }
+        else {
+            imageView.setActivated(true);
+        }
     }
 
 
