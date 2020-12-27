@@ -42,6 +42,7 @@ public class DashboardFragment extends BaseFragment {
     private ImageView ivSearch;
     private TextView tvDoctors;
     private ImageView ivClose;
+    private ImageView ivFilter;
     private ConstraintLayout clSearch;
     private ConstraintLayout clProgram;
     private ConstraintLayout clInfoUser;
@@ -76,6 +77,7 @@ public class DashboardFragment extends BaseFragment {
 
         clBtnAddNewPersonal = root.findViewById(R.id.clBtnAddNewPersonal);
         ivSearch = root.findViewById(R.id.ivSearch);
+        ivFilter = root.findViewById(R.id.ivFilter);
         tvDoctors = root.findViewById(R.id.tvDoctors);
         ivClose = root.findViewById(R.id.ivClose);
         clSearch = root.findViewById(R.id.clSearch);
@@ -93,7 +95,7 @@ public class DashboardFragment extends BaseFragment {
             public void onClick(View v) {
                 ivSearch.setVisibility(View.GONE);
                 tvDoctors.setVisibility(View.GONE);
-
+                ivFilter.setVisibility(View.GONE);
                 ivClose.setVisibility(View.VISIBLE);
                 clSearch.setVisibility(View.VISIBLE);
             }
@@ -104,7 +106,7 @@ public class DashboardFragment extends BaseFragment {
             public void onClick(View v) {
                 ivSearch.setVisibility(View.VISIBLE);
                 tvDoctors.setVisibility(View.VISIBLE);
-
+                ivFilter.setVisibility(View.VISIBLE);
                 ivClose.setVisibility(View.GONE);
                 clSearch.setVisibility(View.GONE);
             }

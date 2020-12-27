@@ -10,12 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.base.BaseFragment;
 
-public class PharmacyListFragment extends Fragment {
+public class PharmacyListFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pharmacy_list, container, false);
-
         setPharmacyList(root);
         return root;
     }
@@ -35,5 +35,6 @@ public class PharmacyListFragment extends Fragment {
         tas.setText(R.string.tas_pharmacy);
         monetPharmacy.setText(R.string.monet_pharmacy);
         swissPharmacy.setText(R.string.swiss_pharmacy);
+
     }
 }

@@ -30,13 +30,15 @@ public class PharmacyFragment  extends BaseFragment {
         goToList = root.findViewById(R.id.ivPharmacyList);
 
         goToMap.setOnClickListener(view -> {
+            requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
             navigator.goToMap(navcontroller);
         });
 
         goToList.setOnClickListener(view -> {
+            requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
             navigator.goToPharmacyList(navcontroller);
         });
-
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
         return root;
     }
 }

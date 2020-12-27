@@ -132,8 +132,14 @@
         <action
             android:id="@+id/action_pinCodeFragment_to_dashboardRmFragment"
             app:destination="@id/dashboardRmFragment" />
+        <action
+            android:id="@+id/action_pinCodeFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
     </fragment>
 
+
+    <action android:id="@+id/action_global_pharmacyFragment"
+        app:destination="@id/pharmacyFragment"/>
 
     <fragment
         android:id="@+id/achievementsFragment"

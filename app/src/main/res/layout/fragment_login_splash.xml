@@ -7,13 +7,14 @@
 
     <TextView
         android:id="@+id/tvOne"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_24sdp"
-        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_60sdp"
         android:text="Інновації для високої якості."
         android:textColor="@color/black"
         android:textSize="@dimen/_36sdp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,8 +52,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTwo"
+        app:layout_constraintVertical_bias="0.1"
         app:srcCompat="@drawable/ic_doctors" />
 </androidx.constraintlayout.widget.ConstraintLayout>
