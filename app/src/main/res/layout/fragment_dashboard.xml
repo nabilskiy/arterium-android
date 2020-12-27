@@ -125,7 +125,7 @@
                         android:id="@+id/tvLvl"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_26sdp"
                         android:text="Рiвень С"
                         android:textColor="@color/white_low_opacity"
                         android:textSize="16sp"
@@ -138,7 +138,8 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                        app:srcCompat="@drawable/ic_lvl_c" />
+                        app:srcCompat="@drawable/ic_lvl_c"
+                        android:layout_marginEnd="@dimen/_16sdp"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clBtnAddNewPersonal"
