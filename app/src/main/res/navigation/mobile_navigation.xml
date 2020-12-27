@@ -91,9 +91,6 @@
         <action
             android:id="@+id/action_myProfileFragment_to_dashboardRmFragment"
             app:destination="@id/dashboardRmFragment" />
-        <action
-            android:id="@+id/action_myProfileFragment_to_pharmacyFragment"
-            app:destination="@id/pharmacyFragment" />
     </fragment>
     <fragment
         android:id="@+id/patientCardFragment"
@@ -165,8 +162,11 @@
             android:id="@+id/action_dashboardRmFragment_to_myProfileFragment"
             app:destination="@id/myProfileFragment" />
         <action
-            android:id="@+id/action_dashboardRmFragment_to_addNewPersonalFragment"
-            app:destination="@id/addNewPersonalFragment" />
+            android:id="@+id/action_dashboardRmFragment_to_addNewDoctorFragment"
+            app:destination="@id/addNewDoctorFragment" />
+        <action
+            android:id="@+id/action_dashboardRmFragment_to_addNewMpFragment"
+            app:destination="@id/addNewMpFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
@@ -236,4 +236,14 @@
         android:label="PharmacyFragment"
         tools:layout="@layout/fragment_pharmacy"
         />
+    <fragment
+        android:id="@+id/addNewDoctorFragment"
+        android:name="com.maritech.arterium.ui.add_new_doctor.AddNewDoctorFragment"
+        android:label="AddNewDoctorFragment"
+        tools:layout="@layout/fragment_add_new_doctor"/>
+    <fragment
+        android:id="@+id/addNewMpFragment"
+        tools:layout="@layout/fragment_add_new_mp"
+        android:name="com.maritech.arterium.ui.add_new_mp.AddNewMpFragment"
+        android:label="AddNewMpFragment" />
 </navigation>

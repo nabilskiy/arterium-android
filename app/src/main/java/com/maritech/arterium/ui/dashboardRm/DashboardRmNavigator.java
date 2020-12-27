@@ -15,8 +15,11 @@ public class DashboardRmNavigator extends BaseNavigator {
         navController.navigate(R.id.action_dashboardRmFragment_to_myProfileFragment);
     }
 
-    public void goToAddNewPersonal(NavController navController) {
-        navController.navigate(R.id.action_dashboardRmFragment_to_addNewPersonalFragment);
+    public void goToAddNewMp(NavController navController) {
+        navController.navigate(R.id.action_dashboardRmFragment_to_addNewMpFragment);
+    }
+    public void goToAddNewDoctor(NavController navController) {
+        navController.navigate(R.id.action_dashboardRmFragment_to_addNewDoctorFragment);
     }
 
 }

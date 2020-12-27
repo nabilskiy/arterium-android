@@ -66,12 +66,12 @@ public class DashboardRmFragment extends BaseFragment {
 
             @Override
             public void addDoctor() {
-                navigator.goToAddNewPersonal(navController);
+                navigator.goToAddNewDoctor(navController);
             }
 
             @Override
             public void addMP() {
-                navigator.goToAddNewPersonal(navController);
+                navigator.goToAddNewMp(navController);
             }
         };
 

@@ -20,7 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnNextTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -112,8 +112,8 @@
                     android:id="@+id/radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvSex">
 
@@ -211,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:text="Медичний представник"
+                        android:text="Прикріплені лiкарi"
                         android:textColor="@color/purple"
                         android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@+id/ivChooseMp"
@@ -222,186 +222,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_6sdp"
-                        android:text="Оберiть представника"
+                        android:text="Оберiть лiкарiв"
                         android:textColor="@color/gray"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@+id/tvMp"
                         app:layout_constraintTop_toBottomOf="@+id/tvMp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputRegion"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvChooseDoctors"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_18sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_18sdp"
-                    app:ci_field_value="Введіть область"
-                    app:ci_title="Область"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:maxEms="22"
+                    android:text="Виберіть одного або кілька лікарів щоб прикріпити до нового аккаунту медичного представника."
+                    android:textColor="@color/gray"
+                    android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clChooseMp" />
-
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputCity"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_18sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_18sdp"
-                    app:ci_field_value="Введіть город"
-                    app:ci_title="Город"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputRegion" />
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputNameCorporation"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_18sdp"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:layout_marginEnd="@dimen/_18sdp"
-                    app:ci_field_value="Введіть назву установи"
-                    app:ci_title="Назва установи"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputCity" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/btnNextTwo"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginBottom="40dp"
-                    android:background="@drawable/bg_btn_purpule"
-                    android:gravity="center"
-                    android:text="Створити"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_16sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clSagrada" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvChooseProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:text="Оберiть програми"
-                    android:textColor="@color/gray"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/ccInputNameCorporation"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputNameCorporation" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clRenial"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_22sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvChooseProgram">
-
-                    <ImageView
-                        android:id="@+id/ivBtnCheckOne"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/selector_check_btn_square" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRenial"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:text="Рениаль – «Ключ до життя»"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivBtnCheckOne"
-                        app:layout_constraintTop_toTopOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clGliptar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_22sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clRenial">
-
-                    <ImageView
-                        android:id="@+id/ivBtnCheckTwo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/selector_check_btn_square" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvGliptar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:text="Гліптар – «Ключ до балансу»"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivBtnCheckTwo"
-                        app:layout_constraintTop_toTopOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clSagrada"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_22sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clGliptar">
-
-                    <ImageView
-                        android:id="@+id/ivBtnCheckThree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/selector_check_btn_square" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvSagrada"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:text="Саграда – «Квиток у майбутнє»"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivBtnCheckThree"
-                        app:layout_constraintTop_toTopOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -409,6 +250,24 @@
 
 
     </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/btnNextTwo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_280sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/bg_btn_purpule"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="Створити"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
