@@ -6,8 +6,7 @@
 
         <variable
             name="data"
-            type="com.maritech.arterium.ui.notifications.data.UnreadNotificationsContent" />
-
+            type="com.maritech.arterium.ui.notifications.data.ReadNotificationsContent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,9 +41,9 @@
             android:id="@+id/viewLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/gray_view_line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +51,3 @@
             app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
-
-    <!--<variable-->
-    <!--name="dataRead"-->
-    <!--type="com.maritech.arterium.ui.notifications.data.ReadNotificationsContent" />-->
