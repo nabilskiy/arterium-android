@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_64sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 app:csc_count="3"
                 app:csc_text_one="Усi"
@@ -56,7 +56,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvDoctors" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivSearch"
