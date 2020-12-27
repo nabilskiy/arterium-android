@@ -92,7 +92,7 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
                         android:text="Юрiй Березняков"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -145,12 +145,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_43sdp"
                         android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_18sdp"
                         android:layout_marginEnd="@dimen/_16sdp"
                         android:background="@drawable/bg_btn_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAllBuy">
+                        app:layout_constraintTop_toBottomOf="@+id/tvAllBuy"
+                        app:layout_constraintBottom_toTopOf="@id/clProgram">
 
 
                         <ImageView
@@ -179,11 +180,13 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clProgram"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_height="@dimen/_68sdp"
                         android:background="@drawable/ic_switcher_bg"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clBtnAddNewPersonal"
+                        android:layout_marginTop="@dimen/_12sdp">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvCurrentProgram"
@@ -224,10 +227,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
-
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -237,7 +236,6 @@
             android:id="@+id/details_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_20sdp"
             android:visibility="visible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
