@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,6 +90,9 @@ public class DashboardFragment extends BaseFragment {
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
         DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "我是透明的");
+
+
+//        navController.getPreviousBackStackEntry();
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
