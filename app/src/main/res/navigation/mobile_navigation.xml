@@ -188,6 +188,12 @@
         <action
             android:id="@+id/action_dashboardFragment_to_navigation_statistics"
             app:destination="@id/navigation_statistics" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_navigation_dashboard"
+            app:destination="@id/navigation_dashboard" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_dashboardRmFragment"
+            app:destination="@id/dashboardRmFragment" />
     </fragment>
     <fragment
         android:id="@+id/addNewPersonalFragment"

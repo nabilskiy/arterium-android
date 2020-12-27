@@ -19,7 +19,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_220sdp"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             android:visibility="visible">
 
@@ -44,7 +44,7 @@
                     app:layout_collapseMode="parallax">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/constraintLayout"
+                        android:id="@+id/clInfoClose"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_44sdp"
                         android:background="@color/purple"
@@ -85,7 +85,7 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_26sdp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/clInfoClose"
                         app:srcCompat="@drawable/ic_default_avatar" />
 
                     <TextView
@@ -137,7 +137,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/clInfoClose"
                         app:srcCompat="@drawable/ic_lvl_c"
                         android:layout_marginEnd="@dimen/_16sdp"/>
 
@@ -151,8 +151,7 @@
                         android:background="@drawable/bg_btn_white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvAllBuy"
-                        app:layout_constraintBottom_toTopOf="@id/clProgram">
+                        app:layout_constraintTop_toBottomOf="@+id/tvAllBuy">
 
 
                         <ImageView
@@ -183,7 +182,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_68sdp"
                         android:background="@drawable/ic_switcher_bg"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/clBtnAddNewPersonal"

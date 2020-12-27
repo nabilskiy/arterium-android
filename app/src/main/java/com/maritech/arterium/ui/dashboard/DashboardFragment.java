@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,7 @@ public class DashboardFragment extends BaseFragment {
     private ConstraintLayout clProgram;
     private ConstraintLayout clInfoUser;
     private ConstraintLayout clBtnAddNewPersonal;
+    private ConstraintLayout clInfoClose;
 
     View navigation_statistics;
     View achievementsFragment;
@@ -83,12 +85,20 @@ public class DashboardFragment extends BaseFragment {
         clSearch = root.findViewById(R.id.clSearch);
         clProgram = root.findViewById(R.id.clProgram);
         clInfoUser = root.findViewById(R.id.clInfoUser);
+        clInfoClose = root.findViewById(R.id.clInfoClose);
 
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
         DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
+
+//        if(getArguments().getBoolean("isPreviousRmOrMp")) {
+//            clInfoClose.setVisibility(View.VISIBLE);
+//        }
+//        else {
+//            clInfoClose.setVisibility(View.GONE);
+//        }
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +137,14 @@ public class DashboardFragment extends BaseFragment {
 
             }
         });
+
+        clInfoClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboardMP(navController);
+            }
+        });
+
 
         BaseAdapter adapter = new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
         RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvDoctors);
