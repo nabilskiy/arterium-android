@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
- <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginSplashFragment">
+    app:startDestination="@id/addNewDoctorFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.maritech.arterium.ui.dashboardMp.DashboardMpFragment"
         android:label="DashboardMpFragment"
-        tools:layout="@layout/fragment_dashboard_mp" >
+        tools:layout="@layout/fragment_dashboard_mp">
         <action
             android:id="@+id/action_dashboardMpFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
@@ -25,7 +25,7 @@
         android:id="@+id/navigation_statistics"
         android:name="com.maritech.arterium.ui.statistics.StatFragment"
         android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_stat" >
+        tools:layout="@layout/fragment_stat">
 
         <action
             android:id="@+id/action_navigation_statistics_to_myProfileDoctorFragment"
@@ -51,28 +51,25 @@
         android:name="com.maritech.arterium.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
-     <fragment
+    <fragment
         android:id="@+id/loginFragment"
         android:name="com.maritech.arterium.ui.login.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"
-        >
-         <action
-             android:id="@+id/action_loginFragment_to_pinCodeFragment"
-             app:destination="@id/pinCodeFragment" />
-     </fragment>
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_pinCodeFragment"
+            app:destination="@id/pinCodeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/interfaceNameFragment"
         android:name="com.maritech.arterium.ui.interface_name.InterfaceNameFragment"
         android:label="InterfaceNameFragment"
-        tools:layout="@layout/fragment_interface_name"
-        />
+        tools:layout="@layout/fragment_interface_name" />
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.maritech.arterium.ui.my_profile.MyProfileFragment"
         android:label="MyProfileFragment"
-        tools:layout="@layout/fragment_my_profile"
-        >
+        tools:layout="@layout/fragment_my_profile">
         <action
             android:id="@+id/action_myProfileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -96,14 +93,13 @@
         android:id="@+id/patientCardFragment"
         android:name="com.maritech.arterium.ui.patient_card.PatientCardFragment"
         android:label="PatientCardFragment"
-        tools:layout="@layout/fragment_patient_card"
-        />
+        tools:layout="@layout/fragment_patient_card" />
 
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.maritech.arterium.ui.fragment.settings.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/fragment_settings">
         <action
             android:id="@+id/action_settingsFragment_to_interfaceNameFragment"
             app:destination="@id/interfaceNameFragment" />
@@ -113,7 +109,7 @@
         android:id="@+id/loginSplashFragment"
         android:name="com.maritech.arterium.ui.fragment.loginSplash.LoginSplashFragment"
         android:label="LoginSplashFragment"
-        tools:layout="@layout/fragment_login_splash" >
+        tools:layout="@layout/fragment_login_splash">
         <action
             android:id="@+id/action_loginSplashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -135,8 +131,9 @@
     </fragment>
 
 
-    <action android:id="@+id/action_global_pharmacyFragment"
-        app:destination="@id/pharmacyFragment"/>
+    <action
+        android:id="@+id/action_global_pharmacyFragment"
+        app:destination="@id/pharmacyFragment" />
 
     <fragment
         android:id="@+id/achievementsFragment"
@@ -208,7 +205,7 @@
         android:id="@+id/mapFragment"
         android:name="com.maritech.arterium.ui.map.MapFragment"
         android:label="MapFragment"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/myProfileDoctorFragment"
         android:name="com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment"
@@ -240,16 +237,29 @@
         android:id="@+id/pharmacyFragment"
         android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyFragment"
         android:label="PharmacyFragment"
-        tools:layout="@layout/fragment_pharmacy"
-        />
+        tools:layout="@layout/fragment_pharmacy" />
     <fragment
         android:id="@+id/addNewDoctorFragment"
         android:name="com.maritech.arterium.ui.add_new_doctor.AddNewDoctorFragment"
         android:label="AddNewDoctorFragment"
-        tools:layout="@layout/fragment_add_new_doctor"/>
+        tools:layout="@layout/fragment_add_new_doctor">
+        <action
+            android:id="@+id/action_addNewDoctorFragment_to_chooseMpFragment"
+            app:destination="@id/chooseMpFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addNewMpFragment"
-        tools:layout="@layout/fragment_add_new_mp"
         android:name="com.maritech.arterium.ui.add_new_mp.AddNewMpFragment"
-        android:label="AddNewMpFragment" />
+        android:label="AddNewMpFragment"
+        tools:layout="@layout/fragment_add_new_mp" />
+
+    <fragment
+        android:id="@+id/chooseMpFragment"
+        android:name="com.maritech.arterium.ui.choose_mp.ChooseMpFragment"
+        android:label="ChooseMpFragment"
+        tools:layout="@layout/fragment_choose_mp">
+        <argument
+            android:name="chosenMp"
+            app:argType="java.lang.Class" />
+    </fragment>
 </navigation>

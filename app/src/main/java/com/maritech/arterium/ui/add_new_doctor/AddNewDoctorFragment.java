@@ -1,5 +1,8 @@
 package com.maritech.arterium.ui.add_new_doctor;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -35,6 +40,8 @@ public class AddNewDoctorFragment extends BaseFragment {
     private ConstraintLayout clGliptar;
     private ConstraintLayout clSagrada;
 
+    private ConstraintLayout clChooseMp;
+
     private ImageView ivBtnCheckOne;
     private ImageView ivBtnCheckTwo;
     private ImageView ivBtnCheckThree;
@@ -49,6 +56,8 @@ public class AddNewDoctorFragment extends BaseFragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewDoctorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_new_doctor, container, false);
 
@@ -68,6 +77,7 @@ public class AddNewDoctorFragment extends BaseFragment {
         ivBtnCheckOne = root.findViewById(R.id.ivBtnCheckOne);
         ivBtnCheckTwo = root.findViewById(R.id.ivBtnCheckTwo);
         ivBtnCheckThree = root.findViewById(R.id.ivBtnCheckThree);
+        clChooseMp = root.findViewById(R.id.clChooseMp);
 
         tvToolbarTitle.setText("Новий доктор");
         tvHint.setText("Персональнi данi");
@@ -120,6 +130,25 @@ public class AddNewDoctorFragment extends BaseFragment {
                 clickOnBtnCheck(ivBtnCheckThree);
             }
         });
+
+        clChooseMp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goAddMp(navController);
+            }
+        });
+
+
+
+
+      //  getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
+//            @Override
+//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+//                // We use a String here, but any type that can be put in a Bundle is supported
+//                String result = bundle.getString("bundleKey");
+//                // Do something with the result
+//            }
+//        });
 
 
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
