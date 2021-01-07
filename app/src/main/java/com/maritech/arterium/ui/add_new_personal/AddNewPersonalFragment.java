@@ -102,7 +102,7 @@ public class AddNewPersonalFragment extends BaseFragment {
                     btnAuto.setVisibility(View.GONE);
 
                 } else {
-                    navigator.goToDashboard(navController);
+                    requireActivity().onBackPressed();
                 }
 
 

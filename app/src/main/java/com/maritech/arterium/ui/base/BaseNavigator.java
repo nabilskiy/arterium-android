@@ -17,7 +17,7 @@ public class BaseNavigator {
         this.activity = new WeakReference<FragmentActivity>(null);
     }
 
-    void back() {
+    public void back() {
         this.activity.get().onBackPressed();
     }
 }

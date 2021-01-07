@@ -89,10 +89,15 @@ public class MyProfileFragment extends BaseFragment {
         });
 
         navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                navigator.goToDashboard(navController);
+                // if it Mp
+                //navigator.goToDashboardMp(navController);
+                // if it Rm
+                navigator.goToDashboardRm(navController);
             }
+
         });
 
         return root;

@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.dashboardRm;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +18,26 @@ import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.ItemDashboardBinding;
 import com.maritech.arterium.ui.achievements.AchievementsNavigator;
 import com.maritech.arterium.ui.base.BaseAdapter;
+import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
+import com.maritech.arterium.ui.dialogs.dialog_new_account.DialogNewAccount;
+import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 
 import java.util.ArrayList;
 
-public class DashboardRmFragment extends Fragment {
+public class DashboardRmFragment extends BaseFragment {
 
     private ImageView ivSearch;
     private TextView tvDoctors;
     private ImageView ivClose;
     private ConstraintLayout clSearch;
+    private ConstraintLayout clBtnAddNewAccount;
     DashboardRmNavigator navigator = new DashboardRmNavigator();
 
     View navigation_statistics;
     View achievementsFragment;
+    View myProfileFragment;
+    View navigation_dashboard;
 
 
     private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
@@ -48,8 +55,27 @@ public class DashboardRmFragment extends Fragment {
         tvDoctors = root.findViewById(R.id.tvDoctors);
         ivClose = root.findViewById(R.id.ivClose);
         clSearch = root.findViewById(R.id.clSearch);
+        clBtnAddNewAccount = root.findViewById(R.id.clBtnAddNewAccount);
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
+        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
+        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+
+
+        DialogListener errorModule = new DialogListener() {
+
+            @Override
+            public void addDoctor() {
+                navigator.goToAddNewDoctor(navController);
+            }
+
+            @Override
+            public void addMP() {
+                navigator.goToAddNewMp(navController);
+            }
+        };
+
+        DialogNewAccount customDialog = new DialogNewAccount(this.getContext(), errorModule);
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +99,14 @@ public class DashboardRmFragment extends Fragment {
             }
         });
 
+        clBtnAddNewAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                customDialog.show();
+            }
+        });
+
+
         BaseAdapter adapter = new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
         RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvDoctors);
         rcv.setAdapter(adapter);
@@ -80,6 +114,22 @@ public class DashboardRmFragment extends Fragment {
 
         adapter.setDataList(listDoctors);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
+
+        myProfileFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToMyProfile(navController);
+            }
+        });
+
+        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboardRm(navController);
+            }
+
+        });
 
         navigation_statistics.setVisibility(View.GONE);
         achievementsFragment.setVisibility(View.GONE);

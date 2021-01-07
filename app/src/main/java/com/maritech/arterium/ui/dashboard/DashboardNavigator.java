@@ -25,4 +25,8 @@ public class DashboardNavigator extends BaseNavigator {
     void bottomGoToAchievements(NavController navController) {
         navController.navigate(R.id.action_dashboardFragment_to_achievementsFragment);
     }
+    void goToDashboardMP(NavController navController) {
+        navController.navigate(R.id.action_dashboardFragment_to_navigation_dashboard);
+    }
+
 }

@@ -19,9 +19,14 @@ public class MyProfileNavigator extends BaseNavigator {
         navController.navigate(R.id.action_global_pharmacyFragment);
     }
 
-    public void goToDashboard(NavController navController) {
+    public void goToDashboardMp(NavController navController) {
         navController.navigate(R.id.action_myProfileFragment_to_navigation_dashboard);
     }
+
+    public void goToDashboardRm(NavController navController) {
+        navController.navigate(R.id.action_myProfileFragment_to_dashboardRmFragment);
+    }
+
     public void goToMyProfile(NavController navController) {
         navController.navigate(R.id.action_myProfileFragment_self);
     }
