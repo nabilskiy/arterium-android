@@ -28,6 +28,7 @@ public class MyProfileFragment extends BaseFragment {
     View myProfileMainContentSettings;
     View myProfileCard;
     View pharmacyList;
+    View myNotifications;
     MyProfileNavigator navigator = new MyProfileNavigator();
 
     View navigation_statistics;
@@ -44,6 +45,7 @@ public class MyProfileFragment extends BaseFragment {
         myProfileMainContentSettings = root.findViewById(R.id.myProfileMainContentSettings);
         myProfileCard = root.findViewById(R.id.myProfileCard);
         pharmacyList = root.findViewById(R.id.pharmacyList);
+        myNotifications = root.findViewById(R.id.myProfileMainContentNotifications);
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
@@ -72,6 +74,13 @@ public class MyProfileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 navigator.goToMap(navController);
+            }
+        });
+
+        myNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToNotifications(navController);
             }
         });
 

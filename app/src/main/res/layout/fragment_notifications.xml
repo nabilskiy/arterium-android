@@ -33,7 +33,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@drawable/bg_btn_white"
-                android:elevation="2dp"
+                android:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -69,6 +69,8 @@
                     android:id="@+id/rvUnread"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -78,30 +80,39 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvBefore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:text="Ранiше"
-                android:textColor="@color/gray"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="@+id/clNewNotifications"
-                app:layout_constraintTop_toBottomOf="@+id/clNewNotifications" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvRead"
-                android:paddingBottom="@dimen/_10sdp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clReadNotifications"
                 android:layout_width="match_parent"
-                android:layout_marginStart="@dimen/_12sdp"
-                android:layout_marginEnd="@dimen/_12sdp"
                 android:layout_height="wrap_content"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvBefore" />
+                app:layout_constraintTop_toBottomOf="@+id/clNewNotifications">
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBefore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:text="Ранiше"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:textSize="13sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvBefore" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

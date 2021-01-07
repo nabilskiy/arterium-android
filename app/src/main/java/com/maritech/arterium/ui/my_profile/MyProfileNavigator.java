@@ -30,4 +30,8 @@ public class MyProfileNavigator extends BaseNavigator {
     public void goToMyProfile(NavController navController) {
         navController.navigate(R.id.action_myProfileFragment_self);
     }
+
+    void goToNotifications(NavController navController) {
+        navController.navigate(R.id.action_myProfileFragment_to_navigation_notifications);
+    }
 }

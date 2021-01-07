@@ -1,39 +1,36 @@
 package com.maritech.arterium.ui.notifications;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.ItemAchievementsBinding;
-import com.maritech.arterium.databinding.ItemNotificationsReadBinding;
-import com.maritech.arterium.databinding.ItemNotificationsUnreadBinding;
-import com.maritech.arterium.ui.achievements.data.AchievementsContent;
-import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.notifications.data.ReadNotificationsContent;
-import com.maritech.arterium.ui.notifications.data.UnreadNotificationsContent;
+import com.maritech.arterium.ui.notifications.data.NotificationsContent;
+import com.maritech.arterium.ui.notifications.holder.NotificationsAdapter;
 
 import java.util.ArrayList;
 
 public class NotificationsFragment extends BaseFragment {
+    private NotificationsViewModel notificationsViewModel;
 
     private TextView tvUnreadCount;
-
-    private NotificationsViewModel notificationsViewModel;
     private ConstraintLayout clNewNotifications;
+    private NotificationsAdapter adapterUnread;
+    private NotificationsAdapter adapterRead;
+
+    private View toolbar;
+    private TextView toolbarTittle;
+    private ImageView ivBack;
+    private ImageView ivRightToolbar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,94 +38,79 @@ public class NotificationsFragment extends BaseFragment {
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
-        BaseAdapter adapterUnread = new BaseAdapter(ItemNotificationsUnreadBinding.class, UnreadNotificationsContent.class);
-        BaseAdapter adapterRead = new BaseAdapter(ItemNotificationsReadBinding.class, ReadNotificationsContent.class);
-        RecyclerView rvUnread = (RecyclerView) root.findViewById(R.id.rvUnread);
-        RecyclerView rvRead = (RecyclerView) root.findViewById(R.id.rvRead);
-        rvUnread.setAdapter(adapterUnread);
-        rvRead.setAdapter(adapterRead);
-
-        notificationsViewModel.getUnreadList().observe(getViewLifecycleOwner(), new Observer<ArrayList<UnreadNotificationsContent>>() {
-            @Override
-            public void onChanged(ArrayList<UnreadNotificationsContent> unreadNotificationsContents) {
-                for (int i = 0; i < unreadNotificationsContents.size(); i++) {
-                    if (unreadNotificationsContents.get(i).getThisNotificationsIsRead()) {
-                        Log.e("!!!", unreadNotificationsContents.get(i).getMessage());
-                        notificationsViewModel.addNewReadNotifications(unreadNotificationsContents.get(i), i);
-                    }
-                }
-                adapterUnread.setDataList(unreadNotificationsContents);
-            }
-        });
-
-        notificationsViewModel.getReadList().observe(getViewLifecycleOwner(), new Observer<ArrayList<ReadNotificationsContent>>() {
-            @Override
-            public void onChanged(ArrayList<ReadNotificationsContent> readNotificationsContents) {
-
-                adapterRead.setDataList(readNotificationsContents);
-
-            }
-        });
-
-        ArrayList<UnreadNotificationsContent> dataListUnread = new ArrayList<UnreadNotificationsContent>();
-        ArrayList<ReadNotificationsContent> dataListRead = new ArrayList<ReadNotificationsContent>();
-        prepareListUnread(dataListUnread);
-        prepareListRead(dataListRead);
-
-
         tvUnreadCount = root.findViewById(R.id.tvUnreadCount);
         clNewNotifications = root.findViewById(R.id.clNewNotifications);
 
-//        RecyclerView rvUnread = (RecyclerView) root.findViewById(R.id.rvUnread);
-//        rvUnread.setAdapter(adapterUnread);
-        //adapterUnread.setDataList(dataListUnread);
+        toolbar = root.findViewById(R.id.toolbar);
+        toolbarTittle = toolbar.findViewById(R.id.tvToolbarTitle);
+        ivBack = toolbar.findViewById(R.id.ivArrow);
+        ivRightToolbar = toolbar.findViewById(R.id.ivRight);
 
+        ivRightToolbar.setVisibility(View.GONE);
+        toolbarTittle.setText("Повідомлення");
 
-//        RecyclerView rvRead = (RecyclerView) root.findViewById(R.id.rvRead);
-//        rvRead.setAdapter(adapterRead);
-        //adapterRead.setDataList(dataListRead);
+        RecyclerView rvUnread = (RecyclerView) root.findViewById(R.id.rvUnread);
+        RecyclerView rvRead = (RecyclerView) root.findViewById(R.id.rvRead);
 
-        if (dataListUnread.isEmpty()) {
+        ArrayList<NotificationsContent> dataListUnread = new ArrayList<>();
+        ArrayList<NotificationsContent> dataListRead = new ArrayList<>();
+        prepareListUnread(dataListUnread);
+        prepareListRead(dataListRead);
 
-        }
+        adapterUnread = new NotificationsAdapter(dataListUnread, new NotificationsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position, NotificationsContent object) {
+                dataListUnread.remove(object);
+                changeValueUnreadNotifications(dataListUnread.size());
+                dataListRead.add(0, object);
+                adapterRead.notifyDataSetChanged();
+                if(dataListUnread.isEmpty()){
+                    clNewNotifications.setVisibility(View.GONE);
+                }
+            }
+        });
 
+        adapterRead = new NotificationsAdapter(dataListRead, new NotificationsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position, NotificationsContent object) {
+                //selectedObject = object;
+            }
+        });
 
-//        rvUnread.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//             Log.e("!!!", dataListUnread.get(1).getThisNotificationsIsRead().toString());
-//                tvUnreadCount.setVisibility(View.GONE);
-//            }
-//        });
+        rvUnread.setAdapter(adapterUnread);
+        rvRead.setAdapter(adapterRead);
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
 
         changeValueUnreadNotifications(dataListUnread.size());
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 
-    private void prepareListUnread(ArrayList<UnreadNotificationsContent> dataListUnread) {
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров .  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров принимает препи на дозу 50 мг.  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров приниьте перевести на дозу 50 мг.  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров принимает препарат уже более месяца, не забудьте перевести на дозу 50 мг.  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров принимает преп перевести на дозу 50 мг.  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров принимает препар перевести на дозу 50 мг.  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров принимае, не забудьте перевести на дозу 50 мг.  ", "12:48"));
-        dataListUnread.add(new UnreadNotificationsContent("Пациент Евгений Петров принимает препе забудьте перевести на дозу 50 мг.  ", "12:48"));
+    private void prepareListUnread(ArrayList<NotificationsContent> dataList) {
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
     }
 
-    private void prepareListRead(ArrayList<ReadNotificationsContent> dataListRead) {
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров .  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров принимает препи на дозу 50 мг.  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров приниьте перевести на дозу 50 мг.  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров принимает препарат уже более месяца, не забудьте перевести на дозу 50 мг.  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров принимает преп перевести на дозу 50 мг.  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров принимает препар перевести на дозу 50 мг.  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров принимае, не забудьте перевести на дозу 50 мг.  ", "12:48"));
-        dataListRead.add(new ReadNotificationsContent("Пациент Евгений Петров принимает препе забудьте перевести на дозу 50 мг.  ", "12:48"));
+    private void prepareListRead(ArrayList<NotificationsContent> dataList) {
+        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
+        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
+
     }
 
     private void changeValueUnreadNotifications(int newValue) {

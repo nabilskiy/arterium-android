@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.ui.notifications.NotificationsFragment;
 import com.maritech.arterium.ui.notifications.NotificationsViewModel;
 
-public class UnreadNotificationsContent {
+public class NotificationsContent {
 
     String message;
     String data;
     Boolean thisNotificationsIsRead = false;
 
-    public UnreadNotificationsContent(String message, String data) {
+    public NotificationsContent(String message, String data) {
         this.message = message;
         this.data = data;
     }
