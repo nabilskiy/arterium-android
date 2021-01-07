@@ -1,38 +1,40 @@
 package com.maritech.arterium.ui.add_new_doctor;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.choose_mp.data.ChooseMpContent;
 
 public class AddNewDoctorFragment extends BaseFragment {
-
+    static final String BUNDLE_KEY = "selectedItem";
+    static final String REQUEST_KEY = "requestKey";
 
     private View viewProgressOne;
     private View viewProgressTwo;
     private TextView btnNextOne;
+    private TextView btnNextTwo;
     private Boolean isTwoStep = false;
+    private Boolean isMpSelected = false;
     private ImageView btnBack;
     private ImageView btnAuto;
+    private ImageView ivChooseMp;
 
     private TextView tvToolbarTitle;
     private TextView tvHint;
-
+    private TextView tvMp;
+    private TextView tvMpHint;
 
     private ConstraintLayout clProgressStepOne;
     private ConstraintLayout clProgressStepTwo;
@@ -57,7 +59,6 @@ public class AddNewDoctorFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewDoctorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_add_new_doctor, container, false);
 
@@ -66,6 +67,7 @@ public class AddNewDoctorFragment extends BaseFragment {
         tvToolbarTitle = root.findViewById(R.id.toolbar).findViewById(R.id.tvToolbarTitle);
         tvHint = root.findViewById(R.id.toolbar).findViewById(R.id.tvHint);
         btnNextOne = root.findViewById(R.id.btnNextOne);
+        btnNextTwo = root.findViewById(R.id.btnNextTwo);
         viewProgressOne = root.findViewById(R.id.toolbar).findViewById(R.id.viewOne);
         viewProgressOne.setActivated(true);
         viewProgressTwo = root.findViewById(R.id.toolbar).findViewById(R.id.viewTwo);
@@ -78,9 +80,29 @@ public class AddNewDoctorFragment extends BaseFragment {
         ivBtnCheckTwo = root.findViewById(R.id.ivBtnCheckTwo);
         ivBtnCheckThree = root.findViewById(R.id.ivBtnCheckThree);
         clChooseMp = root.findViewById(R.id.clChooseMp);
+        tvMp = root.findViewById(R.id.tvMp);
+        tvMpHint= root.findViewById(R.id.tvMpHint);
+        ivChooseMp= root.findViewById(R.id.ivChooseMp);
 
         tvToolbarTitle.setText("Новий доктор");
         tvHint.setText("Персональнi данi");
+
+        if(isMpSelected){
+            viewProgressTwo.setActivated(true);
+            isTwoStep = true;
+
+            clProgressStepOne.setVisibility(View.GONE);
+            clProgressStepTwo.setVisibility(View.VISIBLE);
+            tvHint.setText("Робочі дані");
+        }else {
+            isTwoStep = false;
+            viewProgressTwo.setActivated(false);
+
+            clProgressStepOne.setVisibility(View.VISIBLE);
+            clProgressStepTwo.setVisibility(View.GONE);
+            tvHint.setText("Персональнi данi");
+
+        }
 
 
         btnNextOne.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +113,11 @@ public class AddNewDoctorFragment extends BaseFragment {
 
                 clProgressStepOne.setVisibility(View.GONE);
                 clProgressStepTwo.setVisibility(View.VISIBLE);
-                tvHint.setText("Персональнi данi");
+                tvHint.setText("Робочі дані");
+
+                btnNextTwo.setAlpha(0.7f);
+                btnNextTwo.setClickable(false);
+                btnNextTwo.setEnabled(false);
             }
         });
 
@@ -104,7 +130,7 @@ public class AddNewDoctorFragment extends BaseFragment {
 
                     clProgressStepOne.setVisibility(View.VISIBLE);
                     clProgressStepTwo.setVisibility(View.GONE);
-                    tvHint.setText("Робочі дані");
+                    tvHint.setText("Персональнi данi");
 
                 } else {
                     requireActivity().onBackPressed();
@@ -134,26 +160,39 @@ public class AddNewDoctorFragment extends BaseFragment {
         clChooseMp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigator.goAddMp(navController);
+               navigator.goAddMp(navController);
             }
         });
-
-
-
-
-      //  getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
-//            @Override
-//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-//                // We use a String here, but any type that can be put in a Bundle is supported
-//                String result = bundle.getString("bundleKey");
-//                // Do something with the result
-//            }
-//        });
-
 
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getParentFragmentManager().setFragmentResultListener(REQUEST_KEY, this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                ChooseMpContent result = bundle.getParcelable(BUNDLE_KEY);
+
+                tvMp.setText(result.getName());
+                tvMpHint.setText("Медичний представник");
+                ivChooseMp.setImageResource(result.getPhoto());
+
+                isMpSelected = true;
+
+                viewProgressTwo.setActivated(true);
+                isTwoStep = true;
+
+                clProgressStepOne.setVisibility(View.GONE);
+                clProgressStepTwo.setVisibility(View.VISIBLE);
+                tvHint.setText("Робочі дані");
+            }
+        });
+    }
+
 
     private void clickOnBtnCheck(ImageView imageView){
         if (imageView.isActivated()){

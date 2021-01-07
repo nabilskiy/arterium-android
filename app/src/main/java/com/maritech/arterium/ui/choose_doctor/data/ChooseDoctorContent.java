@@ -1,11 +1,11 @@
-package com.maritech.arterium.ui.choose_mp.data;
+package com.maritech.arterium.ui.choose_doctor.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.maritech.arterium.R;
 
-public class ChooseMpContent implements Parcelable {
+public class ChooseDoctorContent implements Parcelable {
     private String name;
     private int photo;
     private String numberPhone;
@@ -13,14 +13,14 @@ public class ChooseMpContent implements Parcelable {
     private Boolean isSelected = false;
 
 
-    public ChooseMpContent(String name, int photo, String numberPhone, String city) {
+    public ChooseDoctorContent(String name, int photo, String numberPhone, String city) {
         this.name = name;
         this.photo = photo;
         this.numberPhone = numberPhone;
         this.city = city;
     }
 
-    protected ChooseMpContent(Parcel in) {
+    protected ChooseDoctorContent(Parcel in) {
         name = in.readString();
         photo = in.readInt();
         numberPhone = in.readString();
@@ -29,15 +29,15 @@ public class ChooseMpContent implements Parcelable {
         isSelected = tmpIsSelected == 0 ? null : tmpIsSelected == 1;
     }
 
-    public static final Creator<ChooseMpContent> CREATOR = new Creator<ChooseMpContent>() {
+    public static final Creator<ChooseDoctorContent> CREATOR = new Creator<ChooseDoctorContent>() {
         @Override
-        public ChooseMpContent createFromParcel(Parcel in) {
-            return new ChooseMpContent(in);
+        public ChooseDoctorContent createFromParcel(Parcel in) {
+            return new ChooseDoctorContent(in);
         }
 
         @Override
-        public ChooseMpContent[] newArray(int size) {
-            return new ChooseMpContent[size];
+        public ChooseDoctorContent[] newArray(int size) {
+            return new ChooseDoctorContent[size];
         }
     };
 

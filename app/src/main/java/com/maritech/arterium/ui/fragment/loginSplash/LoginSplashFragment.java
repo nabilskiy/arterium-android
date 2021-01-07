@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -31,7 +30,7 @@ public class LoginSplashFragment extends BaseFragment {
             }
         });
 
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
+        //requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 

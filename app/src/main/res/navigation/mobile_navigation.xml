@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/addNewDoctorFragment">
+    app:startDestination="@id/loginSplashFragment">
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -251,7 +251,11 @@
         android:id="@+id/addNewMpFragment"
         android:name="com.maritech.arterium.ui.add_new_mp.AddNewMpFragment"
         android:label="AddNewMpFragment"
-        tools:layout="@layout/fragment_add_new_mp" />
+        tools:layout="@layout/fragment_add_new_mp" >
+        <action
+            android:id="@+id/action_addNewMpFragment_to_chooseDoctorFragment"
+            app:destination="@id/chooseDoctorFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/chooseMpFragment"
@@ -262,4 +266,9 @@
             android:name="chosenMp"
             app:argType="java.lang.Class" />
     </fragment>
+    <fragment
+        android:id="@+id/chooseDoctorFragment"
+        android:name="com.maritech.arterium.ui.choose_doctor.ChooseDoctorFragment"
+        android:label="ChooseDoctorFragment"
+        tools:layout="@layout/fragment_choose_doctor"/>
 </navigation>
