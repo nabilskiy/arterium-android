@@ -23,16 +23,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.ItemDashboardBinding;
 import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
+import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
+import com.maritech.arterium.ui.dashboard.data.PatientPurchasesContent;
+import com.maritech.arterium.ui.dashboard.holder.PatientPurchasesAdapter;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpNavigator;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
 import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
+import com.maritech.arterium.ui.widgets.CustomTabComponent;
 
 import java.util.ArrayList;
 
@@ -49,6 +55,7 @@ public class DashboardFragment extends BaseFragment {
     private ConstraintLayout clInfoUser;
     private ConstraintLayout clBtnAddNewPersonal;
     private ConstraintLayout clInfoClose;
+    CustomTabComponent ccTab;
 
     View navigation_statistics;
     View achievementsFragment;
@@ -59,7 +66,7 @@ public class DashboardFragment extends BaseFragment {
 
 
 
-    private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
+    private ArrayList<PatientPurchasesContent> listPatientPurchases = new ArrayList<>();
 
     private DashboardMpViewModel dashboardViewModel;
 
@@ -71,6 +78,8 @@ public class DashboardFragment extends BaseFragment {
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
 
+        PatientPurchasesAdapter adapter;
+        RecyclerView rcv = root.findViewById(R.id.details_view).findViewById(R.id.rvPatients);
 
         final int clProgramColorGliptar = R.drawable.gradient_light_red;
         final int clProgramColorSagrada = R.drawable.gradient_light_blue;
@@ -86,6 +95,9 @@ public class DashboardFragment extends BaseFragment {
         clProgram = root.findViewById(R.id.clProgram);
         clInfoUser = root.findViewById(R.id.clInfoUser);
         clInfoClose = root.findViewById(R.id.clInfoClose);
+        //ccTab = root.findViewById(R.id.details_view).findViewById(R.id.ccTab);
+
+
 
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
@@ -148,13 +160,17 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
+       prepareList(listPatientPurchases);
 
-        BaseAdapter adapter = new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvDoctors);
+        adapter = new PatientPurchasesAdapter(listPatientPurchases, new PatientPurchasesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position, PatientPurchasesContent object) {
+
+            }
+        });
+        rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         rcv.setAdapter(adapter);
-        prepareList(listDoctors);
 
-        adapter.setDataList(listDoctors);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
 
         navigation_statistics.setVisibility(View.VISIBLE);
@@ -192,25 +208,15 @@ public class DashboardFragment extends BaseFragment {
 
 
 
-    private void prepareList(ArrayList<DoctorsContent> dataList) {
-        dataList.add(new DoctorsContent(1, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(2, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(3, "Евгений Петров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(4, "Андрей Сидоров", "40", "B", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "D", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(2, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(3, "Евгений Петров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(4, "Андрей Сидоров", "40", "B", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "D", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
+    private void prepareList(ArrayList<PatientPurchasesContent> dataList) {
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 10.08.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 10.08.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 10.08.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 11.08.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "0"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 12.08.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 12.08.20"));
+
     }
 
 //
