@@ -100,6 +100,9 @@ public class DashboardFragment extends BaseFragment {
 //            clInfoClose.setVisibility(View.GONE);
 //        }
 
+
+//        navController.getPreviousBackStackEntry();
+
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

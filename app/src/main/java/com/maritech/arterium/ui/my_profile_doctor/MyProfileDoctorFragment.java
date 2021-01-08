@@ -34,6 +34,7 @@ public class MyProfileDoctorFragment extends BaseFragment {
     View achievementsFragment;
     View myProfileFragment;
     View navigation_dashboard;
+    View myNotifications;
 
 
     @SuppressLint("ResourceAsColor")
@@ -50,6 +51,7 @@ public class MyProfileDoctorFragment extends BaseFragment {
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+        myNotifications = root.findViewById(R.id.myProfileMainContentNotifications);
 
         edit.setVisibility(View.INVISIBLE);
         toolbarTitle.setText("Профіль доктора");
@@ -74,6 +76,13 @@ public class MyProfileDoctorFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 navigator.goToMap(navController);
+            }
+        });
+
+        myNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToNotifications(navController);
             }
         });
 

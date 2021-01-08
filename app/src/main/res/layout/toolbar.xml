@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_height"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,12 +10,11 @@
         android:id="@+id/ivArrow"
         android:layout_width="@dimen/toolbar_icon_width"
         android:layout_height="@dimen/toolbar_icon_height"
-        android:background="@drawable/ic_arrow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="@dimen/default_margin_horizontal"
-        android:layout_marginBottom="@dimen/default_margin_vertical"
-        />
+        android:background="@drawable/ic_arrow"
+        android:layout_marginBottom ="@dimen/_2sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvToolbarTitle"
