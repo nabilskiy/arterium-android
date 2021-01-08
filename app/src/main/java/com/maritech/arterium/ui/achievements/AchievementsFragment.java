@@ -11,9 +11,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.maritech.arterium.MainActivity;
 import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.ItemAchievementsBinding;
 import com.maritech.arterium.ui.achievements.data.AchievementsContent;
+import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.profile.HomeViewModel;
@@ -54,6 +56,18 @@ public class AchievementsFragment extends BaseFragment {
         adapter.setDataList(dataList);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.black);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.transparent);
     }
 
     private void prepareList(ArrayList<AchievementsContent> dataList) {
