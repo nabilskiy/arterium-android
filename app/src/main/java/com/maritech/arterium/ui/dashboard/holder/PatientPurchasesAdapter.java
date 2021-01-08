@@ -64,26 +64,28 @@ public class PatientPurchasesAdapter extends RecyclerView.Adapter<PatientPurchas
     @Override
     public void onBindViewHolder(PatientPurchasesAdapter.ViewHolder viewHolder, final int position) {
 
-        if (position < 1) {
-            viewHolder.tvHeader.setText("10 ЛЮТОГО 2020");
+        if (position == 0 ) {
+            viewHolder.tvHeader.setText(localDataSet.get(position).getData());
             viewHolder.tvHeader.setVisibility(View.VISIBLE);
         }
 
         if (position >= 1 && localDataSet.get(position).getData().equals(localDataSet.get(position - 1).getData())) {
             viewHolder.tvHeader.setVisibility(View.GONE);
         } else {
-            viewHolder.tvHeader.setText("10 ЛЮТОГО 2020");
+            viewHolder.tvHeader.setText(localDataSet.get(position).getData());
             viewHolder.tvHeader.setVisibility(View.VISIBLE);
             if ((localDataSet.size() - 1) == position) {
                 viewHolder.tvHeader.setVisibility(View.GONE);
             }
         }
+
         viewHolder.tvName.setText(localDataSet.get(position).getName());
-        if (localDataSet.get(position).getData().equals("0")) {
+
+        if (localDataSet.get(position).getMessage().equals("0")) {
             viewHolder.tvLastBuy.setText("Нет покупок");
             viewHolder.tvLastBuy.setTextColor(Color.parseColor("#FF3347"));
         } else {
-            viewHolder.tvLastBuy.setText(localDataSet.get(position).getData());
+            viewHolder.tvLastBuy.setText(localDataSet.get(position).getMessage());
         }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

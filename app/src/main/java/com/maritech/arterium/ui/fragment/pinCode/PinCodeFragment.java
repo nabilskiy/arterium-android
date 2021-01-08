@@ -32,10 +32,10 @@ public class PinCodeFragment extends BaseFragment {
                 public void onPinEntered(CharSequence str) {
                     if (str.toString().equals("1111")) {
                         hideKeyboard(getActivity());
-//                        navigator.goToDashboardDoctorAfterEnterPin(navController);
+                        navigator.goToDashboardDoctorAfterEnterPin(navController);
 //                        navigator.goToDashboardMpAfterEnterPin(navController);
 
-                        navigator.goToDashboardRmAfterEnterPin(navController);
+//                        navigator.goToDashboardRmAfterEnterPin(navController);
                     } else {
                         pinEntry.setText(null);
                     }

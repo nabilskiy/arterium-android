@@ -7,13 +7,14 @@ public class PatientPurchasesContent {
 
     String name;
     String data;
+    String message;
     //Data data;
     //DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.ENGLISH);
 
-
-    public PatientPurchasesContent(String name, String data) {
+    public PatientPurchasesContent(String name, String data, String message) {
         this.name = name;
         this.data = data;
+        this.message = message;
     }
 
     public String getName() {
@@ -30,5 +31,13 @@ public class PatientPurchasesContent {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

@@ -209,13 +209,14 @@ public class DashboardFragment extends BaseFragment {
 
 
     private void prepareList(ArrayList<PatientPurchasesContent> dataList) {
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 10.08.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 10.08.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 10.08.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 11.08.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "0"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 12.08.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "Остання покупка в середу 12.08.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в середу 10.02.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в понеділок 10.02.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "0"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "Остання покупка в середу 16.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "18 ЛЮТОГО 2020", "Остання покупка в середу 18.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "18 ЛЮТОГО 2020", "Остання покупка в середу 18.01.20"));
 
     }
 
