@@ -13,15 +13,23 @@ import com.maritech.arterium.R;
 
 public class PatientCardFragment extends Fragment {
     TextView toolbarTitle;
-
+    ImageView ivArrow;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_patient_card, container, false);
 
         toolbarTitle = root.findViewById(R.id.patientCardToolbar).findViewById(R.id.tvToolbarTitle);
         toolbarTitle.setText(R.string.patient_card);
+        ivArrow = root.findViewById(R.id.patientCardToolbar).findViewById(R.id.ivArrow);
+        ivArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
 
         setPersonalCardData(root);
         setMedicalCardData(root);
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 

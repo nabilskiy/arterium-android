@@ -29,4 +29,9 @@ public class DashboardNavigator extends BaseNavigator {
         navController.navigate(R.id.action_dashboardFragment_to_navigation_dashboard);
     }
 
+    void goToPatientCard(NavController navController) {
+        navController.navigate(R.id.action_dashboardFragment_to_patientCardFragment);
+    }
+
+
 }

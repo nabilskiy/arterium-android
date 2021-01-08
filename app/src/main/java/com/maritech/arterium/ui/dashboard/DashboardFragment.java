@@ -165,7 +165,7 @@ public class DashboardFragment extends BaseFragment {
         adapter = new PatientPurchasesAdapter(listPatientPurchases, new PatientPurchasesAdapter.OnItemClickListener() {
             @Override
             public void onItemClicked(int position, PatientPurchasesContent object) {
-
+                navigator.goToPatientCard(navController);
             }
         });
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));

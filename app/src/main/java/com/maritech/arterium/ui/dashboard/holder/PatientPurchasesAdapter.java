@@ -88,10 +88,10 @@ public class PatientPurchasesAdapter extends RecyclerView.Adapter<PatientPurchas
             viewHolder.tvLastBuy.setText(localDataSet.get(position).getMessage());
         }
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.clItemNotifications.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                notifyDataSetChanged();
+                //notifyDataSetChanged();
                 onItemClickListener.onItemClicked(position, localDataSet.get(position));
             }
         });
