@@ -21,6 +21,7 @@ public class PharmacyFragment  extends BaseFragment {
     PharmacyNavigator navigator = new PharmacyNavigator();
     ImageView goToMap;
     ImageView goToList;
+    ImageView ivBack;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pharmacy, container, false);
@@ -28,6 +29,7 @@ public class PharmacyFragment  extends BaseFragment {
 
         goToMap = root.findViewById(R.id.ivPharmacyMap);
         goToList = root.findViewById(R.id.ivPharmacyList);
+        ivBack = root.findViewById(R.id.pharmacyListToolbar).findViewById(R.id.ivRight);
 
         goToMap.setOnClickListener(view -> {
             requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
@@ -38,7 +40,15 @@ public class PharmacyFragment  extends BaseFragment {
             requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
             navigator.goToPharmacyList(navcontroller);
         });
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
+
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 }

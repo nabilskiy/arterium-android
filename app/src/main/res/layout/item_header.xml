@@ -3,29 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/gradient_purple">
+    android:layout_height="?attr/actionBarSize"
+    android:background="@drawable/bg_toolbar">
 
 
     <ImageView
         android:id="@+id/ivBack"
-        android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginBottom="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTittle"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTittle"
         app:srcCompat="@drawable/ic_chevron_left" />
 
     <TextView
         android:id="@+id/tvTittle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_14sdp"
         android:text="Налаштування"
+        android:textAppearance="@style/H2"
         android:textColor="@color/white"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,11 +34,11 @@
         android:layout_width="@dimen/_18sdp"
         android:layout_height="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginBottom="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTittle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_edit_pen"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/tvTittle"
+        app:srcCompat="@drawable/ic_edit_pen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

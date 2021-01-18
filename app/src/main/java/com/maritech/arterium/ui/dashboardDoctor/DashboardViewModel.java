@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.dashboard;
+package com.maritech.arterium.ui.dashboardDoctor;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -7,33 +7,32 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.maritech.arterium.MainActivity;
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.ItemAchievementsBinding;
 import com.maritech.arterium.ui.achievements.data.AchievementsContent;
+import com.maritech.arterium.ui.achievements.holder.AchievementsAdapter;
 import com.maritech.arterium.ui.base.BaseActivity;
-import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.profile.HomeViewModel;
 
 import java.util.ArrayList;
 
 public class AchievementsFragment extends BaseFragment {
+    static final String BUNDLE_KEY_ACHIEVEMENTS_NAME = "achievements_name";
+    static final String BUNDLE_KEY_ACHIEVEMENTS_IMAGE = "achievements_image";
+    static final String BUNDLE_KEY_ACHIEVEMENTS_DESCRIPTIONS = "achievements_descriptions";
+    static final String REQUEST_KEY = "achievementsDetails";
 
-    private HomeViewModel homeViewModel;
     private GridLayoutManager layoutManager;
-    ImageView btnClose;
+    private ImageView btnClose;
 
-    AchievementsNavigator navigator = new AchievementsNavigator();
+    private Bundle result = new Bundle();
+    private AchievementsNavigator navigator = new AchievementsNavigator();
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievement, container, false);
 
         btnClose = root.findViewById(R.id.ivClose);
@@ -41,32 +40,37 @@ public class AchievementsFragment extends BaseFragment {
         ArrayList<AchievementsContent> dataList = new ArrayList<AchievementsContent>();
         prepareList(dataList);
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
+        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.rvAchievement);
+        AchievementsAdapter mAdapter = new AchievementsAdapter(dataList, new AchievementsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position, AchievementsContent object) {
+                result.putInt(BUNDLE_KEY_ACHIEVEMENTS_IMAGE, object.getIdImage());
+                result.putInt(BUNDLE_KEY_ACHIEVEMENTS_NAME, object.getIdName());
+                result.putInt(BUNDLE_KEY_ACHIEVEMENTS_DESCRIPTIONS, object.getIdDescription());
+
+                getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+                navigator.goToAchievementDetails(navController);
+            }
+        });
+        layoutManager = new GridLayoutManager(getContext(), 3);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+          btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity().onBackPressed();
             }
         });
-        layoutManager = new GridLayoutManager(getContext(), 3);
-        BaseAdapter adapter = new BaseAdapter(ItemAchievementsBinding.class, AchievementsContent.class);
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvAchievement);
-        rcv.setLayoutManager(layoutManager);
-        rcv.setAdapter(adapter);
 
-        adapter.setDataList(dataList);
+        BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.black);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.black);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onDetach() {
+        super.onDetach();
         BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.transparent);
     }
 

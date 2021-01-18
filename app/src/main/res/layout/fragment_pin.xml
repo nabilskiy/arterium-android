@@ -37,9 +37,9 @@
         android:layout_marginStart="@dimen/_24sdp"
         android:layout_marginTop="@dimen/_60sdp"
         android:text="Введіть Ваш пін-код."
+        android:textAppearance="@style/H1"
         android:textColor="@color/black"
-        android:textSize="@dimen/_36sdp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:maxEms="8"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

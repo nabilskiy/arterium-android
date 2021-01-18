@@ -1,6 +1,5 @@
-package com.maritech.arterium.ui.dashboard.holder;
+package com.maritech.arterium.ui.dashboardDoctor.holder;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.ui.dashboard.data.PatientPurchasesContent;
-import com.maritech.arterium.ui.notifications.data.NotificationsContent;
+import com.maritech.arterium.ui.dashboardDoctor.data.PatientPurchasesContent;
 
 import java.util.ArrayList;
 

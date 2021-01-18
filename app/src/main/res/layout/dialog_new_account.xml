@@ -12,7 +12,7 @@
         android:layout_height="124dp"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:background="@drawable/bg_btn_white"
+        android:background="@drawable/bg_white_radius_twelve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,6 +33,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:text="Новий доктор"
                 android:textColor="@color/purple"
+                android:textAppearance="@style/sf_pro_text_16"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,6 +45,7 @@
                 android:layout_marginTop="@dimen/_2sdp"
                 android:text="Додати новий аккаунт для доктора."
                 android:textColor="@color/black_gray"
+                android:textAppearance="@style/sf_pro_text_12"
                 android:textSize="9sp"
                 app:layout_constraintStart_toStartOf="@+id/tvNameOne"
                 app:layout_constraintTop_toBottomOf="@+id/tvNameOne" />
@@ -87,6 +89,7 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="12dp"
                 android:text="Новий мед. представник"
+                android:textAppearance="@style/sf_pro_text_16"
                 android:textColor="@color/purple"
                 android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,11 +103,12 @@
                 android:text="Додати новий аккаунт для медичного представника."
                 android:textColor="@color/black_gray"
                 android:textSize="9sp"
+                android:textAppearance="@style/sf_pro_text_12"
                 app:layout_constraintStart_toStartOf="@+id/tvNameThree"
                 app:layout_constraintTop_toBottomOf="@+id/tvNameThree" />
 
             <ImageView
-                android:id="@+id/ivGoOne"
+                android:id="@+id/ivGoTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_20sdp"
@@ -126,10 +130,11 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginEnd="@dimen/_8sdp"
-        android:background="@drawable/bg_btn_white"
+        android:background="@drawable/bg_white_radius_twelve"
         android:gravity="center"
         android:text="Скасувати"
         android:textColor="@color/navy_blue"
+        android:textAppearance="@style/sf_pro_semibold_16"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

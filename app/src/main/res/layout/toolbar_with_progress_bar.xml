@@ -14,7 +14,7 @@
         android:layout_marginTop="@dimen/_24sdp"
         android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textAppearance="@style/H2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_marginTop="@dimen/_2sdp"
         android:text="TextView"
         android:textColor="@color/white"
-        android:textSize="13sp"
+        android:textAppearance="@style/sf_pro_semibold_13"
         app:layout_constraintEnd_toEndOf="@+id/tvToolbarTitle"
         app:layout_constraintStart_toStartOf="@+id/tvToolbarTitle"
         app:layout_constraintTop_toBottomOf="@+id/tvToolbarTitle" />
@@ -52,23 +52,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_lightning" />
 
-    <View
-        android:id="@+id/viewOne"
-        android:layout_width="@dimen/_142sdp"
-        android:layout_height="@dimen/_3sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_72sdp"
-        android:background="@drawable/selector_bg_progress_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/viewTwo"
-        android:layout_width="@dimen/_142sdp"
-        android:layout_height="@dimen/_3sdp"
-        android:layout_marginTop="@dimen/_72sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        android:background="@drawable/selector_bg_progress_toolbar"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:id="@+id/viewOne"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_3sdp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_3sdp"
+            android:background="@drawable/selector_bg_progress_toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/viewTwo"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_3sdp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:background="@drawable/selector_bg_progress_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,15 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboard.DashboardNavigator;
-import com.maritech.arterium.ui.profile.HomeViewModel;
 import com.maritech.arterium.ui.widgets.CustomTabComponent;
 
 public class StatFragment extends BaseFragment {
@@ -34,6 +29,14 @@ public class StatFragment extends BaseFragment {
     View myProfileFragment;
     View navigation_dashboard;
 
+    View stat_details;
+
+    ImageView ivStatDetailSearch;
+    TextView tvPurchasesForCurrentMonth;
+    ImageView ivStatDetailFilter;
+    ImageView ivClose;
+    ConstraintLayout clSearch;
+
     StatNavigator navigator = new StatNavigator();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +50,13 @@ public class StatFragment extends BaseFragment {
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+
+        stat_details = root.findViewById(R.id.stat_details);
+        clSearch = stat_details.findViewById(R.id.clSearch);
+        ivClose = stat_details.findViewById(R.id.ivClose);
+        tvPurchasesForCurrentMonth = stat_details.findViewById(R.id.tvPurchasesForCurrentMonth);
+        ivStatDetailSearch = stat_details.findViewById(R.id.ivStatDetailSearch);
+        ivStatDetailFilter = stat_details.findViewById(R.id.ivStatDetailFilter);
 
         title = toolbar.findViewById(R.id.tvToolbarTitle);
         title.setText(R.string.statistic);
@@ -89,29 +99,51 @@ public class StatFragment extends BaseFragment {
             }
         });
 
+        ivStatDetailSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivStatDetailSearch.setVisibility(View.GONE);
+                tvPurchasesForCurrentMonth.setVisibility(View.GONE);
+                ivStatDetailFilter.setVisibility(View.GONE);
+                ivClose.setVisibility(View.VISIBLE);
+                clSearch.setVisibility(View.VISIBLE);
+            }
+        });
+
+        ivClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ivStatDetailSearch.setVisibility(View.VISIBLE);
+                tvPurchasesForCurrentMonth.setVisibility(View.VISIBLE);
+                ivStatDetailFilter.setVisibility(View.VISIBLE);
+                ivClose.setVisibility(View.GONE);
+                clSearch.setVisibility(View.GONE);
+            }
+        });
+
         changeMonth(root);
         return root;
     }
 
-    private void changeMonth(View root){
+    private void changeMonth(View root) {
         moveLeft = root.findViewById(R.id.ivPreviousMonth);
         moveRight = root.findViewById(R.id.ivNextMonth);
 
         moveLeft.setOnClickListener(view -> {
             count--;
-            if (count<0) count = 11;
+            if (count < 0) count = 11;
             newMonth();
         });
         moveRight.setOnClickListener(view -> {
             count++;
-            if (count>11) count = 0;
+            if (count > 11) count = 0;
             newMonth();
         });
     }
 
 
-    private void newMonth(){
-        switch (count){
+    private void newMonth() {
+        switch (count) {
             case 0:
                 month.setText(R.string.january);
                 break;

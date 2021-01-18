@@ -26,7 +26,7 @@
         android:maxEms="18"
         android:text="Хантер"
         android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textAppearance="@style/H2"
         app:layout_constraintEnd_toEndOf="@+id/ivAchievement"
         app:layout_constraintStart_toStartOf="@+id/ivAchievement"
         app:layout_constraintTop_toBottomOf="@+id/ivAchievement" />
@@ -40,7 +40,7 @@
         android:maxEms="18"
         android:text="Додайте 5 нових пацієнтів і куруйте їх протягом 6 місяців."
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textAppearance="@style/sf_pro_text_16"
         app:layout_constraintEnd_toEndOf="@+id/tvNameAchievement"
         app:layout_constraintStart_toStartOf="@+id/tvNameAchievement"
         app:layout_constraintTop_toBottomOf="@+id/tvNameAchievement" />
@@ -76,6 +76,7 @@
             android:text="Повернутися до нагород"
             android:textColor="@color/purple"
             android:textSize="16sp"
+            android:textAppearance="@style/sf_pro_semibold_16"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivArrow"

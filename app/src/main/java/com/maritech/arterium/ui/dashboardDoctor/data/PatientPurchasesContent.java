@@ -1,7 +1,4 @@
-package com.maritech.arterium.ui.dashboard.data;
-
-import java.text.DateFormat;
-import java.util.Locale;
+package com.maritech.arterium.ui.dashboardDoctor.data;
 
 public class PatientPurchasesContent {
 

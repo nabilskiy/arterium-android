@@ -146,6 +146,9 @@
         <action
             android:id="@+id/action_achievementsFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_achievementsFragment_to_achievementsDetailsFragment"
+            app:destination="@id/achievementsDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardRmFragment"
@@ -170,7 +173,7 @@
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.maritech.arterium.ui.dashboard.DashboardFragment"
+        android:name="com.maritech.arterium.ui.dashboardDoctor.DashboardFragment"
         android:label="DashboardFragment"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -280,4 +283,9 @@
         android:name="com.maritech.arterium.ui.choose_doctor.ChooseDoctorFragment"
         android:label="ChooseDoctorFragment"
         tools:layout="@layout/fragment_choose_doctor"/>
+    <fragment
+        android:id="@+id/achievementsDetailsFragment"
+        android:name="com.maritech.arterium.ui.achievements_details.AchievementsDetailsFragment"
+        android:label="AchievementsDetailsFragment"
+        tools:layout="@layout/fragment_achievements_details"/>
 </navigation>

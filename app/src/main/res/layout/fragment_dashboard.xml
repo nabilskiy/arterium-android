@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_switcher_bg">
@@ -17,7 +18,7 @@
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_purple"
+            android:background="@drawable/ic_renial"
             android:fitsSystemWindows="true"
             app:expandedTitleMarginEnd="48dp"
             app:expandedTitleMarginStart="48dp"
@@ -35,9 +36,9 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clInfoClose"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_44sdp"
+                    android:layout_height="@dimen/_38sdp"
                     android:background="@color/purple"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -46,11 +47,11 @@
                         android:id="@+id/tvItDoctorPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_26sdp"
-                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:text="Ви на сторінці доктора, натисніть щоб повернутися"
+                        android:textAppearance="@style/sf_pro_semibold_13"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,13 +60,23 @@
                         android:id="@+id/ivBack"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_18sdp"
                         android:layout_marginEnd="@dimen/_20sdp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvItDoctorPage"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvItDoctorPage"
                         app:srcCompat="@drawable/ic_close_white" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                <ImageView
+                    android:id="@+id/progressBarUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/imUserPhoto"
+                    app:layout_constraintEnd_toEndOf="@+id/imUserPhoto"
+                    app:layout_constraintStart_toStartOf="@+id/imUserPhoto"
+                    app:layout_constraintTop_toTopOf="@+id/imUserPhoto"
+                    app:srcCompat="@drawable/progress_bar_user_photo" />
 
                 <ImageView
                     android:id="@+id/imUserPhoto"
@@ -84,7 +95,7 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:text="Юрiй Березняков"
                     android:textColor="@color/white"
-                    android:textSize="20sp"
+                    android:textAppearance="@style/H2"
                     app:layout_constraintStart_toEndOf="@+id/imUserPhoto"
                     app:layout_constraintTop_toTopOf="@+id/imUserPhoto" />
 
@@ -92,10 +103,9 @@
                     android:id="@+id/tvPost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
                     android:text="Кардіолог"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
+                    android:textAppearance="@style/sf_pro_text_16"
                     app:layout_constraintStart_toStartOf="@+id/tvUserName"
                     app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
@@ -103,10 +113,9 @@
                     android:id="@+id/tvAllBuy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_4sdp"
                     android:text="Всього 8 покупок"
                     android:textColor="@color/white_low_opacity"
-                    android:textSize="16sp"
+                    android:textAppearance="@style/sf_pro_text_16"
                     app:layout_constraintStart_toStartOf="@+id/tvUserName"
                     app:layout_constraintTop_toBottomOf="@+id/tvPost" />
 
@@ -114,6 +123,7 @@
                     android:id="@+id/tvLvl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="@dimen/_26sdp"
                     android:text="Рiвень С"
                     android:textColor="@color/white_low_opacity"
@@ -160,7 +170,7 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:text="Додати нового пацієнта"
                         android:textColor="@color/purple"
-                        android:textSize="16sp"
+                        android:textAppearance="@style/sf_pro_semibold_16"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ivPlus"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -172,6 +182,7 @@
                     android:layout_height="@dimen/_68sdp"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:background="@drawable/ic_switcher_bg"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/clBtnAddNewPersonal">
@@ -183,8 +194,8 @@
                         android:layout_marginStart="@dimen/_16sdp"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:text="Рениаль – «Ключ до життя»"
+                        android:textAppearance="@style/sf_pro_semibold_16"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -193,7 +204,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxEms="15"
-                        android:text="Потрібно ще 2 покупки для переходу на наступний рівень."
+                        android:text="Потрібно ще 2 покупки для переходу на наступний рівень."
+                        android:textAppearance="@style/sf_pro_semibold_13"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
@@ -219,16 +231,21 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/details_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:visibility="visible"
+        android:background="@color/transparent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/dashboard_universal_details" />
+
+        <include
+            android:id="@+id/details"
+            layout="@layout/dashboard_universal_details" />
+
     </androidx.core.widget.NestedScrollView>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

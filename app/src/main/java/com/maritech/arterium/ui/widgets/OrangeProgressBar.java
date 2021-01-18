@@ -52,7 +52,7 @@ public class OrangeProgressBar extends LinearLayout {
         screenWidth = (int) (screenWidth - 0.14 * screenWidth);
         int insideBgColor = (int) (screenWidth * value / maxVal);
 
-        layout.setLayoutParams(new LayoutParams(screenWidth, 250 ));
+        layout.setLayoutParams(new LayoutParams(screenWidth, 180 ));
         view.setLayoutParams(new ConstraintLayout.LayoutParams(insideBgColor, ConstraintLayout.LayoutParams.MATCH_PARENT));
     }
 }

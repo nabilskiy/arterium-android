@@ -10,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Номер телефону"
+        android:textColor="@color/gray_text"
+        android:textAppearance="@style/sf_pro_text_14"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
@@ -21,15 +23,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/login_input_bg"
-        android:layout_marginTop="@dimen/_8sdp">
+        android:layout_marginTop="@dimen/_4sdp">
 
         <EditText
             android:id="@+id/etCustomInput"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:background="@null"
             android:hint="Введіть номер"
-            android:padding="@dimen/_10sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:textAppearance="@style/sf_pro_text_16"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/gray"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />
