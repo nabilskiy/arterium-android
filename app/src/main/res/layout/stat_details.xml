@@ -50,12 +50,14 @@
         android:id="@+id/ctcStatDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin_vertical"
+        android:layout_marginTop="@dimen/_48sdp"
         app:csc_count="3"
         app:csc_text_one="@string/all"
         app:csc_text_three="@string/without_purchases"
         app:csc_text_two="@string/with_purchases"
-        app:layout_constraintTop_toBottomOf="@id/tvPurchasesForCurrentMonth" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLine" />
 
     <TextView
         android:id="@+id/tvStatDetailsData"
