@@ -10,10 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.achievements.data.AchievementsContent;
+import com.maritech.arterium.ui.add_new_mp.holder.SelectedDoctorAdapter;
+import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
 
 import java.util.ArrayList;
 
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.ViewHolder> {
+
+    private AchievementsAdapter.OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClicked(int position, AchievementsContent object);
+    }
 
     ArrayList<AchievementsContent> localDataSet;
 
@@ -29,8 +37,9 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
         }
     }
 
-    public AchievementsAdapter(ArrayList<AchievementsContent> dataSet) {
+    public AchievementsAdapter(ArrayList<AchievementsContent> dataSet, AchievementsAdapter.OnItemClickListener onItemClickListener) {
         localDataSet = dataSet;
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
@@ -45,6 +54,13 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.ivFoto.setImageResource(localDataSet.get(position).getIdImage());
         viewHolder.tvName.setText(localDataSet.get(position).getIdName());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClicked(position, localDataSet.get(position));
+            }
+        });
+
     }
 
     @Override

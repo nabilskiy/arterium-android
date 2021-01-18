@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivPatientDataIcon"
         android:text="@string/personal_data"
-        android:textSize="@dimen/default_text_size"
+        android:textAppearance="@style/sf_pro_semibold_16"
         android:textColor="@color/purple_700"
         android:layout_marginStart="@dimen/_10sdp"
         android:letterSpacing="0.032"
@@ -46,7 +46,6 @@
         android:textColor="@color/gray"
         android:layout_marginEnd="@dimen/_5sdp"
         app:layout_constraintTop_toTopOf="parent"
-        android:letterSpacing="0.078"
-        android:textSize="11sp"
+        android:textAppearance="@style/sf_pro_text_12"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

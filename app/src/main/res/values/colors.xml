@@ -28,4 +28,5 @@
     <color name="orange_light">#F4B244</color>
     <color name="orange_medium">#D98700</color>
     <color name="blue">#6495C8</color>
+    <color name="gray_text">#6D7885</color>
 </resources>

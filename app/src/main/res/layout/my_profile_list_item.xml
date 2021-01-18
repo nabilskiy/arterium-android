@@ -22,8 +22,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivMyProfileListIcon"
         android:text="@string/pharmacy_list"
-        android:textSize="@dimen/my_profile_small_text_size"
+        android:textAppearance="@style/sf_pro_text_16"
         android:textColor="@color/black"
+        android:textSize="17sp"
         android:layout_marginStart="@dimen/my_profile_list_item_margin_start"
         />
 

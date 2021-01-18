@@ -1,37 +1,26 @@
-package com.maritech.arterium.ui.dashboard;
+package com.maritech.arterium.ui.dashboardDoctor;
 
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.ItemDashboardBinding;
-import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboardMp.DashboardMpNavigator;
+import com.maritech.arterium.ui.dashboardDoctor.DashboardNavigator;
+import com.maritech.arterium.ui.dashboardDoctor.data.PatientPurchasesContent;
+import com.maritech.arterium.ui.dashboardDoctor.holder.PatientPurchasesAdapter;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
-import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 
 import java.util.ArrayList;
@@ -50,16 +39,24 @@ public class DashboardFragment extends BaseFragment {
     private ConstraintLayout clBtnAddNewPersonal;
     private ConstraintLayout clInfoClose;
 
+
+    private TextView tvTabOne;
+    private TextView tvTabTwo;
+    private TextView tvTabThree;
+
+    private View details;
+
     View navigation_statistics;
     View achievementsFragment;
     View myProfileFragment;
     View navigation_dashboard;
+    NestedScrollView details_view;
 
     DashboardNavigator navigator = new DashboardNavigator();
 
 
 
-    private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
+    private ArrayList<PatientPurchasesContent> listPatientPurchases = new ArrayList<>();
 
     private DashboardMpViewModel dashboardViewModel;
 
@@ -70,6 +67,7 @@ public class DashboardFragment extends BaseFragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
+
 
 
         final int clProgramColorGliptar = R.drawable.gradient_light_red;
@@ -86,6 +84,62 @@ public class DashboardFragment extends BaseFragment {
         clProgram = root.findViewById(R.id.clProgram);
         clInfoUser = root.findViewById(R.id.clInfoUser);
         clInfoClose = root.findViewById(R.id.clInfoClose);
+        details = root.findViewById(R.id.details);
+        tvTabOne = details.findViewById(R.id.tvOne);
+        tvTabTwo = details.findViewById(R.id.tvTwo);
+        tvTabThree = details.findViewById(R.id.tvThree);
+        details_view = (NestedScrollView) root.findViewById(R.id.details_view);
+
+        PatientPurchasesAdapter adapter;
+        RecyclerView rcv = details_view.findViewById(R.id.rvPatients);
+
+        details_view.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.e("gggggggggggg","ggggggg");
+
+//                if (scrollY > 100) {
+//                    ivSearch.setVisibility(View.VISIBLE);
+//                    tvDoctors.setVisibility(View.VISIBLE);
+//                    ivFilter.setVisibility(View.VISIBLE);
+//                    ivClose.setVisibility(View.GONE);
+//                    clSearch.setVisibility(View.GONE);
+//                }
+//                if (scrollY < 100) {
+//                    ivSearch.setVisibility(View.GONE);
+//                    tvDoctors.setVisibility(View.GONE);
+//                    ivFilter.setVisibility(View.GONE);
+//                    ivClose.setVisibility(View.VISIBLE);
+//                    clSearch.setVisibility(View.VISIBLE);
+//                }
+//                if (scrollY > oldScrollY) {
+//                    Log.i(TAG, "Scroll DOWN");
+//                }
+//                if (scrollY < oldScrollY) {
+//                    Log.i(TAG, "Scroll UP");
+//                }
+//
+//                if (scrollY == 0) {
+//                    Log.i(TAG, "TOP SCROLL");
+//                }
+//
+//                if (scrollY == (v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight())) {
+//                    Log.i(TAG, "BOTTOM SCROLL");
+//
+//                }
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                                        ivSearch.setVisibility(View.VISIBLE);
+                    tvDoctors.setVisibility(View.VISIBLE);
+                    ivFilter.setVisibility(View.VISIBLE);
+                    ivClose.setVisibility(View.GONE);
+                    clSearch.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        tvTabOne.setActivated(true);
 
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
@@ -148,13 +202,17 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
+       prepareList(listPatientPurchases);
 
-        BaseAdapter adapter = new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvDoctors);
+        adapter = new PatientPurchasesAdapter(listPatientPurchases, new PatientPurchasesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position, PatientPurchasesContent object) {
+                navigator.goToPatientCard(navController);
+            }
+        });
+        rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         rcv.setAdapter(adapter);
-        prepareList(listDoctors);
 
-        adapter.setDataList(listDoctors);
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
 
         navigation_statistics.setVisibility(View.VISIBLE);
@@ -192,25 +250,16 @@ public class DashboardFragment extends BaseFragment {
 
 
 
-    private void prepareList(ArrayList<DoctorsContent> dataList) {
-        dataList.add(new DoctorsContent(1, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(2, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(3, "Евгений Петров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(4, "Андрей Сидоров", "40", "B", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "D", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(2, "Евгений Петров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(3, "Евгений Петров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(4, "Андрей Сидоров", "40", "B", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "D", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "C", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
-        dataList.add(new DoctorsContent(1, "Андрей Сидоров", "40", "A", "vas"));
+    private void prepareList(ArrayList<PatientPurchasesContent> dataList) {
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в середу 10.02.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в понеділок 10.02.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "0"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "Остання покупка в середу 16.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "18 ЛЮТОГО 2020", "Остання покупка в середу 18.01.20"));
+        dataList.add(new PatientPurchasesContent("Евгений Петров", "18 ЛЮТОГО 2020", "Остання покупка в середу 18.01.20"));
+
     }
 
 //

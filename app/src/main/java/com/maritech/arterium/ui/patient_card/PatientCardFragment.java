@@ -1,5 +1,6 @@
 package com.maritech.arterium.ui.patient_card;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,17 +12,31 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.maritech.arterium.R;
 
-public class PatientCardFragment extends Fragment {
-    TextView toolbarTitle;
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 
+public class PatientCardFragment extends Fragment {
+    private static final int SCAN_REQUEST_CODE = 660;
+
+    TextView patientCardNumberValue;
+    TextView toolbarTitle;
+    ImageView ivArrow;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_patient_card, container, false);
 
         toolbarTitle = root.findViewById(R.id.patientCardToolbar).findViewById(R.id.tvToolbarTitle);
         toolbarTitle.setText(R.string.patient_card);
+        ivArrow = root.findViewById(R.id.patientCardToolbar).findViewById(R.id.ivArrow);
+        ivArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().onBackPressed();
+            }
+        });
 
         setPersonalCardData(root);
         setMedicalCardData(root);
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
     }
 
@@ -86,12 +101,30 @@ public class PatientCardFragment extends Fragment {
         TextView growthValue;
         TextView dose;
         TextView doseValue;
+        TextView patientCardNumber;
+        ImageView ivPatientDataCardIcon;
 
         //sex
         sex = root.findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListTitle);
         sex.setText(R.string.sex);
         sexValue = root.findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListValue);
         sexValue.setText(R.string.men);
+
+        patientCardNumber = root.findViewById(R.id.patientCardNumber).findViewById(R.id.tvPatientDataCardTitle);
+        patientCardNumber.setText("Номер картки");
+        patientCardNumberValue = root.findViewById(R.id.patientCardNumber).findViewById(R.id.tvPatientDataCardValue);
+        patientCardNumberValue.setText("444 444 4444 4444");
+        ivPatientDataCardIcon = root.findViewById(R.id.patientCardNumber).findViewById(R.id.ivPatientDataCardIcon);
+
+        ivPatientDataCardIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onScanPress(v);
+
+            }
+        });
+
+
 
         //weight
         weight = root.findViewById(R.id.patientWeight).findViewById(R.id.tvPatientDataListTitle);
@@ -111,5 +144,29 @@ public class PatientCardFragment extends Fragment {
         doseValue = root.findViewById(R.id.patientDrugsDose).findViewById(R.id.tvPatientDataListValue);
         doseValue.setText(R.string.dose_value);
         root.findViewById(R.id.patientDrugsDose).findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
+    }
+
+    public void onScanPress(View v) {
+        Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
+
+        // customize these values to suit your needs.
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true); // default: false
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
+
+        // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+        startActivityForResult(scanIntent, SCAN_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SCAN_REQUEST_CODE) {
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                patientCardNumberValue.setText(scanResult.cardNumber);
+            }
+        }
+
     }
 }

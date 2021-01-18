@@ -18,7 +18,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_height="@dimen/_180sdp"
             android:fitsSystemWindows="true"
             android:visibility="visible">
 
@@ -69,7 +69,7 @@
                             android:layout_marginStart="@dimen/_8sdp"
                             android:text="Додати новий аккаунт"
                             android:textColor="@color/purple"
-                            android:textSize="16sp"
+                            android:textAppearance="@style/sf_pro_semibold_16"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ivPlus"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -92,7 +92,7 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:text="Алексей Аверин"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textAppearance="@style/H2"
                         app:layout_constraintStart_toEndOf="@+id/imUserPhoto"
                         app:layout_constraintTop_toTopOf="@+id/imUserPhoto" />
 
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:text="Регіональний менеджер"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="@style/sf_pro_text_16"
                         app:layout_constraintStart_toStartOf="@+id/tvUserName"
                         app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 

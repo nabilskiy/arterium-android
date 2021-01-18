@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:gravity="start"
-        android:maxEms="18"
+        android:maxEms="16"
+        android:textAppearance="@style/sf_pro_text_16"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
+        android:textAppearance="@style/sf_pro_text_12"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="@+id/tvMessage"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -29,7 +31,7 @@
     <View
         android:id="@+id/viewLine"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/gray_view_line"
         app:layout_constraintBottom_toBottomOf="parent"

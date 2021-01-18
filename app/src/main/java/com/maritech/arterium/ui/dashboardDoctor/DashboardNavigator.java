@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.dashboard;
+package com.maritech.arterium.ui.dashboardDoctor;
 
 import androidx.navigation.NavController;
 
@@ -28,5 +28,10 @@ public class DashboardNavigator extends BaseNavigator {
     void goToDashboardMP(NavController navController) {
         navController.navigate(R.id.action_dashboardFragment_to_navigation_dashboard);
     }
+
+    void goToPatientCard(NavController navController) {
+        navController.navigate(R.id.action_dashboardFragment_to_patientCardFragment);
+    }
+
 
 }

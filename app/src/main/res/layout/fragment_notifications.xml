@@ -32,7 +32,7 @@
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_12sdp"
-                android:background="@drawable/bg_btn_white"
+                android:background="@drawable/bg_white_radius_ten"
                 android:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,11 +44,11 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:layout_marginTop="@dimen/_12sdp"
-                    android:background="@drawable/bg_btn_purpule"
+                    android:background="@drawable/bg_purple_radius_six"
                     android:gravity="center"
                     android:text="Непрочитані"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textAppearance="@style/sf_pro_semibold_13"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,12 +56,12 @@
                     android:id="@+id/tvUnreadCount"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:background="@drawable/bg_btn_purpule"
                     android:gravity="center"
                     android:text="1"
                     android:textColor="@color/white"
-                    android:textSize="13sp"
+                    android:textAppearance="@style/sf_pro_semibold_13"
                     app:layout_constraintStart_toEndOf="@+id/tvUnread"
                     app:layout_constraintTop_toTopOf="@+id/tvUnread" />
 
@@ -97,6 +97,7 @@
                     android:layout_marginStart="@dimen/_12sdp"
                     android:textColor="@color/gray"
                     android:textSize="13sp"
+                    android:textAppearance="@style/sf_pro_text_12"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 

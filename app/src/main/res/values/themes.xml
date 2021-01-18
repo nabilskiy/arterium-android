@@ -43,4 +43,10 @@
         <item name="android:windowIsFloating">true</item>
 
     </style>
+
+    <style name="Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@drawable/bg_toolbar</item>
+    </style>
 </resources>

@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/clOrange"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/_52sdp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clOrange"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
     android:background="@drawable/bg_progress_bar">
 
     <View
         android:id="@+id/vOrangeBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_orange_progress_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/bg_orange_progress_bar"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOrangeProgressValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="16"
         android:layout_marginStart="@dimen/_20sdp"
+        android:text="16"
+        android:textAppearance="@style/H1"
         android:textColor="@color/white"
         android:textSize="40sp"
-        android:layout_marginVertical="@dimen/_20sdp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvOrangeDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
         android:text="@string/repeat_shopping"
+        android:textAppearance="@style/sf_pro_semibold_13"
         android:textColor="@color/white"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvOrangeProgressValue"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/_12sdp"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

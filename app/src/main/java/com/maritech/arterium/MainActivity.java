@@ -1,5 +1,8 @@
 package com.maritech.arterium;
 
+import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,7 +31,8 @@ public class MainActivity extends BaseActivity {
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(android.R.color.black));
+
+        setStatusBarGradient(this, android.R.color.transparent);
     }
 
 

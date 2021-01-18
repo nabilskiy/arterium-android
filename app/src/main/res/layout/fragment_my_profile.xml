@@ -16,7 +16,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="@dimen/my_profile_scrollview_margin_top"
         app:layout_constraintTop_toBottomOf="@id/myProfileToolbar"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -31,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/my_profile_liner_margin_top"
+        android:layout_marginTop="@dimen/_24sdp"
         android:orientation="vertical"
         android:gravity="center"
         android:background="@drawable/ic_profile_bg">
@@ -50,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:id="@+id/ivMyProfileLogo"
-                android:src="@drawable/logo"
+                android:src="@drawable/ic_default_avatar"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true">
             </ImageView>
@@ -65,6 +64,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/berezniakov"
+        android:textAppearance="@style/H2"
         android:textColor="@color/black"
         android:textSize="@dimen/my_profile_text_size"
         android:layout_marginTop="@dimen/my_profile_name_margin_top"
@@ -77,10 +77,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/cardiologist"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/black"
-        android:textSize="@dimen/my_profile_small_text_size"
-        android:layout_marginTop="@dimen/my_profile_name_margin_top"
-        />
+        android:textAppearance="@style/sf_pro_text_16" />
     <TextView
         android:id="@+id/tvMyProfileShopingAmount"
         android:layout_width="wrap_content"
@@ -89,119 +88,115 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/whole_shopping_items"
+        android:layout_marginTop="@dimen/_2sdp"
         android:textColor="@color/black"
-        android:textSize="@dimen/default_small_text_size"
-        android:layout_marginTop="@dimen/my_profile_name_margin_top"
+        android:textAppearance="@style/sf_pro_text_12"
+
         android:alpha="0.4"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clMyProfileMainContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvMyProfileShopingAmount"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
-        android:layout_marginTop="@dimen/default_margin_vertical">
-
-        <include
-            android:id="@+id/myProfileCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/my_profile_card"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <include
-            android:id="@+id/pharmacyList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/my_profile_list_item"
-            app:layout_constraintTop_toBottomOf="@id/myProfileCard"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            />
-
-        <include
-            android:id="@+id/myProfileMainContentNotifications"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/my_profile_list_item"
-            app:layout_constraintTop_toBottomOf="@id/pharmacyList"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            />
-
-        <include
-            android:id="@+id/contactWithUs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/my_profile_list_item"
-            app:layout_constraintTop_toBottomOf="@id/vDevideNotificationAndContact"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            />
-        <include
-            android:id="@+id/myProfileMainContentSettings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/my_profile_list_item"
-            app:layout_constraintTop_toBottomOf="@id/contactWithUs"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            />
-
-        <View
-            android:id="@+id/vDevideNotificationAndContact"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/default_divider_line_height"
-            app:layout_constraintTop_toBottomOf="@id/myProfileMainContentNotifications"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/light_grey"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            />
-
-        <View
-            android:id="@+id/vDevideSettingAndExit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/default_divider_line_height"
-            app:layout_constraintTop_toBottomOf="@id/myProfileMainContentSettings"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/light_grey"
-            android:layout_marginTop="@dimen/default_margin_vertical"
-            />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clLogOut"
-            android:layout_width="wrap_content"
+            android:id="@+id/clMyProfileMainContent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/vDevideSettingAndExit"
+            android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+            android:layout_marginTop="@dimen/default_margin_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginVertical="@dimen/default_margin_vertical">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMyProfileShopingAmount">
 
-            <ImageView
-                android:id="@+id/ivLogOut"
-                android:layout_width="wrap_content"
+            <include
+                android:id="@+id/myProfileCard"
+                layout="@layout/my_profile_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_log_out"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-            <TextView
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/pharmacyList"
+                layout="@layout/my_profile_list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                app:layout_constraintTop_toBottomOf="@id/myProfileCard" />
+
+            <include
+                android:id="@+id/myProfileMainContentNotifications"
+                layout="@layout/my_profile_list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                app:layout_constraintTop_toBottomOf="@id/pharmacyList" />
+
+            <include
+                android:id="@+id/contactWithUs"
+                layout="@layout/my_profile_list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                app:layout_constraintTop_toBottomOf="@id/vDevideNotificationAndContact" />
+
+            <include
+                android:id="@+id/myProfileMainContentSettings"
+                layout="@layout/my_profile_list_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_18sdp"
+                app:layout_constraintTop_toBottomOf="@id/contactWithUs" />
+
+            <View
+                android:id="@+id/vDevideNotificationAndContact"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:background="@color/gray_view_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/myProfileMainContentNotifications" />
+
+            <View
+                android:id="@+id/vDevideSettingAndExit"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:background="@color/gray_view_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/myProfileMainContentSettings" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clLogOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/ivLogOut"
-                android:text="Вийти"
-                android:textSize="@dimen/my_profile_small_text_size"
-                android:textColor="@color/red"
-                android:layout_marginStart="@dimen/my_profile_exit_margin_start"
-                />
+                android:layout_marginVertical="@dimen/default_margin_vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vDevideSettingAndExit">
+
+                <ImageView
+                    android:id="@+id/ivLogOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@drawable/ic_log_out"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/my_profile_exit_margin_start"
+                    android:text="Вийти"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/my_profile_small_text_size"
+                    app:layout_constraintStart_toEndOf="@id/ivLogOut"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

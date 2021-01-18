@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="@dimen/statistic_detail_padding_horizontal">
 
     <ImageView
+        android:id="@+id/topLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_details_line"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/statistic_detail_image_margin_top"
-        />
+        android:background="@drawable/ic_details_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvPurchasesForCurrentMonth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/february_purchases"
-        android:textColor="@color/black"
-        android:textSize="@dimen/default_big_text_size"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/statistic_detail_purchases_margin_top"
-        />
+        android:text="@string/february_purchases"
+        android:textAppearance="@style/H2"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivStatDetailSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_search"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/statistic_detail_purchases_margin_top"
-        />
+        android:background="@drawable/ic_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivStatDetailFilter"
@@ -53,57 +50,102 @@
         android:id="@+id/ctcStatDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_48sdp"
         app:csc_count="3"
         app:csc_text_one="@string/all"
         app:csc_text_three="@string/without_purchases"
         app:csc_text_two="@string/with_purchases"
-        app:layout_constraintTop_toBottomOf="@id/tvPurchasesForCurrentMonth"
-        android:layout_marginTop="@dimen/default_margin_vertical"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLine" />
 
     <TextView
         android:id="@+id/tvStatDetailsData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ctcStatDetails"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/default_margin_vertical"
         android:text="@string/simple_data"
+        android:textAppearance="@style/sf_pro_text_16"
         android:textColor="@color/gray"
         android:textSize="@dimen/default_small_text_size"
-        android:layout_marginTop="@dimen/default_margin_vertical"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ctcStatDetails" />
 
     <TextView
         android:id="@+id/tvStatDetailPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvStatDetailsData"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/eugenii"
-        android:textColor="@color/black"
-        android:textSize="@dimen/default_text_size"
         android:layout_marginTop="@dimen/default_margin_vertical"
-        />
+        android:text="@string/eugenii"
+        android:textAppearance="@style/sf_pro_semibold_16"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStatDetailsData" />
 
     <TextView
         android:id="@+id/tvStatDetailLastPurchase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvStatDetailPersonName"
-        app:layout_constraintStart_toStartOf="parent"
         android:text="@string/last_purchases"
-        android:textSize="@dimen/default_small_text_size"
+        android:textAppearance="@style/sf_pro_text_12"
         android:textColor="@color/gray"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStatDetailPersonName" />
 
     <View
         android:id="@+id/vStatDetailDivideLine"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/default_divider_line_height"
-        app:layout_constraintTop_toBottomOf="@id/tvStatDetailLastPurchase"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/light_grey"
+        android:layout_height="0.5dp"
         android:layout_marginTop="@dimen/default_margin_vertical"
-        />
+        android:background="@color/gray_view_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvStatDetailLastPurchase" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSearch"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_34sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_9sdp"
+        android:layout_marginEnd="@dimen/_40sdp"
+        android:background="@drawable/bg_item_find"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLine">
+
+        <ImageView
+            android:id="@+id/ivSearchInCl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_search" />
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@android:color/transparent"
+            android:hint="Пошук"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_gray" />
 </androidx.constraintlayout.widget.ConstraintLayout>

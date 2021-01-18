@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="H1">
+        <item name="fontFamily">@font/sf_pro_display_bold</item>
+        <item name="android:textSize">36sp</item>
+        <item name="lineHeight">44dp</item>
+
+    </style>
+
+    <style name="H2">
+        <item name="fontFamily">@font/sf_pro_display_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">26dp</item>
+    </style>
+
+    <style name="H3">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">26dp</item>
+    </style>
+
+    <style name="sf_pro_text_16">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">20dp</item>
+    </style>
+
+    <style name="sf_pro_text_14">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">18dp</item>
+    </style>
+
+    <style name="sf_pro_text_12">
+        <item name="fontFamily">@font/sf_pro_display_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">16dp</item>
+    </style>
+
+    <style name="sf_pro_semibold_16">
+        <item name="fontFamily">@font/sf_pro_display_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">20dp</item>
+    </style>
+
+    <style name="sf_pro_semibold_13">
+        <item name="fontFamily">@font/sf_pro_display_semibold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="lineHeight">15dp</item>
+    </style>
+
+
+
+
+</resources>

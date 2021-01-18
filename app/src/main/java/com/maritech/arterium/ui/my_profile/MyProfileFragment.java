@@ -63,12 +63,12 @@ public class MyProfileFragment extends BaseFragment {
             }
         });
 
-        myProfileCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goPatientCard(navController);
-            }
-        });
+//        myProfileCard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigator.goPatientCard(navController);
+//            }
+//        });
 
         pharmacyList.setOnClickListener(new View.OnClickListener() {
             @Override

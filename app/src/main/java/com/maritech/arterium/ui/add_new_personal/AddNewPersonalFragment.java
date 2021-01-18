@@ -1,35 +1,32 @@
 package com.maritech.arterium.ui.add_new_personal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.ItemDashboardBinding;
-import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboard.DashboardNavigator;
-import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
-import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
+import com.maritech.arterium.ui.widgets.CustomInput;
 
-import java.util.ArrayList;
+
+import io.card.payment.CardIOActivity;
+import io.card.payment.CreditCard;
 
 public class AddNewPersonalFragment extends BaseFragment {
 
+    private static final int SCAN_REQUEST_CODE = 364;
+
+    private TextView tvTabOne;
+    private TextView tvTabTwo;
 
     private View viewProgressOne;
     private View viewProgressTwo;
@@ -46,6 +43,10 @@ public class AddNewPersonalFragment extends BaseFragment {
     private ConstraintLayout clProgressStepOne;
     private ConstraintLayout clProgressStepTwo;
     private ConstraintLayout clInfoUser;
+
+    private ImageView ivCamera;
+
+    private CustomInput ccInputCardNumber;
 
     AddNewPersonalNavigator navigator = new AddNewPersonalNavigator();
     private AddNewPersonalViewModel addNewPersonalViewModel;
@@ -67,12 +68,17 @@ public class AddNewPersonalFragment extends BaseFragment {
         viewProgressTwo = root.findViewById(R.id.toolbar).findViewById(R.id.viewTwo);
         btnBack = root.findViewById(R.id.toolbar).findViewById(R.id.ivRight);
         btnAuto = root.findViewById(R.id.toolbar).findViewById(R.id.ivLeft);
+        ivCamera = root.findViewById(R.id.ivCamera);
+        ccInputCardNumber = root.findViewById(R.id.ccInputCardNumber);
+
+        tvTabOne = root.findViewById(R.id.tvOne);
+        tvTabTwo = root.findViewById(R.id.tvTwo);
+
+        tvTabOne.setActivated(true);
 
 
         tvToolbarTitle.setText("Новий пацієнт");
         tvHint.setText("Медичні дані");
-
-//        ivSearch = root.findViewById(R.id.ivSearch);
 
 
         btnNextOne.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +91,14 @@ public class AddNewPersonalFragment extends BaseFragment {
                 clProgressStepTwo.setVisibility(View.VISIBLE);
 
                 btnAuto.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        ivCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onScanPress(v);
 
             }
         });
@@ -115,5 +129,28 @@ public class AddNewPersonalFragment extends BaseFragment {
     }
 
 
+    public void onScanPress(View v) {
+        Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
+
+        // customize these values to suit your needs.
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true); // default: false
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
+
+        // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
+        startActivityForResult(scanIntent, SCAN_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SCAN_REQUEST_CODE) {
+            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
+                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                ccInputCardNumber.setInput("Номер картки", scanResult.cardNumber);
+            }
+        }
+
+    }
 }
 

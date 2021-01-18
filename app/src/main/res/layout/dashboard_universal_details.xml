@@ -1,145 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dashboard_details">
 
-    <data>
 
-        <variable
-            name="data"
-            type="com.maritech.arterium.ui.dashboardMp.data.DoctorsContent" />
-    </data>
-
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/transparent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_4sdp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/line_up_dashboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDoctors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:text="Останні реєстрації"
+            android:textAppearance="@style/H2"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.maritech.arterium.ui.widgets.CustomTabComponent
+            android:id="@+id/ccTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_64sdp"
+            android:layout_marginEnd="@dimen/_24sdp"
+            app:csc_count="3"
+            app:csc_text_one="Усi"
+            app:csc_text_three="Без покупок"
+            app:csc_text_two="З покупками"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_21sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_search" />
+
+
+        <ImageView
+            android:id="@+id/ivFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            app:layout_constraintEnd_toStartOf="@+id/ivSearch"
+            app:layout_constraintTop_toTopOf="@+id/ivSearch"
+            app:srcCompat="@drawable/ic_filter" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clSearch"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_dashboard_details">
-
-            <View
-                android:id="@+id/viewLine"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_4sdp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/line_up_dashboard"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvDoctors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_28sdp"
-                android:text="Останні реєстрації"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.maritech.arterium.ui.widgets.CustomTabComponent
-                android:id="@+id/ccTab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_24sdp"
-                android:layout_marginTop="@dimen/_64sdp"
-                android:layout_marginEnd="@dimen/_24sdp"
-                app:csc_count="3"
-                app:csc_text_one="Усi"
-                app:csc_text_three="Без покупок"
-                app:csc_text_two="З покупками"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="@dimen/_34sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:background="@drawable/bg_item_find"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLine">
 
             <ImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_21sdp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/ivSearchInCl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_search" />
 
-
-            <ImageView
-                android:id="@+id/ivFilter"
+            <EditText
+                android:id="@+id/etSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
-                app:layout_constraintEnd_toStartOf="@+id/ivSearch"
-                app:layout_constraintTop_toTopOf="@+id/ivSearch"
-                app:srcCompat="@drawable/ic_filter" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clSearch"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_34sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_9sdp"
-                android:layout_marginEnd="@dimen/_40sdp"
-                android:background="@drawable/bg_item_find"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewLine">
-
-                <ImageView
-                    android:id="@+id/ivSearchInCl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_search" />
-
-                <EditText
-                    android:id="@+id/etSearch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:background="@android:color/transparent"
-                    android:hint="Пошук"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <ImageView
-                android:id="@+id/ivClose"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_28sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close_gray" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvDoctors"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_110sdp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:background="@android:color/transparent"
+                android:hint="Пошук"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"
                 app:layout_constraintTop_toTopOf="parent" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </RelativeLayout>
-</layout>
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_28sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close_gray" />
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/ccTab">-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPatients"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_374sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ccTab" />
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:orientation="vertical"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@android:color/transparent">-->
+
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/constraintLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:background="@drawable/bg_dashboard_details"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <View-->
+<!--            android:id="@+id/viewLine"-->
+<!--            android:layout_width="@dimen/_40sdp"-->
+<!--            android:layout_height="@dimen/_4sdp"-->
+<!--            android:layout_marginTop="12dp"-->
+<!--            android:background="@drawable/line_up_dashboard"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/tvDoctors"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/_20sdp"-->
+<!--            android:layout_marginTop="@dimen/_28sdp"-->
+<!--            android:text="Останні реєстрації"-->
+<!--            android:textAppearance="@style/H2"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <com.maritech.arterium.ui.widgets.CustomTabComponent-->
+<!--            android:id="@+id/ccTab"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/_24sdp"-->
+<!--            android:layout_marginTop="@dimen/_64sdp"-->
+<!--            android:layout_marginEnd="@dimen/_24sdp"-->
+<!--            app:csc_count="3"-->
+<!--            app:csc_text_one="Усi"-->
+<!--            app:csc_text_three="Без покупок"-->
+<!--            app:csc_text_two="З покупками"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="1.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivSearch"-->
+<!--            android:layout_width="@dimen/_20sdp"-->
+<!--            android:layout_height="@dimen/_20sdp"-->
+<!--            android:layout_marginTop="@dimen/_30sdp"-->
+<!--            android:layout_marginEnd="@dimen/_21sdp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/ic_search" />-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivFilter"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/_3sdp"-->
+<!--            android:layout_marginEnd="@dimen/_20sdp"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/ivSearch"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/ivSearch"-->
+<!--            app:srcCompat="@drawable/ic_filter" />-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/clSearch"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/_34sdp"-->
+<!--            android:layout_marginStart="@dimen/_20sdp"-->
+<!--            android:layout_marginTop="@dimen/_9sdp"-->
+<!--            android:layout_marginEnd="@dimen/_40sdp"-->
+<!--            android:background="@drawable/bg_item_find"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/viewLine">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivSearchInCl"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_12sdp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="@drawable/ic_search" />-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/etSearch"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_10sdp"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:hint="Пошук"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/ivClose"-->
+<!--            android:layout_width="@dimen/_20sdp"-->
+<!--            android:layout_height="@dimen/_20sdp"-->
+<!--            android:layout_marginTop="@dimen/_28sdp"-->
+<!--            android:layout_marginEnd="@dimen/_16sdp"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/ic_close_gray" />-->
+
+<!--        &lt;!&ndash;        <androidx.constraintlayout.widget.ConstraintLayout&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintBottom_toBottomOf="parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintEnd_toEndOf="parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintStart_toStartOf="parent"&ndash;&gt;-->
+<!--        &lt;!&ndash;            app:layout_constraintTop_toBottomOf="@+id/ccTab">&ndash;&gt;-->
+
+
+<!--        &lt;!&ndash;        </androidx.constraintlayout.widget.ConstraintLayout>&ndash;&gt;-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvPatients"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="9"-->
+<!--        android:background="@color/white"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />-->
+
+<!--</LinearLayout>-->
