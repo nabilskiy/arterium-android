@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
 }
 
 def versionMajor = 1
@@ -104,4 +105,6 @@ dependencies {
 
     //tooltips
     implementation 'com.tomergoldst.android:tooltips:1.0.10'
+
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }

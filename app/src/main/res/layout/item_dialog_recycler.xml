@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_50sdp">
+    android:layout_height="@dimen/_50sdp"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/ivBtnCheck"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_38sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:text="Рениаль – «Ключ до життя»"
+        tools:text="Рениаль – «Ключ до життя»"
         android:textColor="@color/purple"
         android:textAppearance="@style/sf_pro_text_16"
         android:textSize="17sp"
@@ -32,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_2sdp"
-        android:text="Потрібно ще 2 покупки для переходу на наступний рівень."
+        tools:text="Потрібно ще 2 покупки для переходу на наступний рівень."
         android:textColor="@color/black_gray"
         android:textAppearance="@style/sf_pro_text_12"
         android:textSize="10sp"

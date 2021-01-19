@@ -20,4 +20,20 @@
         <attr name="csc_text_three" format="string" />
         <attr name="csc_text_four" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="CircularProgress">
+        <attr format="float" name="max"/>
+        <attr format="float" name="progress"/>
+        <attr format="dimension" name="backgroundRingSize"/>
+        <attr format="dimension" name="progressRingSize"/>
+        <attr format="color|reference" name="backgroundRingColor"/>
+        <attr format="color|reference" name="progressRingColor"/>
+        <attr format="reference" name="progressGradient"/>
+        <attr format="boolean" name="joinGradient"/>
+        <attr format="float" name="gradientFactor"/>
+        <attr format="boolean" name="progressRingOutline"/>
+        <attr name="progressRingCorner">
+            <enum name="ROUND" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

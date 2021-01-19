@@ -49,4 +49,35 @@
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@drawable/bg_toolbar</item>
     </style>
+
+    <!--    Calendar-->
+    <style name="DefaultCalendarStyle">
+        <item name="mcv_selectionMode">range</item>
+        <item name="mcv_showOtherDates">decorated_disabled</item>
+        <item name="mcv_dateTextAppearance">@style/DayCalendarTextAppearance</item>
+        <item name="mcv_weekDayTextAppearance">@style/WeekCalendarTextAppearance</item>
+        <item name="mcv_headerTextAppearance">@style/HeaderCalendarTextAppearance</item>
+        <item name="mcv_allowClickDaysOutsideCurrentMonth">false</item>
+        <item name="mcv_titleAnimationOrientation">horizontal</item>
+        <item name="mcv_rightArrow">@drawable/ic_arrow_right</item>
+        <item name="mcv_leftArrow">@drawable/ic_arrow_left</item>
+        <item name="mcv_monthLabels">@array/calendar_month_general</item>
+    </style>
+
+    <style name="DayCalendarTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
+    <style name="WeekCalendarTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="HeaderCalendarTextAppearance" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

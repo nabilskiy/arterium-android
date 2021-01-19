@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
 import com.maritech.arterium.ui.widgets.CustomTabComponent;
 
 public class StatFragment extends BaseFragment {
@@ -110,15 +111,18 @@ public class StatFragment extends BaseFragment {
             }
         });
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivStatDetailSearch.setVisibility(View.VISIBLE);
-                tvPurchasesForCurrentMonth.setVisibility(View.VISIBLE);
-                ivStatDetailFilter.setVisibility(View.VISIBLE);
-                ivClose.setVisibility(View.GONE);
-                clSearch.setVisibility(View.GONE);
-            }
+        ivClose.setOnClickListener(v -> {
+            ivStatDetailSearch.setVisibility(View.VISIBLE);
+            tvPurchasesForCurrentMonth.setVisibility(View.VISIBLE);
+            ivStatDetailFilter.setVisibility(View.VISIBLE);
+            ivClose.setVisibility(View.GONE);
+            clSearch.setVisibility(View.GONE);
+        });
+
+        month.setOnClickListener(v -> {
+            CalendarBottomSheetDialog.Companion.newInstance((dateFrom, dateTo) -> {
+
+            }, "Title").show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG());
         });
 
         changeMonth(root);

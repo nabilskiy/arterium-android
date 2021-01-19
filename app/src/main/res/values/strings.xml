@@ -88,6 +88,24 @@
     <string name="last_purchases">Остання покупка в середу 10.08.20</string>
     <string name="statistic">Статистика</string>
     <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
+    <string name="gliptar_key_life">Глыптар – «Ключ до балансу»</string>
+    <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
     <string name="need_more_buy">Потрібно ще 2 покупки для переходу на наступний рівень.</string>
+    <string name="choose_date">Обрати дату</string>
+
+    <string-array name="calendar_month_general">
+        <item name="calendar_january">Січень</item>
+        <item name="calendar_february">Лютий</item>
+        <item name="calendar_match">Березень</item>
+        <item name="calendar_april">Квітень</item>
+        <item name="calendar_may">Травень</item>
+        <item name="calendar_june">Червень</item>
+        <item name="calendar_july">Липень</item>
+        <item name="calendar_august">Серпень</item>
+        <item name="calendar_september">Вересень</item>
+        <item name="calendar_october">Жовтень</item>
+        <item name="calendar_november">Листопад</item>
+        <item name="calendar_december">Грудень</item>
+    </string-array>
 
 </resources>

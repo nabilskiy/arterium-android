@@ -64,62 +64,9 @@ public class DialogWithRecycler extends Dialog {
         });
         rcv.setAdapter(adapter);
 
-//        clOne = ((ConstraintLayout) findViewById(R.id.clOne));
-//        clTwo = ((ConstraintLayout) findViewById(R.id.clTwo));
-//        clThree = ((ConstraintLayout) findViewById(R.id.clThree));
-//
-//        ivBtnCheckOne = ((ImageView) findViewById(R.id.ivBtnCheckOne));
-//        ivBtnCheckTwo = ((ImageView) findViewById(R.id.ivBtnCheckTwo));
-//        ivBtnCheckThree = ((ImageView) findViewById(R.id.ivBtnCheckThree));
 
         btnClose = ((TextView) findViewById(R.id.tvBack));
 
-        //ivBtnCheckOne.setActivated(true);
-
-//        clOne.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ivBtnCheckOne.setActivated(true);
-//                ivBtnCheckTwo.setActivated(false);
-//                ivBtnCheckThree.setActivated(false);
-//
-//                toast = Toast.makeText(context.getApplicationContext(),
-//                        "Рениаль – «Ключ до життя»", Toast.LENGTH_SHORT);
-//                toast.show();
-//
-//                dismiss();
-//            }
-//        });
-//
-//        clTwo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ivBtnCheckOne.setActivated(false);
-//                ivBtnCheckTwo.setActivated(true);
-//                ivBtnCheckThree.setActivated(false);
-//
-//                toast = Toast.makeText(context.getApplicationContext(),
-//                        "Гліптар – «Ключ до балансу»", Toast.LENGTH_SHORT);
-//                toast.show();
-//
-//                dismiss();
-//            }
-//        });
-//
-//        clThree.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                ivBtnCheckOne.setActivated(false);
-//                ivBtnCheckTwo.setActivated(false);
-//                ivBtnCheckThree.setActivated(true);
-//
-//                toast = Toast.makeText(context.getApplicationContext(),
-//                        "Саграда – «Квиток у майбутнє»", Toast.LENGTH_SHORT);
-//                toast.show();
-//
-//                dismiss();
-//            }
-//        });
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,9 +85,8 @@ public class DialogWithRecycler extends Dialog {
 
     private void prepareList(ArrayList<DialogContent> dataList) {
         dataList.add(new DialogContent(R.string.renial_key_life, R.string.need_more_buy, true, R.color.purple));
-        dataList.add(new DialogContent(R.string.renial_key_life, R.string.need_more_buy, false, R.color.blue));
-        dataList.add(new DialogContent(R.string.renial_key_life, R.string.need_more_buy, false, R.color.purple));
-        dataList.add(new DialogContent(R.string.renial_key_life, R.string.need_more_buy, false, R.color.purple));
+        dataList.add(new DialogContent(R.string.gliptar_key_life, R.string.need_more_buy, false, R.color.blue));
+        dataList.add(new DialogContent(R.string.sagrada_key_life, R.string.need_more_buy, false, R.color.red));
     }
 
 }

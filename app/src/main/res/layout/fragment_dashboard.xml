@@ -68,25 +68,24 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <ImageView
-                    android:id="@+id/progressBarUser"
+                <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
+                    android:id="@+id/iccpAvatar"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/imUserPhoto"
-                    app:layout_constraintEnd_toEndOf="@+id/imUserPhoto"
-                    app:layout_constraintStart_toStartOf="@+id/imUserPhoto"
-                    app:layout_constraintTop_toTopOf="@+id/imUserPhoto"
-                    app:srcCompat="@drawable/progress_bar_user_photo" />
-
-                <ImageView
-                    android:id="@+id/imUserPhoto"
-                    android:layout_width="@dimen/_44sdp"
-                    android:layout_height="@dimen/_44sdp"
+                    android:layout_height="72dp"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_default_avatar"
+                    app:progress="32"
+                    app:backgroundRingSize="12dp"
+                    app:backgroundRingColor="@android:color/transparent"
+                    app:progressRingColor="#BCD6D6"
+                    app:progressRingSize="6dp"
+                    app:progressRingCorner="ROUND"
+                    app:progressRingOutline="true"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_26sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"
-                    app:srcCompat="@drawable/ic_default_avatar" />
+                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"/>
 
                 <TextView
                     android:id="@+id/tvUserName"
@@ -96,8 +95,8 @@
                     android:text="Юрiй Березняков"
                     android:textColor="@color/white"
                     android:textAppearance="@style/H2"
-                    app:layout_constraintStart_toEndOf="@+id/imUserPhoto"
-                    app:layout_constraintTop_toTopOf="@+id/imUserPhoto" />
+                    app:layout_constraintStart_toEndOf="@+id/iccpAvatar"
+                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />
 
                 <TextView
                     android:id="@+id/tvPost"
@@ -124,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="@dimen/_26sdp"
+                    android:layout_marginEnd="26dp"
                     android:text="Рiвень С"
                     android:textColor="@color/white_low_opacity"
                     android:textSize="16sp"
@@ -135,7 +134,7 @@
                     android:id="@+id/ivLvl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:layout_marginEnd="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clInfoClose"
                     app:srcCompat="@drawable/ic_lvl_c" />

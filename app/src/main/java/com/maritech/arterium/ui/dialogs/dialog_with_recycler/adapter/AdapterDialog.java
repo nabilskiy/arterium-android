@@ -1,12 +1,14 @@
 package com.maritech.arterium.ui.dialogs.dialog_with_recycler.adapter;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
@@ -60,19 +62,17 @@ public class AdapterDialog extends RecyclerView.Adapter<AdapterDialog.ViewHolder
 
         viewHolder.ivBtnCheck.setActivated(localDataSet.get(position).isActive());
         viewHolder.tvName.setText(localDataSet.get(position).getIdTittle());
-        viewHolder.tvName.setTextColor(localDataSet.get(position).getIdTextColor());
+        viewHolder.tvName.setTextColor(ContextCompat.getColor(viewHolder.tvName.getContext(), localDataSet.get(position).getIdTextColor()));
+        viewHolder.tvHint.setTextColor(ContextCompat.getColor(viewHolder.tvHint.getContext(), localDataSet.get(position).getIdTextColor()));
         viewHolder.tvHint.setText(localDataSet.get(position).getIdHint());
 
         if (localDataSet.size()-1 == position){
             viewHolder.viewLine.setVisibility(View.GONE);
         }
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickListener.onItemClicked(position, localDataSet.get(position));
-                notifyDataSetChanged();
-            }
+        viewHolder.itemView.setOnClickListener(v -> {
+            onItemClickListener.onItemClicked(position, localDataSet.get(position));
+            notifyDataSetChanged();
         });
 
     }
