@@ -18,7 +18,7 @@
             android:id="@+id/main.collapsing"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ic_renial"
+            android:background="@drawable/gradient_purple"
             android:fitsSystemWindows="true"
             app:expandedTitleMarginEnd="48dp"
             app:expandedTitleMarginStart="48dp"
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_38sdp"
                     android:background="@color/purple"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

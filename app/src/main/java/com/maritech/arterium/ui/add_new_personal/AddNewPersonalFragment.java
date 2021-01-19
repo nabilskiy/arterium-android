@@ -16,6 +16,8 @@ import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.widgets.CustomInput;
+import com.tomergoldst.tooltips.ToolTip;
+import com.tomergoldst.tooltips.ToolTipsManager;
 
 
 import io.card.payment.CardIOActivity;
@@ -38,7 +40,7 @@ public class AddNewPersonalFragment extends BaseFragment {
 
     private TextView tvToolbarTitle;
     private TextView tvHint;
-
+    private TextView tvToolTip;
 
     private ConstraintLayout clProgressStepOne;
     private ConstraintLayout clProgressStepTwo;
@@ -61,6 +63,7 @@ public class AddNewPersonalFragment extends BaseFragment {
         clProgressStepTwo = root.findViewById(R.id.clProgressStepTwo);
         tvToolbarTitle = root.findViewById(R.id.toolbar).findViewById(R.id.tvToolbarTitle);
         tvHint = root.findViewById(R.id.toolbar).findViewById(R.id.tvHint);
+        tvHint.setVisibility(View.VISIBLE);
         radioGroup = root.findViewById(R.id.radioGroup);
         btnNextOne = root.findViewById(R.id.btnNextOne);
         viewProgressOne = root.findViewById(R.id.toolbar).findViewById(R.id.viewOne);
@@ -70,6 +73,16 @@ public class AddNewPersonalFragment extends BaseFragment {
         btnAuto = root.findViewById(R.id.toolbar).findViewById(R.id.ivLeft);
         ivCamera = root.findViewById(R.id.ivCamera);
         ccInputCardNumber = root.findViewById(R.id.ccInputCardNumber);
+        tvToolTip = root.findViewById(R.id.tvToolTip);
+
+        ToolTipsManager mToolTipsManager;
+        mToolTipsManager = new ToolTipsManager();
+        mToolTipsManager.findAndDismiss(tvToolTip);
+        ToolTip.Builder builder = new ToolTip.Builder(getContext(), tvToolTip, clProgressStepTwo, "Tip message", ToolTip.POSITION_ABOVE);
+        builder.setAlign(ToolTip.ALIGN_RIGHT);
+        builder.setTextAppearance(R.style.sf_pro_text_14);
+        builder.setBackgroundColor(getResources().getColor(R.color.white));
+        mToolTipsManager.show(builder.build());
 
         tvTabOne = root.findViewById(R.id.tvOne);
         tvTabTwo = root.findViewById(R.id.tvTwo);
@@ -128,6 +141,9 @@ public class AddNewPersonalFragment extends BaseFragment {
         return root;
     }
 
+    public void autoFill(){
+
+    }
 
     public void onScanPress(View v) {
         Intent scanIntent = new Intent(getContext(), CardIOActivity.class);

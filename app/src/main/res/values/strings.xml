@@ -87,5 +87,7 @@
     <string name="eugenii">Евгений Петров</string>
     <string name="last_purchases">Остання покупка в середу 10.08.20</string>
     <string name="statistic">Статистика</string>
+    <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
+    <string name="need_more_buy">Потрібно ще 2 покупки для переходу на наступний рівень.</string>
 
 </resources>
