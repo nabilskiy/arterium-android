@@ -15,7 +15,9 @@
         android:id="@+id/clNamesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
+        android:layout_marginHorizontal="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/interfaceToolbar">
 
         <include
@@ -23,7 +25,7 @@
             layout="@layout/name_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +35,7 @@
             layout="@layout/name_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ukrainian" />
@@ -43,7 +45,7 @@
             layout="@layout/name_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginTop="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/russian" />
@@ -53,8 +55,8 @@
         android:id="@+id/tvInterfaceNameDescriptionWhatToDo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/default_margin_horizontal"
-        android:layout_marginTop="@dimen/interface_name_description_margin_top"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/description_what_to_do"
         android:textAppearance="@style/sf_pro_text_12"
         android:textColor="@color/gray"

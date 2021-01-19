@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/_12sdp"
-    android:background="@color/white"
-    >
+    android:padding="16dp"
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/tvPharmacyItemTitle"
@@ -27,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:maxEms="14"
         android:text="@string/pharmacy_address"
-        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginTop="4dp"
         android:textAppearance="@style/sf_pro_text_12"
         android:textColor="@color/black"
         android:alpha="0.4"
@@ -41,15 +40,15 @@
         app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
         app:layout_constraintStart_toStartOf="parent"
         android:background="@drawable/ic_pharmacy_clock"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="10dp"
         />
 
     <TextView
         android:id="@+id/tvWorkingHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="8dp"
         android:alpha="0.4"
         android:text="Режим работи: 8:00 — 21:00"
         android:textAppearance="@style/sf_pro_text_12"
@@ -62,22 +61,22 @@
     <View
         android:id="@+id/vPharmacyDivideLine"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
+        android:layout_height="1dp"
         app:layout_constraintTop_toBottomOf="@id/ivPharmacyIcon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/gray_view_line"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="10dp"
         />
 
     <TextView
         android:id="@+id/tvPharmacyDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginTop="8dp"
         android:text="5км​"
         android:textColor="@color/blue"
-        android:textSize="@dimen/default_small_text_size"
+        android:textAppearance="@style/sf_pro_semibold_13"
         app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"
         app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
 
@@ -87,7 +86,7 @@
         android:layout_height="wrap_content"
         android:text=" • Як дістатися?"
         android:textColor="@color/blue"
-        android:textSize="@dimen/default_small_text_size"
+        android:textAppearance="@style/sf_pro_semibold_13"
         app:layout_constraintStart_toEndOf="@id/tvPharmacyDistance"
         app:layout_constraintTop_toTopOf="@+id/tvPharmacyDistance" />
 
@@ -95,7 +94,7 @@
         android:id="@+id/ivPharmacyItemArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/ic_gray_arrow"
         app:layout_constraintEnd_toEndOf="@+id/vPharmacyDivideLine"
         app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />

@@ -35,6 +35,7 @@ public class PharmacyListFragment extends BaseFragment {
         tas.setText(R.string.tas_pharmacy);
         monetPharmacy.setText(R.string.monet_pharmacy);
         swissPharmacy.setText(R.string.swiss_pharmacy);
+        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
 
     }
 }

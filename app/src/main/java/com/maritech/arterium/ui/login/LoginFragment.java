@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,7 @@ public class LoginFragment extends BaseFragment {
     CheckBox checkBox;
     EditText password;
     EditText login;
-    Button btnEnter;
+    TextView btnLogin;
 
     LoginNavigator navigator = new LoginNavigator();
 
@@ -36,9 +37,9 @@ public class LoginFragment extends BaseFragment {
         checkBox = root.findViewById(R.id.cbShowHide);
         password = root.findViewById(R.id.etInputPassword);
         login  = root.findViewById(R.id.etInputLogin);
-        btnEnter = root.findViewById(R.id.btnEnter);
+        btnLogin = root.findViewById(R.id.btnLogin);
 
-        btnEnter.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

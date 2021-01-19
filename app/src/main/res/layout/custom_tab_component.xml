@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_26sdp"
+    android:layout_height="32dp"
     android:background="@drawable/bg_custom_tab"
     android:orientation="horizontal">
 
@@ -17,16 +17,13 @@
         android:textColor="@drawable/selector_text_color"
         android:textAppearance="@style/sf_pro_semibold_16"
         android:textSize="15sp"
-        android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_margin="2dp"
         />
 
     <View
         android:id="@+id/viewOne"
         android:layout_width="0.5dp"
-        android:layout_height="@dimen/_16sdp"
+        android:layout_height="16dp"
         android:layout_gravity="center"
         android:background="@color/gray_low_opacity" />
 
@@ -41,16 +38,13 @@
         android:text="TextView"
         android:textColor="@drawable/selector_text_color"
         android:textSize="15sp"
-        android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_margin="2dp"
         />
 
     <View
         android:id="@+id/viewTwo"
         android:layout_width="0.5dp"
-        android:layout_height="@dimen/_16sdp"
+        android:layout_height="16dp"
         android:layout_gravity="center"
         android:background="@color/gray_low_opacity" />
 
@@ -65,16 +59,13 @@
         android:textColor="@drawable/selector_text_color"
         android:textAppearance="@style/sf_pro_semibold_16"
         android:textSize="15sp"
-        android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_margin="2dp"
         />
 
     <View
         android:id="@+id/viewThree"
         android:layout_width="0.5dp"
-        android:layout_height="@dimen/_16sdp"
+        android:layout_height="16dp"
         android:layout_gravity="center"
         android:background="@color/gray_low_opacity" />
 
@@ -89,9 +80,6 @@
         android:text="TextView"
         android:textColor="@drawable/selector_text_color"
         android:textSize="15sp"
-        android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:layout_marginBottom="@dimen/_2sdp"
+        android:layout_margin="2dp"
         />
 </LinearLayout>

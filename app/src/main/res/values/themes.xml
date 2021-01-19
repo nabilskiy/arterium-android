@@ -65,19 +65,37 @@
     </style>
 
     <style name="DayCalendarTextAppearance" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">@color/purple</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAppearance">@style/sf_pro_text_16</item>
     </style>
 
     <style name="WeekCalendarTextAppearance" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/grey_for_calendar_week</item>
+        <item name="android:textAppearance">@style/sf_pro_semibold_13</item>
     </style>
 
     <style name="HeaderCalendarTextAppearance" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAppearance">@style/H2</item>
     </style>
 
     <style name="BottomSheetDialogTheme" parent="@style/Theme.Design.Light.BottomSheetDialog">
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowIsFloating">false</item>
     </style>
+
+<!--    <style name="BottomSheetDialogTheme" parent="@style/Theme.Design.Light.BottomSheetDialog">-->
+<!--        <item name="android:windowFrame">@null</item>-->
+<!--        <item name="android:windowBackground">@android:color/darker_gray</item>-->
+<!--        <item name="android:windowIsFloating">true</item>-->
+<!--        <item name="android:windowContentOverlay">@null</item>-->
+<!--        <item name="android:windowTitleStyle">@null</item>-->
+<!--        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>-->
+<!--        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>-->
+<!--        <item name="android:backgroundDimEnabled">false</item>-->
+<!--        <item name="android:background">@android:color/transparent</item>-->
+<!--    </style>-->
+
 </resources>

@@ -3,6 +3,8 @@ package com.maritech.arterium.ui.map;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
 
 public class MapFragment extends Fragment {
 
@@ -46,6 +49,23 @@ public class MapFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+
+        mViewPager = root.findViewById(R.id.viewPager);
+        mViewPager.setClipToPadding(false);
+        mViewPager.setPadding(0,0,0,0);
+        mViewPagerAdapter = new ViewPagerAdapter(getContext(), pharmacyList, new ViewPagerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked() {
+                LatLng sydney = new LatLng(-34, 151);
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                Log.e("!!!","!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+            }
+        });
+        mViewPager.setAdapter(mViewPagerAdapter);
+
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mMap) {
@@ -67,12 +87,12 @@ public class MapFragment extends Fragment {
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+
+
+
             }
         });
-
-        mViewPager = root.findViewById(R.id.viewPager);
-        mViewPagerAdapter = new ViewPagerAdapter(getContext(), pharmacyList);
-        mViewPager.setAdapter(mViewPagerAdapter);
 
         return root;
     }

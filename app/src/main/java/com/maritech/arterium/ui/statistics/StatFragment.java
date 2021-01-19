@@ -122,7 +122,7 @@ public class StatFragment extends BaseFragment {
         month.setOnClickListener(v -> {
             CalendarBottomSheetDialog.Companion.newInstance((dateFrom, dateTo) -> {
 
-            }, "Title").show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG());
+            }, "Фільтр по даті").show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG());
         });
 
         changeMonth(root);

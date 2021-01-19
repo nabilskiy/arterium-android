@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_50sdp"
+    android:layout_height="64dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
@@ -19,8 +19,8 @@
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_38sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="12dp"
         tools:text="Рениаль – «Ключ до життя»"
         android:textColor="@color/purple"
         android:textAppearance="@style/sf_pro_text_16"
@@ -32,7 +32,7 @@
         android:id="@+id/tvHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginTop="2dp"
         tools:text="Потрібно ще 2 покупки для переходу на наступний рівень."
         android:textColor="@color/black_gray"
         android:textAppearance="@style/sf_pro_text_12"
