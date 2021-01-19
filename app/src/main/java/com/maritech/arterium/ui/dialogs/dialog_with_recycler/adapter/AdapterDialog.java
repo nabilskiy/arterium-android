@@ -25,7 +25,7 @@ public class AdapterDialog extends RecyclerView.Adapter<AdapterDialog.ViewHolder
 
 
     public interface OnItemClickListener {
-        void onItemClicked(int position, DialogContent object);
+        void onItemClicked(int position, DialogContent object, String tittle);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,7 +71,7 @@ public class AdapterDialog extends RecyclerView.Adapter<AdapterDialog.ViewHolder
         }
 
         viewHolder.itemView.setOnClickListener(v -> {
-            onItemClickListener.onItemClicked(position, localDataSet.get(position));
+            onItemClickListener.onItemClicked(position, localDataSet.get(position), String.valueOf(viewHolder.tvName.getText()));
             notifyDataSetChanged();
         });
 

@@ -2,6 +2,7 @@ package com.maritech.arterium.ui.dialogs.dialog_with_recycler;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -52,13 +53,19 @@ public class DialogWithRecycler extends Dialog {
         adapter = new AdapterDialog(listContent, new AdapterDialog.OnItemClickListener() {
 
             @Override
-            public void onItemClicked(int position, DialogContent object) {
+            public void onItemClicked(int position, DialogContent object, String tittle) {
 
                 for(int i=0; i<listContent.size(); i++){
                     listContent.get(i).setActive(false);
                 }
-
                 object.setActive(true);
+
+
+                Toast toast = Toast.makeText(getContext(),
+                        "Ваш вибір: " + tittle, Toast.LENGTH_SHORT);
+                toast.show();
+
+                dismiss();
 
             }
         });
