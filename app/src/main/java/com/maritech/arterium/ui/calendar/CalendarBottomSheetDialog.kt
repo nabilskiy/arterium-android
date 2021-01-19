@@ -184,7 +184,7 @@ class CalendarBottomSheetDialog : BottomSheetDialogFragment() {
 
         calendarView.addDecorator(dayDecorator)
 
-        calendarView.setTitleFormatter(TitleFormatter("YYYY"))
+        calendarView.setTitleFormatter(TitleFormatter.DEFAULT)
 
         calendarView.setOnDateChangedListener { widget, date, isSelected ->
             dayDecorator.day = date.takeIf { isSelected }
