@@ -217,16 +217,16 @@ class CalendarBottomSheetDialog : BottomSheetDialogFragment() {
             day = selectRange.first?.takeIf { selectRange.first == selectRange.second }
         }
 
-        val decoratorRange = RangeDecorator(drawable = requireContext().getCompatDrawable(R.drawable.ic_choose_day)).apply {
+        val decoratorRange = RangeDecorator(drawable = requireContext().getCompatDrawable(R.drawable.calendar_decorator_range)).apply {
             firstRangeDay = selectRange.first?.takeIf { it != selectRange.second }
             lastRangeDay = selectRange.second?.takeIf { it != selectRange.first }
         }
 
-        val decoratorFirst = DayDecorator(drawable = requireContext().getCompatDrawable(R.drawable.ic_choose_day)).apply {
+        val decoratorFirst = DayDecorator(drawable = requireContext().getCompatDrawable(R.drawable.calendar_decorator_first)).apply {
             day = selectRange.first?.takeIf { it != selectRange.second }
         }
 
-        val decoratorEnd = DayDecorator(drawable = requireContext().getCompatDrawable(R.drawable.ic_choose_day)).apply {
+        val decoratorEnd = DayDecorator(drawable = requireContext().getCompatDrawable(R.drawable.calendar_decorator_end)).apply {
             day = selectRange.second?.takeIf { it != selectRange.first }
         }
 

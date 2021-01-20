@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
+        android:clipToPadding="true"
         android:layout_width="match_parent"
+        android:background="@color/black_low_opacity"
         android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="true"
+            android:elevation="5dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_dashboard_details"
             android:orientation="vertical">
 
             <LinearLayout
@@ -21,11 +26,20 @@
                     android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
-                    android:layout_margin="@dimen/_12sdp"
-                    android:textColor="@color/black"/>
+                    android:text="Фільтр по даті"
+                    android:textAppearance="@style/H2"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black" />
 
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="22dp"
+                    app:srcCompat="@drawable/ic_close_gray" />
             </LinearLayout>
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -38,7 +52,9 @@
                 android:id="@+id/btn_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_12sdp"
+                android:layout_margin="16dp"
+
+                android:background="@drawable/bg_btn_purpule"
                 android:text="@string/choose_date" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

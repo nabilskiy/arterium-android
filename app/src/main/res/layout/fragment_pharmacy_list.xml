@@ -1,67 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/pb_bg_color">
+        android:background="@color/pb_bg_color"
+        app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/goodDayPharmacy"
-            layout="@layout/pharmacy_item"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            <include
+                android:id="@+id/goodDayPharmacy"
+                layout="@layout/pharmacy_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/wholesalePharmacyPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/pharmacy_item"
-            app:layout_constraintTop_toBottomOf="@id/goodDayPharmacy"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            />
+            <include
+                android:id="@+id/wholesalePharmacyPrice"
+                layout="@layout/pharmacy_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goodDayPharmacy" />
 
-        <include
-            android:id="@+id/TASPharmacy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/pharmacy_item"
-            app:layout_constraintTop_toBottomOf="@id/wholesalePharmacyPrice"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            />
+            <include
+                android:id="@+id/TASPharmacy"
+                layout="@layout/pharmacy_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wholesalePharmacyPrice" />
 
-        <include
-            android:id="@+id/monetPharmacy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/pharmacy_item"
-            app:layout_constraintTop_toBottomOf="@id/TASPharmacy"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            />
+            <include
+                android:id="@+id/monetPharmacy"
+                layout="@layout/pharmacy_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TASPharmacy" />
 
-        <include
-            android:id="@+id/swissPharmacy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/pharmacy_item"
-            app:layout_constraintTop_toBottomOf="@id/monetPharmacy"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            />
+            <include
+                android:id="@+id/swissPharmacy"
+                layout="@layout/pharmacy_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/monetPharmacy" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

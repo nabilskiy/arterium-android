@@ -12,10 +12,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
+import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
 
 import java.util.Objects;
 
 public class ViewPagerAdapter extends PagerAdapter {
+
+    public interface OnItemClickListener {
+        void onItemClicked(int position);
+    }
+
+    private ViewPagerAdapter.OnItemClickListener onItemClickListener;
 
     // Context object
     Context context;
@@ -29,10 +37,16 @@ public class ViewPagerAdapter extends PagerAdapter {
     private Object object;
 
     // Viewpager Constructor
-    public ViewPagerAdapter(Context context, int[] pharmacy) {
+    public ViewPagerAdapter(Context context, int[] pharmacy, ViewPagerAdapter.OnItemClickListener onItemClickListener) {
         this.context = context;
         this.pharmacy = pharmacy;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    @Override
+    public float getPageWidth(int position) {
+        return 0.91f;
     }
 
     @Override
@@ -62,6 +76,14 @@ public class ViewPagerAdapter extends PagerAdapter {
         itemView.findViewById(R.id.pharmacy).setBackgroundResource(R.drawable.bg_items_pharmacy);
         // Adding the View
         Objects.requireNonNull(container).addView(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickListener.onItemClicked(position);
+            }
+        });
+
 
         return itemView;
     }

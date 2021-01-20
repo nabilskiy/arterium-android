@@ -2,7 +2,14 @@ package com.maritech.arterium.ui.map;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapRegionDecoder;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +25,13 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
 
 public class MapFragment extends Fragment {
 
@@ -31,13 +41,19 @@ public class MapFragment extends Fragment {
     int[] pharmacyList = {R.string.good_day_pharmacy, R.string.wholesale_pharmacy, R.string.tas_pharmacy, R.string.monet_pharmacy, R.string.swiss_pharmacy};
     ViewPagerAdapter mViewPagerAdapter;
 
+    CameraPosition cameraPositionOne;
+    CameraPosition cameraPositionTwo;
+    CameraPosition cameraPositionThree;
+    CameraPosition cameraPositionFour;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
+        Drawable markerDrawable = getResources().getDrawable(R.drawable.ic_marker_active);
+
         mMapView = (MapView) root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
-
         mMapView.onResume(); // needed to get the map to display immediately
 
         try {
@@ -50,8 +66,39 @@ public class MapFragment extends Fragment {
             @Override
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
+                LatLng one = new LatLng(-34, 151);
+                LatLng two = new LatLng(-32, 151);
+                LatLng three = new LatLng(-33, 151);
+                LatLng four = new LatLng(-34, 151);
+                 cameraPositionOne = new CameraPosition.Builder().target(one).zoom(12).build();
+                 cameraPositionTwo = new CameraPosition.Builder().target(two).zoom(12).build();
+                 cameraPositionThree = new CameraPosition.Builder().target(three).zoom(12).build();
+                 cameraPositionFour = new CameraPosition.Builder().target(four).zoom(12).build();
 
-                // For showing a move to my location button
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionOne));
+
+                googleMap.addMarker(new MarkerOptions()
+                        .position(one)
+                        .title("Marker in one"))
+                        .setIcon(getMarkerIconFromDrawable(markerDrawable));
+
+                googleMap.addMarker(new MarkerOptions()
+                        .position(two)
+                        .title("Marker in two"))
+                        .setIcon(getMarkerIconFromDrawable(markerDrawable));
+
+                googleMap.addMarker(new MarkerOptions()
+                        .position(three)
+                        .title("Marker in three"))
+                        .setIcon(getMarkerIconFromDrawable(markerDrawable));
+
+                googleMap.addMarker(new MarkerOptions()
+                        .position(four)
+                        .title("Marker in four"))
+                        .setIcon(getMarkerIconFromDrawable(markerDrawable));
+                Log.e("!!!", "1");
+
+
                 if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -59,19 +106,32 @@ public class MapFragment extends Fragment {
                     return;
                 }
                 googleMap.setMyLocationEnabled(true);
-
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-
-                // For zooming automatically to the location of the marker
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
 
+
         mViewPager = root.findViewById(R.id.viewPager);
-        mViewPagerAdapter = new ViewPagerAdapter(getContext(), pharmacyList);
+        mViewPager.setClipToPadding(false);
+        mViewPager.setPadding(0, 0, 0, 0);
+        mViewPagerAdapter = new ViewPagerAdapter(getContext(), pharmacyList, new ViewPagerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                if (position == 0) {
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionOne));
+                    Log.e("!!!", "1");
+                } else if (position == 1) {
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionTwo));
+                    Log.e("!!!", "2");
+                } else if (position == 2) {
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionThree));
+                    Log.e("!!!", "3");
+                } else if (position == 3) {
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionFour));
+                    Log.e("!!!", "4");
+                }
+
+            }
+        });
         mViewPager.setAdapter(mViewPagerAdapter);
 
         return root;
@@ -100,4 +160,14 @@ public class MapFragment extends Fragment {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
+
+    private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {
+        Canvas canvas = new Canvas();
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        canvas.setBitmap(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
+
 }

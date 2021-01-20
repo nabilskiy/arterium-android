@@ -14,18 +14,18 @@
         android:textColor="@color/black"
         android:textSize="17sp"
         android:textAppearance="@style/sf_pro_text_16"
-        android:layout_marginTop="@dimen/default_margin_vertical"
+        android:layout_marginTop="16dp"
         />
 
     <CheckBox
         android:id="@+id/cbShowHide"
-        android:layout_width="@dimen/my_profile_checkbox_width"
-        android:layout_height="@dimen/my_profile_checkbox_height"
+        android:layout_width="16dp"
+        android:layout_height="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/ic_save_icon"
         android:button="@null"
-        android:layout_marginTop="@dimen/default_margin_vertical"
+        android:layout_marginTop="16dp"
         android:checked="true"
         />
 

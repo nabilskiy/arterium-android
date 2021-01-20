@@ -29,4 +29,7 @@
     <color name="orange_medium">#D98700</color>
     <color name="blue">#6495C8</color>
     <color name="gray_text">#6D7885</color>
+    <color name="black_low_opacity">#1A000000</color>
+    <color name="grey_for_calendar_week">#4D3C3C43</color>
+
 </resources>

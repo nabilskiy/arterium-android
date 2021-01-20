@@ -14,9 +14,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_44sdp"
+        android:layout_marginTop="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/patientCardToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/patientCardToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,15 +24,15 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvPatientCardLogo"
-                android:layout_width="@dimen/patient_card_logo_size"
-                android:layout_height="@dimen/patient_card_logo_size"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/my_profile_liner_margin_top"
-                android:elevation="@dimen/my_profile_card_elevation"
+                android:layout_marginTop="16dp"
+                android:elevation="12dp"
                 android:innerRadius="0dp"
                 android:shape="ring"
                 android:thicknessRatio="1.9"
-                app:cardCornerRadius="@dimen/my_profile_card_radius"
+                app:cardCornerRadius="40dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +50,7 @@
                 android:id="@+id/tvPatientCardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/patient_card_name_margin_top"
+                android:layout_marginTop="20dp"
                 android:text="@string/berezniakov"
                 android:textAppearance="@style/H2"
                 android:textColor="@color/black"
@@ -73,7 +73,7 @@
                 android:id="@+id/tvPatientCardShoppingAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginTop="4dp"
                 android:alpha="0.4"
                 android:text="@string/whole_shopping_items"
                 android:textAppearance="@style/sf_pro_text_12"
@@ -86,12 +86,12 @@
                 android:id="@+id/clPatientCardPersonalData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_14sdp"
-                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_patient_card_list"
                 android:elevation="2dp"
-                android:paddingHorizontal="@dimen/_16sdp"
-                android:paddingVertical="@dimen/default_padding_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPatientCardShoppingAmount">
@@ -105,7 +105,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/personalDataCard" />
 
                 <include
@@ -113,7 +113,7 @@
                     layout="@layout/patient_data_card_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/patientTelephoneNumber" />
 
                 <include
@@ -121,7 +121,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/patientCardNumber" />
 
                 <include
@@ -129,7 +129,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/patientSex" />
 
                 <include
@@ -137,7 +137,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/patientWeight" />
 
                 <include
@@ -145,7 +145,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/patientGrowth" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -153,13 +153,13 @@
                 android:id="@+id/clPatientMedicalData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_14sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:layout_marginBottom="@dimen/patient_card_medical_data_margin_bottom"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="52dp"
                 android:background="@drawable/bg_patient_card_list"
                 android:elevation="2dp"
-                android:paddingHorizontal="@dimen/_16sdp"
-                android:paddingVertical="@dimen/default_padding_vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -182,7 +182,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/patientHeartAttack" />
 
                 <include
@@ -190,7 +190,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/dateOfDrugAdministration" />
 
                 <include
@@ -198,7 +198,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/ejectionFraction" />
 
                 <include
@@ -206,7 +206,7 @@
                     layout="@layout/patient_data_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
+                    android:layout_marginVertical="16dp"
                     app:layout_constraintTop_toBottomOf="@id/potassiumLevelOfStartTreatment" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
