@@ -102,9 +102,11 @@ dependencies {
 
     //card scanner
     implementation 'io.card:android-sdk:5.5.0'
+    implementation 'com.github.bobekos:SimpleBarcodeScanner:1.0.23'
 
     //tooltips
-    implementation 'com.tomergoldst.android:tooltips:1.0.10'
+    implementation 'com.nhaarman.supertooltips:library:3.0.0'
+
 
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }

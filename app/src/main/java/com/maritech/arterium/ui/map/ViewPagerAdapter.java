@@ -20,7 +20,7 @@ import java.util.Objects;
 public class ViewPagerAdapter extends PagerAdapter {
 
     public interface OnItemClickListener {
-        void onItemClicked();
+        void onItemClicked(int position);
     }
 
     private ViewPagerAdapter.OnItemClickListener onItemClickListener;
@@ -80,8 +80,7 @@ public class ViewPagerAdapter extends PagerAdapter {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                onItemClickListener.onItemClicked();
+                onItemClickListener.onItemClicked(position);
             }
         });
 

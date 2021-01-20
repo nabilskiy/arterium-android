@@ -15,6 +15,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="76dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+        <com.nhaarman.supertooltips.ToolTipRelativeLayout
+            android:id="@+id/tooltip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="76dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
     <ScrollView
         android:id="@+id/svStepOne"
         android:layout_width="0dp"
@@ -91,6 +107,11 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ccInputSecondName" />
+
+<!--                <com.bobekos.bobek.scanner.BarcodeView-->
+<!--                    android:id="@+id/barcodeView"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"/>-->
 
                 <com.maritech.arterium.ui.widgets.CustomInput
                     android:id="@+id/ccInputCardNumber"

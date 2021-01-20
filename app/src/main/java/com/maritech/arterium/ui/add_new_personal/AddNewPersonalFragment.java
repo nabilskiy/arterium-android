@@ -1,6 +1,6 @@
 package com.maritech.arterium.ui.add_new_personal;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +13,20 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bobekos.bobek.scanner.BarcodeView;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.widgets.CustomInput;
-import com.tomergoldst.tooltips.ToolTip;
-import com.tomergoldst.tooltips.ToolTipsManager;
+import com.nhaarman.supertooltips.ToolTip;
+import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+
+import io.reactivex.disposables.Disposable;
 
 
-import io.card.payment.CardIOActivity;
-import io.card.payment.CreditCard;
+public class AddNewPersonalFragment extends BaseFragment{
 
-public class AddNewPersonalFragment extends BaseFragment {
-
-    private static final int SCAN_REQUEST_CODE = 364;
+//    private static final int SCAN_REQUEST_CODE = 364;
+    private static final String TAG = "scan_card";
 
     private TextView tvTabOne;
     private TextView tvTabTwo;
@@ -46,7 +47,20 @@ public class AddNewPersonalFragment extends BaseFragment {
     private ConstraintLayout clProgressStepTwo;
     private ConstraintLayout clInfoUser;
 
+    private CustomInput ccInputDateInfarct;
+    private CustomInput ccDateOfStartDrug;
+    private CustomInput ccInputFraction;
+    private CustomInput ccInputFecesStart;
+    private CustomInput ccInputFecesEnd;
+    private CustomInput ccInputWeight;
+    private CustomInput ccInputHeight;
+
+
     private ImageView ivCamera;
+
+    private Disposable mDisposable;
+    BarcodeView barcodeView;
+    ToolTipRelativeLayout vTooltip;
 
     private CustomInput ccInputCardNumber;
 
@@ -74,24 +88,28 @@ public class AddNewPersonalFragment extends BaseFragment {
         ivCamera = root.findViewById(R.id.ivCamera);
         ccInputCardNumber = root.findViewById(R.id.ccInputCardNumber);
         tvToolTip = root.findViewById(R.id.tvToolTip);
+        vTooltip = root.findViewById(R.id.tooltip);
 
-        ToolTipsManager mToolTipsManager;
-        mToolTipsManager = new ToolTipsManager();
-        mToolTipsManager.findAndDismiss(tvToolTip);
-        ToolTip.Builder builder = new ToolTip.Builder(getContext(), tvToolTip, clProgressStepTwo, "Tip message", ToolTip.POSITION_ABOVE);
-        builder.setAlign(ToolTip.ALIGN_RIGHT);
-        builder.setTextAppearance(R.style.sf_pro_text_14);
-        builder.setBackgroundColor(getResources().getColor(R.color.white));
-        mToolTipsManager.show(builder.build());
+        ccInputDateInfarct = root.findViewById(R.id.ccInputDateInfarct);
+        ccDateOfStartDrug = root.findViewById(R.id.ccDateOfStartDrug);
+        ccInputFraction = root.findViewById(R.id.ccInputFraction);
+        ccInputFecesStart = root.findViewById(R.id.ccInputFecesStart);
+        ccInputFecesEnd = root.findViewById(R.id.ccInputFecesEnd);
+        ccInputWeight = root.findViewById(R.id.ccInputWeight);
+        ccInputHeight = root.findViewById(R.id.ccInputHeight);
 
         tvTabOne = root.findViewById(R.id.tvOne);
         tvTabTwo = root.findViewById(R.id.tvTwo);
 
         tvTabOne.setActivated(true);
 
-
         tvToolbarTitle.setText("Новий пацієнт");
         tvHint.setText("Медичні дані");
+
+        ToolTip toolTip = new ToolTip()
+                .withText("Використати автозаповнення")
+                .withColor(Color.WHITE)
+                .withShadow();
 
 
         btnNextOne.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +121,26 @@ public class AddNewPersonalFragment extends BaseFragment {
                 clProgressStepOne.setVisibility(View.GONE);
                 clProgressStepTwo.setVisibility(View.VISIBLE);
 
+                vTooltip.showToolTipForView(toolTip, btnAuto);
                 btnAuto.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        btnAuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewProgressTwo.setActivated(true);
+                isTwoStep = true;
+                ccInputDateInfarct.setInput("Дата інфаркту", "1");
+                ccDateOfStartDrug.setInput("Дата призначення препарату", "1");
+                ccInputFraction.setInput("Фракція викиду", "1");
+                ccInputFecesStart.setInput("Рівень калію на початку лікування, ммоль/л", "1");
+                ccInputFecesEnd.setInput("Рівень калію в кінці лікування, ммоль/л", "1");
+                ccInputWeight.setInput("Вага, кг", "1");
+                ccInputHeight.setInput("Рiст, см", "1");
+
+                vTooltip.setVisibility(View.GONE);
 
             }
         });
@@ -111,8 +148,20 @@ public class AddNewPersonalFragment extends BaseFragment {
         ivCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onScanPress(v);
+//                mDisposable = barcodeView
+//                        .getObservable()
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe( barcode -> {
+//                            ccInputCardNumber.setInput("", barcode.displayValue);
+//                        },throwable -> {});
 
+
+//                                { barcode ->
+//                                        //handle barcode object
+//                                },
+//                                { throwable ->
+//                                        //handle exceptions like no available camera for selected facing
+//                                });
             }
         });
 
@@ -145,28 +194,5 @@ public class AddNewPersonalFragment extends BaseFragment {
 
     }
 
-    public void onScanPress(View v) {
-        Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
-
-        // customize these values to suit your needs.
-        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true); // default: false
-        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
-        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
-
-        // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
-        startActivityForResult(scanIntent, SCAN_REQUEST_CODE);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SCAN_REQUEST_CODE) {
-            if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
-                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
-                ccInputCardNumber.setInput("Номер картки", scanResult.cardNumber);
-            }
-        }
-
-    }
 }
 
