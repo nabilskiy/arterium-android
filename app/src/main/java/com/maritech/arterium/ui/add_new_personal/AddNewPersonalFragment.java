@@ -123,6 +123,7 @@ public class AddNewPersonalFragment extends BaseFragment{
 
                 vTooltip.showToolTipForView(toolTip, btnAuto);
                 btnAuto.setVisibility(View.VISIBLE);
+                vTooltip.setVisibility(View.VISIBLE);
 
             }
         });
@@ -180,7 +181,7 @@ public class AddNewPersonalFragment extends BaseFragment{
                 } else {
                     requireActivity().onBackPressed();
                 }
-
+                vTooltip.setVisibility(View.GONE);
 
             }
         });
