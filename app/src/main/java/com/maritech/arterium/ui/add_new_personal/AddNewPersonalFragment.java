@@ -1,31 +1,41 @@
 package com.maritech.arterium.ui.add_new_personal;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bobekos.bobek.scanner.BarcodeView;
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.barcode.BarcodeActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.widgets.CustomInput;
 import com.nhaarman.supertooltips.ToolTip;
 import com.nhaarman.supertooltips.ToolTipRelativeLayout;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 
 public class AddNewPersonalFragment extends BaseFragment{
 
-//    private static final int SCAN_REQUEST_CODE = 364;
+    public static final int SCAN_REQUEST_CODE = 364;
     private static final String TAG = "scan_card";
 
     private TextView tvTabOne;
@@ -146,49 +156,59 @@ public class AddNewPersonalFragment extends BaseFragment{
             }
         });
 
-        ivCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                mDisposable = barcodeView
-//                        .getObservable()
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe( barcode -> {
-//                            ccInputCardNumber.setInput("", barcode.displayValue);
-//                        },throwable -> {});
-
-
-//                                { barcode ->
-//                                        //handle barcode object
-//                                },
-//                                { throwable ->
-//                                        //handle exceptions like no available camera for selected facing
-//                                });
+        ivCamera.setOnClickListener(v -> {
+            int result = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA);
+            if(result != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 101);
+            } else {
+                this.startActivityForResult(new Intent(getActivity(), BarcodeActivity.class), SCAN_REQUEST_CODE);
             }
         });
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isTwoStep) {
-                    isTwoStep = false;
-                    viewProgressTwo.setActivated(false);
+        btnBack.setOnClickListener(v -> {
+            if (isTwoStep) {
+                isTwoStep = false;
+                viewProgressTwo.setActivated(false);
 
-                    clProgressStepOne.setVisibility(View.VISIBLE);
-                    clProgressStepTwo.setVisibility(View.GONE);
+                clProgressStepOne.setVisibility(View.VISIBLE);
+                clProgressStepTwo.setVisibility(View.GONE);
 
-                    btnAuto.setVisibility(View.GONE);
+                btnAuto.setVisibility(View.GONE);
 
-                } else {
-                    requireActivity().onBackPressed();
-                }
-                vTooltip.setVisibility(View.GONE);
-
+            } else {
+                requireActivity().onBackPressed();
             }
+            vTooltip.setVisibility(View.GONE);
+
         });
 
 
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
         return root;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 101: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    this.startActivityForResult(new Intent(getActivity(), BarcodeActivity.class), SCAN_REQUEST_CODE);
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(getContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     public void autoFill(){

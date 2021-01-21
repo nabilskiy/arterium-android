@@ -18,7 +18,7 @@
     <string name="six">6</string>
     <string name="original_purchases">Первиннi \n покупки</string>
     <string name="description_what_to_do">Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу.</string>
-    <string name="login_password">Введіть Ваш <br/> логін і пароль.</string>
+    <string name="login_password">Введіть Ваш <br /> логін і пароль.</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="enter">Увiйти</string>

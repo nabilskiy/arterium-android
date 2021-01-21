@@ -35,5 +35,19 @@ public class MainActivity extends BaseActivity {
         setStatusBarGradient(this, android.R.color.transparent);
     }
 
+    void changeTheme(int theme) {
+        switch (theme) {
+            case 0:
+                setTheme(R.style.MyNoActionBarShadowTheme);
+                break;
+            case 1:
+                setTheme(R.style.MyNoActionBarShadowThemeRed);
+                break;
+            case 2:
+                setTheme(R.style.MyNoActionBarShadowThemeBlue);
+                break;
+        }
+    }
+
 
 }

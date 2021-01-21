@@ -24,13 +24,7 @@ import java.util.ArrayList;
 
 public class DialogWithRecycler extends Dialog {
 
-//    ConstraintLayout clOne;
-//    ConstraintLayout clTwo;
-//    ConstraintLayout clThree;
-//
-//    ImageView ivBtnCheckOne;
-//    ImageView ivBtnCheckTwo;
-//    ImageView ivBtnCheckThree;
+    private OnChooseItem onChooseItem;
 
     TextView btnClose;
     Toast toast;
@@ -50,24 +44,21 @@ public class DialogWithRecycler extends Dialog {
         RecyclerView rcv = (RecyclerView) findViewById(R.id.rvStyle);
         prepareList(listContent);
 
-        adapter = new AdapterDialog(listContent, new AdapterDialog.OnItemClickListener() {
+        adapter = new AdapterDialog(listContent, (position, object, tittle) -> {
 
-            @Override
-            public void onItemClicked(int position, DialogContent object, String tittle) {
-
-                for(int i=0; i<listContent.size(); i++){
-                    listContent.get(i).setActive(false);
-                }
-                object.setActive(true);
-
-
-                Toast toast = Toast.makeText(getContext(),
-                        "Ваш вибір: " + tittle, Toast.LENGTH_SHORT);
-                toast.show();
-
-                dismiss();
-
+            for(int i=0; i<listContent.size(); i++){
+                listContent.get(i).setActive(false);
             }
+            object.setActive(true);
+
+
+            if(onChooseItem != null) {
+                onChooseItem.onChoose(position);
+            }
+
+
+            dismiss();
+
         });
         rcv.setAdapter(adapter);
 
@@ -89,11 +80,20 @@ public class DialogWithRecycler extends Dialog {
 
         getWindow().setAttributes(attributes);
     }
+    public void setListener(OnChooseItem onChooseItem) {
+        this.onChooseItem = onChooseItem;
+    }
 
     private void prepareList(ArrayList<DialogContent> dataList) {
         dataList.add(new DialogContent(R.string.renial_key_life, R.string.need_more_buy, true, R.color.purple));
         dataList.add(new DialogContent(R.string.gliptar_key_life, R.string.need_more_buy, false, R.color.blue));
         dataList.add(new DialogContent(R.string.sagrada_key_life, R.string.need_more_buy, false, R.color.red));
+    }
+
+    public interface OnChooseItem {
+
+        void onChoose(int content);
+
     }
 
 }

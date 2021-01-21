@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.maritech.arterium.MainActivity;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardDoctor.DashboardNavigator;
@@ -22,6 +23,7 @@ import com.maritech.arterium.ui.dashboardDoctor.data.PatientPurchasesContent;
 import com.maritech.arterium.ui.dashboardDoctor.holder.PatientPurchasesAdapter;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
+import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
 
 import java.util.ArrayList;
 
@@ -146,6 +148,9 @@ public class DashboardFragment extends BaseFragment {
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
         DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
+        customDialog.setListener((DialogWithRecycler.OnChooseItem) content -> {
+            ((MainActivity)getActivity()).setTheme(content);
+        });
 
 //        if(getArguments().getBoolean("isPreviousRmOrMp")) {
 //            clInfoClose.setVisibility(View.VISIBLE);
