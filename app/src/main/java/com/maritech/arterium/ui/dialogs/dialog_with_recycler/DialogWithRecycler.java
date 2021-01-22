@@ -2,27 +2,23 @@ package com.maritech.arterium.ui.dialogs.dialog_with_recycler;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
-import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.adapter.AdapterDialog;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
 
 import java.util.ArrayList;
 
 public class DialogWithRecycler extends Dialog {
+
+    private static final String NAME = "ThemeColors", KEY = "ThemeColors";
 
     private OnChooseItem onChooseItem;
 

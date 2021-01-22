@@ -4,20 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.core.widget.NestedScrollView
-        android:clipToPadding="true"
         android:layout_width="match_parent"
-        android:background="@color/black_low_opacity"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="true"
-            android:elevation="5dp"
             android:layout_marginTop="2dp"
             android:background="@drawable/bg_dashboard_details"
-            android:orientation="vertical">
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="0dp">
 
             <LinearLayout
+                android:clipToPadding="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -27,10 +37,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Фільтр по даті"
-                    android:textAppearance="@style/H2"
                     android:layout_margin="16dp"
                     android:layout_weight="1"
+                    android:text="Фільтр по даті"
+                    android:textAppearance="@style/H2"
                     android:textColor="@color/black" />
 
 

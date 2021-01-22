@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.MainActivity;
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardDoctor.DashboardNavigator;
 import com.maritech.arterium.ui.dashboardDoctor.data.PatientPurchasesContent;
@@ -53,6 +54,7 @@ public class DashboardFragment extends BaseFragment {
     View myProfileFragment;
     View navigation_dashboard;
     NestedScrollView details_view;
+    DialogWithRecycler customDialog;
 
     DashboardNavigator navigator = new DashboardNavigator();
 
@@ -69,7 +71,7 @@ public class DashboardFragment extends BaseFragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
-
+       // ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
 
 
         final int clProgramColorGliptar = R.drawable.gradient_light_red;
@@ -147,10 +149,23 @@ public class DashboardFragment extends BaseFragment {
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
-        DialogWithRecycler customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
-        customDialog.setListener((DialogWithRecycler.OnChooseItem) content -> {
-            ((MainActivity)getActivity()).setTheme(content);
-        });
+
+//        customDialog.setListener((DialogWithRecycler.OnChooseItem) content ->{
+//            Log.e("!!!", String.valueOf(content));
+//            if(content == 1) {
+//                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium);
+//                super.onCreate(savedInstanceState);
+//            }
+//            if(content == 2) {
+//                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
+//                super.onCreate(savedInstanceState);
+//            }
+//            if(content == 3) {
+//                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Red);
+//                super.onCreate(savedInstanceState);
+//            }
+//
+//        });
 
 //        if(getArguments().getBoolean("isPreviousRmOrMp")) {
 //            clInfoClose.setVisibility(View.VISIBLE);
@@ -253,7 +268,31 @@ public class DashboardFragment extends BaseFragment {
         return root;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
 
+        customDialog.setListener((DialogWithRecycler.OnChooseItem) content -> {
+            Log.e("!!!", String.valueOf(content));
+            if (content == 0) {
+                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium);
+                BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
+                navigator.bottomGoToDashboardDoctor(navController);
+            }
+            if (content == 1) {
+                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
+                BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
+                navigator.bottomGoToDashboardDoctor(navController);
+            }
+            if (content == 2) {
+                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Red);
+                BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
+                navigator.bottomGoToDashboardDoctor(navController);
+            }
+
+        });
+    }
 
     private void prepareList(ArrayList<PatientPurchasesContent> dataList) {
         dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в середу 10.02.20"));
@@ -262,8 +301,6 @@ public class DashboardFragment extends BaseFragment {
         dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
         dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "0"));
         dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "Остання покупка в середу 16.01.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "18 ЛЮТОГО 2020", "Остання покупка в середу 18.01.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "18 ЛЮТОГО 2020", "Остання покупка в середу 18.01.20"));
 
     }
 

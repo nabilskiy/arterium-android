@@ -1,33 +1,17 @@
 package com.maritech.arterium.ui.widgets;
 
-import android.bluetooth.BluetoothClass;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.Point;
-import android.os.Build;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Dimension;
-import androidx.constraintlayout.solver.widgets.Rectangle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.utils.ScreenSize;
-
-import static android.widget.Toast.*;
 
 public class CustomProgressBar extends LinearLayout {
 

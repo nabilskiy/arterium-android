@@ -10,4 +10,9 @@ public class AddNewMpNavigator extends BaseNavigator {
     void goAddDoctor(NavController navController) {
         navController.navigate(R.id.action_addNewMpFragment_to_chooseDoctorFragment);
     }
+    void goToDashboard(NavController navController) {
+        navController.navigate(R.id.   action_addNewMpFragment_to_dashboardRmFragment);
+    }
+
+
 }

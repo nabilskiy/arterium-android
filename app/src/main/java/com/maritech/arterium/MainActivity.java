@@ -31,8 +31,10 @@ public class MainActivity extends BaseActivity {
 
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        this.onRestart();
 
-        setStatusBarGradient(this, android.R.color.transparent);
+        //setStatusBarGradient(this, android.R.color.transparent);
+        setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
     }
 
     void changeTheme(int theme) {

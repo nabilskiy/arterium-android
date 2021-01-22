@@ -28,4 +28,16 @@ public class BaseActivity extends AppCompatActivity {
             window.setBackgroundDrawable(background);
         }
     }
+
+    public static void setStatusBarGradientDrawable(Activity activity, int drawableId) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = activity.getWindow();
+            Drawable background = activity.getResources().getDrawable(drawableId);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            //window.setStatusBarColor(activity.getResources().getColor(color));
+            window.setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
+            window.setBackgroundDrawable(background);
+            //activity.recreate();
+        }
+    }
 }

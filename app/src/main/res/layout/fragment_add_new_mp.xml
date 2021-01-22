@@ -258,7 +258,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="24dp"
                     android:layout_weight="1"
-                    android:maxEms="22"
+                    android:maxEms="21"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="60dp"
                     android:text="Виберіть одного або кілька лікарів щоб прикріпити до нового аккаунту медичного представника."

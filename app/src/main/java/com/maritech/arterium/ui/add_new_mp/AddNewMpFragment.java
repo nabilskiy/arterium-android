@@ -81,8 +81,8 @@ public class AddNewMpFragment extends BaseFragment {
         tvAddDoctor = root.findViewById(R.id.tvAddDoctor);
 
         tvMp = root.findViewById(R.id.tvMp);
-        tvMpHint= root.findViewById(R.id.tvMpHint);
-        ivChooseMp= root.findViewById(R.id.ivChooseMp);
+        tvMpHint = root.findViewById(R.id.tvMpHint);
+        ivChooseMp = root.findViewById(R.id.ivChooseMp);
 
         tvToolbarTitle.setText("Новий мед. представник");
         tvHint.setText("Персональнi данi");
@@ -97,6 +97,14 @@ public class AddNewMpFragment extends BaseFragment {
                 clProgressStepTwo.setVisibility(View.VISIBLE);
                 btnNextTwo.setVisibility(View.VISIBLE);
                 tvHint.setText("Персональнi данi");
+
+            }
+        });
+
+        btnNextTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboard(navController);
 
             }
         });
@@ -127,10 +135,8 @@ public class AddNewMpFragment extends BaseFragment {
         });
 
 
-            btnNextTwo.setAlpha(0.7f);
-            btnNextTwo.setClickable(false);
-
-
+        btnNextTwo.setAlpha(0.7f);
+        btnNextTwo.setClickable(false);
 
 
         requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
@@ -140,7 +146,6 @@ public class AddNewMpFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
 
         getParentFragmentManager().setFragmentResultListener(REQUEST_KEY, this, new FragmentResultListener() {
@@ -168,7 +173,7 @@ public class AddNewMpFragment extends BaseFragment {
                     @Override
                     public void onItemClicked(int position, ChooseDoctorContent object) {
                         listSelectedObject.remove(object);
-                        if(listSelectedObject.size() == 0){
+                        if (listSelectedObject.size() == 0) {
                             btnNextTwo.setAlpha(0.7f);
                             btnNextTwo.setClickable(false);
 
