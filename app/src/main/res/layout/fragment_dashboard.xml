@@ -70,8 +70,8 @@
 
                 <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
                     android:id="@+id/iccpAvatar"
-                    android:layout_width="92dp"
-                    android:layout_height="92dp"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
                     android:src="@drawable/ic_default_avatar"
@@ -234,8 +234,8 @@
         android:id="@+id/details_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
         android:background="@color/transparent"
+        android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -244,7 +244,6 @@
             layout="@layout/dashboard_universal_details" />
 
     </androidx.core.widget.NestedScrollView>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
