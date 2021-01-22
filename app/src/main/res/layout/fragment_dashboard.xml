@@ -70,10 +70,10 @@
 
                 <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
                     android:id="@+id/iccpAvatar"
-                    android:layout_width="92dp"
-                    android:layout_height="92dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="34dp"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="26dp"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_default_avatar"
