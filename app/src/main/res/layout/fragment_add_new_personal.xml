@@ -348,7 +348,7 @@
                     android:layout_marginBottom="40dp"
                     android:background="@drawable/bg_btn_purpule"
                     android:gravity="center"
-                    android:text="Далi"
+                    android:text="Створити"
                     android:textAppearance="@style/sf_pro_semibold_16"
                     android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"

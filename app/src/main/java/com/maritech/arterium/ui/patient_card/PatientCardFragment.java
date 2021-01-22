@@ -116,13 +116,13 @@ public class PatientCardFragment extends Fragment {
         patientCardNumberValue.setText("444 444 4444 4444");
         ivPatientDataCardIcon = root.findViewById(R.id.patientCardNumber).findViewById(R.id.ivPatientDataCardIcon);
 
-        ivPatientDataCardIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onScanPress(v);
-
-            }
-        });
+//        ivPatientDataCardIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onScanPress(v);
+//
+//            }
+//        });
 
 
 

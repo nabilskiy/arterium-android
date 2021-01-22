@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
+import com.maritech.arterium.ui.widgets.CustomProgressBar;
 import com.maritech.arterium.ui.widgets.CustomTabComponent;
 
 public class StatFragment extends BaseFragment {
@@ -38,6 +39,8 @@ public class StatFragment extends BaseFragment {
     ImageView ivClose;
     ConstraintLayout clSearch;
 
+    CustomProgressBar cpbStatisticGreen;
+
     StatNavigator navigator = new StatNavigator();
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class StatFragment extends BaseFragment {
         tvPurchasesForCurrentMonth = stat_details.findViewById(R.id.tvPurchasesForCurrentMonth);
         ivStatDetailSearch = stat_details.findViewById(R.id.ivStatDetailSearch);
         ivStatDetailFilter = stat_details.findViewById(R.id.ivStatDetailFilter);
+        cpbStatisticGreen = root.findViewById(R.id.cpbStatisticGreen);
+
+        cpbStatisticGreen.setElevation(9);
 
         title = toolbar.findViewById(R.id.tvToolbarTitle);
         title.setText(R.string.statistic);

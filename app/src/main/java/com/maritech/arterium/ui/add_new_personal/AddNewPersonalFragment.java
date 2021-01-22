@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.telephony.mbms.StreamingServiceInfo;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class AddNewPersonalFragment extends BaseFragment{
     private View viewProgressTwo;
     private RadioGroup radioGroup;
     private TextView btnNextOne;
+    private TextView btnNextTwo;
     private Boolean isTwoStep = false;
     private ImageView btnBack;
     private ImageView btnAuto;
@@ -90,6 +92,7 @@ public class AddNewPersonalFragment extends BaseFragment{
         tvHint.setVisibility(View.VISIBLE);
         radioGroup = root.findViewById(R.id.radioGroup);
         btnNextOne = root.findViewById(R.id.btnNextOne);
+        btnNextTwo = root.findViewById(R.id.btnNextTwo);
         viewProgressOne = root.findViewById(R.id.toolbar).findViewById(R.id.viewOne);
         viewProgressOne.setActivated(true);
         viewProgressTwo = root.findViewById(R.id.toolbar).findViewById(R.id.viewTwo);
@@ -138,6 +141,14 @@ public class AddNewPersonalFragment extends BaseFragment{
             }
         });
 
+        btnNextTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboard(navController);
+
+            }
+        });
+
         btnAuto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +162,7 @@ public class AddNewPersonalFragment extends BaseFragment{
                 ccInputWeight.setInput("Вага, кг", "1");
                 ccInputHeight.setInput("Рiст, см", "1");
 
+
                 vTooltip.setVisibility(View.GONE);
 
             }
@@ -163,6 +175,8 @@ public class AddNewPersonalFragment extends BaseFragment{
             } else {
                 this.startActivityForResult(new Intent(getActivity(), BarcodeActivity.class), SCAN_REQUEST_CODE);
             }
+
+
         });
 
         btnBack.setOnClickListener(v -> {
@@ -197,6 +211,7 @@ public class AddNewPersonalFragment extends BaseFragment{
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     this.startActivityForResult(new Intent(getActivity(), BarcodeActivity.class), SCAN_REQUEST_CODE);
+                    ccInputCardNumber.setInput("Номер картки", String.valueOf(requestCode));
                 } else {
 
                     // permission denied, boo! Disable the

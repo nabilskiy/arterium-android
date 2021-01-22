@@ -50,7 +50,7 @@ public class MapFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_map, container, false);
 
-        Drawable markerDrawable = getResources().getDrawable(R.drawable.ic_marker_active);
+        Drawable markerDrawable = getResources().getDrawable(R.drawable.marker);
 
         mMapView = (MapView) root.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
