@@ -301,7 +301,6 @@ public class DashboardFragment extends BaseFragment {
         dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
         dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "0"));
         dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "Остання покупка в середу 16.01.20"));
-
     }
 
 //
@@ -331,7 +330,6 @@ public class DashboardFragment extends BaseFragment {
     public void setLvlTheme(int clProgramColor, int clInfoUserColor) {
         clProgram.setBackgroundResource(clProgramColor);
         clInfoUser.setBackgroundResource(clProgramColor);
-
     }
 
 //    public void setSagrada() {

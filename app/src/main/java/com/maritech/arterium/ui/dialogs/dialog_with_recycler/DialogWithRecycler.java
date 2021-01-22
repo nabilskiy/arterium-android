@@ -87,9 +87,7 @@ public class DialogWithRecycler extends Dialog {
     }
 
     public interface OnChooseItem {
-
         void onChoose(int content);
-
     }
 
 }

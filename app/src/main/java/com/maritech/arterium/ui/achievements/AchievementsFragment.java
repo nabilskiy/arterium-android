@@ -71,7 +71,7 @@ public class AchievementsFragment extends BaseFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.transparent);
+        BaseActivity.setStatusBarGradientDark(requireActivity(), BaseActivity.fetchPrimaryDarkColor(requireActivity()));
     }
 
     private void prepareList(ArrayList<AchievementsContent> dataList) {

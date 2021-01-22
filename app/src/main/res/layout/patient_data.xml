@@ -21,7 +21,7 @@
         app:layout_constraintStart_toEndOf="@id/ivPatientDataIcon"
         android:text="@string/personal_data"
         android:textAppearance="@style/sf_pro_semibold_16"
-        android:textColor="@color/purple_700"
+        android:textColor="?colorSecondary"
         android:layout_marginStart="10dp"
         android:letterSpacing="0.032"
         app:layout_constraintBottom_toBottomOf="parent"

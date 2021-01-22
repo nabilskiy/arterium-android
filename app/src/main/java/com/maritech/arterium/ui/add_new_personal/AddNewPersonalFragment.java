@@ -145,7 +145,6 @@ public class AddNewPersonalFragment extends BaseFragment{
             @Override
             public void onClick(View v) {
                 navigator.goToDashboard(navController);
-
             }
         });
 

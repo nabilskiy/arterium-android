@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="5км​"
-        android:textColor="@color/blue"
+        android:textColor="?colorSecondary"
         android:textAppearance="@style/sf_pro_semibold_13"
         app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"
         app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
@@ -85,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=" • Як дістатися?"
-        android:textColor="@color/blue"
+        android:textColor="?colorSecondary"
         android:textAppearance="@style/sf_pro_semibold_13"
         app:layout_constraintStart_toEndOf="@id/tvPharmacyDistance"
         app:layout_constraintTop_toTopOf="@+id/tvPharmacyDistance" />

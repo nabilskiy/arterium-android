@@ -22,18 +22,11 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         navView = findViewById(R.id.nav_view);
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_dashboard, R.id.navigation_statistics, R.id.achievementsFragment,
-//                R.id.myProfileFragment)
-//                .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
-
         Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         this.onRestart();
-
-        //setStatusBarGradient(this, android.R.color.transparent);
         setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
     }
 

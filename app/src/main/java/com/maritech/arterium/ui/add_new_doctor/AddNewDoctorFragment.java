@@ -121,6 +121,13 @@ public class AddNewDoctorFragment extends BaseFragment {
             }
         });
 
+        btnNextTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigator.goToDashboard(navController);
+            }
+        });
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

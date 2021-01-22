@@ -129,7 +129,6 @@ public class MapFragment extends Fragment {
                     googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionFour));
                     Log.e("!!!", "4");
                 }
-
             }
         });
         mViewPager.setAdapter(mViewPagerAdapter);

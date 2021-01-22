@@ -258,6 +258,10 @@
         <action
             android:id="@+id/action_addNewDoctorFragment_to_chooseMpFragment"
             app:destination="@id/chooseMpFragment" />
+        <action
+            android:id="@+id/action_addNewDoctorFragment_to_dashboardFragment"
+            app:destination="@id/dashboardRmFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/addNewMpFragment"

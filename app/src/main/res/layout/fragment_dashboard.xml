@@ -67,7 +67,6 @@
                         app:srcCompat="@drawable/ic_close_white" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                 <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
                     android:id="@+id/iccpAvatar"
                     android:layout_width="88dp"
@@ -130,7 +129,6 @@
                     android:textColor="@color/white_low_opacity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ivLvl" />
-
 
                 <ImageView
                     android:id="@+id/ivLvl"
@@ -220,7 +218,6 @@
                         android:textColor="@color/white"
                         app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
                         app:layout_constraintTop_toBottomOf="@+id/tvCurrentProgram" />
-
 
                     <ImageView
                         android:id="@+id/ivGoChangeProgram"

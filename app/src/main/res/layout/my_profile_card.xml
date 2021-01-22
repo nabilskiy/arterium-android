@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vinich"
-        android:textColor="@color/purple_700"
+        android:textColor="?colorSecondary"
         android:textAppearance="@style/sf_pro_semibold_16"
         app:layout_constraintStart_toEndOf="@+id/cvLogo"
         app:layout_constraintTop_toTopOf="parent"

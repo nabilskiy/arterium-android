@@ -67,7 +67,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="Додати новий аккаунт"
-                            android:textColor="@color/purple"
+                            android:textColor="?colorPrimaryDark"
                             android:textAppearance="@style/sf_pro_semibold_16"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/ivPlus"
@@ -114,7 +114,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/details_view"
-
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
