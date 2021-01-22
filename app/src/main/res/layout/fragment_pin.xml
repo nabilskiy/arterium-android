@@ -8,7 +8,7 @@
     <com.alimuzaffar.lib.pin.PinEntryEditText
         android:id="@+id/verificationCodeInput"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="80dp"
         android:cursorVisible="true"
@@ -18,23 +18,24 @@
         android:maxLength="4"
         android:textColor="@color/purple"
         android:textCursorDrawable="@color/purple"
-        android:textIsSelectable="false"
+        android:textIsSelectable="true"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvEnterPin"
         app:pinBackgroundDrawable="@drawable/bg_item_pin"
-        app:pinTextBottomPadding="@dimen/_14sdp" />
+        app:pinTextBottomPadding="14dp" />
 
     <TextView
         android:id="@+id/tvEnterPin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="78dp"
         android:maxEms="8"
         android:text="Введіть Ваш пін-код."
+        app:layout_constraintEnd_toEndOf="parent"
         android:textAppearance="@style/H1"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
