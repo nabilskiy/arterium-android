@@ -10,5 +10,9 @@ public class LoginNavigator extends BaseNavigator {
     void goToPin(NavController navController) {
         navController.navigate(R.id.action_loginFragment_to_pinCodeFragment);
     }
+
+    void goToDoctorDashboard(NavController navController) {
+        navController.navigate(R.id.action_loginFragment_to_dashboardFragment);
+    }
 }
 
