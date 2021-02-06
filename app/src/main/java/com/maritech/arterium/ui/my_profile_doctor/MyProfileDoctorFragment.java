@@ -2,7 +2,6 @@ package com.maritech.arterium.ui.my_profile_doctor;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.fragment.pinCode.PinCodeNavigator;
+import com.maritech.arterium.utils.ToastUtil;
 
 public class MyProfileDoctorFragment extends BaseFragment {
 
@@ -26,8 +26,14 @@ public class MyProfileDoctorFragment extends BaseFragment {
     TextView notification;
     TextView contact;
     TextView setting;
+    TextView tvMyProfileName;
+    TextView tvMyProfileSkill;
+    TextView tvMyProfileShopingAmount;
     View myProfileMainContentSettings;
     View myProfileCard;
+    TextView tvCardPersonName;
+    TextView tvCardPersonSkill;
+    TextView tvCardPersonTelephoneNumber;
     View pharmacyList;
     MyProfileDoctorNavigator navigator = new MyProfileDoctorNavigator();
     View navigation_statistics;
@@ -36,6 +42,7 @@ public class MyProfileDoctorFragment extends BaseFragment {
     View navigation_dashboard;
     View myNotifications;
 
+    ProfileViewModel viewModel = new ProfileViewModel();
 
     @SuppressLint("ResourceAsColor")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,12 +53,20 @@ public class MyProfileDoctorFragment extends BaseFragment {
         edit = root.findViewById(R.id.ivRight);
         myProfileMainContentSettings = root.findViewById(R.id.myProfileMainContentSettings);
         myProfileCard = root.findViewById(R.id.myProfileCard);
+        tvCardPersonName = myProfileCard.findViewById(R.id.tvCardPersonName);
+        tvCardPersonSkill = myProfileCard.findViewById(R.id.tvCardPersonSkill);
+        tvCardPersonTelephoneNumber = myProfileCard.findViewById(R.id.tvCardPersonTelephoneNumber);
+
         pharmacyList = root.findViewById(R.id.pharmacyList);
         navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
         achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
         myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
         navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
         myNotifications = root.findViewById(R.id.myProfileMainContentNotifications);
+
+        tvMyProfileName = root.findViewById(R.id.tvMyProfileName);
+        tvMyProfileSkill = root.findViewById(R.id.tvMyProfileSkill);
+        tvMyProfileShopingAmount = root.findViewById(R.id.tvMyProfileShopingAmount);
 
         edit.setVisibility(View.INVISIBLE);
         toolbarTitle.setText("Профіль доктора");
@@ -98,7 +113,6 @@ public class MyProfileDoctorFragment extends BaseFragment {
             }
         });
 
-
         navigation_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +120,7 @@ public class MyProfileDoctorFragment extends BaseFragment {
                 navigation_dashboard.setActivated(true);
             }
         });
+
         achievementsFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,10 +134,55 @@ public class MyProfileDoctorFragment extends BaseFragment {
                 navigator.bottomGoToStat(navController);
             }
         });
+
+        observeViewModel();
+
+        viewModel.getProfile();
+
         return root;
     }
 
-    public void setMyProfileContentList(View root){
+    private void observeViewModel() {
+        viewModel.responseLiveData
+                .observe(getViewLifecycleOwner(),
+                        profileData -> {
+                            tvMyProfileName.setText(profileData.getName());
+                            tvMyProfileSkill.setText(profileData.getInstitutionType());
+                            tvMyProfileShopingAmount.setText(
+                                    getString(R.string.whole_shopping_items1,
+                                            profileData.getSoldCount())
+                            );
+
+                            if (profileData.getParents() != null && !profileData.getParents().isEmpty()) {
+                                Profile.Parent parent = null;
+
+                                for (Profile.Parent p : profileData.getParents()) {
+                                    if (p.getRoleKey().toLowerCase().equals("manager")) {
+                                        parent = p;
+                                        break;
+                                    }
+                                }
+
+                                if (parent != null) {
+                                    tvCardPersonName.setText(parent.getName());
+                                    tvCardPersonSkill.setText(parent.getName());
+                                    tvCardPersonTelephoneNumber.setText(parent.getName());
+                                }
+                            }
+                        });
+
+        viewModel.loading
+                .observe(getViewLifecycleOwner(), isLoading -> {
+
+                });
+
+        viewModel.error.observe(getViewLifecycleOwner(),
+                error -> {
+                    ToastUtil.show(requireContext(), error);
+                });
+    }
+
+    public void setMyProfileContentList(View root) {
         imageNotification = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.ivMyProfileListIcon);
         imageSetting = root.findViewById(R.id.myProfileMainContentSettings).findViewById(R.id.ivMyProfileListIcon);
         imageContact = root.findViewById(R.id.contactWithUs).findViewById(R.id.ivMyProfileListIcon);

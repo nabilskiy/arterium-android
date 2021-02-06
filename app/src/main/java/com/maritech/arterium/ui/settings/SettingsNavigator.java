@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.fragment.settings;
+package com.maritech.arterium.ui.settings;
 
 import androidx.navigation.NavController;
 

@@ -109,7 +109,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.maritech.arterium.ui.fragment.settings.SettingsFragment"
+        android:name="com.maritech.arterium.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings">
         <action
@@ -119,16 +119,22 @@
 
     <fragment
         android:id="@+id/loginSplashFragment"
-        android:name="com.maritech.arterium.ui.fragment.loginSplash.LoginSplashFragment"
+        android:name="com.maritech.arterium.ui.splash.LoginSplashFragment"
         android:label="LoginSplashFragment"
         tools:layout="@layout/fragment_login_splash">
         <action
             android:id="@+id/action_loginSplashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_pinCodeFragment"
+            app:destination="@id/pinCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/pinCodeFragment"
-        android:name="com.maritech.arterium.ui.fragment.pinCode.PinCodeFragment"
+        android:name="com.maritech.arterium.ui.login.pinCode.PinCodeFragment"
         android:label="PinCodeFragment"
         tools:layout="@layout/fragment_pin">
         <action

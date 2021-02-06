@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.fragment.pinCode;
+package com.maritech.arterium.ui.login.pinCode;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentResultListener;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.choose_mp.data.ChooseMpContent;
 
 public class PinCodeFragment extends BaseFragment {
 
@@ -36,25 +35,22 @@ public class PinCodeFragment extends BaseFragment {
         final PinEntryEditText pinEntry = (PinEntryEditText) input.findViewById(R.id.verificationCodeInput);
         input.requestFocus();
         if (pinEntry != null) {
-            pinEntry.setOnPinEnteredListener(new PinEntryEditText.OnPinEnteredListener() {
-                @Override
-                public void onPinEntered(CharSequence str) {
-                    if (str.toString().equals("1111")) {
-                        hideKeyboard(getActivity());
-                        switch (typeOfUser) {
-                            case "medical":
-                                navigator.goToDashboardMpAfterEnterPin(navController);
-                                break;
-                            case "regional":
-                                navigator.goToDashboardRmAfterEnterPin(navController);
-                                break;
-                            case "doctor":
-                                navigator.goToDashboardDoctorAfterEnterPin(navController);
-                                break;
-                        }
-                    } else {
-                        pinEntry.setText(null);
+            pinEntry.setOnPinEnteredListener(str -> {
+                if (str.toString().equals("1111")) {
+                    hideKeyboard(getActivity());
+                    switch (typeOfUser) {
+                        case "medical":
+                            navigator.goToDashboardMpAfterEnterPin(navController);
+                            break;
+                        case "regional":
+                            navigator.goToDashboardRmAfterEnterPin(navController);
+                            break;
+                        case "doctor":
+                            navigator.goToDashboardDoctorAfterEnterPin(navController);
+                            break;
                     }
+                } else {
+                    pinEntry.setText(null);
                 }
             });
         }

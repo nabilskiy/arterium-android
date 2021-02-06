@@ -25,12 +25,18 @@ import com.maritech.arterium.ui.dashboardDoctor.holder.PatientPurchasesAdapter;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
+import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
+import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.ArrayList;
 
 
 public class DashboardFragment extends BaseFragment {
 
+    private TextView tvUserName;
+    private TextView tvPost;
+    private TextView tvAllBuy;
+    private TextView tvLvl;
 
     private ImageView ivSearch;
     private TextView tvDoctors;
@@ -58,12 +64,11 @@ public class DashboardFragment extends BaseFragment {
 
     DashboardNavigator navigator = new DashboardNavigator();
 
-
-
     private ArrayList<PatientPurchasesContent> listPatientPurchases = new ArrayList<>();
 
     private DashboardMpViewModel dashboardViewModel;
 
+    private final ProfileViewModel viewModel = new ProfileViewModel();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +76,7 @@ public class DashboardFragment extends BaseFragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
-       // ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
+        // ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
 
 
         final int clProgramColorGliptar = R.drawable.gradient_light_red;
@@ -94,6 +99,11 @@ public class DashboardFragment extends BaseFragment {
         tvTabThree = details.findViewById(R.id.tvThree);
         details_view = (NestedScrollView) root.findViewById(R.id.details_view);
 
+        tvUserName = root.findViewById(R.id.tvUserName);
+        tvPost = root.findViewById(R.id.tvPost);
+        tvAllBuy = root.findViewById(R.id.tvAllBuy);
+        tvLvl = root.findViewById(R.id.tvLvl);
+
         PatientPurchasesAdapter adapter;
         RecyclerView rcv = details_view.findViewById(R.id.rvPatients);
 
@@ -101,7 +111,7 @@ public class DashboardFragment extends BaseFragment {
 
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.e("gggggggggggg","ggggggg");
+                Log.e("gggggggggggg", "ggggggg");
 
 //                if (scrollY > 100) {
 //                    ivSearch.setVisibility(View.VISIBLE);
@@ -133,7 +143,7 @@ public class DashboardFragment extends BaseFragment {
 //
 //                }
                 if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                                        ivSearch.setVisibility(View.VISIBLE);
+                    ivSearch.setVisibility(View.VISIBLE);
                     tvDoctors.setVisibility(View.VISIBLE);
                     ivFilter.setVisibility(View.VISIBLE);
                     ivClose.setVisibility(View.GONE);
@@ -202,14 +212,14 @@ public class DashboardFragment extends BaseFragment {
         clBtnAddNewPersonal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            navigator.addNewPersonal(navController);
+                navigator.addNewPersonal(navController);
             }
         });
 
         clProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // showDialog();
+                // showDialog();
                 customDialog.show();
 
             }
@@ -222,7 +232,7 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
-       prepareList(listPatientPurchases);
+        prepareList(listPatientPurchases);
 
         adapter = new PatientPurchasesAdapter(listPatientPurchases, new PatientPurchasesAdapter.OnItemClickListener() {
             @Override
@@ -265,6 +275,10 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
+        observeViewModel();
+
+        viewModel.getProfile();
+
         return root;
     }
 
@@ -294,6 +308,29 @@ public class DashboardFragment extends BaseFragment {
         });
     }
 
+    private void observeViewModel() {
+        viewModel.responseLiveData
+                .observe(getViewLifecycleOwner(),
+                        profileData -> {
+                            tvUserName.setText(profileData.getName());
+                            tvPost.setText(profileData.getInstitutionType());
+                            tvAllBuy.setText(getString(R.string.whole_shopping_items1,
+                                    profileData.getSoldCount()));
+//                            tvLvl.setText(profileData.get());
+
+                        });
+
+        viewModel.loading
+                .observe(getViewLifecycleOwner(), isLoading -> {
+
+                });
+
+        viewModel.error.observe(getViewLifecycleOwner(),
+                error -> {
+                    ToastUtil.show(requireContext(), error);
+                });
+    }
+
     private void prepareList(ArrayList<PatientPurchasesContent> dataList) {
         dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в середу 10.02.20"));
         dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в понеділок 10.02.20"));
@@ -302,30 +339,6 @@ public class DashboardFragment extends BaseFragment {
         dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "0"));
         dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "Остання покупка в середу 16.01.20"));
     }
-
-//
-//    public void showDialog() {
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        DialogWithRecycler newFragment = new DialogWithRecycler();
-//        //WindowManager.LayoutParams params = newFragment.getAttributes();
-//        WindowManager.LayoutParams params = newFragment.getFragmentManager().getAttributes();
-//        newFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.ChooseProgramDialog);
-//        newFragment.show(fragmentManager, "dialog");
-//        params.gravity = Gravity.BOTTOM;
-//        params.y = 50;
-//        newFragment.
-//        newFragment.getActivity().getWindow().setAttributes(params);
-//
-////        AlertDialog.Builder builder = new Builder(this);
-////        builder.setTitle("Are you sure?").setPositiveButton("OK", new DialogInterface.OnClickListener(){
-////            public void onClick(DialogInterface dialog, int which){
-////                dialog.dismiss();
-////            }
-////        });
-//////
-////        Dialog dialog = builder.create();
-////        dialog.show();
-//    }
 
     public void setLvlTheme(int clProgramColor, int clInfoUserColor) {
         clProgram.setBackgroundResource(clProgramColor);

@@ -1,23 +1,17 @@
-package com.maritech.arterium.ui.fragment.settings;
+package com.maritech.arterium.ui.settings;
 
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.github.iielse.switchbutton.SwitchView;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.login.LoginNavigator;
 
 public class SettingsFragment extends BaseFragment {
 

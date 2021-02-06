@@ -14,5 +14,13 @@ public class LoginNavigator extends BaseNavigator {
     void goToDoctorDashboard(NavController navController) {
         navController.navigate(R.id.action_loginFragment_to_dashboardFragment);
     }
+
+    void goToRegionalDashboard(NavController navController) {
+        navController.navigate(R.id.action_loginFragment_to_dashboardRmFragment);
+    }
+
+    void goToMedicalDashboard(NavController navController) {
+        navController.navigate(R.id.action_loginFragment_to_navigation_dashboard);
+    }
 }
 

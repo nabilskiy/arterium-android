@@ -1,8 +1,6 @@
 package com.maritech.arterium.data.network.interceptors;
 
-import android.content.Context;
-
-import com.maritech.arterium.data.sharePref.Pref;
+import androidx.annotation.NonNull;
 
 import java.io.IOException;
 
@@ -16,21 +14,17 @@ import okhttp3.Response;
 
 public class ErrorAuthTokenInterceptor implements Interceptor {
 
-    private Pref pref;
-    private Context context;
-
-    public ErrorAuthTokenInterceptor(Context context) {
-        pref = Pref.getInstance();
-        this.context = context;
+    public ErrorAuthTokenInterceptor() {
     }
 
+    @NonNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         Response response = chain.proceed(request);
 
         if (response.code() == 401) {
-            pref.saveAuthtoken(context, "");
+//            Pref.getInstance().saveAuthToken(App.getInstance(), "");
             //RegistrationActivity.start(context);
             return response;
         }

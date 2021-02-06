@@ -94,6 +94,7 @@
                     android:text="Юрiй Березняков"
                     android:textAppearance="@style/H2"
                     android:textColor="@color/white"
+
                     app:layout_constraintStart_toEndOf="@+id/iccpAvatar"
                     app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />
 

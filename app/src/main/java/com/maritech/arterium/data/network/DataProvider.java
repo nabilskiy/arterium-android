@@ -2,9 +2,8 @@ package com.maritech.arterium.data.network;
 
 
 import com.maritech.arterium.data.models.LoginResponse;
+import com.maritech.arterium.data.models.ProfileResponse;
 
-import okhttp3.ResponseBody;
-import rx.Completable;
 import rx.Observable;
 import rx.Single;
 
@@ -17,5 +16,7 @@ import rx.Single;
 public interface DataProvider {
 
     Single<LoginResponse> login(String login, String password);
+
+    Observable<ProfileResponse> getProfile();
 
 }

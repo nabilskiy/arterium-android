@@ -1,28 +1,28 @@
-package com.maritech.arterium.ui.login;
+package com.maritech.arterium.ui.my_profile_doctor;
 
-import com.maritech.arterium.data.models.LoginData;
+import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
 import com.maritech.arterium.ui.base.BaseViewModel;
 
-public class LoginViewModel extends BaseViewModel<LoginData> {
+public class ProfileViewModel extends BaseViewModel<Profile> {
 
     private final DataProvider model;
 
-    public LoginViewModel() {
+    public ProfileViewModel() {
         model = ArteriumDataProvider.getInstance();
     }
 
-    void login(String login, String password) {
+    public void getProfile() {
         loading.postValue(true);
-        model.login(login, password)
+        model.getProfile()
                 .subscribe(
                         data -> {
                             loading.postValue(false);
                             responseLiveData.postValue(data.getData());
                         },
                         throwable -> {
-                            loading.postValue(false);
+                          loading.postValue(false);
                             error.postValue(throwable.getMessage());
                         }
                 );

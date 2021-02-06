@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.base;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Context;
@@ -24,7 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     public static void setStatusBarGradient(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            Drawable background = activity.getResources().getDrawable(R.drawable.gradient_purple);
+            Drawable background = ContextCompat.getDrawable(activity, R.drawable.gradient_purple);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(activity.getResources().getColor(color));
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
@@ -35,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
     public static void setStatusBarGradientDark(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            Drawable background = activity.getResources().getDrawable(R.drawable.gradient_purple);
+            Drawable background = ContextCompat.getDrawable(activity, R.drawable.gradient_purple);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
@@ -46,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
     public static void setStatusBarGradientDrawable(Activity activity, int drawableId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = activity.getWindow();
-            Drawable background = activity.getResources().getDrawable(drawableId);
+            Drawable background = ContextCompat.getDrawable(activity, drawableId);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(fetchPrimaryDarkColor(activity));
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.black));

@@ -1,8 +1,11 @@
 package com.maritech.arterium.data.network.interceptors;
 
-import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.maritech.arterium.App;
 import com.maritech.arterium.data.sharePref.Pref;
 
 import java.io.IOException;
@@ -18,27 +21,35 @@ import okhttp3.Response;
 
 public class AuthenticationInterceptor implements Interceptor {
 
-    private String authtoken;
-
-
-    public AuthenticationInterceptor(Context context) {
-        Pref pref = Pref.getInstance();
-        this.authtoken = pref.getUser(context);
+    public AuthenticationInterceptor() {
     }
 
+    @NonNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request original = chain.request();
 
         Request.Builder builder = original.newBuilder();
 
-        if (!TextUtils.isEmpty(authtoken)) {
-            builder.header("Authorization", authtoken);
+        String authToken = Pref.getInstance().getAuthToken(App.getInstance());
+
+        if (!TextUtils.isEmpty(authToken)) {
+            builder.header("Authorization", "Bearer " + authToken);
         }
 
         builder.header("Accept", "application/json");
         builder.header("X-Requested-With", "XMLHttpRequest");
-        builder.header("Device-Id", UUID.randomUUID().toString());
+
+        String uuid = Pref.getInstance().getDeviceUUID(App.getInstance());
+
+        if (uuid.isEmpty()) {
+            uuid = UUID.randomUUID().toString();
+            Pref.getInstance().setDeviceUUID(App.getInstance(), uuid);
+        }
+        Log.e("UUID", uuid);
+        Log.e("TOKEN", authToken);
+
+        builder.header("Device-Id", uuid);
         Request request = builder.build();
         return chain.proceed(request);
     }

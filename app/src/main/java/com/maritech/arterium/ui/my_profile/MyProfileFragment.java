@@ -1,7 +1,6 @@
 package com.maritech.arterium.ui.my_profile;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.fragment.pinCode.PinCodeNavigator;
 
 public class MyProfileFragment extends BaseFragment {
 
