@@ -1,12 +1,14 @@
 package com.maritech.arterium.ui.achievements;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +21,7 @@ import com.maritech.arterium.ui.base.BaseFragment;
 import java.util.ArrayList;
 
 public class AchievementsFragment extends BaseFragment {
+
     static final String BUNDLE_KEY_ACHIEVEMENTS_NAME = "achievements_name";
     static final String BUNDLE_KEY_ACHIEVEMENTS_IMAGE = "achievements_image";
     static final String BUNDLE_KEY_ACHIEVEMENTS_DESCRIPTIONS = "achievements_descriptions";
@@ -30,42 +33,44 @@ public class AchievementsFragment extends BaseFragment {
     private Bundle result = new Bundle();
     private AchievementsNavigator navigator = new AchievementsNavigator();
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_achievement;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_achievement, container, false);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        btnClose = root.findViewById(R.id.ivClose);
+        btnClose = view.findViewById(R.id.ivClose);
 
-        ArrayList<AchievementsContent> dataList = new ArrayList<AchievementsContent>();
+        ArrayList<AchievementsContent> dataList = new ArrayList<>();
         prepareList(dataList);
 
-        RecyclerView mRecyclerView = (RecyclerView) root.findViewById(R.id.rvAchievement);
-        AchievementsAdapter mAdapter = new AchievementsAdapter(dataList, new AchievementsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int position, AchievementsContent object) {
-                result.putInt(BUNDLE_KEY_ACHIEVEMENTS_IMAGE, object.getIdImage());
-                result.putInt(BUNDLE_KEY_ACHIEVEMENTS_NAME, object.getIdName());
-                result.putInt(BUNDLE_KEY_ACHIEVEMENTS_DESCRIPTIONS, object.getIdDescription());
+        RecyclerView mRecyclerView = view.findViewById(R.id.rvAchievement);
+        AchievementsAdapter mAdapter = new AchievementsAdapter(dataList, (position, object) -> {
+            result.putInt(BUNDLE_KEY_ACHIEVEMENTS_IMAGE, object.getIdImage());
+            result.putInt(BUNDLE_KEY_ACHIEVEMENTS_NAME, object.getIdName());
+            result.putInt(BUNDLE_KEY_ACHIEVEMENTS_DESCRIPTIONS, object.getIdDescription());
 
-                getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
-                navigator.goToAchievementDetails(navController);
-            }
+            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
+            navigator.goToAchievementDetails(navController);
         });
         layoutManager = new GridLayoutManager(getContext(), 3);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
-          btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
+        btnClose.setOnClickListener(v -> requireActivity().onBackPressed());
 
         BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.black);
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
+        Log.e("Bottom", this.getClass().getName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Log.e("onPause", this.getClass().getName());
     }
 
     @Override

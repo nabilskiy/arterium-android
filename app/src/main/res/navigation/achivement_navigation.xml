@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/achievements"
+    app:startDestination="@id/achievements">
+
+    <fragment
+        android:id="@+id/achievements"
+        android:name="com.maritech.arterium.ui.achievements.AchievementsFragment"
+        android:label="AchievementsFragment"
+        tools:layout="@layout/fragment_achievement">
+        <action
+            android:id="@+id/action_achievementsFragment_to_achievementsDetailsFragment"
+            app:destination="@id/achievementsDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/achievementsDetailsFragment"
+        android:name="com.maritech.arterium.ui.achievements.AchievementsDetailsFragment"
+        android:label="AchievementsDetailsFragment"
+        tools:layout="@layout/fragment_achievements_details"/>
+</navigation>

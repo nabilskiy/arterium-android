@@ -1,24 +1,19 @@
 package com.maritech.arterium.ui.dashboardMp;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.ItemDashboardBinding;
 import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
-import com.maritech.arterium.ui.dashboardRm.DashboardRmNavigator;
 
 import java.util.ArrayList;
 
@@ -31,9 +26,6 @@ public class DashboardMpFragment extends BaseFragment {
 
     DashboardMpNavigator navigator = new DashboardMpNavigator();
 
-    View navigation_statistics;
-    View achievementsFragment;
-    View myProfileFragment;
     View navigation_dashboard;
 
 
@@ -41,10 +33,16 @@ public class DashboardMpFragment extends BaseFragment {
 
     private DashboardMpViewModel dashboardViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_dashboard_mp;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         dashboardViewModel = new ViewModelProvider(this).get(DashboardMpViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard_mp, container, false);
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
 
@@ -52,10 +50,7 @@ public class DashboardMpFragment extends BaseFragment {
         tvDoctors = root.findViewById(R.id.tvDoctors);
         ivClose = root.findViewById(R.id.ivClose);
         clSearch = root.findViewById(R.id.clSearch);
-        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
-        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,18 +77,6 @@ public class DashboardMpFragment extends BaseFragment {
         prepareList(listDoctors);
 
         adapter.setDataList(listDoctors);
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-
-        navigation_statistics.setVisibility(View.GONE);
-        achievementsFragment.setVisibility(View.GONE);
-
-
-        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToMyProfile(navController);
-            }
-        });
 
         navigation_dashboard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,11 +84,7 @@ public class DashboardMpFragment extends BaseFragment {
                 navigator.goToDashboard(navController);
             }
         });
-
-
-        return root;
     }
-
 
     private void prepareList(ArrayList<DoctorsContent> dataList) {
         dataList.add(new DoctorsContent(1, "Евгений Петров", "40", "A", "vas"));

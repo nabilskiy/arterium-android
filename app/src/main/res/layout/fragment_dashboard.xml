@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_switcher">
 
-
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp" />
@@ -67,78 +66,188 @@
                         app:srcCompat="@drawable/ic_close_white" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
-                    android:id="@+id/iccpAvatar"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="26dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_default_avatar"
-                    app:backgroundRingColor="@android:color/transparent"
-                    app:backgroundRingSize="12dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/top_layout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/clInfoClose"
-                    app:progress="32"
-                    app:progressRingColor="#BCD6D6"
-                    app:progressRingCorner="ROUND"
-                    app:progressRingOutline="true"
-                    app:progressRingSize="6dp" />
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="16dp">
 
-                <TextView
-                    android:id="@+id/tvUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:text="Юрiй Березняков"
-                    android:textAppearance="@style/H2"
-                    android:textColor="@color/white"
+                    <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
+                        android:id="@+id/iccpAvatar"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_default_avatar"
+                        app:backgroundRingColor="@android:color/transparent"
+                        app:backgroundRingSize="12dp"
+                        app:progress="32"
+                        app:progressRingColor="#BCD6D6"
+                        app:progressRingCorner="ROUND"
+                        app:progressRingOutline="true"
+                        app:progressRingSize="6dp" />
 
-                    app:layout_constraintStart_toEndOf="@+id/iccpAvatar"
-                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:layout_toStartOf="@id/lvl_layout"
+                        android:layout_toEndOf="@id/iccpAvatar"
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tvPost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Кардіолог"
-                    android:textAppearance="@style/sf_pro_text_16"
-                    android:textColor="@color/white"
-                    app:layout_constraintStart_toStartOf="@+id/tvUserName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+                        <TextView
+                            android:id="@+id/tvUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Юрiй Березняков"
+                            android:textAppearance="@style/H2"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toEndOf="@+id/iccpAvatar"
+                            app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />
 
-                <TextView
-                    android:id="@+id/tvAllBuy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Всього 8 покупок"
-                    android:textAppearance="@style/sf_pro_text_12"
-                    android:textColor="@color/white_low_opacity"
-                    app:layout_constraintStart_toStartOf="@+id/tvUserName"
-                    app:layout_constraintTop_toBottomOf="@+id/tvPost" />
+                        <TextView
+                            android:id="@+id/tvPost"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Кардіолог"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+                            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
-                <TextView
-                    android:id="@+id/tvLvl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginEnd="26dp"
-                    android:text="Рiвень С"
-                    android:textAppearance="@style/sf_pro_text_12"
-                    android:textColor="@color/white_low_opacity"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivLvl" />
+                        <TextView
+                            android:id="@+id/tvAllBuy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Всього 8 покупок"
+                            android:textAppearance="@style/sf_pro_text_12"
+                            android:textColor="@color/white_low_opacity"
+                            app:layout_constraintStart_toStartOf="@+id/tvUserName"
+                            app:layout_constraintTop_toBottomOf="@+id/tvPost" />
+                    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/ivLvl"
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tvLvl"
-                    app:layout_constraintStart_toStartOf="@+id/tvLvl"
-                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar"
-                    app:srcCompat="@drawable/lvl_circle" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lvl_layout"
+                        android:layout_alignParentEnd="true">
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/lvl_fl">
+
+                            <ImageView
+                                android:id="@+id/ivLvl"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                app:layout_constraintEnd_toEndOf="@+id/tvLvl"
+                                app:layout_constraintStart_toStartOf="@+id/tvLvl"
+                                app:srcCompat="@drawable/lvl_circle"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tvLvlLitter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="C"
+                                android:textAppearance="@style/H1"
+                                android:textColor="?colorBackgroundFloating"
+                                android:layout_gravity="center"/>
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:id="@+id/tvLvl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Рiвень С"
+                            android:textAppearance="@style/sf_pro_text_12"
+                            android:textColor="@color/white_low_opacity"
+                            android:layout_below="@id/lvl_fl"
+                            android:layout_centerHorizontal="true"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+<!--                <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress-->
+<!--                    android:id="@+id/iccpAvatar"-->
+<!--                    android:layout_width="88dp"-->
+<!--                    android:layout_height="88dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="26dp"-->
+<!--                    android:adjustViewBounds="true"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:src="@drawable/ic_default_avatar"-->
+<!--                    app:backgroundRingColor="@android:color/transparent"-->
+<!--                    app:backgroundRingSize="12dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"-->
+<!--                    app:progress="32"-->
+<!--                    app:progressRingColor="#BCD6D6"-->
+<!--                    app:progressRingCorner="ROUND"-->
+<!--                    app:progressRingOutline="true"-->
+<!--                    app:progressRingSize="6dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvUserName"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="12dp"-->
+<!--                    android:text="Юрiй Березняков"-->
+<!--                    android:textAppearance="@style/H2"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iccpAvatar"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvPost"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Кардіолог"-->
+<!--                    android:textAppearance="@style/sf_pro_text_16"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/tvUserName"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tvUserName" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvAllBuy"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:text="Всього 8 покупок"-->
+<!--                    android:textAppearance="@style/sf_pro_text_12"-->
+<!--                    android:textColor="@color/white_low_opacity"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/tvUserName"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tvPost" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvLvl"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="1dp"-->
+<!--                    android:layout_marginEnd="26dp"-->
+<!--                    android:text="Рiвень С"-->
+<!--                    android:textAppearance="@style/sf_pro_text_12"-->
+<!--                    android:textColor="@color/white_low_opacity"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/ivLvl" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/ivLvl"-->
+<!--                    android:layout_width="64dp"-->
+<!--                    android:layout_height="64dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/tvLvl"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/tvLvl"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar"-->
+<!--                    app:srcCompat="@drawable/lvl_circle" />-->
 
                 <!--                <ImageView-->
                 <!--                    android:id="@+id/ivLvl"-->
@@ -158,7 +267,7 @@
                     android:background="@drawable/bg_btn_white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iccpAvatar">
+                    app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
 
                     <ImageView
@@ -232,20 +341,6 @@
                         app:srcCompat="@drawable/ic_chevron_left" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/tvLvlLitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="2dp"
-                    android:text="C"
-                    android:textAppearance="@style/H1"
-                    android:textColor="?colorBackgroundFloating"
-                    app:layout_constraintBottom_toTopOf="@+id/tvLvl"
-                    app:layout_constraintEnd_toEndOf="@+id/ivLvl"
-                    app:layout_constraintStart_toStartOf="@+id/ivLvl"
-                    app:layout_constraintTop_toTopOf="@+id/ivLvl"
-                    app:layout_constraintVertical_bias="0.529" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -261,10 +356,9 @@
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
         <include
             android:id="@+id/details"
-            layout="@layout/dashboard_universal_details"
+            layout="@layout/patients_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

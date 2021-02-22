@@ -1,18 +1,16 @@
 package com.maritech.arterium.ui.choose_mp;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.choose_mp.data.ChooseMpContent;
@@ -37,13 +35,19 @@ public class ChooseMpFragment extends BaseFragment {
     private ArrayList<ChooseMpContent> listContent = new ArrayList<>();
     private ChooseMpContent selectedObject;
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_choose_doctor;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_choose_doctor, container, false);
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         viewModel = new ViewModelProvider(this).get(ChooseMpViewModel.class);
 
         ChooseMpAdapter adapter;
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvChoose);
+        RecyclerView rcv = root.findViewById(R.id.rvChoose);
 
         toolbar = root.findViewById(R.id.toolbar);
         toolbarTittle = toolbar.findViewById(R.id.tvToolbarTitle);
@@ -80,10 +84,6 @@ public class ChooseMpFragment extends BaseFragment {
                 requireActivity().onBackPressed();
             }
         });
-
-
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
     }
 
     private void prepareList(ArrayList<ChooseMpContent> dataList) {

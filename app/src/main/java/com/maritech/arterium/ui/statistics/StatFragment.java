@@ -1,14 +1,13 @@
 package com.maritech.arterium.ui.statistics;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -26,11 +25,6 @@ public class StatFragment extends BaseFragment {
     TextView month;
     Integer count = 1;
 
-    View navigation_statistics;
-    View achievementsFragment;
-    View myProfileFragment;
-    View navigation_dashboard;
-
     View stat_details;
 
     ImageView ivStatDetailSearch;
@@ -43,17 +37,18 @@ public class StatFragment extends BaseFragment {
 
     StatNavigator navigator = new StatNavigator();
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_stat;
+    }
 
-        View root = inflater.inflate(R.layout.fragment_stat, container, false);
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         toolbar = root.findViewById(R.id.statisticToolbar);
         toolbar.findViewById(R.id.ivArrow).setVisibility(View.INVISIBLE);
         toolbar.findViewById(R.id.ivRight).setVisibility(View.INVISIBLE);
-
-        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
-        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
 
         stat_details = root.findViewById(R.id.stat_details);
         clSearch = stat_details.findViewById(R.id.clSearch);
@@ -76,35 +71,33 @@ public class StatFragment extends BaseFragment {
         CustomTabComponent tabComponent = root.findViewById(R.id.ctcStatDetails);
         tabComponent.initForDetails();
 
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-
-        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToMyProfileDoctor(navController);
-            }
-        });
-
-        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToDashboardDoctor(navController);
-            }
-        });
-
-        achievementsFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToAchievements(navController);
-            }
-        });
-
-        navigation_statistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToStat(navController);
-            }
-        });
+//        myProfileFragment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigator.bottomGoToMyProfileDoctor(navController);
+//            }
+//        });
+//
+//        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigator.bottomGoToDashboardDoctor(navController);
+//            }
+//        });
+//
+//        achievementsFragment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigator.bottomGoToAchievements(navController);
+//            }
+//        });
+//
+//        navigation_statistics.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                navigator.bottomGoToStat(navController);
+//            }
+//        });
 
         ivStatDetailSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +125,6 @@ public class StatFragment extends BaseFragment {
         });
 
         changeMonth(root);
-        return root;
     }
 
     private void changeMonth(View root) {

@@ -23,21 +23,4 @@ public class MyProfileDoctorNavigator extends BaseNavigator {
         navController.navigate(R.id.action_myProfileDoctorFragment_to_navigation_notifications);
     }
 
-    void bottomGoToDashboardDoctor(NavController navController) {
-        navController.navigate(R.id.action_myProfileDoctorFragment_to_dashboardFragment);
-    }
-
-    void bottomGoToMyProfileDoctor(NavController navController) {
-        navController.navigate(R.id.action_myProfileDoctorFragment_self);
-    }
-
-    void bottomGoToStat(NavController navController) {
-        navController.navigate(R.id.action_myProfileDoctorFragment_to_navigation_statistics);
-    }
-
-    void bottomGoToAchievements(NavController navController) {
-        navController.navigate(R.id.action_myProfileDoctorFragment_to_achievementsFragment);
-    }
-
-
 }

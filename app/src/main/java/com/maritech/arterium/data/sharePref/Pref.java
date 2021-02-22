@@ -19,7 +19,7 @@ public class Pref {
     private static final String FIRST_LAUNCH = "FirstLaunch";
     private static final String DEVICE_UUID = "DeviceUUID";
     private static final String USER_DATA = "UserData";
-
+    private static final String DRUG_PROGRAM_ID = "drugProgramKey";
 
     //================================== SINGLETON ==========================================
 
@@ -55,7 +55,7 @@ public class Pref {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public void saveAuthToken(Context context, String authtoken) {
+    public void setAuthToken(Context context, String authtoken) {
         SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
         prefsEditor.putString(AUTH_TOKEN, authtoken);
         prefsEditor.apply();
@@ -88,7 +88,12 @@ public class Pref {
     public void setUserProfile(Context context, ProfileResponse profileResponse) {
         SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
         Gson gson = new Gson();
-        String json = gson.toJson(profileResponse);
+        String json;
+        if (profileResponse != null) {
+            json = gson.toJson(profileResponse);
+        } else {
+            json = "";
+        }
         prefsEditor.putString(USER_DATA, json);
         prefsEditor.apply();
     }
@@ -97,5 +102,15 @@ public class Pref {
         String json = getPrefs(context).getString(USER_DATA, "");
         Gson gson = new Gson();
         return gson.fromJson(json, ProfileResponse.class);
+    }
+
+    public void setDrugProgramId(Context context, int id) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putInt(DRUG_PROGRAM_ID, id);
+        prefsEditor.apply();
+    }
+
+    public int getDrugProgramId(Context context) {
+        return getPrefs(context).getInt(DRUG_PROGRAM_ID, 1);
     }
 }

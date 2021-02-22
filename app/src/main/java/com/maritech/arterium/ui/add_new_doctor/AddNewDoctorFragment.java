@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.add_new_doctor;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,12 +56,16 @@ public class AddNewDoctorFragment extends BaseFragment {
     AddNewDoctorNavigator navigator = new AddNewDoctorNavigator();
     private AddNewDoctorViewModel addNewPersonalViewModel;
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_add_new_doctor;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
 
         addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewDoctorViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_add_new_doctor, container, false);
 
         clProgressStepOne = root.findViewById(R.id.clProgressStepOne);
         clProgressStepTwo = root.findViewById(R.id.clProgressStepTwo);
@@ -101,9 +106,7 @@ public class AddNewDoctorFragment extends BaseFragment {
             clProgressStepOne.setVisibility(View.VISIBLE);
             clProgressStepTwo.setVisibility(View.GONE);
             tvHint.setText("Персональнi данi");
-
         }
-
 
         btnNextOne.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,12 +170,9 @@ public class AddNewDoctorFragment extends BaseFragment {
         clChooseMp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               navigator.goAddMp(navController);
+                navigator.goAddMp(navController);
             }
         });
-
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
     }
 
     @Override

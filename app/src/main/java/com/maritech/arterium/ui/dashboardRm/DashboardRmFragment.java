@@ -1,27 +1,20 @@
 package com.maritech.arterium.ui.dashboardRm;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.ItemDashboardBinding;
-import com.maritech.arterium.ui.achievements.AchievementsNavigator;
 import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
 import com.maritech.arterium.ui.dialogs.dialog_new_account.DialogNewAccount;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 
 import java.util.ArrayList;
 
@@ -44,10 +37,17 @@ public class DashboardRmFragment extends BaseFragment {
 
     private DashboardRmViewModel dashboardViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_dashboard_rm;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         dashboardViewModel = new ViewModelProvider(this).get(DashboardRmViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard_rm, container, false);
+
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
 
@@ -56,10 +56,10 @@ public class DashboardRmFragment extends BaseFragment {
         ivClose = root.findViewById(R.id.ivClose);
         clSearch = root.findViewById(R.id.clSearch);
         clBtnAddNewAccount = root.findViewById(R.id.clBtnAddNewAccount);
-        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
-        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+        navigation_statistics = getActivity().findViewById(R.id.statistics);
+        achievementsFragment = getActivity().findViewById(R.id.achievements);
+        myProfileFragment = getActivity().findViewById(R.id.profile);
+        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
 
 
         DialogListener errorModule = new DialogListener() {
@@ -113,7 +113,6 @@ public class DashboardRmFragment extends BaseFragment {
         prepareList(listDoctors);
 
         adapter.setDataList(listDoctors);
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
 
         myProfileFragment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +132,6 @@ public class DashboardRmFragment extends BaseFragment {
 
         navigation_statistics.setVisibility(View.GONE);
         achievementsFragment.setVisibility(View.GONE);
-        return root;
     }
 
     public void goToItem() {

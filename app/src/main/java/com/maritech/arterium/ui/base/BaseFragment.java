@@ -1,20 +1,24 @@
 package com.maritech.arterium.ui.base;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    protected abstract int getContentView();
 
     public NavController navController = null;
+
+    public BaseActivity baseActivity;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -27,8 +31,11 @@ public class BaseFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        return inflater.inflate(getContentView(), container, false);
     }
 
     @Override
@@ -38,7 +45,17 @@ public class BaseFragment extends Fragment {
         navController = Navigation.findNavController(view);
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof BaseActivity) {
+            baseActivity = ((BaseActivity) context);
+        }
+    }
+
     private ProgressDialog dialog;
+
     public void showProgressDialog() {
         if (dialog == null) {
             dialog = new ProgressDialog(requireContext());

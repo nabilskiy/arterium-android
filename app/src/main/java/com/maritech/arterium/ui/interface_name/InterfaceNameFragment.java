@@ -1,21 +1,19 @@
 package com.maritech.arterium.ui.interface_name;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.base.BaseNavigator;
 
-public class InterfaceNameFragment extends Fragment {
+public class InterfaceNameFragment extends BaseFragment {
 
     ImageView edit;
     ConstraintLayout constraintLayout;
@@ -28,9 +26,14 @@ public class InterfaceNameFragment extends Fragment {
     BaseNavigator navigator = new BaseNavigator();
     ImageView ivBack;
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_interface_name;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_interface_name, container, false);
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
 
         edit = root.findViewById(R.id.ivRight);
         edit.setVisibility(View.INVISIBLE);
@@ -56,8 +59,6 @@ public class InterfaceNameFragment extends Fragment {
 
         setCheckboxStatus(cbUkrainian);
         changeInterfaceName();
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
     }
 
     public void setCheckboxStatus(CheckBox view) {

@@ -1,9 +1,11 @@
 package com.maritech.arterium.ui.base;
 
+import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -15,11 +17,15 @@ import android.view.WindowManager;
 
 import com.maritech.arterium.R;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
+
+    @LayoutRes
+    protected abstract int getLayoutId();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
     }
 
     public static void setStatusBarGradient(Activity activity, int color) {
@@ -62,5 +68,20 @@ public class BaseActivity extends AppCompatActivity {
         int color = a.getColor(0, 0);
         a.recycle();
         return color;
+    }
+
+    private ProgressDialog dialog;
+    public void showProgressDialog() {
+        if (dialog == null) {
+            dialog = new ProgressDialog(this);
+            dialog.setMessage("Подождите..");
+            dialog.show();
+        }
+    }
+
+    public void hideProgressDialog() {
+        if (dialog != null) {
+            dialog.hide();
+        }
     }
 }

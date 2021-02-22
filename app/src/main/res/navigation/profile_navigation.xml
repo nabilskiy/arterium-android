@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile"
+    app:startDestination="@id/myProfileDoctorFragment">
+
+    <fragment
+        android:id="@+id/myProfileDoctorFragment"
+        android:name="com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment"
+        android:label="MyProfileDoctorFragment"
+        tools:layout="@layout/fragment_my_profile">
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_patientCardFragment"
+            app:destination="@id/patientCardFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_pharmacyFragment"
+            app:destination="@id/pharmacyFragment" />
+        <action
+            android:id="@+id/action_myProfileDoctorFragment_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/patientCardFragment"
+        android:name="com.maritech.arterium.ui.patients.PatientCardFragment"
+        android:label="PatientCardFragment"
+        tools:layout="@layout/fragment_patient_card" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.maritech.arterium.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/interfaceNameFragment"
+        android:name="com.maritech.arterium.ui.interface_name.InterfaceNameFragment"
+        android:label="InterfaceNameFragment"
+        tools:layout="@layout/fragment_interface_name" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.maritech.arterium.ui.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_interfaceNameFragment"
+            app:destination="@id/interfaceNameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pharmacyFragment"
+        android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyFragment"
+        android:label="PharmacyFragment"
+        tools:layout="@layout/fragment_pharmacy" />
+
+
+
+</navigation>

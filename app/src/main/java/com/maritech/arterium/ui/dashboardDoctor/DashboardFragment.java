@@ -1,35 +1,33 @@
 package com.maritech.arterium.ui.dashboardDoctor;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.maritech.arterium.MainActivity;
+import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.R;
+import com.maritech.arterium.common.PurchasesType;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboardDoctor.DashboardNavigator;
-import com.maritech.arterium.ui.dashboardDoctor.data.PatientPurchasesContent;
-import com.maritech.arterium.ui.dashboardDoctor.holder.PatientPurchasesAdapter;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
+import com.maritech.arterium.ui.patients.PatientsFragment;
+import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
 import com.maritech.arterium.utils.ToastUtil;
-
-import java.util.ArrayList;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class DashboardFragment extends BaseFragment {
 
@@ -42,12 +40,12 @@ public class DashboardFragment extends BaseFragment {
     private TextView tvDoctors;
     private ImageView ivClose;
     private ImageView ivFilter;
-    private ConstraintLayout clSearch;
+    private EditText etSearch;
+    private LinearLayout clSearch;
     private ConstraintLayout clProgram;
     private ConstraintLayout clInfoUser;
     private ConstraintLayout clBtnAddNewPersonal;
     private ConstraintLayout clInfoClose;
-
 
     private TextView tvTabOne;
     private TextView tvTabTwo;
@@ -64,20 +62,34 @@ public class DashboardFragment extends BaseFragment {
 
     DashboardNavigator navigator = new DashboardNavigator();
 
-    private ArrayList<PatientPurchasesContent> listPatientPurchases = new ArrayList<>();
-
     private DashboardMpViewModel dashboardViewModel;
+    private PatientsSharedViewModel sharedViewModel;
 
     private final ProfileViewModel viewModel = new ProfileViewModel();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel = new ViewModelProvider(this).get(DashboardMpViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+    private final SimpleDateFormat dateFormat =
+            new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_dashboard;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
+        if (sharedViewModel == null) {
+            sharedViewModel =
+                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+        }
+        if (dashboardViewModel == null) {
+            dashboardViewModel = new ViewModelProvider(this).get(DashboardMpViewModel.class);
+        }
+
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
         // ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
-
 
         final int clProgramColorGliptar = R.drawable.gradient_light_red;
         final int clProgramColorSagrada = R.drawable.gradient_light_blue;
@@ -90,6 +102,7 @@ public class DashboardFragment extends BaseFragment {
         tvDoctors = root.findViewById(R.id.tvDoctors);
         ivClose = root.findViewById(R.id.ivClose);
         clSearch = root.findViewById(R.id.clSearch);
+        etSearch = root.findViewById(R.id.etSearch);
         clProgram = root.findViewById(R.id.clProgram);
         clInfoUser = root.findViewById(R.id.clInfoUser);
         clInfoClose = root.findViewById(R.id.clInfoClose);
@@ -97,95 +110,80 @@ public class DashboardFragment extends BaseFragment {
         tvTabOne = details.findViewById(R.id.tvOne);
         tvTabTwo = details.findViewById(R.id.tvTwo);
         tvTabThree = details.findViewById(R.id.tvThree);
-        details_view = (NestedScrollView) root.findViewById(R.id.details_view);
+        details_view = root.findViewById(R.id.details_view);
+        details_view = root.findViewById(R.id.details_view);
 
         tvUserName = root.findViewById(R.id.tvUserName);
         tvPost = root.findViewById(R.id.tvPost);
         tvAllBuy = root.findViewById(R.id.tvAllBuy);
         tvLvl = root.findViewById(R.id.tvLvl);
 
-        PatientPurchasesAdapter adapter;
-        RecyclerView rcv = details_view.findViewById(R.id.rvPatients);
 
-        details_view.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.vpPatients, PatientsFragment.getInstance())
+                .commit();
 
+        details_view.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+                (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                    if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                        ivSearch.setVisibility(View.VISIBLE);
+                        tvDoctors.setVisibility(View.VISIBLE);
+                        ivFilter.setVisibility(View.VISIBLE);
+                        ivClose.setVisibility(View.GONE);
+                        clSearch.setVisibility(View.GONE);
+                    }
+                });
+        etSearch.addTextChangedListener(textWatcher);
+
+        tvTabOne.setActivated(true);
+        tvTabOne.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.e("gggggggggggg", "ggggggg");
+            public void onClick(View v) {
+                sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
-//                if (scrollY > 100) {
-//                    ivSearch.setVisibility(View.VISIBLE);
-//                    tvDoctors.setVisibility(View.VISIBLE);
-//                    ivFilter.setVisibility(View.VISIBLE);
-//                    ivClose.setVisibility(View.GONE);
-//                    clSearch.setVisibility(View.GONE);
-//                }
-//                if (scrollY < 100) {
-//                    ivSearch.setVisibility(View.GONE);
-//                    tvDoctors.setVisibility(View.GONE);
-//                    ivFilter.setVisibility(View.GONE);
-//                    ivClose.setVisibility(View.VISIBLE);
-//                    clSearch.setVisibility(View.VISIBLE);
-//                }
-//                if (scrollY > oldScrollY) {
-//                    Log.i(TAG, "Scroll DOWN");
-//                }
-//                if (scrollY < oldScrollY) {
-//                    Log.i(TAG, "Scroll UP");
-//                }
-//
-//                if (scrollY == 0) {
-//                    Log.i(TAG, "TOP SCROLL");
-//                }
-//
-//                if (scrollY == (v.getMeasuredHeight() - v.getChildAt(0).getMeasuredHeight())) {
-//                    Log.i(TAG, "BOTTOM SCROLL");
-//
-//                }
-                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                    ivSearch.setVisibility(View.VISIBLE);
-                    tvDoctors.setVisibility(View.VISIBLE);
-                    ivFilter.setVisibility(View.VISIBLE);
-                    ivClose.setVisibility(View.GONE);
-                    clSearch.setVisibility(View.GONE);
-                }
+                tvTabOne.setActivated(true);
+                tvTabTwo.setActivated(false);
+                tvTabThree.setActivated(false);
             }
         });
 
+        tvTabTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
 
-        tvTabOne.setActivated(true);
+                tvTabOne.setActivated(false);
+                tvTabTwo.setActivated(true);
+                tvTabThree.setActivated(false);
+            }
+        });
 
-        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
-        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+        tvTabThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
 
-//        customDialog.setListener((DialogWithRecycler.OnChooseItem) content ->{
-//            Log.e("!!!", String.valueOf(content));
-//            if(content == 1) {
-//                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium);
-//                super.onCreate(savedInstanceState);
-//            }
-//            if(content == 2) {
-//                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
-//                super.onCreate(savedInstanceState);
-//            }
-//            if(content == 3) {
-//                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Red);
-//                super.onCreate(savedInstanceState);
-//            }
-//
-//        });
+                tvTabOne.setActivated(false);
+                tvTabTwo.setActivated(false);
+                tvTabThree.setActivated(true);
+            }
+        });
 
-//        if(getArguments().getBoolean("isPreviousRmOrMp")) {
-//            clInfoClose.setVisibility(View.VISIBLE);
-//        }
-//        else {
-//            clInfoClose.setVisibility(View.GONE);
-//        }
+        sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
+        String[] dates = new String[2];
+        Calendar calendar = Calendar.getInstance();
+        dates[1] = dateFormat.format(calendar.getTime());
 
-//        navController.getPreviousBackStackEntry();
+        calendar.add(Calendar.MONTH, -3);
+        dates[0] = dateFormat.format(calendar.getTime());
+
+        sharedViewModel.dates.setValue(dates);
+
+        navigation_statistics = getActivity().findViewById(R.id.statistics);
+        achievementsFragment = getActivity().findViewById(R.id.achievements);
+        myProfileFragment = getActivity().findViewById(R.id.profile);
+        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
 
         ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,15 +196,12 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivSearch.setVisibility(View.VISIBLE);
-                tvDoctors.setVisibility(View.VISIBLE);
-                ivFilter.setVisibility(View.VISIBLE);
-                ivClose.setVisibility(View.GONE);
-                clSearch.setVisibility(View.GONE);
-            }
+        ivClose.setOnClickListener(v -> {
+            ivSearch.setVisibility(View.VISIBLE);
+            tvDoctors.setVisibility(View.VISIBLE);
+            ivFilter.setVisibility(View.VISIBLE);
+            ivClose.setVisibility(View.GONE);
+            clSearch.setVisibility(View.GONE);
         });
 
         clBtnAddNewPersonal.setOnClickListener(new View.OnClickListener() {
@@ -232,54 +227,9 @@ public class DashboardFragment extends BaseFragment {
             }
         });
 
-        prepareList(listPatientPurchases);
-
-        adapter = new PatientPurchasesAdapter(listPatientPurchases, new PatientPurchasesAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int position, PatientPurchasesContent object) {
-                navigator.goToPatientCard(navController);
-            }
-        });
-        rcv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rcv.setAdapter(adapter);
-
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-
-        navigation_statistics.setVisibility(View.VISIBLE);
-        achievementsFragment.setVisibility(View.VISIBLE);
-
-        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToMyProfileDoctor(navController);
-            }
-        });
-
-        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToDashboardDoctor(navController);
-            }
-        });
-        achievementsFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToAchievements(navController);
-            }
-        });
-
-        navigation_statistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToStat(navController);
-            }
-        });
-
         observeViewModel();
 
         viewModel.getProfile();
-
-        return root;
     }
 
     @Override
@@ -290,17 +240,17 @@ public class DashboardFragment extends BaseFragment {
         customDialog.setListener((DialogWithRecycler.OnChooseItem) content -> {
             Log.e("!!!", String.valueOf(content));
             if (content == 0) {
-                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium);
+                baseActivity.setTheme(R.style.Theme_Arterium);
                 BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
                 navigator.bottomGoToDashboardDoctor(navController);
             }
             if (content == 1) {
-                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
+                baseActivity.setTheme(R.style.Theme_Arterium_Blue);
                 BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
                 navigator.bottomGoToDashboardDoctor(navController);
             }
             if (content == 2) {
-                ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Red);
+                baseActivity.setTheme(R.style.Theme_Arterium_Red);
                 BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
                 navigator.bottomGoToDashboardDoctor(navController);
             }
@@ -320,30 +270,42 @@ public class DashboardFragment extends BaseFragment {
 
                         });
 
-        viewModel.loading
-                .observe(getViewLifecycleOwner(), isLoading -> {
+//        viewModel.contentState
+//                .observe(getViewLifecycleOwner(), contentState -> {
+//                    if (contentState.isLoading()) {
+//                        showProgressDialog();
+//                    } else {
+//                        hideProgressDialog();
+//                    }
+//                });
 
-                });
-
-        viewModel.error.observe(getViewLifecycleOwner(),
-                error -> {
+        viewModel.errorMessage
+                .observe(getViewLifecycleOwner(), error -> {
                     ToastUtil.show(requireContext(), error);
                 });
-    }
-
-    private void prepareList(ArrayList<PatientPurchasesContent> dataList) {
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в середу 10.02.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "10 ЛЮТОГО 2020", "Остання покупка в понеділок 10.02.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "12 ЛЮТОГО 2020", "Остання покупка в середу 12.01.20"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "0"));
-        dataList.add(new PatientPurchasesContent("Евгений Петров", "16 ЛЮТОГО 2020", "Остання покупка в середу 16.01.20"));
     }
 
     public void setLvlTheme(int clProgramColor, int clInfoUserColor) {
         clProgram.setBackgroundResource(clProgramColor);
         clInfoUser.setBackgroundResource(clProgramColor);
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            sharedViewModel.searchQuery.setValue(s.toString());
+        }
+    };
 
 //    public void setSagrada() {
 //

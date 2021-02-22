@@ -15,6 +15,9 @@ public class CustomInput  extends LinearLayout {
 
     public CustomInput(Context context) { super(context); }
 
+    TextView customInputTitle;
+    TextView customInputValue;
+
     public CustomInput(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
@@ -25,7 +28,7 @@ public class CustomInput  extends LinearLayout {
         String title = typedArray.getString(R.styleable.CustomInput_ci_title);
         String fieldValue = typedArray.getString(R.styleable.CustomInput_ci_field_value);
 
-        setInput(title, fieldValue);
+        setHint(title, fieldValue);
         typedArray.recycle();
     }
 
@@ -33,13 +36,21 @@ public class CustomInput  extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setInput(String title, String fieldText) {
-        TextView customInputTitle;
-        TextView customInputValue;
-
+    private void setHint(String title, String fieldText) {
         customInputTitle = findViewById(R.id.inputTitle);
         customInputTitle.setText(title);
         customInputValue = findViewById(R.id.etCustomInput);
         customInputValue.setHint(fieldText);
+    }
+
+    public void setInput(String title, String fieldText) {
+        customInputTitle = findViewById(R.id.inputTitle);
+        customInputTitle.setText(title);
+        customInputValue = findViewById(R.id.etCustomInput);
+        customInputValue.setText(fieldText);
+    }
+
+    public String getText() {
+        return customInputValue.getText().toString();
     }
 }

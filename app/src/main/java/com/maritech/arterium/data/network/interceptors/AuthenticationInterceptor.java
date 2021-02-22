@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.maritech.arterium.App;
+import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.sharePref.Pref;
 
 import java.io.IOException;
@@ -31,14 +32,7 @@ public class AuthenticationInterceptor implements Interceptor {
 
         Request.Builder builder = original.newBuilder();
 
-        String authToken = Pref.getInstance().getAuthToken(App.getInstance());
-
-        if (!TextUtils.isEmpty(authToken)) {
-            builder.header("Authorization", "Bearer " + authToken);
-        }
-
-        builder.header("Accept", "application/json");
-        builder.header("X-Requested-With", "XMLHttpRequest");
+        String authToken = getToken();
 
         String uuid = Pref.getInstance().getDeviceUUID(App.getInstance());
 
@@ -47,10 +41,22 @@ public class AuthenticationInterceptor implements Interceptor {
             Pref.getInstance().setDeviceUUID(App.getInstance(), uuid);
         }
         Log.e("UUID", uuid);
-        Log.e("TOKEN", authToken);
+        Log.e("Token", authToken);
 
+        if (!TextUtils.isEmpty(authToken)) {
+            builder.header("Authorization", "Bearer " + authToken);
+        }
+
+        builder.header("Accept", "application/json");
+        builder.header("X-Requested-With", "XMLHttpRequest");
         builder.header("Device-Id", uuid);
+
+
         Request request = builder.build();
         return chain.proceed(request);
+    }
+
+    private String getToken() {
+        return Pref.getInstance().getAuthToken(App.getInstance());
     }
 }

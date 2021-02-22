@@ -138,6 +138,18 @@ public class CustomTabComponent extends ConstraintLayout {
 
     }
 
+    public String getSelectedValue() {
+        if (value == 1) {
+            return tvOne.getText().toString();
+        } else if (value == 2) {
+            return tvTwo.getText().toString();
+        } else if (value == 3) {
+            return tvThree.getText().toString();
+        } else {
+            return tvFour.getText().toString();
+        }
+    }
+
     private void prepare(TypedArray typedArray) {
         value = typedArray.getInteger(R.styleable.CustomTabComponent_csc_count, 4);
         textOne = typedArray.getString(R.styleable.CustomTabComponent_csc_text_one);

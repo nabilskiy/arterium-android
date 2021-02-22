@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -34,8 +35,14 @@ public class MyProfileFragment extends BaseFragment {
     View myProfileFragment;
     View navigation_dashboard;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_my_profile;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
 
         arrow = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.ivArrow);
         toolbarTitle = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.tvToolbarTitle);
@@ -44,10 +51,10 @@ public class MyProfileFragment extends BaseFragment {
         myProfileCard = root.findViewById(R.id.myProfileCard);
         pharmacyList = root.findViewById(R.id.pharmacyList);
         myNotifications = root.findViewById(R.id.myProfileMainContentNotifications);
-        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
-        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
+        navigation_statistics = getActivity().findViewById(R.id.statistics);
+        achievementsFragment = getActivity().findViewById(R.id.achievements);
+        myProfileFragment = getActivity().findViewById(R.id.profile);
+        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
 
         edit.setVisibility(View.INVISIBLE);
         toolbarTitle.setText(R.string.my_profile);
@@ -61,12 +68,15 @@ public class MyProfileFragment extends BaseFragment {
             }
         });
 
-//        myProfileCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.goPatientCard(navController);
-//            }
-//        });
+        myProfileCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable(PatientCardFragment.PATIENT_MODEL_KEY, object);
+                navigator.goPatientCard(navController);
+            }
+        });
 
         pharmacyList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,31 +93,6 @@ public class MyProfileFragment extends BaseFragment {
         });
 
         setMyProfileContentList(root);
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-        navigation_statistics.setVisibility(View.GONE);
-        achievementsFragment.setVisibility(View.GONE);
-
-
-        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToMyProfile(navController);
-            }
-        });
-
-        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // if it Mp
-                //navigator.goToDashboardMp(navController);
-                // if it Rm
-                navigator.goToDashboardRm(navController);
-            }
-
-        });
-
-        return root;
     }
 
     public void setMyProfileContentList(View root){

@@ -26,6 +26,10 @@
     <string name="cardiologist">Кардіолог</string>
     <string name="whole_shopping_items">Всього 8 покупок</string>
     <string name="whole_shopping_items1">Всього %d покупок</string>
+    <string name="account_title">Аккаунт</string>
+    <string name="dialog_logout_message">Вийти з облікового запису?</string>
+    <string name="dialog_logout_ok">Вийти</string>
+    <string name="dialog_logout_cancel">Скасування</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">Список аптек</string>
     <string name="interfaces_name">Мова інтерфейсу</string>
@@ -38,12 +42,13 @@
     <string name="data_of_issue">Видана 26.01.2020</string>
     <string name="medical_data">Медичні дані</string>
     <string name="sex">Стать</string>
-    <string name="men">Чоловіча</string>
+    <string name="male">Чоловіча</string>
+    <string name="female">Жiноча</string>
     <string name="weight_value">80кг</string>
-    <string name="weight">Вага</string>
-    <string name="growth">Рiст</string>
+    <string name="weight">Вага, кг</string>
+    <string name="growth">Рiст, см</string>
     <string name="growth_value">178см</string>
-    <string name="dose">Доза препарату</string>
+    <string name="dose">Доза препарату, мг</string>
     <string name="dose_value">10мг</string>
     <string name="heart_attack">Дата інфаркту</string>
     <string name="heart_attack_value">03.01.2020</string>
@@ -76,17 +81,18 @@
     <string name="november">Листопад</string>
     <string name="december">Грудень</string>
     <string name="statistic_period">Статистика з 01.02.2020</string>
-    <string name="total_purchases">Всего \nпокупок</string>
+    <string name="total_purchases">Всього \nпокупок</string>
     <string name="restart">Вiдновленно</string>
     <string name="restart_data">14 лютого, 11:44</string>
     <string name="fourty_nine">49</string>
     <string name="february_purchases">Покупки за лютий</string>
     <string name="all">Усi</string>
+    <string name="purchases_empty">Список порожній</string>
     <string name="without_purchases">Без покупок</string>
     <string name="with_purchases">З покупками</string>
     <string name="simple_data">10 ЛЮТОГО 2020</string>
     <string name="eugenii">Евгений Петров</string>
-    <string name="last_purchases">Остання покупка в середу 10.08.20</string>
+    <string name="last_purchases">Остання покупка в %s</string>
     <string name="statistic">Статистика</string>
     <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
     <string name="gliptar_key_life">Гліптар – «Ключ до балансу»</string>
@@ -108,5 +114,6 @@
         <item name="calendar_november">Листопад</item>
         <item name="calendar_december">Грудень</item>
     </string-array>
+    <string name="title_activity_test">MainActivity</string>
 
 </resources>

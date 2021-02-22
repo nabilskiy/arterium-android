@@ -27,9 +27,9 @@ public class Profile {
     @SerializedName("created_at")
     @Expose
     private Integer createdAt;
-    @SerializedName("parents")
+    @SerializedName("parent")
     @Expose
-    private List<Parent> parents = null;
+    private Parent parent;
     @SerializedName("phone")
     @Expose
     private String phone;
@@ -111,12 +111,12 @@ public class Profile {
         this.createdAt = createdAt;
     }
 
-    public List<Parent> getParents() {
-        return parents;
+    public Parent getParent() {
+        return parent;
     }
 
-    public void setParents(List<Parent> parents) {
-        this.parents = parents;
+    public void setParent(Parent parent) {
+        this.parent = parent;
     }
 
     public String getPhone() {

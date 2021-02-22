@@ -8,14 +8,14 @@ import com.maritech.arterium.ui.base.BaseNavigator;
 public class LoginSplashNavigator extends BaseNavigator {
 
     void goToLogin(NavController navController) {
-        navController.navigate(R.id.action_loginSplashFragment_to_loginFragment);
+//        navController.navigate(R.id.action_loginSplashFragment_to_loginFragment);
     }
 
     void goToPin(NavController navController) {
-        navController.navigate(R.id.action_loginFragment_to_pinCodeFragment);
+//        navController.navigate(R.id.action_loginFragment_to_pinCodeFragment);
     }
 
     void goToDoctorDashboard(NavController navController) {
-        navController.navigate(R.id.action_loginFragment_to_dashboardFragment);
+//        navController.navigate(R.id.action_loginFragment_to_dashboardFragment);
     }
 }

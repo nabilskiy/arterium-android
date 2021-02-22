@@ -1,20 +1,24 @@
 package com.maritech.arterium.ui.my_profile_doctor;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.login.LoginViewModel;
 import com.maritech.arterium.utils.ToastUtil;
 
+@SuppressLint("CutPasteId")
 public class MyProfileDoctorFragment extends BaseFragment {
 
     ImageView arrow;
@@ -29,6 +33,7 @@ public class MyProfileDoctorFragment extends BaseFragment {
     TextView tvMyProfileName;
     TextView tvMyProfileSkill;
     TextView tvMyProfileShopingAmount;
+    ConstraintLayout clLogOut;
     View myProfileMainContentSettings;
     View myProfileCard;
     TextView tvCardPersonName;
@@ -36,17 +41,20 @@ public class MyProfileDoctorFragment extends BaseFragment {
     TextView tvCardPersonTelephoneNumber;
     View pharmacyList;
     MyProfileDoctorNavigator navigator = new MyProfileDoctorNavigator();
-    View navigation_statistics;
-    View achievementsFragment;
-    View myProfileFragment;
-    View navigation_dashboard;
+
     View myNotifications;
 
     ProfileViewModel viewModel = new ProfileViewModel();
+    LoginViewModel logoutViewModel = new LoginViewModel();
 
-    @SuppressLint("ResourceAsColor")
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_my_profile, container, false);
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_my_profile;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
 
         arrow = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.ivArrow);
         toolbarTitle = root.findViewById(R.id.myProfileToolbar).findViewById(R.id.tvToolbarTitle);
@@ -58,88 +66,37 @@ public class MyProfileDoctorFragment extends BaseFragment {
         tvCardPersonTelephoneNumber = myProfileCard.findViewById(R.id.tvCardPersonTelephoneNumber);
 
         pharmacyList = root.findViewById(R.id.pharmacyList);
-        navigation_statistics = getActivity().findViewById(R.id.navigation_statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievementsFragment);
-        myProfileFragment = getActivity().findViewById(R.id.myProfileFragment);
-        navigation_dashboard = getActivity().findViewById(R.id.navigation_dashboard);
         myNotifications = root.findViewById(R.id.myProfileMainContentNotifications);
 
         tvMyProfileName = root.findViewById(R.id.tvMyProfileName);
         tvMyProfileSkill = root.findViewById(R.id.tvMyProfileSkill);
         tvMyProfileShopingAmount = root.findViewById(R.id.tvMyProfileShopingAmount);
+        clLogOut = root.findViewById(R.id.clLogOut);
+
+        clLogOut.setOnClickListener(v -> showLogOutDialog());
 
         edit.setVisibility(View.INVISIBLE);
         toolbarTitle.setText("Профіль доктора");
         arrow.setVisibility(View.INVISIBLE);
 
+        myProfileMainContentSettings.setOnClickListener(v -> navigator.goToSettings(navController));
 
-        myProfileMainContentSettings.setOnClickListener(new View.OnClickListener() {
+        myProfileCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navigator.goToSettings(navController);
+                navigator.goPatientCard(navController);
             }
         });
 
-//        myProfileCard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.goPatientCard(navController);
-//            }
-//        });
+        pharmacyList.setOnClickListener(v -> navigator.goToMap(navController));
 
-        pharmacyList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToMap(navController);
-            }
-        });
-
-        myNotifications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToNotifications(navController);
-            }
-        });
+        myNotifications.setOnClickListener(v -> navigator.goToNotifications(navController));
 
         setMyProfileContentList(root);
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.VISIBLE);
-
-
-        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToMyProfileDoctor(navController);
-            }
-        });
-
-        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToDashboardDoctor(navController);
-                navigation_dashboard.setActivated(true);
-            }
-        });
-
-        achievementsFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToAchievements(navController);
-            }
-        });
-
-        navigation_statistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.bottomGoToStat(navController);
-            }
-        });
 
         observeViewModel();
 
         viewModel.getProfile();
-
-        return root;
     }
 
     private void observeViewModel() {
@@ -153,43 +110,67 @@ public class MyProfileDoctorFragment extends BaseFragment {
                                             profileData.getSoldCount())
                             );
 
-                            if (profileData.getParents() != null && !profileData.getParents().isEmpty()) {
-                                Profile.Parent parent = null;
-
-                                for (Profile.Parent p : profileData.getParents()) {
-                                    if (p.getRoleKey().toLowerCase().equals("manager")) {
-                                        parent = p;
-                                        break;
-                                    }
-                                }
-
-                                if (parent != null) {
-                                    tvCardPersonName.setText(parent.getName());
-                                    tvCardPersonSkill.setText(parent.getName());
-                                    tvCardPersonTelephoneNumber.setText(parent.getName());
-                                }
+                            if (profileData.getParent() != null) {
+                                Profile.Parent parent = profileData.getParent();
+                                tvCardPersonName.setText(parent.getName());
+                                tvCardPersonSkill.setText(parent.getName());
+                                tvCardPersonTelephoneNumber.setText(parent.getName());
+                            } else {
+                                myProfileCard.setVisibility(View.GONE);
                             }
                         });
 
-        viewModel.loading
-                .observe(getViewLifecycleOwner(), isLoading -> {
+        logoutViewModel.logout
+                .observe(getViewLifecycleOwner(),
+                        loginData -> {
+                            startActivity(new Intent(getActivity(), MainActivity.class));
+                            baseActivity.finishAffinity();
+                        });
 
+        logoutViewModel.contentState
+                .observe(getViewLifecycleOwner(), contentState -> {
+                    if (contentState.isLoading()) {
+                        showProgressDialog();
+                    } else {
+                        hideProgressDialog();
+                    }
                 });
 
-        viewModel.error.observe(getViewLifecycleOwner(),
-                error -> {
-                    ToastUtil.show(requireContext(), error);
-                });
+        logoutViewModel.error.observe(getViewLifecycleOwner(),
+                error -> ToastUtil.show(requireContext(), error));
+    }
+
+    private void showLogOutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle(getString(R.string.account_title));
+        builder.setMessage(getString(R.string.dialog_logout_message));
+
+        builder.setPositiveButton(
+                getString(R.string.dialog_logout_ok), (dialog, which) -> logout()
+        );
+
+        builder.setNegativeButton(
+                getString(R.string.dialog_logout_cancel), (dialog, which) -> dialog.dismiss()
+        );
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void setMyProfileContentList(View root) {
-        imageNotification = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.ivMyProfileListIcon);
-        imageSetting = root.findViewById(R.id.myProfileMainContentSettings).findViewById(R.id.ivMyProfileListIcon);
-        imageContact = root.findViewById(R.id.contactWithUs).findViewById(R.id.ivMyProfileListIcon);
+        imageNotification = root.findViewById(R.id.myProfileMainContentNotifications)
+                .findViewById(R.id.ivMyProfileListIcon);
+        imageSetting = root.findViewById(R.id.myProfileMainContentSettings)
+                .findViewById(R.id.ivMyProfileListIcon);
+        imageContact = root.findViewById(R.id.contactWithUs)
+                .findViewById(R.id.ivMyProfileListIcon);
 
-        notification = root.findViewById(R.id.myProfileMainContentNotifications).findViewById(R.id.tvMyProfileListTitle);
-        contact = root.findViewById(R.id.contactWithUs).findViewById(R.id.tvMyProfileListTitle);
-        setting = root.findViewById(R.id.myProfileMainContentSettings).findViewById(R.id.tvMyProfileListTitle);
+        notification = root.findViewById(R.id.myProfileMainContentNotifications)
+                .findViewById(R.id.tvMyProfileListTitle);
+        contact = root.findViewById(R.id.contactWithUs)
+                .findViewById(R.id.tvMyProfileListTitle);
+        setting = root.findViewById(R.id.myProfileMainContentSettings)
+                .findViewById(R.id.tvMyProfileListTitle);
 
         notification.setText(R.string.notification);
         contact.setText(R.string.contact_with_us);
@@ -198,5 +179,9 @@ public class MyProfileDoctorFragment extends BaseFragment {
         imageNotification.setBackgroundResource(R.drawable.ic_bell);
         imageSetting.setBackgroundResource(R.drawable.ic_blue_settings);
         imageContact.setBackgroundResource(R.drawable.ic_blue_phone);
+    }
+
+    private void logout() {
+        logoutViewModel.logout();
     }
 }

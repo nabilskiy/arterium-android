@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.vision.clearcut.LogUtils;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.add_new_mp.holder.SelectedDoctorAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -54,15 +55,19 @@ public class AddNewMpFragment extends BaseFragment {
     RecyclerView rcv;
     private ArrayList<ChooseDoctorContent> listSelectedObject = new ArrayList<>();
 
-
     AddNewMpNavigator navigator = new AddNewMpNavigator();
     private AddNewMpViewModel addNewPersonalViewModel;
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_add_new_mp;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewMpViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_add_new_mp, container, false);
 
         rcv = (RecyclerView) root.findViewById(R.id.rvSelectedDoctors);
 
@@ -137,10 +142,6 @@ public class AddNewMpFragment extends BaseFragment {
 
         btnNextTwo.setAlpha(0.7f);
         btnNextTwo.setClickable(false);
-
-
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
     }
 
     @Override

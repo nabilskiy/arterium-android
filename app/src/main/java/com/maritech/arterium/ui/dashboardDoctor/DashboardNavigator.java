@@ -1,5 +1,7 @@
 package com.maritech.arterium.ui.dashboardDoctor;
 
+import android.os.Bundle;
+
 import androidx.navigation.NavController;
 
 import com.maritech.arterium.R;
@@ -12,25 +14,15 @@ public class DashboardNavigator extends BaseNavigator {
     }
 
     void bottomGoToDashboardDoctor(NavController navController) {
-        navController.navigate(R.id.action_dashboardFragment_self);
+        navController.navigate(R.id.action_navigation_dashboard_self);
     }
 
-    void bottomGoToMyProfileDoctor(NavController navController) {
-        navController.navigate(R.id.action_dashboardFragment_to_myProfileDoctorFragment);
-    }
-    void bottomGoToStat(NavController navController) {
-        navController.navigate(R.id.action_dashboardFragment_to_navigation_statistics);
-    }
-
-    void bottomGoToAchievements(NavController navController) {
-        navController.navigate(R.id.action_dashboardFragment_to_achievementsFragment);
-    }
     void goToDashboardMP(NavController navController) {
         navController.navigate(R.id.action_dashboardFragment_to_navigation_dashboard);
     }
 
-    void goToPatientCard(NavController navController) {
-        navController.navigate(R.id.action_dashboardFragment_to_patientCardFragment);
+    public void goToPatientCard(NavController navController, Bundle bundle) {
+        navController.navigate(R.id.action_dashboardFragment_to_patientCardFragment, bundle);
     }
 
 

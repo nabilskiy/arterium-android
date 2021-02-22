@@ -8,9 +8,10 @@
 
     <ImageView
         android:id="@+id/ivArrow"
-        android:layout_width="wrap_content"
+        android:layout_width= "wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:padding="8dp"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvToolbarTitle"
@@ -32,8 +33,9 @@
         android:id="@+id/ivRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/ic_edit"
+        android:padding="8dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvToolbarTitle" />

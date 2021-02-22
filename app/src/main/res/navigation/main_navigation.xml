@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.maritech.arterium.ui.ViewPagerContainerFragment"
+        android:label="ViewPagerContainerFragment"
+        tools:layout="@layout/fragment_view_pager">
+
+        <action
+            android:id="@+id/action_mainFragment_to_dashboard4"
+            app:destination="@id/dashboard" />
+        <action
+            android:id="@+id/action_mainFragment_to_achievements3"
+            app:destination="@id/achievements" />
+        <action
+            android:id="@+id/action_mainFragment_to_profile"
+            app:destination="@id/profile" />
+        <action
+            android:id="@+id/action_mainFragment_to_statistics"
+            app:destination="@id/statistics" />
+    </fragment>
+
+    <include app:graph="@navigation/dashboard_navigation" />
+
+    <include app:graph="@navigation/statistic_navigation" />
+
+    <include app:graph="@navigation/achivement_navigation" />
+
+    <include app:graph="@navigation/profile_navigation" />
+
+</navigation>

@@ -1,13 +1,13 @@
 package com.maritech.arterium.ui.settings;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.github.iielse.switchbutton.SwitchView;
 import com.maritech.arterium.R;
@@ -29,13 +29,17 @@ public class SettingsFragment extends BaseFragment {
     ImageView ivBack;
     View toolbar;
 
-
     SettingsNavigator navigator = new SettingsNavigator();
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_settings;
+    }
 
-        // arrow = root.findViewById(R.id.header).findViewById(R.id.ivArrow);
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         ivGoChangeLanguage = root.findViewById(R.id.ivGoChangeLanguage);
         tvSetLanguage = root.findViewById(R.id.tvSetLanguage);
         tvAskPinCode = root.findViewById(R.id.tvAskPinCode);
@@ -102,8 +106,7 @@ public class SettingsFragment extends BaseFragment {
                 requireActivity().onBackPressed();
             }
         });
-
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
+//        Log.e("Bottom", this.getClass().getName());
+//        baseActivity.findViewById(R.id.bottom_nav_view).setVisibility(View.GONE);
     }
 }

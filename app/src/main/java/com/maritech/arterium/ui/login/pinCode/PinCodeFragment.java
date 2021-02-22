@@ -4,15 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentResultListener;
-
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -26,9 +22,14 @@ public class PinCodeFragment extends BaseFragment {
 
     PinCodeNavigator navigator = new PinCodeNavigator();
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_pin, container, false);
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_pin;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
 
         input = root.findViewById(R.id.verificationCodeInput);
         input.setOnPinEnteredListener(content -> Log.d("!!!", "pin：" + content));
@@ -54,8 +55,6 @@ public class PinCodeFragment extends BaseFragment {
                 }
             });
         }
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
     }
 
     @Override

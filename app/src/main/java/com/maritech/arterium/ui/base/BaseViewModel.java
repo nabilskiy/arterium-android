@@ -1,15 +1,10 @@
 package com.maritech.arterium.ui.base;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public class BaseViewModel<T> extends ViewModel {
-
-    public MutableLiveData<T> responseLiveData = new MutableLiveData<>();
-    public MutableLiveData<Boolean> loading = new MutableLiveData<>();
-    public MutableLiveData<String> error = new MutableLiveData<>();
+public class BaseViewModel extends ViewModel {
 
     protected CompositeDisposable disposable = new CompositeDisposable();
 

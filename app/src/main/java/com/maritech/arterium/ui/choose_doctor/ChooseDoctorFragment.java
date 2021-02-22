@@ -2,27 +2,19 @@ package com.maritech.arterium.ui.choose_doctor;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
 import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
-import com.maritech.arterium.ui.choose_mp.ChooseMpNavigator;
-import com.maritech.arterium.ui.choose_mp.ChooseMpViewModel;
-import com.maritech.arterium.ui.choose_mp.data.ChooseMpContent;
-import com.maritech.arterium.ui.choose_mp.holder.ChooseMpAdapter;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -45,13 +37,19 @@ public class ChooseDoctorFragment extends BaseFragment {
     private ChooseDoctorContent selectedObject;
     private ArrayList<ChooseDoctorContent> listSelectedObject = new ArrayList<>();
 
+    @Override
+    protected int getContentView() {
+        return R.layout.fragment_choose_mp;
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_choose_mp, container, false);
+    @Override
+    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(root, savedInstanceState);
+
         viewModel = new ViewModelProvider(this).get(ChooseDoctorViewModel.class);
 
         ChooseDoctorAdapter adapter;
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvChoose);
+        RecyclerView rcv = root.findViewById(R.id.rvChoose);
 
         toolbar = root.findViewById(R.id.toolbar);
         toolbarTittle = toolbar.findViewById(R.id.tvToolbarTitle);
@@ -81,15 +79,10 @@ public class ChooseDoctorFragment extends BaseFragment {
                 if (object.getSelected()) {
                     listSelectedObject.add(object);
                 }
-
-
-
-
             }
         });
         rcv.setLayoutManager(new LinearLayoutManager(getContext()));
         rcv.setAdapter(adapter);
-
 
         tvBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +104,6 @@ public class ChooseDoctorFragment extends BaseFragment {
                 requireActivity().onBackPressed();
             }
         });
-
-
-        requireActivity().findViewById(R.id.nav_view).setVisibility(View.GONE);
-        return root;
     }
 
     private void prepareList(ArrayList<ChooseDoctorContent> dataList) {

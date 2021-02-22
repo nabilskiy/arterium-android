@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/statistics"
+    app:startDestination="@id/statistics">
+
+    <fragment
+        android:id="@+id/statistics"
+        android:name="com.maritech.arterium.ui.statistics.StatFragment"
+        android:label="@string/title_statistics"
+        tools:layout="@layout/fragment_stat">
+
+        <action
+            android:id="@+id/action_navigation_statistics_to_myProfileDoctorFragment"
+            app:destination="@id/myProfileDoctorFragment" />
+        <action
+            android:id="@+id/action_navigation_statistics_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_navigation_statistics_to_achievementsFragment"
+            app:destination="@id/achievements" />
+        <action
+            android:id="@+id/action_navigation_statistics_self"
+            app:destination="@id/statistics" />
+    </fragment>
+
+</navigation>
