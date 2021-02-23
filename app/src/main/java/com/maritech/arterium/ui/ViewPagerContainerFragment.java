@@ -8,7 +8,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.FragmentViewPagerBinding;
-import com.maritech.arterium.utils.ActivityFragmentStateAdapter;
 
 public class ViewPagerContainerFragment
         extends BaseFragment<FragmentViewPagerBinding> {
@@ -29,7 +28,9 @@ public class ViewPagerContainerFragment
             viewPager2.setUserInputEnabled(false);
             viewPager2.setOffscreenPageLimit(4);
 
-            viewPager2.setAdapter(new ActivityFragmentStateAdapter(requireActivity()));
+            viewPager2.setAdapter(new ViewPagerFragmentAdapter(
+                    getChildFragmentManager(), getViewLifecycleOwner().getLifecycle())
+            );
 
             bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 switch (item.getItemId()) {

@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.maritech.arterium.ui.achievements.AchievementsNavigationFragment;
-import com.maritech.arterium.ui.dashboardDoctor.MainNavigationFragment;
-import com.maritech.arterium.ui.my_profile_doctor.ProfileNavigationFragment;
-import com.maritech.arterium.ui.statistics.StatisticsNavigationFragment;
+import com.maritech.arterium.ui.achievements.AchievementsFragment;
+import com.maritech.arterium.ui.dashboardDoctor.DashboardFragment;
+import com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment;
+import com.maritech.arterium.ui.statistics.StatFragment;
 
 public class ViewPagerFragmentAdapter extends FragmentStateAdapter {
 
@@ -23,13 +23,13 @@ public class ViewPagerFragmentAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 1:
-                return new StatisticsNavigationFragment();
+                return new StatFragment();
             case 2:
-                return new AchievementsNavigationFragment();
+                return new AchievementsFragment();
             case 3:
-                return new ProfileNavigationFragment();
+                return new MyProfileDoctorFragment();
             default:
-                return new MainNavigationFragment();
+                return new DashboardFragment();
         }
     }
 
