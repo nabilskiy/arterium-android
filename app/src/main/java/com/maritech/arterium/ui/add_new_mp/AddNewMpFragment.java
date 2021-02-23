@@ -58,7 +58,7 @@ public class AddNewMpFragment extends BaseFragment<FragmentAddNewMpBinding> {
 
         binding.btnNextTwo.setOnClickListener(v -> navigator.goToDashboard(navController));
 
-        binding.toolbar.ivRight.setOnClickListener(v -> {
+        binding.toolbar.ivArrow.setOnClickListener(v -> {
             if (isTwoStep) {
                 isTwoStep = false;
                 binding.toolbar.viewTwo.setActivated(false);

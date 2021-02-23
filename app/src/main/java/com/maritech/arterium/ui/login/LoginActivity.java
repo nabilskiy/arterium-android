@@ -126,7 +126,6 @@ public class LoginActivity extends BaseActivity {
             result.putString(BUNDLE_KEY, "medical");
         }
 
-        //TODO Pin Function
 //        if (isPinEnabled) {
 //            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
 //            navigator.goToPin(navController);

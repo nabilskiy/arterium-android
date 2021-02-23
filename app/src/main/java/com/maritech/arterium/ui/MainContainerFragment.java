@@ -22,8 +22,6 @@ public class MainContainerFragment
     private ViewPager2 viewPager2;
     private BottomNavigationView bottomNavigationView;
 
-    private int currentItemId;
-
     @Override
     protected int getContentView() {
         return R.layout.fragment_view_pager;
@@ -43,23 +41,20 @@ public class MainContainerFragment
         viewPager2.setOffscreenPageLimit(4);
 
         viewPager2.setAdapter(new MainFragmentAdapter(
-                getChildFragmentManager(), getViewLifecycleOwner().getLifecycle())
+                getChildFragmentManager(), lifecycleOwner.getLifecycle())
         );
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.dashboard) {
-                currentItemId = item.getItemId();
                 navigatePager(0);
                 return true;
             } else if (item.getItemId() == R.id.statistics) {
-                currentItemId = item.getItemId();
                 navigatePager(1);
                 return true;
             } else if (item.getItemId() == R.id.achievements) {
                 navigatePager(2);
                 return true;
             } else if (item.getItemId() == R.id.profile) {
-                currentItemId = item.getItemId();
                 navigatePager(3);
                 return true;
             }
@@ -73,7 +68,7 @@ public class MainContainerFragment
         viewPager2.setCurrentItem(position, false);
     }
 
-    Observer<Boolean> onBackPressObserver = new Observer<Boolean>() {
+    private final Observer<Boolean> onBackPressObserver = new Observer<Boolean>() {
         @Override
         public void onChanged(Boolean aBoolean) {
             if (aBoolean) {
@@ -81,10 +76,9 @@ public class MainContainerFragment
                     requireActivity().onBackPressed();
                 } else {
                     bottomNavigationView.setSelectedItemId(R.id.dashboard);
+                    viewModel.onBackPress.setValue(false);
                 }
             }
-
-            Log.e("MainActivity", "" + aBoolean);
         }
     };
 }

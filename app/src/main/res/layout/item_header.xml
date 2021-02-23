@@ -11,7 +11,11 @@
             android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="4dp"
+            android:padding="12dp"
+            android:background="?attr/actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/tvTittle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvTittle"
@@ -33,12 +37,16 @@
             android:id="@+id/ivEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="4dp"
             android:visibility="gone"
+            android:padding="12dp"
+            android:src="@drawable/ic_edit"
+            android:background="?attr/actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/tvTittle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTittle"
-            app:srcCompat="@drawable/ic_edit_pen" />
+            app:layout_constraintTop_toTopOf="@+id/tvTittle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

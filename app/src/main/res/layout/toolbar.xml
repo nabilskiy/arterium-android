@@ -7,17 +7,6 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/bg_toolbar">
 
-        <ImageView
-            android:id="@+id/ivArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:padding="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvToolbarTitle"
-            app:srcCompat="@drawable/ic_chevron_left" />
-
         <TextView
             android:id="@+id/tvToolbarTitle"
             android:layout_width="wrap_content"
@@ -31,15 +20,33 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:padding="12dp"
+            android:background="?attr/actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvToolbarTitle"
+            app:srcCompat="@drawable/ic_chevron_left" />
+
+        <ImageView
             android:id="@+id/ivRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:padding="8dp"
+            android:layout_marginEnd="4dp"
+            android:padding="12dp"
             android:src="@drawable/ic_edit"
+            android:background="?attr/actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvToolbarTitle" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

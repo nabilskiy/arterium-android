@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.AppBarConfiguration;
 import com.maritech.arterium.R;
 
 import java.util.List;
@@ -18,9 +17,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private NavController navController;
-    AppBarConfiguration appBarConfiguration;
 
-    ActivityActionViewModel viewModel;
+    private ActivityActionViewModel viewModel;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -38,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 //        navController = Navigation.findNavController(this, R.id.main_host_fragment);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 
         listenBackStackChange();
     }
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             if (backStackEntryCount > 0) {
                 navController.navigateUp();
             } else {
-                if (fragmentCount == 1) {
+                if (viewModel.onBackPress.getValue() != null && !viewModel.onBackPress.getValue()) {
                     viewModel.onBackPress.setValue(true);
                 } else {
                     super.onBackPressed();
@@ -91,16 +88,5 @@ public class MainActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-
-
-
-//        int count = getSupportFragmentManager().getBackStackEntryCount();
-//
-//        if (count == 0) {
-//            super.onBackPressed();
-//        } else {
-//            getSupportFragmentManager().popBackStack();
-//        }
-
     }
 }

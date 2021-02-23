@@ -142,18 +142,15 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Observable<ProfileResponse> getProfile() {
-
-        //TODO To Remove Logs
         return Observable.mergeDelayError(
                 Observable.just(Pref.getInstance().getUserProfile(App.getInstance()))
-                        .filter(profileResponse -> profileResponse != null)
-                        .doOnNext(profileResponse -> Log.e("Profile", "From Local")),
+                        .filter(profileResponse -> profileResponse != null),
                 provideArteriumClient().getProfile()
 //                        .retryWhen(BaseDataManager.isAuthorizeException())
-                        .doOnNext(profileResponse -> {
-                            Pref.getInstance().setUserProfile(App.getInstance(), profileResponse);
-                            Log.e("Profile", "From Server");
-                        })
+                        .doOnNext(
+                                profileResponse -> Pref.getInstance().setUserProfile(
+                                        App.getInstance(), profileResponse)
+                        )
         )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true);

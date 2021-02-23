@@ -150,6 +150,12 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
+        android:id="@+id/interfaceNameFragment"
+        android:name="com.maritech.arterium.ui.interface_name.InterfaceNameFragment"
+        android:label="InterfaceNameFragment"
+        tools:layout="@layout/fragment_interface_name" />
+
+    <fragment
         android:id="@+id/profile"
         android:name="com.maritech.arterium.ui.my_profile.MyProfileFragment"
         android:label="MyProfileFragment"

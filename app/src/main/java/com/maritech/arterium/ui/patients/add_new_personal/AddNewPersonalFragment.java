@@ -107,7 +107,7 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
             }
         });
 
-        binding.toolbar.ivRight.setOnClickListener(v -> {
+        binding.toolbar.ivArrow.setOnClickListener(v -> {
             if (isTwoStep) {
                 isTwoStep = false;
                 binding.toolbar.viewTwo.setActivated(false);
