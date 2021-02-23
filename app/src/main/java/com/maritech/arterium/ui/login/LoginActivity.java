@@ -8,10 +8,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
-import com.maritech.arterium.ui.MainActivity;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
+import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.utils.ToastUtil;
@@ -54,9 +55,9 @@ public class LoginActivity extends BaseActivity {
         });
 
         TextView btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(v -> {
-            loginViewModel.login(login.getText().toString(), password.getText().toString());
-        });
+        btnLogin.setOnClickListener(
+                v -> loginViewModel.login(login.getText().toString(), password.getText().toString())
+        );
 
         observeViewModel();
     }

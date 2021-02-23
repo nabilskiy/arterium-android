@@ -14,16 +14,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -31,12 +29,11 @@ import com.maritech.arterium.databinding.FragmentAddNewPersonalBinding;
 import com.maritech.arterium.ui.barcode.BarcodeActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.patients.PatientsViewModel;
-import com.maritech.arterium.ui.widgets.CustomInput;
-import com.maritech.arterium.ui.widgets.CustomTabComponent;
 import com.maritech.arterium.utils.ToastUtil;
 import com.nhaarman.supertooltips.ToolTip;
-import com.nhaarman.supertooltips.ToolTipRelativeLayout;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -45,55 +42,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class AddNewPersonalFragment extends BaseFragment{
+public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalBinding> {
 
     public static final int SCAN_REQUEST_CODE = 364;
-    private static final String TAG = "scan_card";
 
-    private TextView tvTabOne;
-    private TextView tvTabTwo;
-
-    private View viewProgressOne;
-    private View viewProgressTwo;
-    private TextView btnNextOne;
-    private TextView btnNextTwo;
     private Boolean isTwoStep = false;
-    private ImageView btnBack;
-    private ImageView btnAuto;
-
-    private TextView tvToolbarTitle;
-    private TextView tvHint;
-    private TextView tvToolTip;
-
-    private ConstraintLayout clProgressStepOne;
-    private ConstraintLayout clProgressStepTwo;
-    private ConstraintLayout clInfoUser;
-
-    private ImageView ivAvatar;
-    private CustomInput ccInputName;
-    private CustomInput ccInputSecondName;
-    private CustomInput ccInputPhoneNumber;
-    private CustomInput ccInputCardNumber;
-    private RadioGroup radioGroup;
-    private CustomTabComponent ccChooseDoze;
-
-    private CustomInput ccInputDateInfarct;
-    private CustomInput ccDateOfStartDrug;
-    private CustomInput ccInputFraction;
-    private CustomInput ccInputFecesStart;
-    private CustomInput ccInputFecesEnd;
-    private CustomInput ccInputWeight;
-    private CustomInput ccInputHeight;
-
-    private ImageView ivCamera;
-
-    ToolTipRelativeLayout vTooltip;
 
     ToolTip toolTip = new ToolTip()
             .withText("Використати автозаповнення")
@@ -121,67 +82,23 @@ public class AddNewPersonalFragment extends BaseFragment{
         binding = DataBindingUtil.inflate(
                 inflater, getContentView(), container, false);
 
-        View root = binding.getRoot();
+        binding.toolbar.tvHint.setVisibility(View.VISIBLE);
+        binding.toolbar.tvToolbarTitle.setText("Новий пацієнт");
+        binding.toolbar.tvHint.setText("Медичні дані");
 
-        clProgressStepOne = root.findViewById(R.id.clProgressStepOne);
-        clProgressStepTwo = root.findViewById(R.id.clProgressStepTwo);
-        tvToolbarTitle = root.findViewById(R.id.toolbar).findViewById(R.id.tvToolbarTitle);
-        tvHint = root.findViewById(R.id.toolbar).findViewById(R.id.tvHint);
-        tvHint.setVisibility(View.VISIBLE);
-        radioGroup = root.findViewById(R.id.radioGroup);
-        btnNextOne = root.findViewById(R.id.btnNextOne);
-        btnNextTwo = root.findViewById(R.id.btnNextTwo);
-        viewProgressOne = root.findViewById(R.id.toolbar).findViewById(R.id.viewOne);
-        viewProgressOne.setActivated(true);
-        viewProgressTwo = root.findViewById(R.id.toolbar).findViewById(R.id.viewTwo);
-        btnBack = root.findViewById(R.id.toolbar).findViewById(R.id.ivRight);
-        btnAuto = root.findViewById(R.id.toolbar).findViewById(R.id.ivLeft);
-        ivCamera = root.findViewById(R.id.ivCamera);
-        ccInputCardNumber = root.findViewById(R.id.ccInputCardNumber);
-        tvToolTip = root.findViewById(R.id.tvToolTip);
-        vTooltip = root.findViewById(R.id.tooltip);
+        binding.btnNextOne.setOnClickListener(v -> validateFieldsOne());
 
-        ivAvatar = root.findViewById(R.id.ivAvatar);
-        ccInputName = root.findViewById(R.id.ccInputName);
-        ccInputSecondName = root.findViewById(R.id.ccInputSecondName);
-        ccInputPhoneNumber = root.findViewById(R.id.ccInputPhoneNumber);
-        ccInputCardNumber = root.findViewById(R.id.ccInputCardNumber);
-        radioGroup = root.findViewById(R.id.radioGroup);
-        ccChooseDoze = root.findViewById(R.id.ccChooseDoze);
+        binding.btnNextTwo.setOnClickListener(v -> validateFieldsTwo());
 
-        ccInputDateInfarct = root.findViewById(R.id.ccInputDateInfarct);
-        ccDateOfStartDrug = root.findViewById(R.id.ccDateOfStartDrug);
-        ccInputFraction = root.findViewById(R.id.ccInputFraction);
-        ccInputFecesStart = root.findViewById(R.id.ccInputFecesStart);
-        ccInputFecesEnd = root.findViewById(R.id.ccInputFecesEnd);
-        ccInputWeight = root.findViewById(R.id.ccInputWeight);
-        ccInputHeight = root.findViewById(R.id.ccInputHeight);
+        binding.ivAvatar.setOnClickListener(v -> selectImage());
 
-        tvTabOne = root.findViewById(R.id.tvOne);
-        tvTabTwo = root.findViewById(R.id.tvTwo);
+        binding.toolbar.ivLeft.setOnClickListener(v -> autoFill());
 
-        tvTabOne.setActivated(true);
-
-        tvToolbarTitle.setText("Новий пацієнт");
-        tvHint.setText("Медичні дані");
-
-        btnNextOne.setOnClickListener(v -> {
-            validateFieldsOne();
-        });
-
-        btnNextTwo.setOnClickListener(v -> {
-            validateFieldsTwo();
-        });
-
-        ivAvatar.setOnClickListener(v -> selectImage());
-
-        btnAuto.setOnClickListener(v -> autoFill());
-
-        ivCamera.setOnClickListener(v -> {
+        binding.ivCamera.setOnClickListener(v -> {
             int result =
                     ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA);
 
-            if(result != PackageManager.PERMISSION_GRANTED) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
             } else {
                 startActivityForResult(
@@ -190,20 +107,20 @@ public class AddNewPersonalFragment extends BaseFragment{
             }
         });
 
-        btnBack.setOnClickListener(v -> {
+        binding.toolbar.ivRight.setOnClickListener(v -> {
             if (isTwoStep) {
                 isTwoStep = false;
-                viewProgressTwo.setActivated(false);
+                binding.toolbar.viewTwo.setActivated(false);
 
-                clProgressStepOne.setVisibility(View.VISIBLE);
-                clProgressStepTwo.setVisibility(View.GONE);
+                binding.clProgressStepOne.setVisibility(View.VISIBLE);
+                binding.clProgressStepTwo.setVisibility(View.GONE);
 
-                btnAuto.setVisibility(View.GONE);
+                binding.toolbar.ivLeft.setVisibility(View.GONE);
 
             } else {
                 requireActivity().onBackPressed();
             }
-            vTooltip.setVisibility(View.GONE);
+            binding.tooltip.setVisibility(View.GONE);
 
         });
 //        Log.e("Bottom", this.getClass().getName());
@@ -243,34 +160,34 @@ public class AddNewPersonalFragment extends BaseFragment{
     }
 
     private void validateFieldsOne() {
-        if (ccInputName.getText() == null || ccInputName.getText().isEmpty()) {
+        if (binding.ccInputName.getText() == null || binding.ccInputName.getText().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть ім'я пацієнта");
             return;
         }
 
-        if (ccInputSecondName.getText() == null || ccInputSecondName.getText().isEmpty()) {
+        if (binding.ccInputSecondName.getText() == null || binding.ccInputSecondName.getText().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть прізвище пацієнта");
             return;
         } else {
-            String lastName = ccInputName.getText() + " " + ccInputSecondName.getText();
+            String lastName = binding.ccInputName.getText() + " " + binding.ccInputSecondName.getText();
             map.put("name", toRequestBody(lastName));
         }
 
-        if (ccInputPhoneNumber.getText() == null || ccInputPhoneNumber.getText().isEmpty()) {
+        if (binding.ccInputPhoneNumber.getText() == null || binding.ccInputPhoneNumber.getText().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть номер телефону");
             return;
         } else {
-            map.put("phone", toRequestBody(ccInputPhoneNumber.getText()));
+            map.put("phone", toRequestBody(binding.ccInputPhoneNumber.getText()));
         }
 
-        if (ccInputCardNumber.getText() == null || ccInputCardNumber.getText().isEmpty()) {
+        if (binding.ccInputCardNumber.getText() == null || binding.ccInputCardNumber.getText().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть номер картки");
             return;
         } else {
-            map.put("card_code", toRequestBody(ccInputCardNumber.getText()));
+            map.put("card_code", toRequestBody(binding.ccInputCardNumber.getText()));
         }
 
-        int selectedId = radioGroup.getCheckedRadioButtonId();
+        int selectedId = binding.radioGroup.getCheckedRadioButtonId();
 
         if (selectedId == R.id.radio_male) {
             map.put("gender", toRequestBody("m"));
@@ -278,43 +195,43 @@ public class AddNewPersonalFragment extends BaseFragment{
             map.put("gender", toRequestBody("f"));
         }
 
-        if (ccChooseDoze.getSelectedValue() == null || ccChooseDoze.getSelectedValue().isEmpty()) {
+        if (binding.ccChooseDoze.getSelectedValue() == null || binding.ccChooseDoze.getSelectedValue().isEmpty()) {
             ToastUtil.show(requireContext(), "Виберіть дозу");
             return;
         } else {
-            map.put("dose", toRequestBody(ccChooseDoze.getSelectedValue()));
+            map.put("dose", toRequestBody(binding.ccChooseDoze.getSelectedValue()));
         }
 
         navigateSecondPage();
     }
 
     private void validateFieldsTwo() {
-        if (ccInputHeight.getText() != null && !ccInputHeight.getText().isEmpty()) {
-            map.put("height", toRequestBody(ccInputHeight.getText()));
+        if (binding.ccInputHeight.getText() != null && !binding.ccInputHeight.getText().isEmpty()) {
+            map.put("height", toRequestBody(binding.ccInputHeight.getText()));
         }
 
-        if (ccInputWeight.getText() != null && !ccInputWeight.getText().isEmpty()) {
-            map.put("weight", toRequestBody(ccInputWeight.getText()));
+        if (binding.ccInputWeight.getText() != null && !binding.ccInputWeight.getText().isEmpty()) {
+            map.put("weight", toRequestBody(binding.ccInputWeight.getText()));
         }
 
-        if (ccInputDateInfarct.getText() != null && !ccInputDateInfarct.getText().isEmpty()) {
-            map.put("hearth_attack_date", toRequestBody(ccInputDateInfarct.getText()));
+        if (binding.ccInputDateInfarct.getText() != null && !binding.ccInputDateInfarct.getText().isEmpty()) {
+            map.put("hearth_attack_date", toRequestBody(binding.ccInputDateInfarct.getText()));
         }
 
-        if (ccDateOfStartDrug.getText() != null && !ccDateOfStartDrug.getText().isEmpty()) {
-            map.put("prescribing_date", toRequestBody(ccDateOfStartDrug.getText()));
+        if (binding.ccDateOfStartDrug.getText() != null && !binding.ccDateOfStartDrug.getText().isEmpty()) {
+            map.put("prescribing_date", toRequestBody(binding.ccDateOfStartDrug.getText()));
         }
 
-        if (ccInputFraction.getText() != null && !ccInputFraction.getText().isEmpty()) {
-            map.put("ejection_fraction", toRequestBody(ccInputFraction.getText()));
+        if (binding.ccInputFraction.getText() != null && !binding.ccInputFraction.getText().isEmpty()) {
+            map.put("ejection_fraction", toRequestBody(binding.ccInputFraction.getText()));
         }
 
-        if (ccInputFecesStart.getText() != null && !ccInputFecesStart.getText().isEmpty()) {
-            map.put("initial_potassium", toRequestBody(ccInputFecesStart.getText()));
+        if (binding.ccInputFecesStart.getText() != null && !binding.ccInputFecesStart.getText().isEmpty()) {
+            map.put("initial_potassium", toRequestBody(binding.ccInputFecesStart.getText()));
         }
 
-        if (ccInputFecesEnd.getText() != null && !ccInputFecesEnd.getText().isEmpty()) {
-            map.put("final_potassium", toRequestBody(ccInputFecesEnd.getText()));
+        if (binding.ccInputFecesEnd.getText() != null && !binding.ccInputFecesEnd.getText().isEmpty()) {
+            map.put("final_potassium", toRequestBody(binding.ccInputFecesEnd.getText()));
         }
 
         createPatient();
@@ -329,19 +246,19 @@ public class AddNewPersonalFragment extends BaseFragment{
     }
 
     private void navigateSecondPage() {
-        viewProgressTwo.setActivated(true);
+        binding.toolbar.viewTwo.setActivated(true);
         isTwoStep = true;
 
-        clProgressStepOne.setVisibility(View.GONE);
-        clProgressStepTwo.setVisibility(View.VISIBLE);
+        binding.clProgressStepOne.setVisibility(View.GONE);
+        binding.clProgressStepTwo.setVisibility(View.VISIBLE);
 
-        vTooltip.showToolTipForView(toolTip, btnAuto);
-        btnAuto.setVisibility(View.VISIBLE);
-        vTooltip.setVisibility(View.VISIBLE);
+        binding.tooltip.showToolTipForView(toolTip, binding.toolbar.ivLeft);
+        binding.toolbar.ivLeft.setVisibility(View.VISIBLE);
+        binding.tooltip.setVisibility(View.VISIBLE);
     }
 
     private void selectImage() {
-        final CharSequence[] options = { "Сфотографувати", "Вибрати з галереї" };
+        final CharSequence[] options = {"Сфотографувати", "Вибрати з галереї"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Фотографія");
@@ -352,7 +269,7 @@ public class AddNewPersonalFragment extends BaseFragment{
                 int result =
                         ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA);
 
-                if(result != PackageManager.PERMISSION_GRANTED) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, 102);
                 } else {
                     Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
@@ -364,7 +281,7 @@ public class AddNewPersonalFragment extends BaseFragment{
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 );
-                startActivityForResult(pickPhoto , 1);
+                startActivityForResult(pickPhoto, 1);
 
             }
         });
@@ -379,8 +296,13 @@ public class AddNewPersonalFragment extends BaseFragment{
             case 101: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(new Intent(getActivity(), BarcodeActivity.class), SCAN_REQUEST_CODE);
-                    ccInputCardNumber.setInput("Номер картки", String.valueOf(requestCode));
+                    startActivityForResult(
+                            new Intent(getActivity(), BarcodeActivity.class),
+                            SCAN_REQUEST_CODE
+                    );
+
+                    binding.ccInputCardNumber.setInput("Номер картки", String.valueOf(requestCode));
+
                 } else {
                     Toast.makeText(getContext(), "Permission denied", Toast.LENGTH_SHORT).show();
                 }
@@ -394,12 +316,12 @@ public class AddNewPersonalFragment extends BaseFragment{
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(resultCode != RESULT_CANCELED) {
+        if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        ivAvatar.setImageBitmap(selectedImage);
+                        binding.ivAvatar.setImageBitmap(selectedImage);
 
                         persistImage(selectedImage);
                     }
@@ -407,11 +329,16 @@ public class AddNewPersonalFragment extends BaseFragment{
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
+                        Uri selectedImage = data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
+                            Cursor cursor = requireActivity().getContentResolver().query(
+                                    selectedImage,
+                                    filePathColumn,
+                                    null,
+                                    null,
+                                    null
+                            );
                             if (cursor != null) {
                                 cursor.moveToFirst();
 
@@ -419,7 +346,7 @@ public class AddNewPersonalFragment extends BaseFragment{
                                 String picturePath = cursor.getString(columnIndex);
 
                                 Bitmap image = BitmapFactory.decodeFile(picturePath);
-                                ivAvatar.setImageBitmap(image);
+                                binding.ivAvatar.setImageBitmap(image);
                                 cursor.close();
                                 persistImage(image);
                             }
@@ -444,27 +371,35 @@ public class AddNewPersonalFragment extends BaseFragment{
 
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-            // MultipartBody.Part is used to send also the actual file name
 
-            image = MultipartBody.Part.createFormData("imagenPerfil", imageFile.getName(), requestFile);
+            image = MultipartBody.Part.createFormData(
+                    "imagenPerfil", imageFile.getName(), requestFile
+            );
         } catch (Exception e) {
             Log.e(this.getClass().getSimpleName(), "Error writing bitmap", e);
         }
     }
 
-    public void autoFill(){
-        viewProgressTwo.setActivated(true);
+    public void autoFill() {
+        binding.toolbar.viewTwo.setActivated(true);
         isTwoStep = true;
-        ccInputDateInfarct.setInput("Дата інфаркту", dateFormat.format(new Date()));
-        ccDateOfStartDrug.setInput("Дата призначення препарату", dateFormat.format(new Date()));
-        ccInputFraction.setInput("Фракція викиду", "111");
-        ccInputFecesStart.setInput("Рівень калію на початку лікування, ммоль/л", "111");
-        ccInputFecesEnd.setInput("Рівень калію в кінці лікування, ммоль/л", "111");
-        ccInputWeight.setInput("Вага, кг", "10");
-        ccInputHeight.setInput("Рiст, см", "10");
+        binding.ccInputDateInfarct
+                .setInput("Дата інфаркту", dateFormat.format(new Date()));
+        binding.ccDateOfStartDrug
+                .setInput("Дата призначення препарату", dateFormat.format(new Date()));
+        binding.ccInputFraction
+                .setInput("Фракція викиду", "111");
+        binding.ccInputFecesStart
+                .setInput("Рівень калію на початку лікування, ммоль/л", "111");
+        binding.ccInputFecesEnd
+                .setInput("Рівень калію в кінці лікування, ммоль/л", "111");
+        binding.ccInputWeight
+                .setInput("Вага, кг", "10");
+        binding.ccInputHeight
+                .setInput("Рiст, см", "10");
 
 
-        vTooltip.setVisibility(View.GONE);
+        binding.tooltip.setVisibility(View.GONE);
     }
 
 }

@@ -2,40 +2,23 @@ package com.maritech.arterium.ui.statistics;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.FragmentStatBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
-import com.maritech.arterium.ui.widgets.CustomProgressBar;
-import com.maritech.arterium.ui.widgets.CustomTabComponent;
 
-public class StatFragment extends BaseFragment {
+public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
-    View toolbar;
-    TextView title;
-    View appBar;
-    ImageView moveLeft;
-    ImageView moveRight;
-    TextView month;
     Integer count = 1;
 
-    View stat_details;
-
-    ImageView ivStatDetailSearch;
-    TextView tvPurchasesForCurrentMonth;
-    ImageView ivStatDetailFilter;
-    ImageView ivClose;
-    ConstraintLayout clSearch;
-
-    CustomProgressBar cpbStatisticGreen;
-
     StatNavigator navigator = new StatNavigator();
+
+    TextView month;
 
     @Override
     protected int getContentView() {
@@ -46,97 +29,50 @@ public class StatFragment extends BaseFragment {
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
 
-        toolbar = root.findViewById(R.id.statisticToolbar);
-        toolbar.findViewById(R.id.ivArrow).setVisibility(View.INVISIBLE);
-        toolbar.findViewById(R.id.ivRight).setVisibility(View.INVISIBLE);
+        binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
+        binding.statisticToolbar.ivRight.setVisibility(View.INVISIBLE);
 
-        stat_details = root.findViewById(R.id.stat_details);
-        clSearch = stat_details.findViewById(R.id.clSearch);
-        ivClose = stat_details.findViewById(R.id.ivClose);
-        tvPurchasesForCurrentMonth = stat_details.findViewById(R.id.tvPurchasesForCurrentMonth);
-        ivStatDetailSearch = stat_details.findViewById(R.id.ivStatDetailSearch);
-        ivStatDetailFilter = stat_details.findViewById(R.id.ivStatDetailFilter);
-        cpbStatisticGreen = root.findViewById(R.id.cpbStatisticGreen);
+        month = binding.tvStatisticMonth;
 
-        cpbStatisticGreen.setElevation(9);
+        binding.cpbStatisticGreen.setElevation(9);
 
-        title = toolbar.findViewById(R.id.tvToolbarTitle);
-        title.setText(R.string.statistic);
+        binding.statisticToolbar.tvToolbarTitle.setText(R.string.statistic);
 
-        appBar = root.findViewById(R.id.appBar);
-        appBar.setOutlineProvider(null);
+        binding.appBar.setOutlineProvider(null);
 
-        month = root.findViewById(R.id.tvStatisticMonth);
+        binding.statDetails.ctcStatDetails.initForDetails();
 
-        CustomTabComponent tabComponent = root.findViewById(R.id.ctcStatDetails);
-        tabComponent.initForDetails();
-
-//        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.bottomGoToMyProfileDoctor(navController);
-//            }
-//        });
-//
-//        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.bottomGoToDashboardDoctor(navController);
-//            }
-//        });
-//
-//        achievementsFragment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.bottomGoToAchievements(navController);
-//            }
-//        });
-//
-//        navigation_statistics.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                navigator.bottomGoToStat(navController);
-//            }
-//        });
-
-        ivStatDetailSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivStatDetailSearch.setVisibility(View.GONE);
-                tvPurchasesForCurrentMonth.setVisibility(View.GONE);
-                ivStatDetailFilter.setVisibility(View.GONE);
-                ivClose.setVisibility(View.VISIBLE);
-                clSearch.setVisibility(View.VISIBLE);
-            }
+        binding.statDetails.ivStatDetailSearch.setOnClickListener(v -> {
+            binding.statDetails.ivStatDetailSearch.setVisibility(View.GONE);
+            binding.statDetails.tvPurchasesForCurrentMonth.setVisibility(View.GONE);
+            binding.statDetails.ivStatDetailFilter.setVisibility(View.GONE);
+            binding.statDetails.ivClose.setVisibility(View.VISIBLE);
+            binding.statDetails.clSearch.setVisibility(View.VISIBLE);
         });
 
-        ivClose.setOnClickListener(v -> {
-            ivStatDetailSearch.setVisibility(View.VISIBLE);
-            tvPurchasesForCurrentMonth.setVisibility(View.VISIBLE);
-            ivStatDetailFilter.setVisibility(View.VISIBLE);
-            ivClose.setVisibility(View.GONE);
-            clSearch.setVisibility(View.GONE);
+        binding.statDetails.ivClose.setOnClickListener(v -> {
+            binding.statDetails.ivStatDetailSearch.setVisibility(View.VISIBLE);
+            binding.statDetails.tvPurchasesForCurrentMonth.setVisibility(View.VISIBLE);
+            binding.statDetails.ivStatDetailFilter.setVisibility(View.VISIBLE);
+            binding.statDetails.ivClose.setVisibility(View.GONE);
+            binding.statDetails.clSearch.setVisibility(View.GONE);
         });
 
-        month.setOnClickListener(v -> {
-            CalendarBottomSheetDialog.Companion.newInstance((dateFrom, dateTo) -> {
+        month.setOnClickListener(v -> CalendarBottomSheetDialog.Companion.newInstance(
+                (dateFrom, dateTo) -> {
+                }, "Фільтр по даті")
+                .show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG()));
 
-            }, "Фільтр по даті").show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG());
-        });
-
-        changeMonth(root);
+        changeMonth();
     }
 
-    private void changeMonth(View root) {
-        moveLeft = root.findViewById(R.id.ivPreviousMonth);
-        moveRight = root.findViewById(R.id.ivNextMonth);
-
-        moveLeft.setOnClickListener(view -> {
+    private void changeMonth() {
+        binding.ivPreviousMonth.setOnClickListener(view -> {
             count--;
             if (count < 0) count = 11;
             newMonth();
         });
-        moveRight.setOnClickListener(view -> {
+        binding.ivNextMonth.setOnClickListener(view -> {
             count++;
             if (count > 11) count = 0;
             newMonth();

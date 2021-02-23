@@ -1,60 +1,25 @@
 package com.maritech.arterium.ui.add_new_doctor;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.FragmentAddNewDoctorBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.choose_mp.data.ChooseMpContent;
 
-public class AddNewDoctorFragment extends BaseFragment {
+public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBinding> {
     static final String BUNDLE_KEY = "selectedItem";
     static final String REQUEST_KEY = "requestKey";
 
-    private View viewProgressOne;
-    private View viewProgressTwo;
-    private TextView btnNextOne;
-    private TextView btnNextTwo;
     private Boolean isTwoStep = false;
     private Boolean isMpSelected = false;
-    private ImageView btnBack;
-    private ImageView btnAuto;
-    private ImageView ivChooseMp;
-
-    private TextView tvToolbarTitle;
-    private TextView tvHint;
-    private TextView tvMp;
-    private TextView tvMpHint;
-
-    private ConstraintLayout clProgressStepOne;
-    private ConstraintLayout clProgressStepTwo;
-    private ConstraintLayout clRenial;
-    private ConstraintLayout clGliptar;
-    private ConstraintLayout clSagrada;
-
-    private ConstraintLayout clChooseMp;
-
-    private ImageView ivBtnCheckOne;
-    private ImageView ivBtnCheckTwo;
-    private ImageView ivBtnCheckThree;
-
-    private Boolean btnCheckOneIsActive = false;
-    private Boolean btnCheckTwoIsActive = false;
-    private Boolean btnCheckThreeIsActive = false;
 
     AddNewDoctorNavigator navigator = new AddNewDoctorNavigator();
-    private AddNewDoctorViewModel addNewPersonalViewModel;
+    AddNewDoctorViewModel addNewPersonalViewModel;
 
     @Override
     protected int getContentView() {
@@ -67,147 +32,91 @@ public class AddNewDoctorFragment extends BaseFragment {
 
         addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewDoctorViewModel.class);
 
-        clProgressStepOne = root.findViewById(R.id.clProgressStepOne);
-        clProgressStepTwo = root.findViewById(R.id.clProgressStepTwo);
-        tvToolbarTitle = root.findViewById(R.id.toolbar).findViewById(R.id.tvToolbarTitle);
-        tvHint = root.findViewById(R.id.toolbar).findViewById(R.id.tvHint);
-        btnNextOne = root.findViewById(R.id.btnNextOne);
-        btnNextTwo = root.findViewById(R.id.btnNextTwo);
-        viewProgressOne = root.findViewById(R.id.toolbar).findViewById(R.id.viewOne);
-        viewProgressOne.setActivated(true);
-        viewProgressTwo = root.findViewById(R.id.toolbar).findViewById(R.id.viewTwo);
-        btnBack = root.findViewById(R.id.toolbar).findViewById(R.id.ivRight);
-        btnAuto = root.findViewById(R.id.toolbar).findViewById(R.id.ivLeft);
-        clRenial = root.findViewById(R.id.clRenial);
-        clGliptar = root.findViewById(R.id.clGliptar);
-        clSagrada = root.findViewById(R.id.clSagrada);
-        ivBtnCheckOne = root.findViewById(R.id.ivBtnCheckOne);
-        ivBtnCheckTwo = root.findViewById(R.id.ivBtnCheckTwo);
-        ivBtnCheckThree = root.findViewById(R.id.ivBtnCheckThree);
-        clChooseMp = root.findViewById(R.id.clChooseMp);
-        tvMp = root.findViewById(R.id.tvMp);
-        tvMpHint= root.findViewById(R.id.tvMpHint);
-        ivChooseMp= root.findViewById(R.id.ivChooseMp);
+        binding.toolbar.viewOne.setActivated(true);
+        binding.toolbar.tvToolbarTitle.setText("Новий доктор");
+        binding.toolbar.tvHint.setText("Персональнi данi");
 
-        tvToolbarTitle.setText("Новий доктор");
-        tvHint.setText("Персональнi данi");
-
-        if(isMpSelected){
-            viewProgressTwo.setActivated(true);
+        if (isMpSelected) {
+            binding.toolbar.viewTwo.setActivated(true);
             isTwoStep = true;
 
-            clProgressStepOne.setVisibility(View.GONE);
-            clProgressStepTwo.setVisibility(View.VISIBLE);
-            tvHint.setText("Робочі дані");
-        }else {
+            binding.clProgressStepOne.setVisibility(View.GONE);
+            binding.clProgressStepTwo.setVisibility(View.VISIBLE);
+            binding.toolbar.tvHint.setText("Робочі дані");
+        } else {
             isTwoStep = false;
-            viewProgressTwo.setActivated(false);
+            binding.toolbar.viewTwo.setActivated(false);
 
-            clProgressStepOne.setVisibility(View.VISIBLE);
-            clProgressStepTwo.setVisibility(View.GONE);
-            tvHint.setText("Персональнi данi");
+            binding.clProgressStepOne.setVisibility(View.VISIBLE);
+            binding.clProgressStepTwo.setVisibility(View.GONE);
+            binding.toolbar.tvHint.setText("Персональнi данi");
         }
 
-        btnNextOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewProgressTwo.setActivated(true);
-                isTwoStep = true;
+        binding.btnNextOne.setOnClickListener(v -> {
+            binding.toolbar.viewTwo.setActivated(true);
+            isTwoStep = true;
 
-                clProgressStepOne.setVisibility(View.GONE);
-                clProgressStepTwo.setVisibility(View.VISIBLE);
-                tvHint.setText("Робочі дані");
+            binding.clProgressStepOne.setVisibility(View.GONE);
+            binding.clProgressStepTwo.setVisibility(View.VISIBLE);
+            binding.toolbar.tvHint.setText("Робочі дані");
 
-                btnNextTwo.setAlpha(0.7f);
-                btnNextTwo.setClickable(false);
-                btnNextTwo.setEnabled(false);
+            binding.btnNextTwo.setAlpha(0.7f);
+            binding.btnNextTwo.setClickable(false);
+            binding.btnNextTwo.setEnabled(false);
+        });
+
+        binding.btnNextTwo.setOnClickListener(v -> navigator.goToDashboard(navController));
+
+        binding.toolbar.ivRight.setOnClickListener(v -> {
+            if (isTwoStep) {
+                isTwoStep = false;
+                binding.toolbar.viewTwo.setActivated(false);
+
+                binding.clProgressStepOne.setVisibility(View.VISIBLE);
+                binding.clProgressStepTwo.setVisibility(View.GONE);
+                binding.toolbar.tvHint.setText("Персональнi данi");
+
+            } else {
+                requireActivity().onBackPressed();
             }
         });
 
-        btnNextTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToDashboard(navController);
-            }
-        });
+        binding.clRenial.setOnClickListener(v -> clickOnBtnCheck(binding.ivBtnCheckOne));
+        binding.clGliptar.setOnClickListener(v -> clickOnBtnCheck(binding.ivBtnCheckTwo));
+        binding.clSagrada.setOnClickListener(v -> clickOnBtnCheck(binding.ivBtnCheckThree));
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isTwoStep) {
-                    isTwoStep = false;
-                    viewProgressTwo.setActivated(false);
-
-                    clProgressStepOne.setVisibility(View.VISIBLE);
-                    clProgressStepTwo.setVisibility(View.GONE);
-                    tvHint.setText("Персональнi данi");
-
-                } else {
-                    requireActivity().onBackPressed();
-                }
-            }
-        });
-
-        clRenial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickOnBtnCheck(ivBtnCheckOne);
-            }
-        });
-        clGliptar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickOnBtnCheck(ivBtnCheckTwo);
-            }
-        });
-        clSagrada.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickOnBtnCheck(ivBtnCheckThree);
-            }
-        });
-
-        clChooseMp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goAddMp(navController);
-            }
-        });
+        binding.clChooseMp.setOnClickListener(v -> navigator.goAddMp(navController));
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getParentFragmentManager().setFragmentResultListener(REQUEST_KEY, this, new FragmentResultListener() {
-            @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-                ChooseMpContent result = bundle.getParcelable(BUNDLE_KEY);
+        getParentFragmentManager().setFragmentResultListener(
+                REQUEST_KEY,
+                this,
+                (requestKey, bundle) -> {
+                    ChooseMpContent result = bundle.getParcelable(BUNDLE_KEY);
 
-                tvMp.setText(result.getName());
-                tvMpHint.setText("Медичний представник");
-                ivChooseMp.setImageResource(result.getPhoto());
+                    binding.tvMp.setText(result.getName());
+                    binding.tvMpHint.setText("Медичний представник");
+                    binding.ivChooseMp.setImageResource(result.getPhoto());
 
-                isMpSelected = true;
+                    isMpSelected = true;
 
-                viewProgressTwo.setActivated(true);
-                isTwoStep = true;
+                    binding.toolbar.viewTwo.setActivated(true);
+                    isTwoStep = true;
 
-                clProgressStepOne.setVisibility(View.GONE);
-                clProgressStepTwo.setVisibility(View.VISIBLE);
-                tvHint.setText("Робочі дані");
-            }
-        });
+                    binding.clProgressStepOne.setVisibility(View.GONE);
+                    binding.clProgressStepTwo.setVisibility(View.VISIBLE);
+                    binding.toolbar.tvHint.setText("Робочі дані");
+                }
+        );
     }
 
 
-    private void clickOnBtnCheck(ImageView imageView){
-        if (imageView.isActivated()){
-            imageView.setActivated(false);
-        }
-        else {
-            imageView.setActivated(true);
-        }
+    private void clickOnBtnCheck(ImageView imageView) {
+        imageView.setActivated(!imageView.isActivated());
     }
 
 

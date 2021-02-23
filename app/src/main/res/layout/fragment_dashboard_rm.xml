@@ -2,18 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="data"
-            type="com.maritech.arterium.ui.dashboardMp.data.DoctorsContent" />
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_purple">
-
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/main_appbar"
@@ -111,7 +103,6 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/details_view"
             android:background="@color/white"
@@ -122,8 +113,10 @@
 
             <include
                 layout="@layout/dashboard_details"
-                app:data="@{data}" />
+                android:id="@+id/details" />
+
         </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

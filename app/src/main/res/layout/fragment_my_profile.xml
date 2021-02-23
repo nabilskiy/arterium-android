@@ -1,190 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/myProfileToolbar"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/myProfileToolbar">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/myProfileToolbar"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
-                android:id="@+id/iccpAvatar"
-                android:layout_width="wrap_content"
-                android:layout_height="88dp"
-                android:layout_marginTop="24dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_default_avatar"
-                app:backgroundRingColor="@android:color/transparent"
-                app:backgroundRingSize="12dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:progress="32"
-                app:progressRingColor="#BCD6D6"
-                app:progressRingCorner="ROUND"
-                app:progressRingOutline="true"
-                app:progressRingSize="6dp" />
-
-            <TextView
-                android:id="@+id/tvMyProfileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                tools:text="@string/berezniakov"
-                android:textAppearance="@style/H2"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iccpAvatar" />
-
-            <TextView
-                android:id="@+id/tvMyProfileSkill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                tools:text="@string/cardiologist"
-                android:textAppearance="@style/sf_pro_text_16"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMyProfileName" />
-
-            <TextView
-                android:id="@+id/tvMyProfileShopingAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:alpha="0.4"
-                tools:text="@string/whole_shopping_items"
-                android:textAppearance="@style/sf_pro_text_12"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@id/tvMyProfileSkill" />
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/myProfileToolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clMyProfileMainContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMyProfileShopingAmount">
+                android:layout_height="wrap_content">
 
-                <include
-                    android:id="@+id/myProfileCard"
-                    layout="@layout/my_profile_card"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
+                    android:id="@+id/iccpAvatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="88dp"
+                    android:layout_marginTop="24dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_default_avatar"
+                    app:backgroundRingColor="@android:color/transparent"
+                    app:backgroundRingSize="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:progress="32"
+                    app:progressRingColor="#BCD6D6"
+                    app:progressRingCorner="ROUND"
+                    app:progressRingOutline="true"
+                    app:progressRingSize="6dp" />
 
-                <include
-                    android:id="@+id/pharmacyList"
-                    layout="@layout/my_profile_list_item"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tvMyProfileName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@id/myProfileCard" />
-
-                <include
-                    android:id="@+id/myProfileMainContentNotifications"
-                    layout="@layout/my_profile_list_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@id/pharmacyList" />
-
-                <include
-                    android:id="@+id/contactWithUs"
-                    layout="@layout/my_profile_list_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@id/vDevideNotificationAndContact" />
-
-                <include
-                    android:id="@+id/myProfileMainContentSettings"
-                    layout="@layout/my_profile_list_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@id/contactWithUs" />
-
-                <View
-                    android:id="@+id/vDevideNotificationAndContact"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@color/gray_view_line"
+                    android:layout_marginTop="16dp"
+                    android:textAppearance="@style/H2"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/myProfileMainContentNotifications" />
+                    app:layout_constraintTop_toBottomOf="@id/iccpAvatar"
+                    tools:text="@string/berezniakov" />
 
-                <View
-                    android:id="@+id/vDevideSettingAndExit"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@color/gray_view_line"
+                <TextView
+                    android:id="@+id/tvMyProfileSkill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/sf_pro_text_16"
+                    android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/myProfileMainContentSettings" />
+                    app:layout_constraintTop_toBottomOf="@id/tvMyProfileName"
+                    tools:text="@string/cardiologist" />
+
+                <TextView
+                    android:id="@+id/tvMyProfileShopingAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:alpha="0.4"
+                    android:textAppearance="@style/sf_pro_text_12"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvMyProfileSkill"
+
+                    tools:text="@string/whole_shopping_items" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clLogOut"
+                    android:id="@+id/clMyProfileMainContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/vDevideSettingAndExit">
+                    app:layout_constraintTop_toBottomOf="@id/tvMyProfileShopingAmount">
 
-                    <ImageView
-                        android:id="@+id/ivLogOut"
-                        android:layout_width="wrap_content"
+                    <include
+                        android:id="@+id/myProfileCard"
+                        layout="@layout/my_profile_card"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/ic_log_out"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <include
+                        android:id="@+id/pharmacyList"
+                        layout="@layout/my_profile_list_item"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:text="Вийти"
-                        android:textAppearance="@style/sf_pro_text_16"
-                        android:textColor="@color/red"
-                        app:layout_constraintStart_toEndOf="@id/ivLogOut"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/myProfileCard" />
+
+                    <include
+                        android:id="@+id/myProfileMainContentNotifications"
+                        layout="@layout/my_profile_list_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/pharmacyList" />
+
+                    <include
+                        android:id="@+id/contactWithUs"
+                        layout="@layout/my_profile_list_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/vDevideNotificationAndContact" />
+
+                    <include
+                        android:id="@+id/myProfileMainContentSettings"
+                        layout="@layout/my_profile_list_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintTop_toBottomOf="@id/contactWithUs" />
+
+                    <View
+                        android:id="@+id/vDevideNotificationAndContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/gray_view_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/myProfileMainContentNotifications" />
+
+                    <View
+                        android:id="@+id/vDevideSettingAndExit"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@color/gray_view_line"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/myProfileMainContentSettings" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clLogOut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/vDevideSettingAndExit">
+
+                        <ImageView
+                            android:id="@+id/ivLogOut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/ic_log_out"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:text="Вийти"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/red"
+                            app:layout_constraintStart_toEndOf="@id/ivLogOut"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </ScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

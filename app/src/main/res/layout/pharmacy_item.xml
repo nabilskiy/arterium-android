@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp"
-    android:background="@color/white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/tvPharmacyItemTitle"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/good_day_pharmacy"
-        android:textColor="@color/black"
-        android:textAppearance="@style/sf_pro_semibold_16"/>
+        android:background="@color/white"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvPharmacyAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvPharmacyItemTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        android:maxEms="14"
-        android:text="@string/pharmacy_address"
-        android:layout_marginTop="4dp"
-        android:textAppearance="@style/sf_pro_text_12"
-        android:textColor="@color/black"
-        android:alpha="0.4"
-        />
+        <TextView
+            android:id="@+id/tvPharmacyItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good_day_pharmacy"
+            android:textAppearance="@style/sf_pro_semibold_16"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/ivPharmacyIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress"
-        app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/ic_pharmacy_clock"
-        android:layout_marginTop="10dp"
-        />
+        <TextView
+            android:id="@+id/tvPharmacyAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:alpha="0.4"
+            android:maxEms="14"
+            android:text="@string/pharmacy_address"
+            android:textAppearance="@style/sf_pro_text_12"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPharmacyItemTitle" />
 
-    <TextView
-        android:id="@+id/tvWorkingHours"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
-        android:alpha="0.4"
-        android:text="Режим работи: 8:00 — 21:00"
-        android:textAppearance="@style/sf_pro_text_12"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
-        app:layout_constraintStart_toEndOf="@id/ivPharmacyIcon"
-        app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress"
-        app:layout_constraintVertical_bias="0.769" />
+        <ImageView
+            android:id="@+id/ivPharmacyIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_pharmacy_clock"
+            app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress" />
 
-    <View
-        android:id="@+id/vPharmacyDivideLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@id/ivPharmacyIcon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/gray_view_line"
-        android:layout_marginTop="10dp"
-        />
+        <TextView
+            android:id="@+id/tvWorkingHours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.4"
+            android:text="Режим работи: 8:00 — 21:00"
+            android:textAppearance="@style/sf_pro_text_12"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
+            app:layout_constraintStart_toEndOf="@id/ivPharmacyIcon"
+            app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress"
+            app:layout_constraintVertical_bias="0.769" />
 
-    <TextView
-        android:id="@+id/tvPharmacyDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="5км​"
-        android:textColor="?colorSecondary"
-        android:textAppearance="@style/sf_pro_semibold_13"
-        app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"
-        app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
+        <View
+            android:id="@+id/vPharmacyDivideLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/gray_view_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivPharmacyIcon" />
 
-    <TextView
-        android:id="@+id/tvHowToGetToKnow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" • Як дістатися?"
-        android:textColor="?colorSecondary"
-        android:textAppearance="@style/sf_pro_semibold_13"
-        app:layout_constraintStart_toEndOf="@id/tvPharmacyDistance"
-        app:layout_constraintTop_toTopOf="@+id/tvPharmacyDistance" />
+        <TextView
+            android:id="@+id/tvPharmacyDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="5км​"
+            android:textAppearance="@style/sf_pro_semibold_13"
+            android:textColor="?colorSecondary"
+            app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"
+            app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
 
-    <ImageView
-        android:id="@+id/ivPharmacyItemArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/ic_gray_arrow"
-        app:layout_constraintEnd_toEndOf="@+id/vPharmacyDivideLine"
-        app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvHowToGetToKnow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" • Як дістатися?"
+            android:textAppearance="@style/sf_pro_semibold_13"
+            android:textColor="?colorSecondary"
+            app:layout_constraintStart_toEndOf="@id/tvPharmacyDistance"
+            app:layout_constraintTop_toTopOf="@+id/tvPharmacyDistance" />
+
+        <ImageView
+            android:id="@+id/ivPharmacyItemArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_gray_arrow"
+            app:layout_constraintEnd_toEndOf="@+id/vPharmacyDivideLine"
+            app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

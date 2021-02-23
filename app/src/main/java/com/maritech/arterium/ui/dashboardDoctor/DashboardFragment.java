@@ -6,17 +6,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
-import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
+import com.maritech.arterium.databinding.FragmentDashboardBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
@@ -29,36 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class DashboardFragment extends BaseFragment {
-
-    private TextView tvUserName;
-    private TextView tvPost;
-    private TextView tvAllBuy;
-    private TextView tvLvl;
-
-    private ImageView ivSearch;
-    private TextView tvDoctors;
-    private ImageView ivClose;
-    private ImageView ivFilter;
-    private EditText etSearch;
-    private LinearLayout clSearch;
-    private ConstraintLayout clProgram;
-    private ConstraintLayout clInfoUser;
-    private ConstraintLayout clBtnAddNewPersonal;
-    private ConstraintLayout clInfoClose;
-
-    private TextView tvTabOne;
-    private TextView tvTabTwo;
-    private TextView tvTabThree;
-
-    private View details;
-
-    View navigation_statistics;
-    View achievementsFragment;
-    View myProfileFragment;
-    View navigation_dashboard;
-    NestedScrollView details_view;
-    DialogWithRecycler customDialog;
+public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     DashboardNavigator navigator = new DashboardNavigator();
 
@@ -69,6 +36,8 @@ public class DashboardFragment extends BaseFragment {
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+    DialogWithRecycler customDialog;
 
     @Override
     protected int getContentView() {
@@ -96,76 +65,54 @@ public class DashboardFragment extends BaseFragment {
         final int clInfoUserColorGliptar = R.drawable.ic_gliptar;
         final int clInfoUserColorSagrada = R.drawable.ic_sagrada;
 
-        clBtnAddNewPersonal = root.findViewById(R.id.clBtnAddNewPersonal);
-        ivSearch = root.findViewById(R.id.ivSearch);
-        ivFilter = root.findViewById(R.id.ivFilter);
-        tvDoctors = root.findViewById(R.id.tvDoctors);
-        ivClose = root.findViewById(R.id.ivClose);
-        clSearch = root.findViewById(R.id.clSearch);
-        etSearch = root.findViewById(R.id.etSearch);
-        clProgram = root.findViewById(R.id.clProgram);
-        clInfoUser = root.findViewById(R.id.clInfoUser);
-        clInfoClose = root.findViewById(R.id.clInfoClose);
-        details = root.findViewById(R.id.details);
-        tvTabOne = details.findViewById(R.id.tvOne);
-        tvTabTwo = details.findViewById(R.id.tvTwo);
-        tvTabThree = details.findViewById(R.id.tvThree);
-        details_view = root.findViewById(R.id.details_view);
-        details_view = root.findViewById(R.id.details_view);
-
-        tvUserName = root.findViewById(R.id.tvUserName);
-        tvPost = root.findViewById(R.id.tvPost);
-        tvAllBuy = root.findViewById(R.id.tvAllBuy);
-        tvLvl = root.findViewById(R.id.tvLvl);
-
-
         getChildFragmentManager().beginTransaction()
                 .add(R.id.vpPatients, PatientsFragment.getInstance())
                 .commit();
 
-        details_view.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+        binding.detailsView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
                 (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
                     if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                        ivSearch.setVisibility(View.VISIBLE);
-                        tvDoctors.setVisibility(View.VISIBLE);
-                        ivFilter.setVisibility(View.VISIBLE);
-                        ivClose.setVisibility(View.GONE);
-                        clSearch.setVisibility(View.GONE);
+                        binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
+                        binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
+                        binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
+                        binding.details.findViewById(R.id.ivClose).setVisibility(View.GONE);
+                        binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
                     }
                 });
-        etSearch.addTextChangedListener(textWatcher);
 
-        tvTabOne.setActivated(true);
-        tvTabOne.setOnClickListener(new View.OnClickListener() {
+        ((EditText) binding.details.findViewById(R.id.etSearch)).addTextChangedListener(textWatcher);
+
+        binding.details.findViewById(R.id.tvOne).setActivated(true);
+        binding.details.findViewById(R.id.tvOne).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
-                tvTabOne.setActivated(true);
-                tvTabTwo.setActivated(false);
-                tvTabThree.setActivated(false);
+                binding.details.findViewById(R.id.tvOne).setActivated(true);
+                binding.details.findViewById(R.id.tvTwo).setActivated(false);
+                binding.details.findViewById(R.id.tvThree).setActivated(false);
             }
         });
 
-        tvTabTwo.setOnClickListener(new View.OnClickListener() {
+        binding.details.findViewById(R.id.tvTwo).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
 
-                tvTabOne.setActivated(false);
-                tvTabTwo.setActivated(true);
-                tvTabThree.setActivated(false);
+                binding.details.findViewById(R.id.tvOne).setActivated(false);
+                binding.details.findViewById(R.id.tvTwo).setActivated(true);
+                binding.details.findViewById(R.id.tvThree).setActivated(false);
             }
         });
 
-        tvTabThree.setOnClickListener(new View.OnClickListener() {
+        binding.detailsView.findViewById(R.id.tvThree).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
 
-                tvTabOne.setActivated(false);
-                tvTabTwo.setActivated(false);
-                tvTabThree.setActivated(true);
+                binding.details.findViewById(R.id.tvOne).setActivated(false);
+                binding.details.findViewById(R.id.tvTwo).setActivated(false);
+                binding.details.findViewById(R.id.tvThree).setActivated(true);
             }
         });
 
@@ -180,52 +127,29 @@ public class DashboardFragment extends BaseFragment {
 
         sharedViewModel.dates.setValue(dates);
 
-        navigation_statistics = getActivity().findViewById(R.id.statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievements);
-        myProfileFragment = getActivity().findViewById(R.id.profile);
-        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
-
-        ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivSearch.setVisibility(View.GONE);
-                tvDoctors.setVisibility(View.GONE);
-                ivFilter.setVisibility(View.GONE);
-                ivClose.setVisibility(View.VISIBLE);
-                clSearch.setVisibility(View.VISIBLE);
-            }
+        binding.details.findViewById(R.id.ivSearch).setOnClickListener(v -> {
+            binding.details.findViewById(R.id.ivSearch).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.tvDoctors).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.ivFilter).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.ivClose).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
         });
 
-        ivClose.setOnClickListener(v -> {
-            ivSearch.setVisibility(View.VISIBLE);
-            tvDoctors.setVisibility(View.VISIBLE);
-            ivFilter.setVisibility(View.VISIBLE);
-            ivClose.setVisibility(View.GONE);
-            clSearch.setVisibility(View.GONE);
+        binding.details.findViewById(R.id.ivClose).setOnClickListener(v -> {
+            binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.ivClose).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
         });
 
-        clBtnAddNewPersonal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.addNewPersonal(navController);
-            }
-        });
+        binding.clBtnAddNewPersonal.setOnClickListener(
+                v -> navigator.addNewPersonal(navController)
+        );
 
-        clProgram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // showDialog();
-                customDialog.show();
+        binding.clProgram.setOnClickListener(v -> customDialog.show());
 
-            }
-        });
-
-        clInfoClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToDashboardMP(navController);
-            }
-        });
+        binding.clInfoClose.setOnClickListener(v -> navigator.goToDashboardMP(navController));
 
         observeViewModel();
 
@@ -262,9 +186,9 @@ public class DashboardFragment extends BaseFragment {
         viewModel.responseLiveData
                 .observe(getViewLifecycleOwner(),
                         profileData -> {
-                            tvUserName.setText(profileData.getName());
-                            tvPost.setText(profileData.getInstitutionType());
-                            tvAllBuy.setText(getString(R.string.whole_shopping_items1,
+                            binding.tvUserName.setText(profileData.getName());
+                            binding.tvPost.setText(profileData.getInstitutionType());
+                            binding.tvAllBuy.setText(getString(R.string.whole_shopping_items1,
                                     profileData.getSoldCount()));
 //                            tvLvl.setText(profileData.get());
 
@@ -286,11 +210,11 @@ public class DashboardFragment extends BaseFragment {
     }
 
     public void setLvlTheme(int clProgramColor, int clInfoUserColor) {
-        clProgram.setBackgroundResource(clProgramColor);
-        clInfoUser.setBackgroundResource(clProgramColor);
+        binding.clProgram.setBackgroundResource(clProgramColor);
+        binding.clInfoUser.setBackgroundResource(clProgramColor);
     }
 
-    private TextWatcher textWatcher = new TextWatcher() {
+    private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -306,10 +230,5 @@ public class DashboardFragment extends BaseFragment {
             sharedViewModel.searchQuery.setValue(s.toString());
         }
     };
-
-//    public void setSagrada() {
-//
-//
-//    }
 
 }

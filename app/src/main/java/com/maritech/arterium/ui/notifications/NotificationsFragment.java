@@ -1,33 +1,24 @@
 package com.maritech.arterium.ui.notifications;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.FragmentNotificationsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.notifications.data.NotificationsContent;
 import com.maritech.arterium.ui.notifications.holder.NotificationsAdapter;
 import java.util.ArrayList;
 
-public class NotificationsFragment extends BaseFragment {
+public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding> {
+
     private NotificationsViewModel notificationsViewModel;
 
-    private TextView tvUnreadCount;
-    private ConstraintLayout clNewNotifications;
     private NotificationsAdapter adapterUnread;
     private NotificationsAdapter adapterRead;
-
-    private View toolbar;
-    private TextView toolbarTittle;
-    private ImageView ivBack;
-    private ImageView ivRightToolbar;
 
     @Override
     protected int getContentView() {
@@ -41,16 +32,8 @@ public class NotificationsFragment extends BaseFragment {
         notificationsViewModel =
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
 
-        tvUnreadCount = root.findViewById(R.id.tvUnreadCount);
-        clNewNotifications = root.findViewById(R.id.clNewNotifications);
-
-        toolbar = root.findViewById(R.id.toolbar);
-        toolbarTittle = toolbar.findViewById(R.id.tvToolbarTitle);
-        ivBack = toolbar.findViewById(R.id.ivArrow);
-        ivRightToolbar = toolbar.findViewById(R.id.ivRight);
-
-        ivRightToolbar.setVisibility(View.GONE);
-        toolbarTittle.setText("Повідомлення");
+        binding.toolbar.ivRight.setVisibility(View.GONE);
+        binding.toolbar.tvToolbarTitle.setText("Повідомлення");
 
         RecyclerView rvUnread = root.findViewById(R.id.rvUnread);
         RecyclerView rvRead = root.findViewById(R.id.rvRead);
@@ -66,7 +49,7 @@ public class NotificationsFragment extends BaseFragment {
             dataListRead.add(0, object);
             adapterRead.notifyDataSetChanged();
             if(dataListUnread.isEmpty()){
-                clNewNotifications.setVisibility(View.GONE);
+                binding.clNewNotifications.setVisibility(View.GONE);
             }
         });
 
@@ -77,14 +60,10 @@ public class NotificationsFragment extends BaseFragment {
         rvUnread.setAdapter(adapterUnread);
         rvRead.setAdapter(adapterRead);
 
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
+        binding.toolbar.ivArrow.setOnClickListener(v -> requireActivity().onBackPressed());
 
         changeValueUnreadNotifications(dataListUnread.size());
+
 //        Log.e("Bottom", this.getClass().getName());
 //        baseActivity.findViewById(R.id.bottom_nav_view).setVisibility(View.GONE);
     }
@@ -111,7 +90,7 @@ public class NotificationsFragment extends BaseFragment {
     }
 
     private void changeValueUnreadNotifications(int newValue) {
-        tvUnreadCount.setText(String.valueOf(newValue));
+        binding.tvUnreadCount.setText(String.valueOf(newValue));
     }
 
 }

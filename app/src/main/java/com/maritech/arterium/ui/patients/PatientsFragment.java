@@ -1,18 +1,12 @@
 package com.maritech.arterium.ui.patients;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
 import com.maritech.arterium.data.models.PatientModel;
@@ -25,18 +19,16 @@ import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.ArrayList;
 
-public class PatientsFragment extends BaseFragment {
+public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
     DashboardNavigator navigator = new DashboardNavigator();
     private PatientsViewModel viewModel;
     private PatientsSharedViewModel sharedViewModel;
-    private FragmentPatientsBinding binding;
 
     static final String PURCHASES_FILTER_KEY = "purchasesFilterKey";
     static final String CREATED_FROM_DATE = "createdFromKey";
     static final String CREATED_TO_DATE = "createdToKey";
     static final String SEARCH_QUERY_KEY = "searchQueryKey";
-
 
     private String createdFromDate;
     private String createdToDate;
@@ -68,45 +60,33 @@ public class PatientsFragment extends BaseFragment {
         drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         sharedViewModel =
                 new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
 
         viewModel =
                 new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
 
-        binding = DataBindingUtil.inflate(
-                inflater, getContentView(), container, false);
-
         binding.setVm(viewModel);
 
         initView();
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         observeViewModel();
     }
 
     private void observeViewModel() {
-        sharedViewModel.dates.observe(getViewLifecycleOwner(), new Observer<String[]>() {
-            @Override
-            public void onChanged(String[] strings) {
-                createdFromDate = strings[0];
-                createdToDate = strings[1];
+        sharedViewModel.dates.observe(getViewLifecycleOwner(), strings -> {
+            createdFromDate = strings[0];
+            createdToDate = strings[1];
 
-                getPatientList();
+            getPatientList();
 
 //                if (isFirstLoad) {
 //
 //                }
-            }
         });
 
         sharedViewModel.purchasesFilter.observe(getViewLifecycleOwner(), filter -> {
@@ -180,7 +160,6 @@ public class PatientsFragment extends BaseFragment {
                 requireContext(),
                 filteredList,
                 (position, object) -> {
-
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(PatientCardFragment.PATIENT_MODEL_KEY, object);
                     navigator.goToPatientCard(navController, bundle);

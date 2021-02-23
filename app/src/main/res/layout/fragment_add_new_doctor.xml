@@ -1,401 +1,399 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_with_progress_bar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/svStepOne"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clAll"
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_with_progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="110dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clProgressStepOne"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivAvatar"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_default_avatar" />
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputName"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="20dp"
-                    app:ci_field_value="Введіть ім’я"
-                    app:ci_title="Ім’я"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivAvatar" />
-
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputSecondName"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="20dp"
-                    app:ci_field_value="Введіть фамілію"
-                    app:ci_title="Фамілія"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputName" />
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputPhoneNumber"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="20dp"
-                    app:ci_field_value="+380"
-                    app:ci_title="Номер телефону"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputSecondName" />
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvSex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:text="Стать"
-                    android:textColor="@color/gray"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputPhoneNumber" />
-
-                <RadioGroup
-                    android:id="@+id/radioGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvSex">
-
-                    <RadioButton
-                        android:id="@+id/radio_male"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_weight="1"
-                        android:theme="@style/PurpleRadioButton" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRBtnMale"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="Чоловiча"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <RadioButton
-                        android:id="@+id/radio_female"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:theme="@style/PurpleRadioButton" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRBtnFemale"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="Жiноча"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                </RadioGroup>
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/btnNextOne"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="28dp"
-                    android:background="@drawable/bg_btn_purpule"
-                    android:gravity="center"
-                    android:text="Далi"
-                    android:textAppearance="@style/sf_pro_semibold_16"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:id="@+id/svStepOne"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clProgressStepTwo"
+                android:id="@+id/clAll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content">
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clChooseMp"
+                    android:id="@+id/clProgressStepOne"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/bg_choose_mp"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:id="@+id/ivChooseMp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/ivAvatar"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_plus_with_bg" />
+                        app:srcCompat="@drawable/ic_default_avatar" />
+
+                    <com.maritech.arterium.ui.widgets.CustomInput
+                        android:id="@+id/ccInputName"
+                        layout="@layout/custome_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        app:ci_field_value="Введіть ім’я"
+                        app:ci_title="Ім’я"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ivAvatar" />
+
+
+                    <com.maritech.arterium.ui.widgets.CustomInput
+                        android:id="@+id/ccInputSecondName"
+                        layout="@layout/custome_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        app:ci_field_value="Введіть фамілію"
+                        app:ci_title="Фамілія"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputName" />
+
+                    <com.maritech.arterium.ui.widgets.CustomInput
+                        android:id="@+id/ccInputPhoneNumber"
+                        layout="@layout/custome_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        app:ci_field_value="+380"
+                        app:ci_title="Номер телефону"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputSecondName" />
+
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvMp"
+                        android:id="@+id/tvSex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Медичний представник"
-                        android:textAppearance="@style/sf_pro_semibold_16"
-                        android:textColor="?colorSecondary"
-                        app:layout_constraintStart_toEndOf="@+id/ivChooseMp"
-                        app:layout_constraintTop_toTopOf="@+id/ivChooseMp" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvMpHint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Оберiть представника"
-                        android:textAppearance="@style/sf_pro_text_16"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:text="Стать"
                         android:textColor="@color/gray"
-                        app:layout_constraintStart_toStartOf="@+id/tvMp"
-                        app:layout_constraintTop_toBottomOf="@+id/tvMp" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputPhoneNumber" />
 
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputRegion"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="20dp"
-                    app:ci_field_value="Введіть область"
-                    app:ci_title="Область"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clChooseMp" />
-
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputCity"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="20dp"
-                    app:ci_field_value="Введіть город"
-                    app:ci_title="Город"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputRegion" />
-
-                <com.maritech.arterium.ui.widgets.CustomInput
-                    android:id="@+id/ccInputNameCorporation"
-                    layout="@layout/custome_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="20dp"
-                    app:ci_field_value="Введіть назву установи"
-                    app:ci_title="Назва установи"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputCity" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/btnNextTwo"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="34dp"
-                    android:background="@drawable/bg_btn_purpule"
-                    android:gravity="center"
-                    android:layout_marginBottom="34dp"
-                    android:text="Створити"
-                    android:textAppearance="@style/sf_pro_semibold_16"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clSagrada"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvChooseProgram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="Оберiть програми"
-                    android:textAppearance="@style/sf_pro_text_14"
-                    android:textColor="@color/gray"
-                    app:layout_constraintStart_toStartOf="@+id/ccInputNameCorporation"
-                    app:layout_constraintTop_toBottomOf="@+id/ccInputNameCorporation" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clRenial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvChooseProgram">
-
-                    <ImageView
-                        android:id="@+id/ivBtnCheckOne"
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="4dp"
+                        android:orientation="horizontal"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/selector_check_btn_square" />
+                        app:layout_constraintTop_toBottomOf="@+id/tvSex">
+
+                        <RadioButton
+                            android:id="@+id/radio_male"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:layout_weight="1"
+                            android:theme="@style/PurpleRadioButton" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvRBtnMale"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Чоловiча"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <RadioButton
+                            android:id="@+id/radio_female"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="40dp"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:theme="@style/PurpleRadioButton" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvRBtnFemale"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="Жiноча"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </RadioGroup>
+
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRenial"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Рениаль – «Ключ до життя»"
-                        android:textAppearance="@style/sf_pro_text_16"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivBtnCheckOne"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clGliptar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clRenial">
-
-                    <ImageView
-                        android:id="@+id/ivBtnCheckTwo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/btnNextOne"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="28dp"
+                        android:background="@drawable/bg_btn_purpule"
+                        android:gravity="center"
+                        android:text="Далi"
+                        android:textAppearance="@style/sf_pro_semibold_16"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/selector_check_btn_square" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvGliptar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Гліптар – «Ключ до балансу»"
-                        android:textAppearance="@style/sf_pro_text_16"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivBtnCheckTwo"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clSagrada"
+                    android:id="@+id/clProgressStepTwo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clGliptar">
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/ivBtnCheckThree"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clChooseMp"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/bg_choose_mp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/selector_check_btn_square" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivChooseMp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_plus_with_bg" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvMp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Медичний представник"
+                            android:textAppearance="@style/sf_pro_semibold_16"
+                            android:textColor="?colorSecondary"
+                            app:layout_constraintStart_toEndOf="@+id/ivChooseMp"
+                            app:layout_constraintTop_toTopOf="@+id/ivChooseMp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvMpHint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Оберiть представника"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/gray"
+                            app:layout_constraintStart_toStartOf="@+id/tvMp"
+                            app:layout_constraintTop_toBottomOf="@+id/tvMp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.maritech.arterium.ui.widgets.CustomInput
+                        android:id="@+id/ccInputRegion"
+                        layout="@layout/custome_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        app:ci_field_value="Введіть область"
+                        app:ci_title="Область"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clChooseMp" />
+
+
+                    <com.maritech.arterium.ui.widgets.CustomInput
+                        android:id="@+id/ccInputCity"
+                        layout="@layout/custome_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        app:ci_field_value="Введіть город"
+                        app:ci_title="Город"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputRegion" />
+
+                    <com.maritech.arterium.ui.widgets.CustomInput
+                        android:id="@+id/ccInputNameCorporation"
+                        layout="@layout/custome_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
+                        app:ci_field_value="Введіть назву установи"
+                        app:ci_title="Назва установи"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputCity" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvSagrada"
+                        android:id="@+id/btnNextTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="34dp"
+                        android:layout_marginBottom="34dp"
+                        android:background="@drawable/bg_btn_purpule"
+                        android:gravity="center"
+                        android:text="Створити"
+                        android:textAppearance="@style/sf_pro_semibold_16"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clSagrada"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvChooseProgram"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:text="Саграда – «Квиток у майбутнє»"
-                        android:textAppearance="@style/sf_pro_text_16"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivBtnCheckThree"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:layout_marginTop="24dp"
+                        android:text="Оберiть програми"
+                        android:textAppearance="@style/sf_pro_text_14"
+                        android:textColor="@color/gray"
+                        app:layout_constraintStart_toStartOf="@+id/ccInputNameCorporation"
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputNameCorporation" />
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clRenial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvChooseProgram">
+
+                        <ImageView
+                            android:id="@+id/ivBtnCheckOne"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/selector_check_btn_square" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvRenial"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Рениаль – «Ключ до життя»"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivBtnCheckOne"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clGliptar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clRenial">
+
+                        <ImageView
+                            android:id="@+id/ivBtnCheckTwo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/selector_check_btn_square" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGliptar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Гліптар – «Ключ до балансу»"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivBtnCheckTwo"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clSagrada"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clGliptar">
+
+                        <ImageView
+                            android:id="@+id/ivBtnCheckThree"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/selector_check_btn_square" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvSagrada"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Саграда – «Квиток у майбутнє»"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivBtnCheckThree"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </ScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </ScrollView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

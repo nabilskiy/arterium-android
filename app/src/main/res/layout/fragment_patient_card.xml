@@ -1,213 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include
-        android:id="@+id/patientCardToolbar"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/patientCardToolbar">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/patientCardToolbar"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvPatientCardLogo"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:elevation="12dp"
-                android:innerRadius="0dp"
-                android:shape="ring"
-                android:thicknessRatio="1.9"
-                app:cardCornerRadius="40dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivMyProfileLogo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/tvPatientCardName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/berezniakov"
-                android:textAppearance="@style/H2"
-                android:textColor="@color/black"
-                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cvPatientCardLogo" />
-
-            <TextView
-                android:id="@+id/tvPatientCardLastShopping"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/last_shopping"
-                android:textAppearance="@style/sf_pro_text_16"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPatientCardName" />
-
-            <TextView
-                android:id="@+id/tvPatientCardShoppingAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:alpha="0.4"
-                android:text="@string/whole_shopping_items"
-                android:textAppearance="@style/sf_pro_text_12"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPatientCardLastShopping" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/patientCardToolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPatientCardPersonalData"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_patient_card_list"
-                android:elevation="2dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPatientCardShoppingAmount">
+                android:layout_height="wrap_content">
 
-                <include
-                    android:id="@+id/personalDataCard"
-                    layout="@layout/patient_data" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cvPatientCardLogo"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:elevation="12dp"
+                    android:innerRadius="0dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1.9"
+                    app:cardCornerRadius="40dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <include
-                    android:id="@+id/patientTelephoneNumber"
-                    layout="@layout/patient_data_list"
+                    <ImageView
+                        android:id="@+id/ivMyProfileLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvPatientCardName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/berezniakov"
+                    android:textAppearance="@style/H2"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cvPatientCardLogo" />
+
+                <TextView
+                    android:id="@+id/tvPatientCardLastShopping"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_shopping"
+                    android:textAppearance="@style/sf_pro_text_16"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPatientCardName" />
+
+                <TextView
+                    android:id="@+id/tvPatientCardShoppingAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:alpha="0.4"
+                    android:text="@string/whole_shopping_items"
+                    android:textAppearance="@style/sf_pro_text_12"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPatientCardLastShopping" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPatientCardPersonalData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/personalDataCard" />
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_patient_card_list"
+                    android:elevation="2dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPatientCardShoppingAmount">
 
-                <include
-                    android:id="@+id/patientCardNumber"
-                    layout="@layout/patient_data_card_number"
+                    <include
+                        android:id="@+id/personalDataCard"
+                        layout="@layout/patient_data" />
+
+                    <include
+                        android:id="@+id/patientTelephoneNumber"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/personalDataCard" />
+
+                    <include
+                        android:id="@+id/patientCardNumber"
+                        layout="@layout/patient_data_card_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/patientTelephoneNumber" />
+
+                    <include
+                        android:id="@+id/patientSex"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/patientCardNumber" />
+
+                    <include
+                        android:id="@+id/patientWeight"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/patientSex" />
+
+                    <include
+                        android:id="@+id/patientGrowth"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/patientWeight" />
+
+                    <include
+                        android:id="@+id/patientDrugsDose"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/patientGrowth" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPatientMedicalData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/patientTelephoneNumber" />
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="52dp"
+                    android:background="@drawable/bg_patient_card_list"
+                    android:elevation="2dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clPatientCardPersonalData">
 
-                <include
-                    android:id="@+id/patientSex"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/patientCardNumber" />
+                    <include
+                        android:id="@+id/patientMedicalData"
+                        layout="@layout/patient_data" />
 
-                <include
-                    android:id="@+id/patientWeight"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/patientSex" />
+                    <include
+                        android:id="@+id/patientHeartAttack"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/default_margin_vertical"
+                        app:layout_constraintTop_toBottomOf="@id/patientMedicalData" />
 
-                <include
-                    android:id="@+id/patientGrowth"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/patientWeight" />
+                    <include
+                        android:id="@+id/dateOfDrugAdministration"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/patientHeartAttack" />
 
-                <include
-                    android:id="@+id/patientDrugsDose"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/patientGrowth" />
+                    <include
+                        android:id="@+id/ejectionFraction"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/dateOfDrugAdministration" />
+
+                    <include
+                        android:id="@+id/potassiumLevelOfStartTreatment"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/ejectionFraction" />
+
+                    <include
+                        android:id="@+id/potassiumLevelOfTheEndTreatment"
+                        layout="@layout/patient_data_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/potassiumLevelOfStartTreatment" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPatientMedicalData"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="52dp"
-                android:background="@drawable/bg_patient_card_list"
-                android:elevation="2dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clPatientCardPersonalData">
+        </ScrollView>
 
-                <include
-                    android:id="@+id/patientMedicalData"
-                    layout="@layout/patient_data" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <include
-                    android:id="@+id/patientHeartAttack"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/default_margin_vertical"
-                    app:layout_constraintTop_toBottomOf="@id/patientMedicalData" />
-
-                <include
-                    android:id="@+id/dateOfDrugAdministration"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/patientHeartAttack" />
-
-                <include
-                    android:id="@+id/ejectionFraction"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/dateOfDrugAdministration" />
-
-                <include
-                    android:id="@+id/potassiumLevelOfStartTreatment"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/ejectionFraction" />
-
-                <include
-                    android:id="@+id/potassiumLevelOfTheEndTreatment"
-                    layout="@layout/patient_data_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/potassiumLevelOfStartTreatment" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

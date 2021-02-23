@@ -3,9 +3,9 @@ package com.maritech.arterium.ui.splash;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
+import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.login.LoginActivity;
 

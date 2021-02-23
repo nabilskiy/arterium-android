@@ -6,42 +6,29 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
-import com.bumptech.glide.Glide;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
+import com.maritech.arterium.databinding.FragmentPatientCardBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
-
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
-
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
-import okhttp3.ResponseBody;
 
-public class PatientCardFragment extends BaseFragment {
+public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding> {
+
     private static final int SCAN_REQUEST_CODE = 660;
     public static final String PATIENT_MODEL_KEY = "patientModel";
-
-    TextView patientCardNumberValue;
-    TextView toolbarTitle;
-    ImageView ivArrow;
-    ImageView ivMyProfileLogo;
 
     PatientModel model = null;
     PatientsViewModel viewModel;
@@ -64,21 +51,14 @@ public class PatientCardFragment extends BaseFragment {
             model = getArguments().getParcelable(PATIENT_MODEL_KEY);
         }
 
-        toolbarTitle = root.findViewById(R.id.patientCardToolbar).findViewById(R.id.tvToolbarTitle);
-        toolbarTitle.setText(R.string.patient_card);
-        ivMyProfileLogo = root.findViewById(R.id.ivMyProfileLogo);
-        ivArrow = root.findViewById(R.id.patientCardToolbar).findViewById(R.id.ivArrow);
-        ivArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().onBackPressed();
-            }
-        });
+        binding.patientCardToolbar.tvToolbarTitle.setText(R.string.patient_card);
+        binding.patientCardToolbar.ivArrow.setOnClickListener(
+                v -> requireActivity().onBackPressed()
+        );
 
         setPersonalCardData(root);
+
         setMedicalCardData(root);
-//        Log.e("Bottom", this.getClass().getName());
-//        baseActivity.findViewById(R.id.bottom_nav_view).setVisibility(View.GONE);
 
         observeViewModel();
 
@@ -203,10 +183,10 @@ public class PatientCardFragment extends BaseFragment {
 
         patientCardNumber = root.findViewById(R.id.patientCardNumber).findViewById(R.id.tvPatientDataCardTitle);
         patientCardNumber.setText("Номер картки");
-        patientCardNumberValue = root.findViewById(R.id.patientCardNumber).findViewById(R.id.tvPatientDataCardValue);
-        patientCardNumberValue.setText(model.getCardCode());
-        ivPatientDataCardIcon = root.findViewById(R.id.patientCardNumber).findViewById(R.id.ivPatientDataCardIcon);
 
+        binding.patientCardNumber.tvPatientDataCardValue.setText(model.getCardCode());
+        ivPatientDataCardIcon =
+                root.findViewById(R.id.patientCardNumber).findViewById(R.id.ivPatientDataCardIcon);
 
         //weight
         weight = root.findViewById(R.id.patientWeight).findViewById(R.id.tvPatientDataListTitle);
@@ -232,9 +212,9 @@ public class PatientCardFragment extends BaseFragment {
         Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
 
         // customize these values to suit your needs.
-        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true); // default: false
-        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false); // default: false
-        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false); // default: false
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_CVV, false);
+        scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_POSTAL_CODE, false);
 
         // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
         startActivityForResult(scanIntent, SCAN_REQUEST_CODE);
@@ -243,13 +223,13 @@ public class PatientCardFragment extends BaseFragment {
     private void observeViewModel() {
         viewModel.imageResponse.observe(getViewLifecycleOwner(), responseBody -> {
             Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
-            ivMyProfileLogo.setImageBitmap(bitmap);
+            binding.ivMyProfileLogo.setImageBitmap(bitmap);
         });
         viewModel.imageState.observe(getViewLifecycleOwner(), new Observer<ContentState>() {
             @Override
             public void onChanged(ContentState contentState) {
                 if (contentState == ContentState.ERROR) {
-                    ivMyProfileLogo.setImageResource(R.drawable.user_placeholder);
+                    binding.ivMyProfileLogo.setImageResource(R.drawable.user_placeholder);
                 }
             }
         });
@@ -265,7 +245,7 @@ public class PatientCardFragment extends BaseFragment {
         if (requestCode == SCAN_REQUEST_CODE) {
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
                 CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
-                patientCardNumberValue.setText(scanResult.cardNumber);
+                binding.patientCardNumber.tvPatientDataCardValue.setText(scanResult.cardNumber);
             }
         }
 

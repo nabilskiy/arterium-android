@@ -8,22 +8,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 import com.maritech.arterium.R;
+import com.maritech.arterium.ui.ActivityActionViewModel;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     protected abstract int getContentView();
 
     public NavController navController = null;
 
     public BaseActivity baseActivity;
+    public LifecycleOwner lifecycleOwner;
+    public ActivityActionViewModel viewModel;
+
+    public T binding;
 
     public BaseFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -37,11 +44,19 @@ public abstract class BaseFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(getContentView(), container, false);
+        binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
+
+        viewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
+
+        lifecycleOwner = getViewLifecycleOwner();
+
+        return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         navController = Navigation.findNavController(requireActivity(), R.id.main_host_fragment);
@@ -54,6 +69,14 @@ public abstract class BaseFragment extends Fragment {
         if (context instanceof BaseActivity) {
             baseActivity = ((BaseActivity) context);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        binding = null;
+        baseActivity = null;
     }
 
     private ProgressDialog dialog;

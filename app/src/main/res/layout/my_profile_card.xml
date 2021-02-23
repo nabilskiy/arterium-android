@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/my_profile_card_bg">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvLogo"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_centerHorizontal="true"
-        android:elevation="12dp"
-        android:innerRadius="0dp"
-        android:shape="ring"
-        android:thicknessRatio="1.9"
-        app:cardCornerRadius="@dimen/my_profile_card_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginVertical="12dp"
-        android:layout_marginHorizontal="8dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/my_profile_card_bg">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvLogo"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="12dp"
+            android:elevation="12dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
+            app:cardCornerRadius="@dimen/my_profile_card_radius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivCardLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/logo" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvCardPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/vinich"
+            android:textAppearance="@style/sf_pro_semibold_16"
+            android:textColor="?colorSecondary"
+            app:layout_constraintStart_toEndOf="@+id/cvLogo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCardPersonSkill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="2dp"
+            android:text="Медичний представник"
+            android:textAppearance="@style/sf_pro_text_16"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toEndOf="@+id/cvLogo"
+            app:layout_constraintTop_toBottomOf="@id/tvCardPersonName" />
+
+        <TextView
+            android:id="@+id/tvCardPersonTelephoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="2dp"
+            android:text="+380994188211"
+            android:textAppearance="@style/sf_pro_text_16"
+            android:textColor="@color/gray"
+            app:layout_constraintStart_toEndOf="@+id/cvLogo"
+            app:layout_constraintTop_toBottomOf="@id/tvCardPersonSkill" />
 
         <ImageView
-            android:id="@+id/ivCardLogo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/logo"/>
-    </androidx.cardview.widget.CardView>
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/ic_telephone_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvCardPersonName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/vinich"
-        android:textColor="?colorSecondary"
-        android:textAppearance="@style/sf_pro_semibold_16"
-        app:layout_constraintStart_toEndOf="@+id/cvLogo"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="12dp"
-        />
-
-    <TextView
-        android:id="@+id/tvCardPersonSkill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Медичний представник"
-        android:textColor="@color/gray"
-        android:textAppearance="@style/sf_pro_text_16"
-        app:layout_constraintStart_toEndOf="@+id/cvLogo"
-        app:layout_constraintTop_toBottomOf="@id/tvCardPersonName"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="2dp"
-        />
-
-    <TextView
-        android:id="@+id/tvCardPersonTelephoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+380994188211"
-        android:textColor="@color/gray"
-        android:textAppearance="@style/sf_pro_text_16"
-        app:layout_constraintStart_toEndOf="@+id/cvLogo"
-        app:layout_constraintTop_toBottomOf="@id/tvCardPersonSkill"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="2dp"
-        />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_telephone_icon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="12dp"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,367 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/clMain"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/gradient_switcher">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <View
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/clMain"
         android:layout_width="match_parent"
-        android:layout_height="2dp" />
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_switcher">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main_appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/main.collapsing"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/gradient_primary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="2dp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clInfoUser"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/main_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/main.collapsing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_anchor="@+id/main_appbar"
-                app:layout_anchorGravity="center"
-                app:layout_collapseMode="parallax">
+                android:background="@drawable/gradient_primary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clInfoClose"
+                    android:id="@+id/clInfoUser"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@color/purple"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent"
+                    app:layout_anchor="@+id/main_appbar"
+                    app:layout_anchorGravity="center"
+                    app:layout_collapseMode="parallax">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvItDoctorPage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Ви на сторінці доктора, натисніть щоб повернутися"
-                        android:textAppearance="@style/sf_pro_semibold_13"
-                        android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-
-                    <ImageView
-                        android:id="@+id/ivBack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="24dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvItDoctorPage"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tvItDoctorPage"
-                        app:srcCompat="@drawable/ic_close_white" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/top_layout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="16dp">
-
-                    <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
-                        android:id="@+id/iccpAvatar"
-                        android:layout_width="88dp"
-                        android:layout_height="88dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_default_avatar"
-                        app:backgroundRingColor="@android:color/transparent"
-                        app:backgroundRingSize="12dp"
-                        app:progress="32"
-                        app:progressRingColor="#BCD6D6"
-                        app:progressRingCorner="ROUND"
-                        app:progressRingOutline="true"
-                        app:progressRingSize="6dp" />
-
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clInfoClose"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:layout_toStartOf="@id/lvl_layout"
-                        android:layout_toEndOf="@id/iccpAvatar"
-                        android:orientation="vertical">
+                        android:layout_height="60dp"
+                        android:background="@color/purple"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/tvUserName"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvItDoctorPage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Юрiй Березняков"
-                            android:textAppearance="@style/H2"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="16dp"
+                            android:text="Ви на сторінці доктора, натисніть щоб повернутися"
+                            android:textAppearance="@style/sf_pro_semibold_13"
                             android:textColor="@color/white"
-                            app:layout_constraintStart_toEndOf="@+id/iccpAvatar"
-                            app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/tvPost"
+
+                        <ImageView
+                            android:id="@+id/ivBack"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Кардіолог"
-                            android:textAppearance="@style/sf_pro_text_16"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="@+id/tvUserName"
-                            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
-                        <TextView
-                            android:id="@+id/tvAllBuy"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Всього 8 покупок"
-                            android:textAppearance="@style/sf_pro_text_12"
-                            android:textColor="@color/white_low_opacity"
-                            app:layout_constraintStart_toStartOf="@+id/tvUserName"
-                            app:layout_constraintTop_toBottomOf="@+id/tvPost" />
-                    </LinearLayout>
+                            android:layout_marginEnd="24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvItDoctorPage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvItDoctorPage"
+                            app:srcCompat="@drawable/ic_close_white" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
+                        android:id="@+id/top_layout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lvl_layout"
-                        android:layout_alignParentEnd="true">
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/clInfoClose">
 
-                        <FrameLayout
-                            android:layout_width="wrap_content"
+                        <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress
+                            android:id="@+id/iccpAvatar"
+                            android:layout_width="88dp"
+                            android:layout_height="88dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_default_avatar"
+                            app:backgroundRingColor="@android:color/transparent"
+                            app:backgroundRingSize="12dp"
+                            app:progress="32"
+                            app:progressRingColor="#BCD6D6"
+                            app:progressRingCorner="ROUND"
+                            app:progressRingOutline="true"
+                            app:progressRingSize="6dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/lvl_fl">
-
-                            <ImageView
-                                android:id="@+id/ivLvl"
-                                android:layout_width="64dp"
-                                android:layout_height="64dp"
-                                app:layout_constraintEnd_toEndOf="@+id/tvLvl"
-                                app:layout_constraintStart_toStartOf="@+id/tvLvl"
-                                app:srcCompat="@drawable/lvl_circle"
-                                android:layout_gravity="center" />
+                            android:layout_toStartOf="@id/lvl_layout"
+                            android:layout_toEndOf="@id/iccpAvatar"
+                            android:orientation="vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp">
 
                             <TextView
-                                android:id="@+id/tvLvlLitter"
+                                android:id="@+id/tvUserName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="C"
-                                android:textAppearance="@style/H1"
-                                android:textColor="?colorBackgroundFloating"
-                                android:layout_gravity="center"/>
+                                android:text="Юрiй Березняков"
+                                android:textAppearance="@style/H2"
+                                android:textColor="@color/white"
+                                app:layout_constraintStart_toEndOf="@+id/iccpAvatar"
+                                app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />
 
-                        </FrameLayout>
+                            <TextView
+                                android:id="@+id/tvPost"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Кардіолог"
+                                android:textAppearance="@style/sf_pro_text_16"
+                                android:textColor="@color/white"
+                                app:layout_constraintStart_toStartOf="@+id/tvUserName"
+                                app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
-                        <TextView
-                            android:id="@+id/tvLvl"
+                            <TextView
+                                android:id="@+id/tvAllBuy"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Всього 8 покупок"
+                                android:textAppearance="@style/sf_pro_text_12"
+                                android:textColor="@color/white_low_opacity"
+                                app:layout_constraintStart_toStartOf="@+id/tvUserName"
+                                app:layout_constraintTop_toBottomOf="@+id/tvPost" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/lvl_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Рiвень С"
-                            android:textAppearance="@style/sf_pro_text_12"
-                            android:textColor="@color/white_low_opacity"
-                            android:layout_below="@id/lvl_fl"
-                            android:layout_centerHorizontal="true"/>
+                            android:layout_alignParentEnd="true">
+
+                            <FrameLayout
+                                android:id="@+id/lvl_fl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:id="@+id/ivLvl"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_gravity="center"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvLvl"
+                                    app:layout_constraintStart_toStartOf="@+id/tvLvl"
+                                    app:srcCompat="@drawable/lvl_circle" />
+
+                                <TextView
+                                    android:id="@+id/tvLvlLitter"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="C"
+                                    android:textAppearance="@style/H1"
+                                    android:textColor="?colorBackgroundFloating" />
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvLvl"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/lvl_fl"
+                                android:layout_centerHorizontal="true"
+                                android:text="Рiвень С"
+                                android:textAppearance="@style/sf_pro_text_12"
+                                android:textColor="@color/white_low_opacity" />
+
+                        </RelativeLayout>
 
                     </RelativeLayout>
 
-                </RelativeLayout>
+                    <!--                <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress-->
+                    <!--                    android:id="@+id/iccpAvatar"-->
+                    <!--                    android:layout_width="88dp"-->
+                    <!--                    android:layout_height="88dp"-->
+                    <!--                    android:layout_marginStart="16dp"-->
+                    <!--                    android:layout_marginTop="26dp"-->
+                    <!--                    android:adjustViewBounds="true"-->
+                    <!--                    android:scaleType="centerCrop"-->
+                    <!--                    android:src="@drawable/ic_default_avatar"-->
+                    <!--                    app:backgroundRingColor="@android:color/transparent"-->
+                    <!--                    app:backgroundRingSize="12dp"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"-->
+                    <!--                    app:progress="32"-->
+                    <!--                    app:progressRingColor="#BCD6D6"-->
+                    <!--                    app:progressRingCorner="ROUND"-->
+                    <!--                    app:progressRingOutline="true"-->
+                    <!--                    app:progressRingSize="6dp" />-->
 
-<!--                <com.maritech.arterium.ui.widgets.avatar.ImageViewCircularProgress-->
-<!--                    android:id="@+id/iccpAvatar"-->
-<!--                    android:layout_width="88dp"-->
-<!--                    android:layout_height="88dp"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:layout_marginTop="26dp"-->
-<!--                    android:adjustViewBounds="true"-->
-<!--                    android:scaleType="centerCrop"-->
-<!--                    android:src="@drawable/ic_default_avatar"-->
-<!--                    app:backgroundRingColor="@android:color/transparent"-->
-<!--                    app:backgroundRingSize="12dp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"-->
-<!--                    app:progress="32"-->
-<!--                    app:progressRingColor="#BCD6D6"-->
-<!--                    app:progressRingCorner="ROUND"-->
-<!--                    app:progressRingOutline="true"-->
-<!--                    app:progressRingSize="6dp" />-->
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvUserName"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginStart="12dp"-->
+                    <!--                    android:text="Юрiй Березняков"-->
+                    <!--                    android:textAppearance="@style/H2"-->
+                    <!--                    android:textColor="@color/white"-->
+                    <!--                    app:layout_constraintStart_toEndOf="@+id/iccpAvatar"-->
+                    <!--                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvUserName"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="12dp"-->
-<!--                    android:text="Юрiй Березняков"-->
-<!--                    android:textAppearance="@style/H2"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    app:layout_constraintStart_toEndOf="@+id/iccpAvatar"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar" />-->
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvPost"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:text="Кардіолог"-->
+                    <!--                    android:textAppearance="@style/sf_pro_text_16"-->
+                    <!--                    android:textColor="@color/white"-->
+                    <!--                    app:layout_constraintStart_toStartOf="@+id/tvUserName"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/tvUserName" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvPost"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Кардіолог"-->
-<!--                    android:textAppearance="@style/sf_pro_text_16"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/tvUserName"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/tvUserName" />-->
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvAllBuy"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginTop="8dp"-->
+                    <!--                    android:text="Всього 8 покупок"-->
+                    <!--                    android:textAppearance="@style/sf_pro_text_12"-->
+                    <!--                    android:textColor="@color/white_low_opacity"-->
+                    <!--                    app:layout_constraintStart_toStartOf="@+id/tvUserName"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/tvPost" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvAllBuy"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:text="Всього 8 покупок"-->
-<!--                    android:textAppearance="@style/sf_pro_text_12"-->
-<!--                    android:textColor="@color/white_low_opacity"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/tvUserName"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/tvPost" />-->
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/tvLvl"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginTop="1dp"-->
+                    <!--                    android:layout_marginEnd="26dp"-->
+                    <!--                    android:text="Рiвень С"-->
+                    <!--                    android:textAppearance="@style/sf_pro_text_12"-->
+                    <!--                    android:textColor="@color/white_low_opacity"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/ivLvl" />-->
 
-<!--                <TextView-->
-<!--                    android:id="@+id/tvLvl"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="1dp"-->
-<!--                    android:layout_marginEnd="26dp"-->
-<!--                    android:text="Рiвень С"-->
-<!--                    android:textAppearance="@style/sf_pro_text_12"-->
-<!--                    android:textColor="@color/white_low_opacity"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/ivLvl" />-->
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/ivLvl"-->
+                    <!--                    android:layout_width="64dp"-->
+                    <!--                    android:layout_height="64dp"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="@+id/tvLvl"-->
+                    <!--                    app:layout_constraintStart_toStartOf="@+id/tvLvl"-->
+                    <!--                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar"-->
+                    <!--                    app:srcCompat="@drawable/lvl_circle" />-->
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/ivLvl"-->
-<!--                    android:layout_width="64dp"-->
-<!--                    android:layout_height="64dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/tvLvl"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/tvLvl"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/iccpAvatar"-->
-<!--                    app:srcCompat="@drawable/lvl_circle" />-->
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/ivLvl"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginEnd="16dp"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"-->
+                    <!--                    app:srcCompat="@drawable/ic_lvl_c_static" />-->
 
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/ivLvl"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginEnd="16dp"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"-->
-                <!--                    app:srcCompat="@drawable/ic_lvl_c_static" />-->
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clBtnAddNewPersonal"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="28dp"
-                    android:background="@drawable/bg_btn_white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/top_layout">
-
-
-                    <ImageView
-                        android:id="@+id/ivPlus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="70dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_plus" />
-
-                    <TextView
-                        android:id="@+id/tvAddNew"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="Додати нового пацієнта"
-                        android:textAppearance="@style/sf_pro_semibold_16"
-                        android:textColor="?colorPrimaryDark"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/ivPlus"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clProgram"
-                    android:layout_width="match_parent"
-                    android:layout_height="86dp"
-                    android:layout_marginTop="24dp"
-                    android:background="@drawable/gradient_switcher"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clBtnAddNewPersonal">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvCurrentProgram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="12dp"
-                        android:text="Рениаль – «Ключ до життя»"
-                        android:textAppearance="@style/sf_pro_semibold_16"
-                        android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvInfoProgram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:alpha="0.8"
-                        android:maxEms="15"
-                        android:text="Потрібно ще 2 покупки для переходу на наступний рівень."
-                        android:textAppearance="@style/sf_pro_semibold_12"
-                        android:textColor="@color/white"
-                        app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
-                        app:layout_constraintTop_toBottomOf="@+id/tvCurrentProgram" />
-
-                    <ImageView
-                        android:id="@+id/ivGoChangeProgram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="34dp"
-                        android:layout_marginEnd="34dp"
-                        android:rotation="180"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clBtnAddNewPersonal"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="28dp"
+                        android:background="@drawable/bg_btn_white"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_chevron_left" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/top_layout">
+
+
+                        <ImageView
+                            android:id="@+id/ivPlus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="70dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_plus" />
+
+                        <TextView
+                            android:id="@+id/tvAddNew"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Додати нового пацієнта"
+                            android:textAppearance="@style/sf_pro_semibold_16"
+                            android:textColor="?colorPrimaryDark"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/ivPlus"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clProgram"
+                        android:layout_width="match_parent"
+                        android:layout_height="86dp"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/gradient_switcher"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clBtnAddNewPersonal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCurrentProgram"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="12dp"
+                            android:text="Рениаль – «Ключ до життя»"
+                            android:textAppearance="@style/sf_pro_semibold_16"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvInfoProgram"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:alpha="0.8"
+                            android:maxEms="15"
+                            android:text="Потрібно ще 2 покупки для переходу на наступний рівень."
+                            android:textAppearance="@style/sf_pro_semibold_12"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
+                            app:layout_constraintTop_toBottomOf="@+id/tvCurrentProgram" />
+
+                        <ImageView
+                            android:id="@+id/ivGoChangeProgram"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="34dp"
+                            android:layout_marginEnd="34dp"
+                            android:rotation="180"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_chevron_left" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/details_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/transparent"
-        android:fillViewport="true"
-        android:visibility="visible"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <include
-            android:id="@+id/details"
-            layout="@layout/patients_header"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/details_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:fillViewport="true"
+            android:visibility="visible"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.core.widget.NestedScrollView>
+            <include
+                android:id="@+id/details"
+                layout="@layout/patients_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

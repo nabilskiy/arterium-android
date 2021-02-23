@@ -1,102 +1,106 @@
 package com.maritech.arterium.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.Log;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LiveData;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
 import com.maritech.arterium.R;
-import com.maritech.arterium.ui.base.BaseActivity;
-import com.maritech.arterium.utils.NavigationExtensions;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_main;
-    }
+    private NavController navController;
+    AppBarConfiguration appBarConfiguration;
 
-    private LiveData<NavController> currentNavController;
+    ActivityActionViewModel viewModel;
 
-    private BottomNavigationView navigationView;
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
 
-        setupBottomNavigationBar();
+        setContentView(R.layout.activity_main);
 
-        Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        this.onRestart();
-        setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
-    }
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.main_host_fragment);
 
-    void changeTheme(int theme) {
-        switch (theme) {
-            case 0:
-                setTheme(R.style.MyNoActionBarShadowTheme);
-                break;
-            case 1:
-                setTheme(R.style.MyNoActionBarShadowThemeRed);
-                break;
-            case 2:
-                setTheme(R.style.MyNoActionBarShadowThemeBlue);
-                break;
+        if (navHostFragment != null) {
+            navController = navHostFragment.getNavController();
         }
-    }
 
-    private void setupBottomNavigationBar() {
-        navigationView = findViewById(R.id.bottom_nav_view);
+//        navController = Navigation.findNavController(this, R.id.main_host_fragment);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
 
-        List<Integer> navGraphIds = new ArrayList<>();
-        navGraphIds.add(R.navigation.dashboard_navigation);
-        navGraphIds.add(R.navigation.statistic_navigation);
-        navGraphIds.add(R.navigation.achivement_navigation);
-        navGraphIds.add(R.navigation.profile_navigation);
-
-        NavigationExtensions extensions = new NavigationExtensions();
-        LiveData<NavController> controller = extensions.setupWithNavController(
-                navigationView,
-                navGraphIds,
-                getSupportFragmentManager(),
-                R.id.nav_host_fragment,
-                getIntent()
-        );
-
-        controller.observe(this, navController -> {
-//            NavigationUI.setupActionBarWithNavController(this, navController);
-        });
-
-        currentNavController = controller;
+        listenBackStackChange();
     }
 
     @Override
-    public boolean onNavigateUp() {
-        if (currentNavController != null) {
-            if (currentNavController.getValue() != null) {
-                return currentNavController.getValue().navigateUp();
-            }
-        }
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp() || super.onSupportNavigateUp();
+    }
 
-        return false;
+    private void listenBackStackChange() {
+        NavHostFragment navHostFragment =
+                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
+
+        if (navHostFragment != null) {
+            FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();
+            navHostChildFragmentManager.addOnBackStackChangedListener(() -> {
+                int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
+                List<Fragment> fragments = navHostChildFragmentManager.getFragments();
+                int fragmentCount = fragments.size();
+
+                Log.e("MainActivity", "Main graph backStackEntryCount: " + backStackEntryCount + " fragmentCount: " + fragmentCount + " fragments: " + fragments);
+            });
+        }
     }
 
     @Override
     public void onBackPressed() {
-        boolean backStack = currentNavController.getValue().popBackStack();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.main_host_fragment);
 
-        if (!backStack) {
+        if (navHostFragment != null) {
+            FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();
+
+            int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
+            List<Fragment> fragments = navHostChildFragmentManager.getFragments();
+            int fragmentCount = fragments.size();
+
+            Log.e("MainActivity", "Main graph backStackEntryCount: " + backStackEntryCount + " fragmentCount: " + fragmentCount + " fragments: " + fragments);
+
+            if (backStackEntryCount > 0) {
+                navController.navigateUp();
+            } else {
+                if (fragmentCount == 1) {
+                    viewModel.onBackPress.setValue(true);
+                } else {
+                    super.onBackPressed();
+                }
+            }
+
+        } else {
             super.onBackPressed();
         }
-    }
 
+
+
+//        int count = getSupportFragmentManager().getBackStackEntryCount();
+//
+//        if (count == 0) {
+//            super.onBackPressed();
+//        } else {
+//            getSupportFragmentManager().popBackStack();
+//        }
+
+    }
 }

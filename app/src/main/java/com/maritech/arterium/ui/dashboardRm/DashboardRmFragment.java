@@ -2,14 +2,13 @@ package com.maritech.arterium.ui.dashboardRm;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.FragmentDashboardRmBinding;
 import com.maritech.arterium.databinding.ItemDashboardBinding;
 import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -18,20 +17,9 @@ import com.maritech.arterium.ui.dialogs.dialog_new_account.DialogNewAccount;
 
 import java.util.ArrayList;
 
-public class DashboardRmFragment extends BaseFragment {
+public class DashboardRmFragment extends BaseFragment<FragmentDashboardRmBinding> {
 
-    private ImageView ivSearch;
-    private TextView tvDoctors;
-    private ImageView ivClose;
-    private ConstraintLayout clSearch;
-    private ConstraintLayout clBtnAddNewAccount;
     DashboardRmNavigator navigator = new DashboardRmNavigator();
-
-    View navigation_statistics;
-    View achievementsFragment;
-    View myProfileFragment;
-    View navigation_dashboard;
-
 
     private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
 
@@ -51,19 +39,7 @@ public class DashboardRmFragment extends BaseFragment {
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
 
-        ivSearch = root.findViewById(R.id.ivSearch);
-        tvDoctors = root.findViewById(R.id.tvDoctors);
-        ivClose = root.findViewById(R.id.ivClose);
-        clSearch = root.findViewById(R.id.clSearch);
-        clBtnAddNewAccount = root.findViewById(R.id.clBtnAddNewAccount);
-        navigation_statistics = getActivity().findViewById(R.id.statistics);
-        achievementsFragment = getActivity().findViewById(R.id.achievements);
-        myProfileFragment = getActivity().findViewById(R.id.profile);
-        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
-
-
         DialogListener errorModule = new DialogListener() {
-
             @Override
             public void addDoctor() {
                 navigator.goToAddNewDoctor(navController);
@@ -77,65 +53,32 @@ public class DashboardRmFragment extends BaseFragment {
 
         DialogNewAccount customDialog = new DialogNewAccount(this.getContext(), errorModule);
 
-        ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivSearch.setVisibility(View.GONE);
-                tvDoctors.setVisibility(View.GONE);
+        binding.details.ivSearch.setOnClickListener(v -> {
+            binding.details.ivSearch.setVisibility(View.GONE);
+            binding.details.tvDoctors.setVisibility(View.GONE);
 
-                ivClose.setVisibility(View.VISIBLE);
-                clSearch.setVisibility(View.VISIBLE);
-            }
+            binding.details.ivClose.setVisibility(View.VISIBLE);
+            binding.details.clSearch.setVisibility(View.VISIBLE);
         });
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivSearch.setVisibility(View.VISIBLE);
-                tvDoctors.setVisibility(View.VISIBLE);
+        binding.details.ivClose.setOnClickListener(v -> {
+            binding.details.ivSearch.setVisibility(View.VISIBLE);
+            binding.details.tvDoctors.setVisibility(View.VISIBLE);
 
-                ivClose.setVisibility(View.GONE);
-                clSearch.setVisibility(View.GONE);
-            }
+            binding.details.ivClose.setVisibility(View.GONE);
+            binding.details.clSearch.setVisibility(View.GONE);
         });
 
-        clBtnAddNewAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                customDialog.show();
-            }
-        });
+        binding.clBtnAddNewAccount.setOnClickListener(v -> customDialog.show());
 
 
-        BaseAdapter adapter = new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvDoctors);
-        rcv.setAdapter(adapter);
+        BaseAdapter adapter =
+                new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
+        binding.details.rvDoctors.setAdapter(adapter);
+
         prepareList(listDoctors);
 
         adapter.setDataList(listDoctors);
-
-        myProfileFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToMyProfile(navController);
-            }
-        });
-
-        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                navigator.goToDashboardRm(navController);
-            }
-
-        });
-
-        navigation_statistics.setVisibility(View.GONE);
-        achievementsFragment.setVisibility(View.GONE);
-    }
-
-    public void goToItem() {
-
     }
 
     private void prepareList(ArrayList<DoctorsContent> dataList) {

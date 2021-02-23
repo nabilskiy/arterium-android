@@ -11,14 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentResultListener;
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.FragmentPinBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 
-public class PinCodeFragment extends BaseFragment {
+public class PinCodeFragment extends BaseFragment<FragmentPinBinding> {
 
     static final String BUNDLE_KEY = "login";
     static final String REQUEST_KEY = "requestLoginKey";
     private String typeOfUser;
-    PinEntryEditText input;
 
     PinCodeNavigator navigator = new PinCodeNavigator();
 
@@ -31,10 +31,12 @@ public class PinCodeFragment extends BaseFragment {
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
 
-        input = root.findViewById(R.id.verificationCodeInput);
-        input.setOnPinEnteredListener(content -> Log.d("!!!", "pin：" + content));
-        final PinEntryEditText pinEntry = (PinEntryEditText) input.findViewById(R.id.verificationCodeInput);
-        input.requestFocus();
+
+        binding.verificationCodeInput.setOnPinEnteredListener(content -> Log.d("!!!", "pin：" + content));
+        final PinEntryEditText pinEntry =
+                (PinEntryEditText) binding.verificationCodeInput.findViewById(R.id.verificationCodeInput);
+        binding.verificationCodeInput.requestFocus();
+
         if (pinEntry != null) {
             pinEntry.setOnPinEnteredListener(str -> {
                 if (str.toString().equals("1111")) {
@@ -61,9 +63,9 @@ public class PinCodeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
 
-        input.requestFocus();
+        binding.verificationCodeInput.requestFocus();
         InputMethodManager imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imgr.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+        imgr.showSoftInput(binding.verificationCodeInput, InputMethodManager.SHOW_IMPLICIT);
 
     }
 

@@ -2,14 +2,11 @@ package com.maritech.arterium.ui.dashboardMp;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.FragmentDashboardMpBinding;
 import com.maritech.arterium.databinding.ItemDashboardBinding;
 import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -17,17 +14,9 @@ import com.maritech.arterium.ui.dashboardMp.data.DoctorsContent;
 
 import java.util.ArrayList;
 
-public class DashboardMpFragment extends BaseFragment {
-
-    private ImageView ivSearch;
-    private TextView tvDoctors;
-    private ImageView ivClose;
-    private ConstraintLayout clSearch;
+public class DashboardMpFragment extends BaseFragment<FragmentDashboardMpBinding> {
 
     DashboardMpNavigator navigator = new DashboardMpNavigator();
-
-    View navigation_dashboard;
-
 
     private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
 
@@ -46,44 +35,27 @@ public class DashboardMpFragment extends BaseFragment {
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
         });
 
-        ivSearch = root.findViewById(R.id.ivSearch);
-        tvDoctors = root.findViewById(R.id.tvDoctors);
-        ivClose = root.findViewById(R.id.ivClose);
-        clSearch = root.findViewById(R.id.clSearch);
-        navigation_dashboard = getActivity().findViewById(R.id.dashboard);
-        ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivSearch.setVisibility(View.GONE);
-                tvDoctors.setVisibility(View.GONE);
-                ivClose.setVisibility(View.VISIBLE);
-                clSearch.setVisibility(View.VISIBLE);
-            }
+        binding.details.clSearch.setOnClickListener(v -> {
+            binding.details.ivSearch.setVisibility(View.GONE);
+            binding.details.tvDoctors.setVisibility(View.GONE);
+            binding.details.ivClose.setVisibility(View.VISIBLE);
+            binding.details.clSearch.setVisibility(View.VISIBLE);
         });
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivSearch.setVisibility(View.VISIBLE);
-                tvDoctors.setVisibility(View.VISIBLE);
-                ivClose.setVisibility(View.GONE);
-                clSearch.setVisibility(View.GONE);
-            }
+        binding.details.ivClose.setOnClickListener(v -> {
+            binding.details.ivSearch.setVisibility(View.VISIBLE);
+            binding.details.tvDoctors.setVisibility(View.VISIBLE);
+            binding.details.ivClose.setVisibility(View.GONE);
+            binding.details.clSearch.setVisibility(View.GONE);
         });
 
-        BaseAdapter adapter = new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
-        RecyclerView rcv = (RecyclerView) root.findViewById(R.id.rvDoctors);
-        rcv.setAdapter(adapter);
+        BaseAdapter adapter =
+                new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
+
+        binding.details.rvDoctors.setAdapter(adapter);
         prepareList(listDoctors);
 
         adapter.setDataList(listDoctors);
-
-        navigation_dashboard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigator.goToDashboard(navController);
-            }
-        });
     }
 
     private void prepareList(ArrayList<DoctorsContent> dataList) {

@@ -1,88 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <include
-        android:id="@+id/interfaceToolbar"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clNamesList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/interfaceToolbar">
+        android:layout_height="match_parent">
 
         <include
-            android:id="@+id/ukrainian"
-            layout="@layout/name_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:id="@+id/interfaceToolbar"
+            layout="@layout/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/russian"
-            layout="@layout/name_item"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clNamesList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ukrainian" />
+            app:layout_constraintTop_toBottomOf="@id/interfaceToolbar">
 
-        <include
-            android:id="@+id/english"
-            layout="@layout/name_item"
+            <include
+                android:id="@+id/ukrainian"
+                layout="@layout/name_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <include
+                android:id="@+id/russian"
+                layout="@layout/name_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ukrainian" />
+
+            <include
+                android:id="@+id/english"
+                layout="@layout/name_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/russian" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvInterfaceNameDescriptionWhatToDo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/description_what_to_do"
+            android:textAppearance="@style/sf_pro_text_12"
+            android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/russian" />
+            app:layout_constraintTop_toBottomOf="@id/clNamesList" />
+
+        <!--    <com.maritech.arterium.ui.widgets.CustomProgressBar-->
+        <!--        android:id="@+id/cpbTest"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        app:cp_value="8"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/tvInterfaceNameDescriptionWhatToDo"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        android:layout_marginTop="@dimen/_10sdp"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        android:layout_marginHorizontal="@dimen/_20sdp" />-->
+
+        <!--    <com.maritech.arterium.ui.widgets.OrangeProgressBar-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        app:opb_value="13"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/cpbTest"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        android:layout_marginTop="@dimen/_10sdp"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        android:layout_marginHorizontal="@dimen/_20sdp"-->
+        <!--        />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/tvInterfaceNameDescriptionWhatToDo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/description_what_to_do"
-        android:textAppearance="@style/sf_pro_text_12"
-        android:textColor="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clNamesList" />
-
-    <!--    <com.maritech.arterium.ui.widgets.CustomProgressBar-->
-    <!--        android:id="@+id/cpbTest"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:cp_value="8"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tvInterfaceNameDescriptionWhatToDo"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        android:layout_marginTop="@dimen/_10sdp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:layout_marginHorizontal="@dimen/_20sdp" />-->
-
-    <!--    <com.maritech.arterium.ui.widgets.OrangeProgressBar-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:opb_value="13"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/cpbTest"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        android:layout_marginTop="@dimen/_10sdp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        android:layout_marginHorizontal="@dimen/_20sdp"-->
-    <!--        />-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
