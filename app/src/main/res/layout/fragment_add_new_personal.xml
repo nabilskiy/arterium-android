@@ -54,45 +54,85 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_default_avatar" />
 
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/ivAvatar">-->
-<!--                        -->
-<!--                        <com.google.android.material.textfield.TextInputEditText-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"/>-->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-                    <com.maritech.arterium.ui.widgets.CustomInput
-                        android:id="@+id/ccInputName"
-                        layout="@layout/custome_input"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/name_layout"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
-                        app:ci_field_value="Введіть ім’я"
-                        app:ci_title="Ім’я"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ivAvatar" />
+                        app:layout_constraintTop_toBottomOf="@+id/ivAvatar">
 
+                        <TextView
+                            android:id="@+id/inputTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="Введіть ім’я"
+                            android:textAppearance="@style/sf_pro_text_14"
+                            android:textColor="@color/gray_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ivAvatar" />
 
-                    <com.maritech.arterium.ui.widgets.CustomInput
-                        android:id="@+id/ccInputSecondName"
-                        layout="@layout/custome_input"
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:inputType="textCapSentences"
+                            android:id="@+id/ccInputName"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/gray"
+                            android:textColorHint="@color/gray"
+                            android:hint="Ім’я"
+                            android:background="@drawable/login_input_bg"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/lastname_layout"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
-                        app:ci_field_value="Введіть фамілію"
-                        app:ci_title="Фамілія"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ccInputName" />
+                        app:layout_constraintTop_toBottomOf="@+id/name_layout">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="Введіть фамілію"
+                            android:textAppearance="@style/sf_pro_text_14"
+                            android:textColor="@color/gray_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"/>
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:inputType="textCapSentences"
+                            android:id="@+id/ccInputSecondName"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/gray"
+                            android:textColorHint="@color/gray"
+                            android:hint="фамілія"
+                            android:background="@drawable/login_input_bg"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
+
+                    </LinearLayout>
 
                     <com.maritech.arterium.ui.widgets.CustomInput
                         android:id="@+id/ccInputPhoneNumber"
@@ -106,7 +146,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ccInputSecondName" />
+                        app:layout_constraintTop_toBottomOf="@+id/lastname_layout" />
 
                     <!--                <com.bobekos.bobek.scanner.BarcodeView-->
                     <!--                    android:id="@+id/barcodeView"-->
@@ -167,9 +207,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="24dp"
                             android:layout_weight="1"
-                            android:theme="@style/PurpleRadioButton"
                             android:text="@string/male"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:theme="@style/PurpleRadioButton" />
 
                         <RadioButton
                             android:id="@+id/radio_female"
@@ -178,9 +218,9 @@
                             android:layout_marginStart="60dp"
                             android:layout_weight="1"
                             android:checked="true"
-                            android:theme="@style/PurpleRadioButton"
                             android:text="@string/female"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            android:theme="@style/PurpleRadioButton" />
                     </RadioGroup>
 
                     <androidx.appcompat.widget.AppCompatTextView

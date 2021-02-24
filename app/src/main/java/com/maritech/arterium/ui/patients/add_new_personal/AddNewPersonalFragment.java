@@ -160,12 +160,14 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     }
 
     private void validateFieldsOne() {
-        if (binding.ccInputName.getText() == null || binding.ccInputName.getText().isEmpty()) {
+        if (binding.ccInputName.getText() == null ||
+                binding.ccInputName.getText().toString().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть ім'я пацієнта");
             return;
         }
 
-        if (binding.ccInputSecondName.getText() == null || binding.ccInputSecondName.getText().isEmpty()) {
+        if (binding.ccInputSecondName.getText() == null ||
+                binding.ccInputSecondName.toString().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть прізвище пацієнта");
             return;
         } else {
@@ -173,14 +175,16 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
             map.put("name", toRequestBody(lastName));
         }
 
-        if (binding.ccInputPhoneNumber.getText() == null || binding.ccInputPhoneNumber.getText().isEmpty()) {
+        if (binding.ccInputPhoneNumber.getText() == null ||
+                binding.ccInputPhoneNumber.getText().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть номер телефону");
             return;
         } else {
             map.put("phone", toRequestBody(binding.ccInputPhoneNumber.getText()));
         }
 
-        if (binding.ccInputCardNumber.getText() == null || binding.ccInputCardNumber.getText().isEmpty()) {
+        if (binding.ccInputCardNumber.getText() == null ||
+                binding.ccInputCardNumber.getText().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть номер картки");
             return;
         } else {
@@ -195,7 +199,8 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
             map.put("gender", toRequestBody("f"));
         }
 
-        if (binding.ccChooseDoze.getSelectedValue() == null || binding.ccChooseDoze.getSelectedValue().isEmpty()) {
+        if (binding.ccChooseDoze.getSelectedValue() == null ||
+                binding.ccChooseDoze.getSelectedValue().isEmpty()) {
             ToastUtil.show(requireContext(), "Виберіть дозу");
             return;
         } else {
@@ -206,31 +211,38 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     }
 
     private void validateFieldsTwo() {
-        if (binding.ccInputHeight.getText() != null && !binding.ccInputHeight.getText().isEmpty()) {
+        if (binding.ccInputHeight.getText() != null &&
+                !binding.ccInputHeight.getText().isEmpty()) {
             map.put("height", toRequestBody(binding.ccInputHeight.getText()));
         }
 
-        if (binding.ccInputWeight.getText() != null && !binding.ccInputWeight.getText().isEmpty()) {
+        if (binding.ccInputWeight.getText() != null &&
+                !binding.ccInputWeight.getText().isEmpty()) {
             map.put("weight", toRequestBody(binding.ccInputWeight.getText()));
         }
 
-        if (binding.ccInputDateInfarct.getText() != null && !binding.ccInputDateInfarct.getText().isEmpty()) {
+        if (binding.ccInputDateInfarct.getText() != null &&
+                !binding.ccInputDateInfarct.getText().isEmpty()) {
             map.put("hearth_attack_date", toRequestBody(binding.ccInputDateInfarct.getText()));
         }
 
-        if (binding.ccDateOfStartDrug.getText() != null && !binding.ccDateOfStartDrug.getText().isEmpty()) {
+        if (binding.ccDateOfStartDrug.getText() != null &&
+                !binding.ccDateOfStartDrug.getText().isEmpty()) {
             map.put("prescribing_date", toRequestBody(binding.ccDateOfStartDrug.getText()));
         }
 
-        if (binding.ccInputFraction.getText() != null && !binding.ccInputFraction.getText().isEmpty()) {
+        if (binding.ccInputFraction.getText() != null &&
+                !binding.ccInputFraction.getText().isEmpty()) {
             map.put("ejection_fraction", toRequestBody(binding.ccInputFraction.getText()));
         }
 
-        if (binding.ccInputFecesStart.getText() != null && !binding.ccInputFecesStart.getText().isEmpty()) {
+        if (binding.ccInputFecesStart.getText() != null &&
+                !binding.ccInputFecesStart.getText().isEmpty()) {
             map.put("initial_potassium", toRequestBody(binding.ccInputFecesStart.getText()));
         }
 
-        if (binding.ccInputFecesEnd.getText() != null && !binding.ccInputFecesEnd.getText().isEmpty()) {
+        if (binding.ccInputFecesEnd.getText() != null &&
+                !binding.ccInputFecesEnd.getText().isEmpty()) {
             map.put("final_potassium", toRequestBody(binding.ccInputFecesEnd.getText()));
         }
 
