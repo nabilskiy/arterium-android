@@ -7,4 +7,6 @@ public class ActivityActionViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> onBackPress = new MutableLiveData<>(false);
 
+    public MutableLiveData<Boolean> onRecreate = new MutableLiveData<>(false);
+
 }

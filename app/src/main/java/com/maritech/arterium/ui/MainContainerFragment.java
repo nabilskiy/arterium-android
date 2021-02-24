@@ -21,6 +21,8 @@ public class MainContainerFragment
     private ViewPager2 viewPager2;
     private BottomNavigationView bottomNavigationView;
 
+    private MainFragmentAdapter pagerAdapter;
+
     @Override
     protected int getContentView() {
         return R.layout.fragment_main_container;
@@ -32,6 +34,7 @@ public class MainContainerFragment
 
         viewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
         viewModel.onBackPress.observe(lifecycleOwner, onBackPressObserver);
+        viewModel.onRecreate.observe(lifecycleOwner, onRecreateObserver);
 
         bottomNavigationView = binding.bottomNav;
         viewPager2 = binding.viewPager;
@@ -39,9 +42,11 @@ public class MainContainerFragment
         viewPager2.setUserInputEnabled(false);
         viewPager2.setOffscreenPageLimit(4);
 
-        viewPager2.setAdapter(new MainFragmentAdapter(
-                getChildFragmentManager(), lifecycleOwner.getLifecycle())
+        pagerAdapter = new MainFragmentAdapter(
+                getChildFragmentManager(), lifecycleOwner.getLifecycle()
         );
+
+        viewPager2.setAdapter(pagerAdapter);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.dashboard) {
@@ -50,7 +55,7 @@ public class MainContainerFragment
             } else if (item.getItemId() == R.id.statistics) {
                 navigatePager(1);
                 return true;
-            } else if (item.getItemId() == R.id.achievements) {
+            } else if (item.getItemId() == R.id.notifications) {
                 navigatePager(2);
                 return true;
             } else if (item.getItemId() == R.id.profile) {
@@ -63,7 +68,7 @@ public class MainContainerFragment
     }
 
     private void navigatePager(int position) {
-        bottomNavigationView.setVisibility(position == 2 ? View.GONE : View.VISIBLE);
+//        bottomNavigationView.setVisibility(position == 2 ? View.GONE : View.VISIBLE);
         viewPager2.setCurrentItem(position, false);
     }
 
@@ -77,6 +82,16 @@ public class MainContainerFragment
                     bottomNavigationView.setSelectedItemId(R.id.dashboard);
                     viewModel.onBackPress.setValue(false);
                 }
+            }
+        }
+    };
+
+    private final Observer<Boolean> onRecreateObserver = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean aBoolean) {
+            if (aBoolean) {
+                viewPager2.setAdapter(pagerAdapter);
+                actionViewModel.onRecreate.setValue(false);
             }
         }
     };

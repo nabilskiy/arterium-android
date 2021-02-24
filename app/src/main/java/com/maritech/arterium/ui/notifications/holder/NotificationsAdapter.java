@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.notifications.data.NotificationsContent;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
     ArrayList<NotificationsContent> localDataSet;
-    private NotificationsAdapter.OnItemClickListener onItemClickListener;
+    private final NotificationsAdapter.OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
         void onItemClicked(int position, NotificationsContent object);
@@ -27,23 +29,25 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         final ConstraintLayout clItemNotifications;
         final TextView tvMessage;
         final TextView tvTime;
+        final View line;
 
         public ViewHolder(View view) {
             super(view);
 
-            tvMessage = (TextView) view.findViewById(R.id.tvMessage);
-            tvTime = (TextView) view.findViewById(R.id.tvTime);
-            clItemNotifications = (ConstraintLayout) view.findViewById(R.id.clItemNotifications);
-
+            tvMessage = view.findViewById(R.id.tvMessage);
+            tvTime = view.findViewById(R.id.tvTime);
+            clItemNotifications = view.findViewById(R.id.clItemNotifications);
+            line = view.findViewById(R.id.viewLine);
         }
-
     }
 
-    public NotificationsAdapter(ArrayList<NotificationsContent> dataSet, NotificationsAdapter.OnItemClickListener onItemClickListener) {
+    public NotificationsAdapter(ArrayList<NotificationsContent> dataSet,
+                                NotificationsAdapter.OnItemClickListener onItemClickListener) {
         localDataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
     }
 
+    @NotNull
     @Override
     public NotificationsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -62,17 +66,15 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         viewHolder.tvTime.setText(localDataSet.get(position).getData());
         viewHolder.tvMessage.setText(localDataSet.get(position).getMessage());
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notifyDataSetChanged();
-                onItemClickListener.onItemClicked(position, localDataSet.get(position));
-            }
+        viewHolder.itemView.setOnClickListener(v -> {
+            notifyDataSetChanged();
+            onItemClickListener.onItemClicked(position, localDataSet.get(position));
         });
 
+        if(position == getItemCount() - 1){
+            viewHolder.line.setVisibility(View.INVISIBLE);
+        }
     }
-
-
 }
 
 

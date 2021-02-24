@@ -31,7 +31,7 @@ public class MyProfileNavigator extends BaseNavigator {
         navController.navigate(R.id.action_myProfileFragment_self);
     }
 
-    void goToNotifications(NavController navController) {
-        navController.navigate(R.id.action_myProfileFragment_to_navigation_notifications);
+    void goToAchievements(NavController navController) {
+        navController.navigate(R.id.action_profile_to_achievementsFragment);
     }
 }

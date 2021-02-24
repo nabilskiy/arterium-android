@@ -4,7 +4,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingHorizontal="24dp">
 
         <TextView
             android:id="@+id/tvInterfaceName"
@@ -22,12 +24,12 @@
             android:id="@+id/cbShowHide"
             android:layout_width="16dp"
             android:layout_height="12dp"
-            android:layout_marginTop="16dp"
             android:background="@drawable/ic_save_icon"
             android:button="@null"
             android:checked="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <View
             android:id="@+id/vDivideLine"

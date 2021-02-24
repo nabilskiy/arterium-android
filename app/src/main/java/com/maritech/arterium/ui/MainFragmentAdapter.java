@@ -34,7 +34,6 @@ public class MainFragmentAdapter extends FragmentStateAdapter {
 
                 return super.onFragmentMaxLifecyclePreUpdated(fragment, maxLifecycleState);
             }
-
         });
     }
 

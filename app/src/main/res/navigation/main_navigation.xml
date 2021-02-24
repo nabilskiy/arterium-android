@@ -24,10 +24,6 @@
             app:destination="@id/patientCardFragment" />
 
         <action
-            android:id="@+id/action_achievementsFragment_to_achievementsDetailsFragment"
-            app:destination="@id/achievementsDetailsFragment" />
-
-        <action
             android:id="@+id/action_myProfileDoctorFragment_to_patientCardFragment"
             app:destination="@id/patientCardFragment" />
 
@@ -45,7 +41,11 @@
 
         <action
             android:id="@+id/action_navigation_statistics_to_myProfileDoctorFragment"
-            app:destination="@id/myProfileDoctorFragment" />
+            app:destination="@id/mainFragment" />
+
+        <action
+            android:id="@+id/action_profile_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
 
     </fragment>
 
@@ -63,7 +63,7 @@
         tools:layout="@layout/fragment_dashboard_rm">
         <action
             android:id="@+id/action_dashboardRmFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_dashboardRmFragment_self"
             app:destination="@id/dashboardRmFragment" />
@@ -151,9 +151,9 @@
 
     <fragment
         android:id="@+id/interfaceNameFragment"
-        android:name="com.maritech.arterium.ui.interface_name.InterfaceNameFragment"
+        android:name="com.maritech.arterium.ui.settings.LanguagesFragment"
         android:label="InterfaceNameFragment"
-        tools:layout="@layout/fragment_interface_name" />
+        tools:layout="@layout/fragment_languages" />
 
     <fragment
         android:id="@+id/profile"
@@ -181,6 +181,7 @@
         <action
             android:id="@+id/action_myProfileFragment_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
+
     </fragment>
 
     <fragment
@@ -190,13 +191,25 @@
         tools:layout="@layout/fragment_dashboard_mp">
         <action
             android:id="@+id/action_dashboardMpFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/mainFragment" />
         <action
             android:id="@+id/action_navigation_dashboard_self"
             app:destination="@id/dashboard" />
         <action
             android:id="@+id/action_navigation_dashboard_to_myProfileFragment"
             app:destination="@id/profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.maritech.arterium.ui.achievements.AchievementsFragment"
+        android:label="AchievementsFragment"
+        tools:layout="@layout/fragment_achievement">
+
+        <action
+            android:id="@+id/action_achievementsFragment_to_achievementsDetailsFragment"
+            app:destination="@id/achievementsDetailsFragment" />
+
     </fragment>
 
     <fragment

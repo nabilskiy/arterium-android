@@ -33,6 +33,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
                 new ViewModelProvider(this).get(NotificationsViewModel.class);
 
         binding.toolbar.ivRight.setVisibility(View.GONE);
+        binding.toolbar.ivArrow.setVisibility(View.GONE);
         binding.toolbar.tvToolbarTitle.setText("Повідомлення");
 
         RecyclerView rvUnread = root.findViewById(R.id.rvUnread);
@@ -63,9 +64,6 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         binding.toolbar.ivArrow.setOnClickListener(v -> requireActivity().onBackPressed());
 
         changeValueUnreadNotifications(dataListUnread.size());
-
-//        Log.e("Bottom", this.getClass().getName());
-//        baseActivity.findViewById(R.id.bottom_nav_view).setVisibility(View.GONE);
     }
 
     private void prepareListUnread(ArrayList<NotificationsContent> dataList) {

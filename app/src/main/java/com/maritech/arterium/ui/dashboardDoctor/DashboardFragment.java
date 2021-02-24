@@ -3,7 +3,6 @@ package com.maritech.arterium.ui.dashboardDoctor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
@@ -13,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
+import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboardMp.DashboardMpViewModel;
 import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
@@ -29,10 +28,9 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     DashboardNavigator navigator = new DashboardNavigator();
 
-    private DashboardMpViewModel dashboardViewModel;
     private PatientsSharedViewModel sharedViewModel;
 
-    private final ProfileViewModel viewModel = new ProfileViewModel();
+    private ProfileViewModel profileViewModel;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -47,23 +45,20 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
+        actionViewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
 
         if (sharedViewModel == null) {
             sharedViewModel =
                     new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
         }
-        if (dashboardViewModel == null) {
-            dashboardViewModel = new ViewModelProvider(this).get(DashboardMpViewModel.class);
+        if (profileViewModel == null) {
+            profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         }
 
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
-        });
-        // ((MainActivity) getActivity()).setTheme(R.style.Theme_Arterium_Blue);
-
-        final int clProgramColorGliptar = R.drawable.gradient_light_red;
-        final int clProgramColorSagrada = R.drawable.gradient_light_blue;
-        final int clInfoUserColorGliptar = R.drawable.ic_gliptar;
-        final int clInfoUserColorSagrada = R.drawable.ic_sagrada;
+//        final int clProgramColorGliptar = R.drawable.gradient_light_red;
+//        final int clProgramColorSagrada = R.drawable.gradient_light_blue;
+//        final int clInfoUserColorGliptar = R.drawable.ic_gliptar;
+//        final int clInfoUserColorSagrada = R.drawable.ic_sagrada;
 
         getChildFragmentManager().beginTransaction()
                 .add(R.id.vpPatients, PatientsFragment.getInstance())
@@ -75,7 +70,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                         binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
                         binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
                         binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
-                        binding.details.findViewById(R.id.ivClose).setVisibility(View.GONE);
                         binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
                     }
                 });
@@ -83,37 +77,28 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         ((EditText) binding.details.findViewById(R.id.etSearch)).addTextChangedListener(textWatcher);
 
         binding.details.findViewById(R.id.tvOne).setActivated(true);
-        binding.details.findViewById(R.id.tvOne).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
+        binding.details.findViewById(R.id.tvOne).setOnClickListener(v -> {
+            sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
-                binding.details.findViewById(R.id.tvOne).setActivated(true);
-                binding.details.findViewById(R.id.tvTwo).setActivated(false);
-                binding.details.findViewById(R.id.tvThree).setActivated(false);
-            }
+            binding.details.findViewById(R.id.tvOne).setActivated(true);
+            binding.details.findViewById(R.id.tvTwo).setActivated(false);
+            binding.details.findViewById(R.id.tvThree).setActivated(false);
         });
 
-        binding.details.findViewById(R.id.tvTwo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
+        binding.details.findViewById(R.id.tvTwo).setOnClickListener(v -> {
+            sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
 
-                binding.details.findViewById(R.id.tvOne).setActivated(false);
-                binding.details.findViewById(R.id.tvTwo).setActivated(true);
-                binding.details.findViewById(R.id.tvThree).setActivated(false);
-            }
+            binding.details.findViewById(R.id.tvOne).setActivated(false);
+            binding.details.findViewById(R.id.tvTwo).setActivated(true);
+            binding.details.findViewById(R.id.tvThree).setActivated(false);
         });
 
-        binding.detailsView.findViewById(R.id.tvThree).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
+        binding.detailsView.findViewById(R.id.tvThree).setOnClickListener(v -> {
+            sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
 
-                binding.details.findViewById(R.id.tvOne).setActivated(false);
-                binding.details.findViewById(R.id.tvTwo).setActivated(false);
-                binding.details.findViewById(R.id.tvThree).setActivated(true);
-            }
+            binding.details.findViewById(R.id.tvOne).setActivated(false);
+            binding.details.findViewById(R.id.tvTwo).setActivated(false);
+            binding.details.findViewById(R.id.tvThree).setActivated(true);
         });
 
         sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
@@ -131,7 +116,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             binding.details.findViewById(R.id.ivSearch).setVisibility(View.GONE);
             binding.details.findViewById(R.id.tvDoctors).setVisibility(View.GONE);
             binding.details.findViewById(R.id.ivFilter).setVisibility(View.GONE);
-            binding.details.findViewById(R.id.ivClose).setVisibility(View.VISIBLE);
             binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
         });
 
@@ -139,7 +123,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
             binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
             binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
-            binding.details.findViewById(R.id.ivClose).setVisibility(View.GONE);
             binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
         });
 
@@ -149,11 +132,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
         binding.clProgram.setOnClickListener(v -> customDialog.show());
 
-        binding.clInfoClose.setOnClickListener(v -> navigator.goToDashboardMP(navController));
+        binding.clInfoClose.setOnClickListener(v -> actionViewModel.onRecreate.setValue(true));
 
         observeViewModel();
 
-        viewModel.getProfile();
+        profileViewModel.getProfile();
     }
 
     @Override
@@ -161,29 +144,32 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         super.onCreate(savedInstanceState);
         customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
 
-        customDialog.setListener((DialogWithRecycler.OnChooseItem) content -> {
-            Log.e("!!!", String.valueOf(content));
+        customDialog.setListener(content -> {
             if (content == 0) {
-                baseActivity.setTheme(R.style.Theme_Arterium);
-                BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
-                navigator.bottomGoToDashboardDoctor(navController);
+                baseActivity.setThemeDefault();
+                BaseActivity.setStatusBarGradientDrawable(
+                        requireActivity(), R.drawable.gradient_primary
+                );
             }
             if (content == 1) {
-                baseActivity.setTheme(R.style.Theme_Arterium_Blue);
-                BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
-                navigator.bottomGoToDashboardDoctor(navController);
+                baseActivity.setThemeBlue();
+                BaseActivity.setStatusBarGradientDrawable(
+                        requireActivity(), R.drawable.gradient_primary
+                );
             }
             if (content == 2) {
-                baseActivity.setTheme(R.style.Theme_Arterium_Red);
-                BaseActivity.setStatusBarGradientDrawable(requireActivity(), R.drawable.gradient_primary);
-                navigator.bottomGoToDashboardDoctor(navController);
+                baseActivity.setThemeRed();
+                BaseActivity.setStatusBarGradientDrawable(
+                        requireActivity(), R.drawable.gradient_primary
+                );
             }
 
+            actionViewModel.onRecreate.setValue(true);
         });
     }
 
     private void observeViewModel() {
-        viewModel.responseLiveData
+        profileViewModel.responseLiveData
                 .observe(getViewLifecycleOwner(),
                         profileData -> {
                             binding.tvUserName.setText(profileData.getName());
@@ -203,7 +189,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 //                    }
 //                });
 
-        viewModel.errorMessage
+        profileViewModel.errorMessage
                 .observe(getViewLifecycleOwner(), error -> {
                     ToastUtil.show(requireContext(), error);
                 });

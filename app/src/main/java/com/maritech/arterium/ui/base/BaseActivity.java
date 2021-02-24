@@ -62,6 +62,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void setThemeDefault() {
+        setTheme(R.style.Theme_Arterium);
+    }
+
+    public void setThemeBlue() {
+        setTheme(R.style.Theme_Arterium_Blue);
+    }
+
+    public void setThemeRed() {
+        setTheme(R.style.Theme_Arterium_Red);
+    }
+
     public static int fetchPrimaryDarkColor(Context mContext) {
         TypedValue typedValue = new TypedValue();
         TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimaryDark });

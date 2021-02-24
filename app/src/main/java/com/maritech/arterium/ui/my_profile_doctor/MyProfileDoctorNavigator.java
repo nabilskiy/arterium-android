@@ -19,8 +19,8 @@ public class MyProfileDoctorNavigator extends BaseNavigator {
         navController.navigate(R.id.action_myProfileDoctorFragment_to_pharmacyFragment);
     }
 
-    void goToNotifications(NavController navController) {
-        navController.navigate(R.id.action_myProfileDoctorFragment_to_navigation_notifications);
+    void goToAchievements(NavController navController) {
+        navController.navigate(R.id.action_profile_to_achievementsFragment);
     }
 
 }

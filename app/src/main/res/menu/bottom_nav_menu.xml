@@ -12,9 +12,9 @@
         android:title="@string/title_statistics" />
 
     <item
-        android:id="@+id/achievements"
-        android:icon="@drawable/ic_achives"
-        android:title="@string/title_achives" />
+        android:id="@+id/notifications"
+        android:icon="@drawable/ic_notifications_icon"
+        android:title="@string/title_notifications" />
 
     <item
         android:id="@+id/profile"

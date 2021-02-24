@@ -17,10 +17,6 @@ public class DashboardNavigator extends BaseNavigator {
         navController.navigate(R.id.action_navigation_dashboard_self);
     }
 
-    void goToDashboardMP(NavController navController) {
-        navController.navigate(R.id.action_dashboardFragment_to_navigation_dashboard);
-    }
-
     public void goToPatientCard(NavController navController, Bundle bundle) {
         navController.navigate(R.id.action_dashboardFragment_to_patientCardFragment, bundle);
     }

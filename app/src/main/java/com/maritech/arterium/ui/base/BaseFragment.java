@@ -26,7 +26,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     public BaseActivity baseActivity;
     public LifecycleOwner lifecycleOwner;
-    public ActivityActionViewModel viewModel;
+    public ActivityActionViewModel actionViewModel;
 
     public T binding;
 
@@ -47,7 +47,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
         binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
 
-        viewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
+        actionViewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
 
         lifecycleOwner = getViewLifecycleOwner();
 

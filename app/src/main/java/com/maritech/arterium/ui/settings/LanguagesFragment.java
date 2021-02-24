@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.interface_name;
+package com.maritech.arterium.ui.settings;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,17 +6,17 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.FragmentInterfaceNameBinding;
+import com.maritech.arterium.databinding.FragmentLanguagesBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.base.BaseNavigator;
 
-public class InterfaceNameFragment extends BaseFragment<FragmentInterfaceNameBinding> {
+public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
 
     BaseNavigator navigator = new BaseNavigator();
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_interface_name;
+        return R.layout.fragment_languages;
     }
 
     @Override

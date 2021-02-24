@@ -20,8 +20,6 @@ public class DashboardMpFragment extends BaseFragment<FragmentDashboardMpBinding
 
     private ArrayList<DoctorsContent> listDoctors = new ArrayList<>();
 
-    private DashboardMpViewModel dashboardViewModel;
-
     @Override
     protected int getContentView() {
         return R.layout.fragment_dashboard_mp;
@@ -30,10 +28,6 @@ public class DashboardMpFragment extends BaseFragment<FragmentDashboardMpBinding
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-
-        dashboardViewModel = new ViewModelProvider(this).get(DashboardMpViewModel.class);
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> {
-        });
 
         binding.details.clSearch.setOnClickListener(v -> {
             binding.details.ivSearch.setVisibility(View.GONE);

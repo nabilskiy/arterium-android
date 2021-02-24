@@ -36,22 +36,22 @@ public class MyProfileFragment extends BaseFragment<FragmentMyProfileBinding> {
 
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));
 
-        binding.myProfileMainContentNotifications.getRoot()
-                .setOnClickListener(v -> navigator.goToNotifications(navController));
+        binding.achievements.getRoot()
+                .setOnClickListener(v -> navigator.goToAchievements(navController));
 
         setMyProfileContentList();
     }
 
     public void setMyProfileContentList(){
-        binding.myProfileMainContentNotifications
-                .tvMyProfileListTitle.setText(R.string.notification);
+        binding.achievements
+                .tvMyProfileListTitle.setText(R.string.achievements);
         binding.contactWithUs
                 .tvMyProfileListTitle.setText(R.string.contact_with_us);
         binding.myProfileMainContentSettings
                 .tvMyProfileListTitle.setText(R.string.settings);
 
-        binding.myProfileMainContentNotifications
-                .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_bell);
+        binding.achievements
+                .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_achives);
         binding.myProfileMainContentSettings
                 .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_blue_settings);
         binding.contactWithUs.ivMyProfileListIcon
