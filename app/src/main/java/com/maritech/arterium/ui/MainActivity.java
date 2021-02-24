@@ -2,17 +2,12 @@ package com.maritech.arterium.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.maritech.arterium.R;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,29 +31,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 //        navController = Navigation.findNavController(this, R.id.main_host_fragment);
-
-        listenBackStackChange();
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
-    }
-
-    private void listenBackStackChange() {
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
-
-        if (navHostFragment != null) {
-            FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();
-            navHostChildFragmentManager.addOnBackStackChangedListener(() -> {
-                int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
-                List<Fragment> fragments = navHostChildFragmentManager.getFragments();
-                int fragmentCount = fragments.size();
-
-                Log.e("MainActivity", "Main graph backStackEntryCount: " + backStackEntryCount + " fragmentCount: " + fragmentCount + " fragments: " + fragments);
-            });
-        }
     }
 
     @Override
@@ -70,10 +47,8 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();
 
             int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
-            List<Fragment> fragments = navHostChildFragmentManager.getFragments();
-            int fragmentCount = fragments.size();
-
-            Log.e("MainActivity", "Main graph backStackEntryCount: " + backStackEntryCount + " fragmentCount: " + fragmentCount + " fragments: " + fragments);
+//            List<Fragment> fragments = navHostChildFragmentManager.getFragments();
+//            int fragmentCount = fragments.size();
 
             if (backStackEntryCount > 0) {
                 navController.navigateUp();

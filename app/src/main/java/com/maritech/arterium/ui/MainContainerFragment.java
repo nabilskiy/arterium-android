@@ -1,7 +1,6 @@
 package com.maritech.arterium.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -12,11 +11,11 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.maritech.arterium.R;
-import com.maritech.arterium.databinding.FragmentViewPagerBinding;
+import com.maritech.arterium.databinding.FragmentMainContainerBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 
 public class MainContainerFragment
-        extends BaseFragment<FragmentViewPagerBinding> {
+        extends BaseFragment<FragmentMainContainerBinding> {
 
     private ActivityActionViewModel viewModel;
     private ViewPager2 viewPager2;
@@ -24,7 +23,7 @@ public class MainContainerFragment
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_view_pager;
+        return R.layout.fragment_main_container;
     }
 
     @Override

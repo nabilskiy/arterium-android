@@ -9,7 +9,7 @@
         android:id="@+id/mainFragment"
         android:name="com.maritech.arterium.ui.MainContainerFragment"
         android:label="ViewPagerContainerFragment"
-        tools:layout="@layout/fragment_view_pager">
+        tools:layout="@layout/fragment_main_container">
 
         <action
             android:id="@+id/action_dashboardFragment_to_addNewPersonalFragment"
