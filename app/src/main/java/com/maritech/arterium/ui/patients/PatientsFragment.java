@@ -64,17 +64,23 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sharedViewModel =
-                new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+        if (!hasInitializedRootView) {
+            hasInitializedRootView = true;
 
-        viewModel =
-                new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
+            binding.setVm(viewModel);
 
-        binding.setVm(viewModel);
+            initView();
 
-        initView();
+            sharedViewModel =
+                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
 
-        observeViewModel();
+            viewModel =
+                    new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
+
+            observeViewModel();
+        }
+
+
     }
 
     private void observeViewModel() {
@@ -83,10 +89,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
             createdToDate = strings[1];
 
             getPatientList();
-
-//                if (isFirstLoad) {
-//
-//                }
         });
 
         sharedViewModel.purchasesFilter.observe(getViewLifecycleOwner(), filter -> {
@@ -179,5 +181,23 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 drugProgramId,
                 searchQuery
         );
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (viewModel != null && viewModel.responseLiveData != null) {
+            if (viewModel.responseLiveData.hasObservers()) {
+                viewModel.responseLiveData.removeObservers(lifecycleOwner);
+            }
+            if (viewModel.contentState.hasObservers()) {
+                viewModel.contentState.removeObservers(lifecycleOwner);
+            }
+            if (viewModel.errorMessage.hasObservers()) {
+                viewModel.errorMessage.removeObservers(lifecycleOwner);
+            }
+            viewModel = null;
+        }
     }
 }

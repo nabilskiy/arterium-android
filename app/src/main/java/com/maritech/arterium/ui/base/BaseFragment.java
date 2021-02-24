@@ -30,6 +30,8 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     public T binding;
 
+    public boolean hasInitializedRootView = false;
+
     public BaseFragment() {
     }
 
@@ -44,8 +46,12 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
-        binding.setLifecycleOwner(getViewLifecycleOwner());
+        if (binding == null) {
+            binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
+            binding.setLifecycleOwner(getViewLifecycleOwner());
+        } else {
+            ((ViewGroup)(binding.getRoot())).removeView(binding.getRoot());
+        }
 
         actionViewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
 

@@ -16,38 +16,33 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentAddNewPersonalBinding;
+import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.barcode.BarcodeActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.patients.PatientsViewModel;
 import com.maritech.arterium.utils.ToastUtil;
-import com.maritech.arterium.utils.UsPhoneNumberFormatter;
 import com.nhaarman.supertooltips.ToolTip;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -68,8 +63,7 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
 
     AddNewPersonalNavigator navigator = new AddNewPersonalNavigator();
 
-    PatientsViewModel viewModel = new PatientsViewModel();
-    FragmentAddNewPersonalBinding binding;
+    PatientsViewModel viewModel;
 
     Map<String, RequestBody> map = new HashMap<>();
     MultipartBody.Part image;
@@ -82,10 +76,11 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
         return R.layout.fragment_add_new_personal;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(
-                inflater, getContentView(), container, false);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        viewModel = new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
 
         binding.toolbar.tvHint.setVisibility(View.VISIBLE);
         binding.toolbar.tvToolbarTitle.setText("Новий пацієнт");
@@ -133,13 +128,6 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
 //        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
 //                new WeakReference<EditText>(binding.ccInputPhoneNumber));
 //        binding.ccInputPhoneNumber.addTextChangedListener(addLineNumberFormatter);
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         observeViewModel();
     }
