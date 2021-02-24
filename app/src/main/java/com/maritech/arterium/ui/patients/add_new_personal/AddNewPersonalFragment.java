@@ -10,10 +10,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +33,7 @@ import com.maritech.arterium.ui.barcode.BarcodeActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.patients.PatientsViewModel;
 import com.maritech.arterium.utils.ToastUtil;
+import com.maritech.arterium.utils.UsPhoneNumberFormatter;
 import com.nhaarman.supertooltips.ToolTip;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +41,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -123,8 +128,12 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
             binding.tooltip.setVisibility(View.GONE);
 
         });
-//        Log.e("Bottom", this.getClass().getName());
-//        baseActivity.findViewById(R.id.bottom_nav_view).setVisibility(View.GONE);
+
+        //TODO
+//        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
+//                new WeakReference<EditText>(binding.ccInputPhoneNumber));
+//        binding.ccInputPhoneNumber.addTextChangedListener(addLineNumberFormatter);
+
         return binding.getRoot();
     }
 
@@ -176,11 +185,11 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
         }
 
         if (binding.ccInputPhoneNumber.getText() == null ||
-                binding.ccInputPhoneNumber.getText().isEmpty()) {
+                binding.ccInputPhoneNumber.getText().toString().isEmpty()) {
             ToastUtil.show(requireContext(), "Введіть номер телефону");
             return;
         } else {
-            map.put("phone", toRequestBody(binding.ccInputPhoneNumber.getText()));
+            map.put("phone", toRequestBody(binding.ccInputPhoneNumber.getText().toString()));
         }
 
         if (binding.ccInputCardNumber.getText() == null ||
@@ -413,6 +422,21 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
 
         binding.tooltip.setVisibility(View.GONE);
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
 }
 

@@ -259,6 +259,30 @@
                     <!--                    app:layout_constraintTop_toBottomOf="@+id/clInfoClose"-->
                     <!--                    app:srcCompat="@drawable/ic_lvl_c_static" />-->
 
+                    <!--                <com.google.android.material.button.MaterialButton-->
+                    <!--                    android:id="@+id/clBtnAddNewPersonal"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="56dp"-->
+                    <!--                    android:gravity="center"-->
+                    <!--                    android:layout_marginHorizontal="16dp"-->
+                    <!--                    android:layout_marginTop="28dp"-->
+                    <!--                    android:background="@drawable/bg_btn_white"-->
+                    <!--                    app:backgroundTint="@color/white"-->
+                    <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@+id/top_layout"-->
+                    <!--                    app:icon="@drawable/ic_plus"-->
+                    <!--                    app:iconTint="@color/purple"-->
+                    <!--                    android:paddingStart="40dp"-->
+                    <!--                    android:paddingEnd="40dp"-->
+                    <!--                    android:fontFamily="@font/sf_pro_display_regular"-->
+                    <!--                    android:textAllCaps="true"-->
+                    <!--                    android:textAppearance="@style/sf_pro_semibold_16"-->
+                    <!--                    android:textColor="?colorPrimaryDark"-->
+                    <!--                    android:textSize="16sp"-->
+                    <!--                    android:text="Додати нового пацієнта"/>-->
+
+<!--                    TODO-->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clBtnAddNewPersonal"
                         android:layout_width="match_parent"
@@ -270,28 +294,38 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/top_layout">
 
-
-                        <ImageView
-                            android:id="@+id/ivPlus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="70dp"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/ic_plus" />
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/tvAddNew"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:text="Додати нового пацієнта"
-                            android:textAppearance="@style/sf_pro_semibold_16"
-                            android:textColor="?colorPrimaryDark"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/ivPlus"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            <ImageView
+                                android:id="@+id/ivPlus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="70dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_plus" />
+
+                            <TextView
+                                android:id="@+id/tvAddNew"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="Додати нового пацієнта"
+                                android:textAppearance="@style/sf_pro_semibold_16"
+                                android:textColor="?colorPrimaryDark"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/ivPlus"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
