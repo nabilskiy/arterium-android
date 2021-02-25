@@ -310,6 +310,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
+                            android:lines="2"
+
                             android:alpha="0.8"
                             android:maxEms="15"
                             tools:text="Потрібно ще 2 покупки для переходу на наступний рівень."

@@ -213,7 +213,12 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             int programId = Pref.getInstance().getDrugProgramId(requireContext());
                             DrugProgramModel model = list.get(programId);
                             binding.tvCurrentProgram.setText(String.format("%s - \"%s\"", model.getTitle(), model.getSlogan()));
-                            binding.tvInfoProgram.setText(model.getDescription());
+
+                            if (model.getDescription() != null) {
+                                binding.tvInfoProgram.setText(model.getDescription());
+                            } else {
+                                binding.tvInfoProgram.setText("Немає опису");
+                            }
                         });
 
         drugProgramsViewModel.errorMessage
@@ -224,9 +229,9 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         drugProgramsViewModel.contentState
                 .observe(getViewLifecycleOwner(), contentState -> {
                     if (contentState.isLoading()) {
-
+//                        binding.progressBar.setVisibility(View.VISIBLE);
                     } else {
-
+//                        binding.progressBar.setVisibility(View.GONE);
                     }
                 });
     }

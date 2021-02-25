@@ -147,7 +147,7 @@ public class Pref {
 
     public ArrayList<DrugProgramModel> getDrugProgramList(Context context) {
         String str = getPrefs(context).getString(DRUG_PROGRAM_LIST, "");
-        Type itemsListType = new TypeToken<List<DrugProgramModel>>() {}.getType();
+        Type itemsListType = new TypeToken<ArrayList<DrugProgramModel>>() {}.getType();
 
         return new Gson().fromJson(str,itemsListType);
     }

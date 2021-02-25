@@ -156,7 +156,6 @@ public class ArteriumDataProvider implements DataProvider {
         )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true);
-
     }
 
     @Override
