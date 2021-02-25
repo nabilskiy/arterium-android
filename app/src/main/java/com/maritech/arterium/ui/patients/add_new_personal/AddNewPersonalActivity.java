@@ -8,33 +8,32 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.sharePref.Pref;
-import com.maritech.arterium.databinding.FragmentAddNewPersonalBinding;
-import com.maritech.arterium.ui.ActivityActionViewModel;
+import com.maritech.arterium.databinding.ActivityAddNewPersonalBinding;
 import com.maritech.arterium.ui.barcode.BarcodeActivity;
-import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.patients.PatientsViewModel;
 import com.maritech.arterium.utils.ToastUtil;
 import com.nhaarman.supertooltips.ToolTip;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -43,14 +42,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
-
-public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalBinding> {
+public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalBinding> {
 
     public static final int SCAN_REQUEST_CODE = 364;
 
@@ -72,15 +69,15 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     @Override
-    protected int getContentView() {
-        return R.layout.fragment_add_new_personal;
+    protected int getLayoutId() {
+        return R.layout.activity_add_new_personal;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
 
         binding.toolbar.tvHint.setVisibility(View.VISIBLE);
         binding.toolbar.tvToolbarTitle.setText("Новий пацієнт");
@@ -96,13 +93,15 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
 
         binding.ivCamera.setOnClickListener(v -> {
             int result =
-                    ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA);
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
             if (result != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
+                }
             } else {
                 startActivityForResult(
-                        new Intent(getActivity(), BarcodeActivity.class), SCAN_REQUEST_CODE
+                        new Intent(this, BarcodeActivity.class), SCAN_REQUEST_CODE
                 );
             }
         });
@@ -118,25 +117,23 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
                 binding.toolbar.ivLeft.setVisibility(View.GONE);
 
             } else {
-                requireActivity().onBackPressed();
+                this.onBackPressed();
             }
             binding.tooltip.setVisibility(View.GONE);
 
         });
 
-        //TODO
-//        UsPhoneNumberFormatter addLineNumberFormatter = new UsPhoneNumberFormatter(
-//                new WeakReference<EditText>(binding.ccInputPhoneNumber));
-//        binding.ccInputPhoneNumber.addTextChangedListener(addLineNumberFormatter);
-
         observeViewModel();
     }
 
     private void observeViewModel() {
-        viewModel.createPatient.observe(getViewLifecycleOwner(), patientCreateModel ->
-                navigator.goToDashboard(navController));
+        viewModel.createPatient.observe(this, patientCreateModel -> {
+                    setResult(RESULT_OK, new Intent());
+                    finish();
+                }
+                );
 
-        viewModel.createPatientState.observe(getViewLifecycleOwner(), contentState -> {
+        viewModel.createPatientState.observe(this, contentState -> {
             if (contentState == ContentState.LOADING) {
                 showProgressDialog();
             } else {
@@ -145,8 +142,8 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
         });
 
         viewModel.createErrorMessage.observe(
-                getViewLifecycleOwner(),
-                error -> ToastUtil.show(requireContext(), error)
+                this,
+                error -> ToastUtil.show(this, error)
         );
     }
 
@@ -159,30 +156,31 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     private void validateFieldsOne() {
         if (binding.ccInputName.getText() == null ||
                 binding.ccInputName.getText().toString().isEmpty()) {
-            ToastUtil.show(requireContext(), "Введіть ім'я пацієнта");
+            ToastUtil.show(this, "Введіть ім'я пацієнта");
             return;
         }
 
         if (binding.ccInputSecondName.getText() == null ||
                 binding.ccInputSecondName.toString().isEmpty()) {
-            ToastUtil.show(requireContext(), "Введіть прізвище пацієнта");
+            ToastUtil.show(this, "Введіть прізвище пацієнта");
             return;
         } else {
             String lastName = binding.ccInputName.getText() + " " + binding.ccInputSecondName.getText();
             map.put("name", toRequestBody(lastName));
         }
 
-        if (binding.ccInputPhoneNumber.getText() == null ||
-                binding.ccInputPhoneNumber.getText().toString().isEmpty()) {
-            ToastUtil.show(requireContext(), "Введіть номер телефону");
+        Editable phone = binding.ccInputPhoneNumber.getText();
+        if (phone == null ||
+                phone.toString().isEmpty()) {
+            ToastUtil.show(this, "Введіть номер телефону");
             return;
         } else {
-            map.put("phone", toRequestBody(binding.ccInputPhoneNumber.getText().toString()));
+            map.put("phone", toRequestBody(phone.toString().replace(" ", "")));
         }
 
         if (binding.ccInputCardNumber.getText() == null ||
                 binding.ccInputCardNumber.getText().isEmpty()) {
-            ToastUtil.show(requireContext(), "Введіть номер картки");
+            ToastUtil.show(this, "Введіть номер картки");
             return;
         } else {
             map.put("card_code", toRequestBody(binding.ccInputCardNumber.getText()));
@@ -198,7 +196,7 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
 
         if (binding.ccChooseDoze.getSelectedValue() == null ||
                 binding.ccChooseDoze.getSelectedValue().isEmpty()) {
-            ToastUtil.show(requireContext(), "Виберіть дозу");
+            ToastUtil.show(this, "Виберіть дозу");
             return;
         } else {
             map.put("dose", toRequestBody(binding.ccChooseDoze.getSelectedValue()));
@@ -247,7 +245,7 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     }
 
     private int loadDrugProgramId() {
-        return Pref.getInstance().getDrugProgramId(requireContext());
+        return Pref.getInstance().getDrugProgramId(this);
     }
 
     private RequestBody toRequestBody(String value) {
@@ -269,26 +267,28 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     private void selectImage() {
         final CharSequence[] options = {"Сфотографувати", "Вибрати з галереї"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Фотографія");
 
         builder.setItems(options, (dialog, item) -> {
             if (options[item].equals("Сфотографувати")) {
 
                 int result =
-                        ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA);
+                        ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
                 if (result != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 102);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, 102);
+                    }
                 } else {
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(takePicture, 0);
                 }
             }
             if (options[item].equals("Вибрати з галереї")) {
                 Intent pickPhoto = new Intent(
                         Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
                 );
                 startActivityForResult(pickPhoto, 1);
 
@@ -298,22 +298,22 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NotNull String[] permissions,
-                                           @NotNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         switch (requestCode) {
             case 101: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startActivityForResult(
-                            new Intent(getActivity(), BarcodeActivity.class),
+                            new Intent(this, BarcodeActivity.class),
                             SCAN_REQUEST_CODE
                     );
 
                     binding.ccInputCardNumber.setInput("Номер картки", String.valueOf(requestCode));
 
                 } else {
-                    Toast.makeText(getContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
             case 102: {
@@ -324,7 +324,9 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
@@ -341,7 +343,7 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
                         Uri selectedImage = data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
-                            Cursor cursor = requireActivity().getContentResolver().query(
+                            Cursor cursor = this.getContentResolver().query(
                                     selectedImage,
                                     filePathColumn,
                                     null,
@@ -368,7 +370,7 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
     }
 
     private void persistImage(Bitmap bitmap) {
-        File filesDir = requireContext().getFilesDir();
+        File filesDir = this.getFilesDir();
         File imageFile = new File(filesDir, "avatar.jpg");
 
         OutputStream os;
@@ -411,20 +413,15 @@ public class AddNewPersonalFragment extends BaseFragment<FragmentAddNewPersonalB
         binding.tooltip.setVisibility(View.GONE);
     }
 
-    private TextWatcher textWatcher = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-
-        }
-    };
+//    private boolean isPhoneValid() {
+//        if (binding.ccInputPhoneNumber.getText() != null) {
+//            String phone = binding.ccInputPhoneNumber.getText().toString();
+//
+//            return phone.matches("^\\+380\\d{9}$");
+//        } else {
+//            return false;
+//        }
+//    }
 
 }
 

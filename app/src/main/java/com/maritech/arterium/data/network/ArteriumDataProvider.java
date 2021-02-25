@@ -1,11 +1,11 @@
 package com.maritech.arterium.data.network;
 
 
-import android.util.Log;
-
 import androidx.annotation.IntRange;
 
 import com.maritech.arterium.App;
+import com.maritech.arterium.data.models.DrugProgramModel;
+import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
@@ -17,6 +17,7 @@ import com.maritech.arterium.data.network.interceptors.ErrorAuthTokenInterceptor
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Single;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -197,5 +199,22 @@ public class ArteriumDataProvider implements DataProvider {
                         singleSubscriber::onSuccess,
                         singleSubscriber::onError
                 ));
+    }
+
+    @Override
+    public Observable<List<DrugProgramModel>> getDrugPrograms() {
+        return Observable.mergeDelayError(
+                Observable.just(Pref.getInstance().getDrugProgramList(App.getInstance()))
+                        .filter(profileResponse -> profileResponse != null),
+                provideArteriumClient().getDrugPrograms()
+                        .flatMap((Func1<DrugProgramsResponse, Observable<List<DrugProgramModel>>>) response -> {
+                            Pref.getInstance().setDrugProgramList(
+                                    App.getInstance(), response.getData());
+
+                            return Observable.just(response.getData());
+                        })
+        )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread(), true);
     }
 }

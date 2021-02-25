@@ -1,11 +1,11 @@
 package com.maritech.arterium.ui.base;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +15,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.ActivityActionViewModel;
 
@@ -23,14 +24,10 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     protected abstract int getContentView();
 
     public NavController navController = null;
-
-    public BaseActivity baseActivity;
     public LifecycleOwner lifecycleOwner;
     public ActivityActionViewModel actionViewModel;
 
     public T binding;
-
-    public boolean hasInitializedRootView = false;
 
     public BaseFragment() {
     }
@@ -46,12 +43,8 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        if (binding == null) {
-            binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
-            binding.setLifecycleOwner(getViewLifecycleOwner());
-        } else {
-            ((ViewGroup)(binding.getRoot())).removeView(binding.getRoot());
-        }
+        binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
+        binding.setLifecycleOwner(getViewLifecycleOwner());
 
         actionViewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
 
@@ -69,20 +62,10 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
-        if (context instanceof BaseActivity) {
-            baseActivity = ((BaseActivity) context);
-        }
-    }
-
-    @Override
     public void onDestroyView() {
         super.onDestroyView();
 
         binding = null;
-        baseActivity = null;
     }
 
     private ProgressDialog dialog;

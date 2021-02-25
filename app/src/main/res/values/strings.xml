@@ -101,6 +101,7 @@
     <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
     <string name="need_more_buy">Потрібно ще 2 покупки для переходу на наступний рівень.</string>
     <string name="choose_date">Обрати дату</string>
+    <string name="country_code">+380</string>
 
     <string-array name="calendar_month_general">
         <item name="calendar_january">Січень</item>
@@ -116,6 +117,6 @@
         <item name="calendar_november">Листопад</item>
         <item name="calendar_december">Грудень</item>
     </string-array>
-    <string name="title_activity_test">MainActivity</string>
+
 
 </resources>

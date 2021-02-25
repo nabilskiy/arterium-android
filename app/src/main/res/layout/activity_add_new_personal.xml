@@ -155,7 +155,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"/>
 
-                        <EditText
+                        <com.github.pinball83.maskededittext.MaskedEditText
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:inputType="phone"
@@ -165,7 +165,8 @@
                             android:textAppearance="@style/sf_pro_text_16"
                             android:textColor="@color/gray"
                             android:textColorHint="@color/gray"
-                            android:hint="+380"
+                            app:mask="+380 *** ** ** **"
+                            app:notMaskedSymbol="*"
                             android:background="@drawable/login_input_bg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

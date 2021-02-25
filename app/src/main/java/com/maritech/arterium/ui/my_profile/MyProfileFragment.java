@@ -29,9 +29,10 @@ public class MyProfileFragment extends BaseFragment<FragmentMyProfileBinding> {
                 .setOnClickListener(v -> navigator.goToSettings(navController));
 
         binding.myProfileCard.getRoot().setOnClickListener(v -> {
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable(PatientCardFragment.PATIENT_MODEL_KEY, object);
-            navigator.goPatientCard(navController);
+            //todo
+//            Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
+//            intent.putExtra(PatientCardActivity.PATIENT_MODEL_KEY, object);
+//            startActivity(intent);
         });
 
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));

@@ -3,6 +3,8 @@ package com.maritech.arterium.ui.base;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,7 +19,9 @@ import android.view.WindowManager;
 
 import com.maritech.arterium.R;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
+
+    public T binding;
 
     @LayoutRes
     protected abstract int getLayoutId();
@@ -25,7 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
+        binding = DataBindingUtil.setContentView(this, getLayoutId());
+        binding.setLifecycleOwner(this);
     }
 
     public static void setStatusBarGradient(Activity activity, int color) {
@@ -58,7 +63,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             window.setStatusBarColor(fetchPrimaryDarkColor(activity));
             window.setNavigationBarColor(activity.getResources().getColor(android.R.color.black));
             window.setBackgroundDrawable(background);
-            //activity.recreate();
         }
     }
 
@@ -95,5 +99,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (dialog != null) {
             dialog.hide();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        binding = null;
     }
 }

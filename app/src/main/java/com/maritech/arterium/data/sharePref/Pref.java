@@ -5,7 +5,13 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.ProfileResponse;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ujujzk on 16.08.2017
@@ -19,7 +25,9 @@ public class Pref {
     private static final String FIRST_LAUNCH = "FirstLaunch";
     private static final String DEVICE_UUID = "DeviceUUID";
     private static final String USER_DATA = "UserData";
+    private static final String DRUG_PROGRAM_LAST_UPDATE = "drugProgramLastUpdate";
     private static final String DRUG_PROGRAM_ID = "drugProgramKey";
+    private static final String DRUG_PROGRAM_LIST = "drugProgramListKey";
 
     //================================== SINGLETON ==========================================
 
@@ -110,7 +118,37 @@ public class Pref {
         prefsEditor.apply();
     }
 
+    public long getDrugProgramLastMillis(Context context) {
+        return getPrefs(context).getLong(DRUG_PROGRAM_LAST_UPDATE, 0);
+    }
+
+    public void setDrugProgramLastMillis(Context context, long millis) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putLong(DRUG_PROGRAM_LAST_UPDATE, millis);
+        prefsEditor.apply();
+    }
+
     public int getDrugProgramId(Context context) {
         return getPrefs(context).getInt(DRUG_PROGRAM_ID, 1);
+    }
+
+    public void setDrugProgramList(Context context, List<DrugProgramModel> models) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        Gson gson = new Gson();
+        String json;
+        if (models != null && models.size() > 0) {
+            json = gson.toJson(models);
+        } else {
+            json = "";
+        }
+        prefsEditor.putString(DRUG_PROGRAM_LIST, json);
+        prefsEditor.apply();
+    }
+
+    public ArrayList<DrugProgramModel> getDrugProgramList(Context context) {
+        String str = getPrefs(context).getString(DRUG_PROGRAM_LIST, "");
+        Type itemsListType = new TypeToken<List<DrugProgramModel>>() {}.getType();
+
+        return new Gson().fromJson(str,itemsListType);
     }
 }

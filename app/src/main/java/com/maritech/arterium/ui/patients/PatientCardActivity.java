@@ -9,23 +9,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
-import com.maritech.arterium.databinding.FragmentPatientCardBinding;
-import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.databinding.ActivityPatientCardBinding;
+import com.maritech.arterium.ui.base.BaseActivity;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
-public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding> {
+public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding> {
 
     private static final int SCAN_REQUEST_CODE = 660;
     public static final String PATIENT_MODEL_KEY = "patientModel";
@@ -37,28 +36,26 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
             new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
 
     @Override
-    protected int getContentView() {
-        return R.layout.fragment_patient_card;
+    protected int getLayoutId() {
+        return R.layout.activity_patient_card;
     }
 
     @Override
-    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(root, savedInstanceState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
 
-        if (getArguments() != null) {
-            model = getArguments().getParcelable(PATIENT_MODEL_KEY);
+        if (getIntent() != null) {
+            model = getIntent().getParcelableExtra(PATIENT_MODEL_KEY);
         }
 
         binding.patientCardToolbar.tvToolbarTitle.setText(R.string.patient_card);
-        binding.patientCardToolbar.ivArrow.setOnClickListener(
-                v -> requireActivity().onBackPressed()
-        );
+        binding.patientCardToolbar.ivArrow.setOnClickListener(v -> finish());
 
-        setPersonalCardData(root);
+        setPersonalCardData();
 
-        setMedicalCardData(root);
+        setMedicalCardData();
 
         observeViewModel();
 
@@ -66,7 +63,7 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
     }
 
     @SuppressLint("CutPasteId")
-    public void setMedicalCardData(View root){
+    public void setMedicalCardData(){
         ImageView medicalDataIcon;
         TextView tvPatientCardName;
         TextView medicalTitle;
@@ -82,26 +79,31 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
         TextView potassiumEndValue;
 
         //medical data
-        medicalDataIcon = root.findViewById(R.id.patientMedicalData).findViewById(R.id.ivPatientDataIcon);
+        medicalDataIcon = findViewById(R.id.patientMedicalData)
+                .findViewById(R.id.ivPatientDataIcon);
         medicalDataIcon.setBackgroundResource(R.drawable.ic_medical_data);
-        medicalTitle = root.findViewById(R.id.patientMedicalData).findViewById(R.id.tvPatientData);
+        medicalTitle = findViewById(R.id.patientMedicalData)
+                .findViewById(R.id.tvPatientData);
         medicalTitle.setText(R.string.medical_data);
 
         // heart attack
-        heartAttack = root.findViewById(R.id.patientHeartAttack).findViewById(R.id.tvPatientDataListTitle);
+        heartAttack = findViewById(R.id.patientHeartAttack)
+                .findViewById(R.id.tvPatientDataListTitle);
         heartAttack.setText(R.string.heart_attack);
-        heartAttackValue = root.findViewById(R.id.patientHeartAttack).findViewById(R.id.tvPatientDataListValue);
+        heartAttackValue = findViewById(R.id.patientHeartAttack)
+                .findViewById(R.id.tvPatientDataListValue);
 
         if (model.getHearthAttackDate() != null) {
             long millis = model.getHearthAttackDate() * 1000;
             heartAttackValue.setText(dateFormat.format(new Date(millis)));
         }
 
-
         //drug
-        drugAdministration = root.findViewById(R.id.dateOfDrugAdministration).findViewById(R.id.tvPatientDataListTitle);
+        drugAdministration = findViewById(R.id.dateOfDrugAdministration)
+                .findViewById(R.id.tvPatientDataListTitle);
         drugAdministration.setText(R.string.drug_administration);
-        drugAdministrationValue = root.findViewById(R.id.dateOfDrugAdministration).findViewById(R.id.tvPatientDataListValue);
+        drugAdministrationValue = findViewById(R.id.dateOfDrugAdministration)
+                .findViewById(R.id.tvPatientDataListValue);
 
         if (model.getPrescribingDate() != null) {
             long millis = model.getPrescribingDate() * 1000;
@@ -109,34 +111,42 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
         }
 
         //ejection
-        ejectionFraction = root.findViewById(R.id.ejectionFraction).findViewById(R.id.tvPatientDataListTitle);
+        ejectionFraction = findViewById(R.id.ejectionFraction)
+                .findViewById(R.id.tvPatientDataListTitle);
         ejectionFraction.setText(R.string.ejection_fraction);
-        ejectionFractionValue = root.findViewById(R.id.ejectionFraction).findViewById(R.id.tvPatientDataListValue);
+        ejectionFractionValue = findViewById(R.id.ejectionFraction)
+                .findViewById(R.id.tvPatientDataListValue);
         if (model.getEjectionFraction() != null) {
             ejectionFractionValue.setText(model.getEjectionFraction());
         }
 
         //potassium start
-        potassiumStart = root.findViewById(R.id.potassiumLevelOfStartTreatment).findViewById(R.id.tvPatientDataListTitle);
+        potassiumStart = findViewById(R.id.potassiumLevelOfStartTreatment)
+                .findViewById(R.id.tvPatientDataListTitle);
         potassiumStart.setText(R.string.potassium_start);
-        potassiumStartValue = root.findViewById(R.id.potassiumLevelOfStartTreatment).findViewById(R.id.tvPatientDataListValue);
+        potassiumStartValue = findViewById(R.id.potassiumLevelOfStartTreatment)
+                .findViewById(R.id.tvPatientDataListValue);
         if (model.getInitialPotassium() != null) {
             potassiumStartValue.setText(model.getInitialPotassium());
         }
 
         //potassium end
-        potassiumEnd = root.findViewById(R.id.potassiumLevelOfTheEndTreatment).findViewById(R.id.tvPatientDataListTitle);
+        potassiumEnd = findViewById(R.id.potassiumLevelOfTheEndTreatment)
+                .findViewById(R.id.tvPatientDataListTitle);
         potassiumEnd.setText(R.string.potassium_end);
-        potassiumEndValue = root.findViewById(R.id.potassiumLevelOfTheEndTreatment).findViewById(R.id.tvPatientDataListValue);
-        potassiumStartValue = root.findViewById(R.id.potassiumLevelOfStartTreatment).findViewById(R.id.tvPatientDataListValue);
+        potassiumEndValue = findViewById(R.id.potassiumLevelOfTheEndTreatment)
+                .findViewById(R.id.tvPatientDataListValue);
+        potassiumStartValue = findViewById(R.id.potassiumLevelOfStartTreatment)
+                .findViewById(R.id.tvPatientDataListValue);
         if (model.getFinalPotassium() != null) {
             potassiumEndValue.setText(model.getFinalPotassium());
         }
-        root.findViewById(R.id.potassiumLevelOfTheEndTreatment).findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
+        findViewById(R.id.potassiumLevelOfTheEndTreatment)
+                .findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
     }
 
     @SuppressLint("CutPasteId")
-    public void setPersonalCardData(View root){
+    public void setPersonalCardData(){
         TextView sex;
         TextView sexValue;
         TextView weight;
@@ -148,13 +158,13 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
         TextView patientCardNumber;
         ImageView ivPatientDataCardIcon;
 
-        TextView tvPatientCardName = root.findViewById(R.id.tvPatientCardName);
+        TextView tvPatientCardName = findViewById(R.id.tvPatientCardName);
         tvPatientCardName.setText(model.getName());
-        TextView tvPatientCardLastShopping = root.findViewById(R.id.tvPatientCardLastShopping);
+        TextView tvPatientCardLastShopping = findViewById(R.id.tvPatientCardLastShopping);
 
         Long lastPurchases = model.getLastPurchaseAt();
         if (lastPurchases == null) {
-            tvPatientCardLastShopping.setText(requireContext().getString(R.string.without_purchases));
+            tvPatientCardLastShopping.setText(getString(R.string.without_purchases));
             tvPatientCardLastShopping.setTextColor(Color.parseColor("#FF3347"));
         } else {
             tvPatientCardLastShopping.setText(getString(
@@ -162,17 +172,18 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
                                     new Date(lastPurchases * 1000)
                             ))
             );
-            tvPatientCardLastShopping.setTextColor(ContextCompat.getColor(requireContext(), R.color.gray));
+            tvPatientCardLastShopping
+                    .setTextColor(ContextCompat.getColor(this, R.color.gray));
         }
-        TextView tvPatientCardShoppingAmount = root.findViewById(R.id.tvPatientCardShoppingAmount);
+        TextView tvPatientCardShoppingAmount = findViewById(R.id.tvPatientCardShoppingAmount);
         tvPatientCardShoppingAmount.setText(
                 getString(R.string.whole_shopping_items1, model.getPurchasesCount())
         );
 
         //sex
-        sex = root.findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListTitle);
+        sex = findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListTitle);
         sex.setText(R.string.sex);
-        sexValue = root.findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListValue);
+        sexValue = findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListValue);
         if (model.getGender() != null) {
             if (model.getGender().equals("m")) {
                 sexValue.setText(R.string.male);
@@ -181,35 +192,43 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
             }
         }
 
-        patientCardNumber = root.findViewById(R.id.patientCardNumber).findViewById(R.id.tvPatientDataCardTitle);
+        patientCardNumber = findViewById(R.id.patientCardNumber)
+                .findViewById(R.id.tvPatientDataCardTitle);
         patientCardNumber.setText("Номер картки");
 
         binding.patientCardNumber.tvPatientDataCardValue.setText(model.getCardCode());
-        ivPatientDataCardIcon =
-                root.findViewById(R.id.patientCardNumber).findViewById(R.id.ivPatientDataCardIcon);
+        ivPatientDataCardIcon = findViewById(R.id.patientCardNumber)
+                        .findViewById(R.id.ivPatientDataCardIcon);
 
         //weight
-        weight = root.findViewById(R.id.patientWeight).findViewById(R.id.tvPatientDataListTitle);
+        weight = findViewById(R.id.patientWeight)
+                .findViewById(R.id.tvPatientDataListTitle);
         weight.setText(R.string.weight);
-        weightValue = root.findViewById(R.id.patientWeight).findViewById(R.id.tvPatientDataListValue);
+        weightValue = findViewById(R.id.patientWeight)
+                .findViewById(R.id.tvPatientDataListValue);
         weightValue.setText(String.valueOf(model.getWeight()));
 
         //growth
-        growth = root.findViewById(R.id.patientGrowth).findViewById(R.id.tvPatientDataListTitle);
+        growth = findViewById(R.id.patientGrowth)
+                .findViewById(R.id.tvPatientDataListTitle);
         growth.setText(R.string.growth);
-        growthValue = root.findViewById(R.id.patientGrowth).findViewById(R.id.tvPatientDataListValue);
+        growthValue = findViewById(R.id.patientGrowth)
+                .findViewById(R.id.tvPatientDataListValue);
         growthValue.setText(String.valueOf(model.getHeight()));
 
         //dose
-        dose = root.findViewById(R.id.patientDrugsDose).findViewById(R.id.tvPatientDataListTitle);
+        dose = findViewById(R.id.patientDrugsDose)
+                .findViewById(R.id.tvPatientDataListTitle);
         dose.setText(R.string.dose);
-        doseValue = root.findViewById(R.id.patientDrugsDose).findViewById(R.id.tvPatientDataListValue);
+        doseValue = findViewById(R.id.patientDrugsDose)
+                .findViewById(R.id.tvPatientDataListValue);
         doseValue.setText(String.valueOf(model.getDose()));
-        root.findViewById(R.id.patientDrugsDose).findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
+        findViewById(R.id.patientDrugsDose)
+                .findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
     }
 
     public void onScanPress(View v) {
-        Intent scanIntent = new Intent(getContext(), CardIOActivity.class);
+        Intent scanIntent = new Intent(this, CardIOActivity.class);
 
         // customize these values to suit your needs.
         scanIntent.putExtra(CardIOActivity.EXTRA_REQUIRE_EXPIRY, true);
@@ -221,16 +240,13 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
     }
 
     private void observeViewModel() {
-        viewModel.imageResponse.observe(getViewLifecycleOwner(), responseBody -> {
+        viewModel.imageResponse.observe(this, responseBody -> {
             Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
             binding.ivMyProfileLogo.setImageBitmap(bitmap);
         });
-        viewModel.imageState.observe(getViewLifecycleOwner(), new Observer<ContentState>() {
-            @Override
-            public void onChanged(ContentState contentState) {
-                if (contentState == ContentState.ERROR) {
-                    binding.ivMyProfileLogo.setImageResource(R.drawable.user_placeholder);
-                }
+        viewModel.imageState.observe(this, contentState -> {
+            if (contentState == ContentState.ERROR) {
+                binding.ivMyProfileLogo.setImageResource(R.drawable.user_placeholder);
             }
         });
     }
@@ -244,7 +260,8 @@ public class PatientCardFragment extends BaseFragment<FragmentPatientCardBinding
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SCAN_REQUEST_CODE) {
             if (data != null && data.hasExtra(CardIOActivity.EXTRA_SCAN_RESULT)) {
-                CreditCard scanResult = data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
+                CreditCard scanResult =
+                        data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
                 binding.patientCardNumber.tvPatientDataCardValue.setText(scanResult.cardNumber);
             }
         }

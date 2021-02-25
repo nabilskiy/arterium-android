@@ -11,6 +11,7 @@ public class DrugProgramsResponse implements Parcelable {
     @SerializedName("data")
     @Expose
     private List<DrugProgramModel> data = null;
+
     public final static Parcelable.Creator<DrugProgramsResponse> CREATOR = new Creator<DrugProgramsResponse>() {
         public DrugProgramsResponse createFromParcel(Parcel in) {
             return new DrugProgramsResponse(in);

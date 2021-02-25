@@ -11,10 +11,6 @@ public class MyProfileNavigator extends BaseNavigator {
         navController.navigate(R.id.action_myProfileFragment_to_settingsFragment);
     }
 
-    void goPatientCard(NavController navController) {
-        navController.navigate(R.id.action_myProfileFragment_to_patientCardFragment);
-    }
-
     void goToMap(NavController navController) {
         navController.navigate(R.id.action_myProfileFragment_to_pharmacyFragment);
     }

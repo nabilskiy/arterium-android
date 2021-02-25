@@ -40,8 +40,8 @@ public interface ApiService {
     @POST("api/v1/auth/logout")
     Single<BaseResponse> logout();
 
-    @POST("api/v1/info/drug-programs")
-    Single<DrugProgramsResponse> getDrugPrograms();
+    @GET("api/v1/info/drug-programs")
+    Observable<DrugProgramsResponse> getDrugPrograms();
 
     @GET("api/v1/profile")
     Observable<ProfileResponse> getProfile();

@@ -1,41 +1,52 @@
 package com.maritech.arterium.ui.dashboardDoctor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
+import com.maritech.arterium.data.models.DrugProgramModel;
+import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
 import com.maritech.arterium.ui.ActivityActionViewModel;
+import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.DialogWithRecycler;
+import com.maritech.arterium.ui.drugPrograms.DrugProgramsDialog;
+import com.maritech.arterium.ui.drugPrograms.DrugProgramsViewModel;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
 import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
+import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 import com.maritech.arterium.utils.ToastUtil;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
-    DashboardNavigator navigator = new DashboardNavigator();
-
     private PatientsSharedViewModel sharedViewModel;
 
     private ProfileViewModel profileViewModel;
+    private DrugProgramsViewModel drugProgramsViewModel;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    DialogWithRecycler customDialog;
+    private DrugProgramsDialog customDialog;
+
+    private final int ADD_PATIENT_REQUEST_CODE = 500;
 
     @Override
     protected int getContentView() {
@@ -54,6 +65,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         }
+        if (drugProgramsViewModel == null) {
+            drugProgramsViewModel =
+                    new ViewModelProvider(this).get(DrugProgramsViewModel.class);
+        }
 
 //        final int clProgramColorGliptar = R.drawable.gradient_light_red;
 //        final int clProgramColorSagrada = R.drawable.gradient_light_blue;
@@ -61,7 +76,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 //        final int clInfoUserColorSagrada = R.drawable.ic_sagrada;
 
         getChildFragmentManager().beginTransaction()
-                .add(R.id.vpPatients, PatientsFragment.getInstance())
+                .replace(R.id.vpPatients, PatientsFragment.getInstance())
                 .commit();
 
         binding.detailsView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
@@ -127,38 +142,45 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         });
 
         binding.clBtnAddNewPersonal.setOnClickListener(
-                v -> navigator.addNewPersonal(navController)
+                v -> {
+                    Intent intent = new Intent(requireActivity(), AddNewPersonalActivity.class);
+                    startActivityForResult(intent, ADD_PATIENT_REQUEST_CODE);
+                }
         );
 
-        binding.clProgram.setOnClickListener(v -> customDialog.show());
+        binding.clProgram.setOnClickListener(v -> {
+            customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
+        });
 
         binding.clInfoClose.setOnClickListener(v -> actionViewModel.onRecreate.setValue(true));
 
         observeViewModel();
 
         profileViewModel.getProfile();
+
+        drugProgramsViewModel.getDrugPrograms();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        customDialog = new DialogWithRecycler(this.getContext(), "DialogChooseTheme");
+        customDialog = new DrugProgramsDialog();
 
         customDialog.setListener(content -> {
             if (content == 0) {
-                baseActivity.setThemeDefault();
+                ((MainActivity) requireActivity()).setThemeDefault();
                 BaseActivity.setStatusBarGradientDrawable(
                         requireActivity(), R.drawable.gradient_primary
                 );
             }
             if (content == 1) {
-                baseActivity.setThemeBlue();
+                ((MainActivity) requireActivity()).setThemeBlue();
                 BaseActivity.setStatusBarGradientDrawable(
                         requireActivity(), R.drawable.gradient_primary
                 );
             }
             if (content == 2) {
-                baseActivity.setThemeRed();
+                ((MainActivity) requireActivity()).setThemeRed();
                 BaseActivity.setStatusBarGradientDrawable(
                         requireActivity(), R.drawable.gradient_primary
                 );
@@ -180,18 +202,32 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
                         });
 
-//        viewModel.contentState
-//                .observe(getViewLifecycleOwner(), contentState -> {
-//                    if (contentState.isLoading()) {
-//                        showProgressDialog();
-//                    } else {
-//                        hideProgressDialog();
-//                    }
-//                });
-
         profileViewModel.errorMessage
                 .observe(getViewLifecycleOwner(), error -> {
                     ToastUtil.show(requireContext(), error);
+                });
+
+        drugProgramsViewModel.responseLiveData
+                .observe(getViewLifecycleOwner(),
+                        list -> {
+                            int programId = Pref.getInstance().getDrugProgramId(requireContext());
+                            DrugProgramModel model = list.get(programId);
+                            binding.tvCurrentProgram.setText(String.format("%s - \"%s\"", model.getTitle(), model.getSlogan()));
+                            binding.tvInfoProgram.setText(model.getDescription());
+                        });
+
+        drugProgramsViewModel.errorMessage
+                .observe(getViewLifecycleOwner(), error -> {
+//                    ToastUtil.show(requireContext(), error);
+                });
+
+        drugProgramsViewModel.contentState
+                .observe(getViewLifecycleOwner(), contentState -> {
+                    if (contentState.isLoading()) {
+
+                    } else {
+
+                    }
                 });
     }
 
@@ -203,12 +239,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override
@@ -217,4 +251,20 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         }
     };
 
+    @Override
+    public void onActivityResult(int requestCode,
+                                 int resultCode,
+                                 @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == ADD_PATIENT_REQUEST_CODE) {
+                sharedViewModel.reload.setValue(true);
+
+                binding.details.findViewById(R.id.tvOne).setActivated(true);
+                binding.details.findViewById(R.id.tvTwo).setActivated(false);
+                binding.details.findViewById(R.id.tvThree).setActivated(false);
+            }
+        }
+    }
 }

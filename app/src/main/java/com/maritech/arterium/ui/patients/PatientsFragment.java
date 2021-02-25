@@ -1,19 +1,22 @@
 package com.maritech.arterium.ui.patients;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
 import com.maritech.arterium.data.models.PatientModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentPatientsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.dashboardDoctor.DashboardNavigator;
 import com.maritech.arterium.ui.patients.adapter.PatientPurchasesAdapter;
 import com.maritech.arterium.utils.ToastUtil;
 
@@ -21,14 +24,8 @@ import java.util.ArrayList;
 
 public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
-    DashboardNavigator navigator = new DashboardNavigator();
     private PatientsViewModel viewModel;
     private PatientsSharedViewModel sharedViewModel;
-
-    static final String PURCHASES_FILTER_KEY = "purchasesFilterKey";
-    static final String CREATED_FROM_DATE = "createdFromKey";
-    static final String CREATED_TO_DATE = "createdToKey";
-    static final String SEARCH_QUERY_KEY = "searchQueryKey";
 
     private String createdFromDate;
     private String createdToDate;
@@ -46,7 +43,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     }
 
     public static Fragment getInstance() {
-
         PatientsFragment fragment = new PatientsFragment();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
@@ -63,24 +59,18 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.e("Patients", "onViewCreated");
+        binding.setVm(viewModel);
 
-        if (!hasInitializedRootView) {
-            hasInitializedRootView = true;
+        initView();
 
-            binding.setVm(viewModel);
+        sharedViewModel =
+                new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
 
-            initView();
+        viewModel =
+                new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
 
-            sharedViewModel =
-                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
-
-            viewModel =
-                    new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
-
-            observeViewModel();
-        }
-
-
+        observeViewModel();
     }
 
     private void observeViewModel() {
@@ -118,6 +108,12 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 //        sharedViewModel.filter.observe(getViewLifecycleOwner(), s -> {
 //
 //        });
+
+        sharedViewModel.reload.observe(getViewLifecycleOwner(), isReload -> {
+            if (isReload) {
+                getPatientList();
+            }
+        });
 
         sharedViewModel.searchQuery.observe(getViewLifecycleOwner(), query -> {
             searchQuery = query;
@@ -162,10 +158,9 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 requireContext(),
                 filteredList,
                 (position, object) -> {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(PatientCardFragment.PATIENT_MODEL_KEY, object);
-                    navigator.goToPatientCard(navController, bundle);
-
+                    Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
+                    intent.putExtra(PatientCardActivity.PATIENT_MODEL_KEY, object);
+                    startActivity(intent);
                 }
         );
         binding.rvPatients.setLayoutManager(new LinearLayoutManager(getContext()));

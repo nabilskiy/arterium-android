@@ -12,20 +12,8 @@
         tools:layout="@layout/fragment_main_container">
 
         <action
-            android:id="@+id/action_dashboardFragment_to_addNewPersonalFragment"
-            app:destination="@id/addNewPersonalFragment"/>
-
-        <action
             android:id="@+id/action_dashboardFragment_to_dashboardRmFragment"
             app:destination="@id/dashboardRmFragment" />
-
-        <action
-            android:id="@+id/action_dashboardFragment_to_patientCardFragment"
-            app:destination="@id/patientCardFragment" />
-
-        <action
-            android:id="@+id/action_myProfileDoctorFragment_to_patientCardFragment"
-            app:destination="@id/patientCardFragment" />
 
         <action
             android:id="@+id/action_myProfileDoctorFragment_to_settingsFragment"
@@ -47,13 +35,6 @@
             android:id="@+id/action_profile_to_achievementsFragment"
             app:destination="@id/achievementsFragment" />
 
-    </fragment>
-
-    <fragment
-        android:id="@+id/addNewPersonalFragment"
-        android:name="com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalFragment"
-        android:label="AddNewPersonalFragment"
-        tools:layout="@layout/fragment_add_new_personal">
     </fragment>
 
     <fragment
@@ -122,12 +103,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/patientCardFragment"
-        android:name="com.maritech.arterium.ui.patients.PatientCardFragment"
-        android:label="PatientCardFragment"
-        tools:layout="@layout/fragment_patient_card" />
-
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.maritech.arterium.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
@@ -163,9 +138,6 @@
         <action
             android:id="@+id/action_myProfileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_myProfileFragment_to_patientCardFragment"
-            app:destination="@id/patientCardFragment" />
         <action
             android:id="@+id/action_myProfileFragment_self"
             app:destination="@id/profile" />

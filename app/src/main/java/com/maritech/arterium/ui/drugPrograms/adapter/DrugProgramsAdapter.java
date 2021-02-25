@@ -1,7 +1,6 @@
-package com.maritech.arterium.ui.dialogs.dialog_with_recycler.adapter;
+package com.maritech.arterium.ui.drugPrograms.adapter;
 
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
-import com.maritech.arterium.ui.choose_doctor.holder.ChooseDoctorAdapter;
-import com.maritech.arterium.ui.dialogs.dialog_with_recycler.data.DialogContent;
+import com.maritech.arterium.ui.drugPrograms.data.DialogContent;
 
 import java.util.ArrayList;
 
-public class AdapterDialog extends RecyclerView.Adapter<AdapterDialog.ViewHolder> {
+public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapter.ViewHolder> {
 
     ArrayList<DialogContent> localDataSet;
-    private AdapterDialog.OnItemClickListener onItemClickListener;
+    private DrugProgramsAdapter.OnItemClickListener onItemClickListener;
 
 
     public interface OnItemClickListener {
@@ -44,7 +41,7 @@ public class AdapterDialog extends RecyclerView.Adapter<AdapterDialog.ViewHolder
         }
     }
 
-    public AdapterDialog(ArrayList<DialogContent> dataSet, AdapterDialog.OnItemClickListener onItemClickListener) {
+    public DrugProgramsAdapter(ArrayList<DialogContent> dataSet, DrugProgramsAdapter.OnItemClickListener onItemClickListener) {
         localDataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
     }

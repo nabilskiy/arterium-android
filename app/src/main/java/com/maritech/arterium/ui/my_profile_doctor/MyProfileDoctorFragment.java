@@ -42,7 +42,10 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                 .setOnClickListener(v -> navigator.goToSettings(navController));
 
         binding.myProfileCard.getRoot().setOnClickListener(
-                v -> navigator.goPatientCard(navController)
+                v -> {
+                    //TODO
+                    ToastUtil.show(requireContext(), "MyProfileDoctorFragment");
+                }
         );
 
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));
@@ -85,7 +88,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                 .observe(getViewLifecycleOwner(),
                         loginData -> {
                             startActivity(new Intent(getActivity(), MainActivity.class));
-                            baseActivity.finishAffinity();
+                            requireActivity().finishAffinity();
                         });
 
         logoutViewModel.contentState

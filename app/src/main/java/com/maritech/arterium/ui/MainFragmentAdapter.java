@@ -10,31 +10,11 @@ import com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment;
 import com.maritech.arterium.ui.notifications.NotificationsFragment;
 import com.maritech.arterium.ui.statistics.StatFragment;
 
-import org.jetbrains.annotations.NotNull;
-
 public class MainFragmentAdapter extends FragmentStateAdapter {
 
     public MainFragmentAdapter(@NonNull FragmentManager fragmentManager,
                                @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
-
-        registerFragmentTransactionCallback(new FragmentTransactionCallback() {
-            @NonNull
-            @NotNull
-            @Override
-            public OnPostEventListener onFragmentMaxLifecyclePreUpdated(@NonNull @NotNull Fragment fragment, @NonNull @NotNull Lifecycle.State maxLifecycleState) {
-                if (maxLifecycleState == Lifecycle.State.RESUMED) {
-                    return () -> {
-                        fragment.getParentFragmentManager()
-                                .beginTransaction().commitNow();
-                        fragment.getParentFragmentManager()
-                                .beginTransaction().setPrimaryNavigationFragment(fragment);
-                    };
-                }
-
-                return super.onFragmentMaxLifecyclePreUpdated(fragment, maxLifecycleState);
-            }
-        });
     }
 
     @NonNull
@@ -56,4 +36,5 @@ public class MainFragmentAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 4;
     }
+
 }

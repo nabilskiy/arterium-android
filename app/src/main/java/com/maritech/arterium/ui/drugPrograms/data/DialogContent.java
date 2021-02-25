@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.dialogs.dialog_with_recycler.data;
+package com.maritech.arterium.ui.drugPrograms.data;
 
 public class DialogContent {
     private int idTittle;

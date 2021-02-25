@@ -20,7 +20,7 @@ import okhttp3.ResponseBody;
 public class PatientsViewModel extends BaseViewModel {
 
     public MutableLiveData<PatientsResponse> responseLiveData = new MutableLiveData<>();
-    public SingleLiveEvent<ContentState> contentState = new SingleLiveEvent<>();
+    public MutableLiveData<ContentState> contentState = new MutableLiveData<>();
     public SingleLiveEvent<String> errorMessage = new SingleLiveEvent<>();
     public SingleLiveEvent<PatientCreateModel> createPatient = new SingleLiveEvent<>();
     public SingleLiveEvent<ContentState> createPatientState = new SingleLiveEvent<>();
