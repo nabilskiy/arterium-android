@@ -138,7 +138,8 @@
                             android:id="@+id/lvl_layout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true">
+                            android:layout_alignParentEnd="true"
+                            android:background="?attr/selectableItemBackgroundBorderless">
 
                             <FrameLayout
                                 android:id="@+id/lvl_fl"

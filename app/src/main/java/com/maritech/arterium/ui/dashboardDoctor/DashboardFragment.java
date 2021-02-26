@@ -21,6 +21,7 @@ import com.maritech.arterium.databinding.FragmentDashboardBinding;
 import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.dashboardDoctor.level.LevelFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsDialog;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsViewModel;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
@@ -66,11 +67,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             drugProgramsViewModel =
                     new ViewModelProvider(this).get(DrugProgramsViewModel.class);
         }
-
-//        final int clProgramColorGliptar = R.drawable.gradient_light_red;
-//        final int clProgramColorSagrada = R.drawable.gradient_light_blue;
-//        final int clInfoUserColorGliptar = R.drawable.ic_gliptar;
-//        final int clInfoUserColorSagrada = R.drawable.ic_sagrada;
 
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.vpPatients, PatientsFragment.getInstance())
@@ -160,6 +156,12 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
         binding.clInfoClose.setOnClickListener(v -> actionViewModel.onRecreate.setValue(true));
 
+        binding.lvlLayout.setOnClickListener(v -> {
+            LevelFragment fragment = new LevelFragment();
+            fragment.setListener(fragment::dismiss);
+            fragment.show(getChildFragmentManager(), "LevelFragment");
+        });
+
         observeViewModel();
 
         profileViewModel.getProfile();
@@ -213,25 +215,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                                 }
                             }
                         });
-
-        drugProgramsViewModel.errorMessage
-                .observe(getViewLifecycleOwner(), error -> {
-//                    ToastUtil.show(requireContext(), error);
-                });
-
-        drugProgramsViewModel.contentState
-                .observe(getViewLifecycleOwner(), contentState -> {
-                    if (contentState.isLoading()) {
-//                        binding.progressBar.setVisibility(View.VISIBLE);
-                    } else {
-//                        binding.progressBar.setVisibility(View.GONE);
-                    }
-                });
-    }
-
-    public void setLvlTheme(int clProgramColor, int clInfoUserColor) {
-        binding.clProgram.setBackgroundResource(clProgramColor);
-        binding.clInfoUser.setBackgroundResource(clProgramColor);
     }
 
     private final TextWatcher textWatcher = new TextWatcher() {
