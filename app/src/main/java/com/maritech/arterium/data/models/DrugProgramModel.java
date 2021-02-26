@@ -1,6 +1,5 @@
 package com.maritech.arterium.data.models;
 
-import android.os.Parcel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -23,6 +22,8 @@ public class DrugProgramModel {
     @SerializedName("products")
     @Expose
     private List<Product> products = null;
+
+    private boolean selected = false;
 
     public DrugProgramModel() {
     }
@@ -67,12 +68,12 @@ public class DrugProgramModel {
         this.products = products;
     }
 
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(id);
-        dest.writeValue(title);
-        dest.writeValue(slogan);
-        dest.writeValue(description);
-        dest.writeList(products);
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public static class Product {

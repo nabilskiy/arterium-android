@@ -1,8 +1,5 @@
 package com.maritech.arterium.ui.patients;
 
-
-import androidx.lifecycle.MutableLiveData;
-
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientCreateModel;
 import com.maritech.arterium.data.models.PatientsResponse;
@@ -10,17 +7,15 @@ import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
 import com.maritech.arterium.ui.base.BaseViewModel;
 import com.maritech.arterium.ui.base.SingleLiveEvent;
-
 import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 public class PatientsViewModel extends BaseViewModel {
 
-    public MutableLiveData<PatientsResponse> responseLiveData = new MutableLiveData<>();
-    public MutableLiveData<ContentState> contentState = new MutableLiveData<>();
+    public SingleLiveEvent<PatientsResponse> responseLiveData = new SingleLiveEvent<>();
+    public SingleLiveEvent<ContentState> contentState = new SingleLiveEvent<>();
     public SingleLiveEvent<String> errorMessage = new SingleLiveEvent<>();
     public SingleLiveEvent<PatientCreateModel> createPatient = new SingleLiveEvent<>();
     public SingleLiveEvent<ContentState> createPatientState = new SingleLiveEvent<>();

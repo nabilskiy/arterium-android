@@ -12,13 +12,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
+import com.maritech.arterium.databinding.ActivityLoginBinding;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.utils.ToastUtil;
 import org.jetbrains.annotations.NotNull;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     static final String BUNDLE_KEY = "login";
     static final String REQUEST_KEY = "requestLoginKey";
@@ -117,6 +118,7 @@ public class LoginActivity extends BaseActivity {
 //            navigator.goToDoctorDashboard(navController);
 
             startActivity(intent);
+            finish();
         } else if (role.toLowerCase().equals(UserType.REGIONAL.toString())) {
             result.putString(BUNDLE_KEY, "regional");
 //            navigator.goToRegionalDashboard(navController);

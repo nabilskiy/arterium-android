@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.maritech.arterium.R;
+import com.maritech.arterium.databinding.ActivityMainBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private NavController navController;
 

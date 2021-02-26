@@ -5,8 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_transparent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clBtnAll"
@@ -32,22 +31,26 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/tvBack"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/bg_white_radius_twelve"
+            android:layout_marginBottom="8dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:gravity="center"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="10dp"
             android:text="Скасувати"
             android:textAppearance="@style/sf_pro_semibold_16"
             android:textColor="@color/navy_blue"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clBtnAll" />
+            app:layout_constraintTop_toBottomOf="@+id/clBtnAll"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

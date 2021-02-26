@@ -20,7 +20,6 @@ import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
 import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
-import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsDialog;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsViewModel;
@@ -43,8 +42,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-
-    private DrugProgramsDialog customDialog;
 
     private final int ADD_PATIENT_REQUEST_CODE = 500;
 
@@ -149,6 +146,15 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         );
 
         binding.clProgram.setOnClickListener(v -> {
+            DrugProgramsDialog customDialog = new DrugProgramsDialog();
+
+            customDialog.setListener(content -> {
+                ((MainActivity) requireActivity()).setTheme();
+
+                customDialog.dismiss();
+                actionViewModel.onRecreate.setValue(true);
+            });
+
             customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
         });
 
@@ -164,30 +170,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        customDialog = new DrugProgramsDialog();
 
-        customDialog.setListener(content -> {
-            if (content == 0) {
-                ((MainActivity) requireActivity()).setThemeDefault();
-                BaseActivity.setStatusBarGradientDrawable(
-                        requireActivity(), R.drawable.gradient_primary
-                );
-            }
-            if (content == 1) {
-                ((MainActivity) requireActivity()).setThemeBlue();
-                BaseActivity.setStatusBarGradientDrawable(
-                        requireActivity(), R.drawable.gradient_primary
-                );
-            }
-            if (content == 2) {
-                ((MainActivity) requireActivity()).setThemeRed();
-                BaseActivity.setStatusBarGradientDrawable(
-                        requireActivity(), R.drawable.gradient_primary
-                );
-            }
-
-            actionViewModel.onRecreate.setValue(true);
-        });
     }
 
     private void observeViewModel() {
@@ -211,13 +194,23 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                 .observe(getViewLifecycleOwner(),
                         list -> {
                             int programId = Pref.getInstance().getDrugProgramId(requireContext());
-                            DrugProgramModel model = list.get(programId);
-                            binding.tvCurrentProgram.setText(String.format("%s - \"%s\"", model.getTitle(), model.getSlogan()));
+                            DrugProgramModel model = null;
 
-                            if (model.getDescription() != null) {
-                                binding.tvInfoProgram.setText(model.getDescription());
-                            } else {
-                                binding.tvInfoProgram.setText("Немає опису");
+                            for (DrugProgramModel m : list) {
+                                if (m.getId() == programId) {
+                                    model = m;
+                                    break;
+                                }
+                            }
+
+                            if (model != null) {
+                                binding.tvCurrentProgram.setText(String.format("%s - \"%s\"", model.getTitle(), model.getSlogan()));
+
+                                if (model.getDescription() != null) {
+                                    binding.tvInfoProgram.setText(model.getDescription());
+                                } else {
+                                    binding.tvInfoProgram.setText("Немає опису");
+                                }
                             }
                         });
 

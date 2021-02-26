@@ -293,32 +293,39 @@
                         app:layout_constraintTop_toBottomOf="@id/clBtnAddNewPersonal"
                         app:layout_constraintVertical_bias="0.0">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvCurrentProgram"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="12dp"
-                            tools:text="Рениаль – «Ключ до життя»"
-                            android:textAppearance="@style/sf_pro_semibold_16"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="?android:selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp">
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvInfoProgram"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:lines="2"
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvCurrentProgram"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/sf_pro_semibold_16"
+                                android:textColor="@color/white"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="Рениаль – «Ключ до життя»" />
 
-                            android:alpha="0.8"
-                            android:maxEms="15"
-                            tools:text="Потрібно ще 2 покупки для переходу на наступний рівень."
-                            android:textAppearance="@style/sf_pro_semibold_12"
-                            android:textColor="@color/white"
-                            app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
-                            app:layout_constraintTop_toBottomOf="@+id/tvCurrentProgram" />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvInfoProgram"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:alpha="0.8"
+                                android:maxEms="15"
+                                android:maxLines="2"
+                                android:textAppearance="@style/sf_pro_semibold_12"
+                                android:textColor="@color/white"
+                                app:layout_constraintStart_toStartOf="@+id/tvCurrentProgram"
+                                app:layout_constraintTop_toBottomOf="@+id/tvCurrentProgram"
+                                tools:text="Потрібно ще 2 покупки дл" />
+
+                        </LinearLayout>
 
                         <ImageView
                             android:id="@+id/ivGoChangeProgram"
@@ -330,6 +337,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/ic_chevron_left" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

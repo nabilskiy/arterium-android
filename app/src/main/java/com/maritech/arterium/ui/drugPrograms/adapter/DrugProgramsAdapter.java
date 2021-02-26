@@ -7,22 +7,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
-import com.maritech.arterium.ui.drugPrograms.data.DialogContent;
+import com.maritech.arterium.data.models.DrugProgramModel;
 
 import java.util.ArrayList;
 
 public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapter.ViewHolder> {
 
-    ArrayList<DialogContent> localDataSet;
+    private ArrayList<DrugProgramModel> localDataSet;
     private DrugProgramsAdapter.OnItemClickListener onItemClickListener;
 
-
     public interface OnItemClickListener {
-        void onItemClicked(int position, DialogContent object, String tittle);
+        void onItemClicked(int position, DrugProgramModel object, String tittle);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,11 +41,13 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
         }
     }
 
-    public DrugProgramsAdapter(ArrayList<DialogContent> dataSet, DrugProgramsAdapter.OnItemClickListener onItemClickListener) {
+    public DrugProgramsAdapter(ArrayList<DrugProgramModel> dataSet,
+                               DrugProgramsAdapter.OnItemClickListener onItemClickListener) {
         localDataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -57,13 +59,28 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 
-        viewHolder.ivBtnCheck.setActivated(localDataSet.get(position).isActive());
-        viewHolder.tvName.setText(localDataSet.get(position).getIdTittle());
-        viewHolder.tvName.setTextColor(ContextCompat.getColor(viewHolder.tvName.getContext(), localDataSet.get(position).getIdTextColor()));
-        viewHolder.tvHint.setTextColor(ContextCompat.getColor(viewHolder.tvHint.getContext(), localDataSet.get(position).getIdTextColor()));
-        viewHolder.tvHint.setText(localDataSet.get(position).getIdHint());
+        viewHolder.ivBtnCheck.setActivated(localDataSet.get(position).isSelected());
+        viewHolder.tvName.setText(String.format("%s - \"%s\"",
+                localDataSet.get(position).getTitle(), localDataSet.get(position).getSlogan()));
 
-        if (localDataSet.size()-1 == position){
+        int color;
+        if (position == 1) {
+            color = ContextCompat.getColor(viewHolder.tvName.getContext(), R.color.blue);
+        } else if (position == 2) {
+            color = ContextCompat.getColor(viewHolder.tvName.getContext(), R.color.red);
+        } else {
+            color = ContextCompat.getColor(viewHolder.tvName.getContext(), R.color.purple);
+        }
+
+        viewHolder.tvName.setTextColor(color);
+
+        if (localDataSet.get(position).getDescription() != null) {
+            viewHolder.tvHint.setText(localDataSet.get(position).getDescription());
+        } else {
+            viewHolder.tvHint.setText("Немає опису");
+        }
+
+        if (localDataSet.size() - 1 == position) {
             viewHolder.viewLine.setVisibility(View.GONE);
         }
 

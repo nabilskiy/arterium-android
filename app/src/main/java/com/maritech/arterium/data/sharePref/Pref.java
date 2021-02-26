@@ -112,12 +112,6 @@ public class Pref {
         return gson.fromJson(json, ProfileResponse.class);
     }
 
-    public void setDrugProgramId(Context context, int id) {
-        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
-        prefsEditor.putInt(DRUG_PROGRAM_ID, id);
-        prefsEditor.apply();
-    }
-
     public long getDrugProgramLastMillis(Context context) {
         return getPrefs(context).getLong(DRUG_PROGRAM_LAST_UPDATE, 0);
     }
@@ -125,6 +119,12 @@ public class Pref {
     public void setDrugProgramLastMillis(Context context, long millis) {
         SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
         prefsEditor.putLong(DRUG_PROGRAM_LAST_UPDATE, millis);
+        prefsEditor.apply();
+    }
+
+    public void setDrugProgramId(Context context, int id) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putInt(DRUG_PROGRAM_ID, id);
         prefsEditor.apply();
     }
 

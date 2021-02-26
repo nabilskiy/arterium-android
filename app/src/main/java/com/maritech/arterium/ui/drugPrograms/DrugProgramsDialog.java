@@ -1,40 +1,29 @@
 package com.maritech.arterium.ui.drugPrograms;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.DrugProgramModel;
+import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.DialogWithRecyclerBinding;
 import com.maritech.arterium.ui.drugPrograms.adapter.DrugProgramsAdapter;
-import com.maritech.arterium.ui.drugPrograms.data.DialogContent;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class DrugProgramsDialog extends DialogFragment {
-
-    private static final String NAME = "ThemeColors", KEY = "ThemeColors";
+public class DrugProgramsDialog extends BottomSheetDialogFragment {
 
     private OnChooseItem onChooseItem;
 
-    private String data;
     private ArrayList<DrugProgramModel> listContent = new ArrayList<>();
     private DrugProgramsAdapter adapter;
 
@@ -42,14 +31,14 @@ public class DrugProgramsDialog extends DialogFragment {
 
     private DialogWithRecyclerBinding binding;
 
-//    public DrugProgramsDialog(Context context, String data) {
-//        super(context, R.style.ChooseProgramDialog);
-//        this.data = data;
-//        initView(context);
-//    }
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.ChooseProgramDialog);
+    }
 
     @Nullable
-    @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
@@ -72,19 +61,19 @@ public class DrugProgramsDialog extends DialogFragment {
     }
 
     private void initView() {
-//        adapter = new DrugProgramsAdapter(listContent, (position, object, tittle) -> {
-//            for(int i=0; i<listContent.size(); i++){
-//                listContent.get(i).setActive(false);
-//            }
-//            object.setActive(true);
-//
-//            if(onChooseItem != null) {
-//                onChooseItem.onChoose(position);
-//            }
+        adapter = new DrugProgramsAdapter(listContent, (position, object, tittle) -> {
+            for (int i = 0; i < listContent.size(); i++) {
+                listContent.get(i).setSelected(false);
+            }
 
-//            dismiss();
-//        });
-//        binding.rvStyle.setAdapter(adapter);
+            object.setSelected(true);
+
+            if (onChooseItem != null) {
+                Pref.getInstance().setDrugProgramId(requireContext(), object.getId());
+                onChooseItem.onChoose(object.getId());
+            }
+        });
+        binding.rvStyle.setAdapter(adapter);
 
         binding.tvBack.setOnClickListener(v -> dismiss());
 
@@ -92,17 +81,47 @@ public class DrugProgramsDialog extends DialogFragment {
             getDialog().setCanceledOnTouchOutside(true);
         }
 
-//        WindowManager.LayoutParams attributes = getWindow().getAttributes();
-//        attributes.gravity = Gravity.BOTTOM;
-//        attributes.y = 50;
-
-//        getWindow().setAttributes(attributes);
+        observerViewModel();
 
         getPrograms();
     }
 
     public void setListener(OnChooseItem onChooseItem) {
         this.onChooseItem = onChooseItem;
+    }
+
+    private void observerViewModel() {
+        drugProgramsViewModel.responseLiveData
+                .observe(getViewLifecycleOwner(),
+                        list -> {
+                            int selectedId = Pref.getInstance().getDrugProgramId(requireContext());
+                            listContent.clear();
+                            listContent.addAll(list);
+
+                            for (int i = 0; i < listContent.size(); i++) {
+                                listContent.get(i).setSelected(false);
+
+                                if (selectedId == listContent.get(i).getId()) {
+                                    listContent.get(i).setSelected(true);
+                                }
+                            }
+
+                            adapter.notifyDataSetChanged();
+                        });
+
+        drugProgramsViewModel.errorMessage
+                .observe(getViewLifecycleOwner(), error -> {
+//                    ToastUtil.show(requireContext(), error);
+                });
+
+        drugProgramsViewModel.contentState
+                .observe(getViewLifecycleOwner(), contentState -> {
+                    if (contentState.isLoading()) {
+//                        binding.progressBar.setVisibility(View.VISIBLE);
+                    } else {
+//                        binding.progressBar.setVisibility(View.GONE);
+                    }
+                });
     }
 
     private void getPrograms() {

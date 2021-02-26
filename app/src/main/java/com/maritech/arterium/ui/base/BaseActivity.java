@@ -18,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.sharePref.Pref;
 
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
@@ -28,9 +29,28 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme();
+
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setLifecycleOwner(this);
+    }
+
+    public void setTheme() {
+        int drugProgramId = Pref.getInstance().getDrugProgramId(this);
+
+        if (drugProgramId == 1) {
+            setThemeDefault();
+            setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
+        }
+        if (drugProgramId == 2) {
+            setThemeBlue();
+            setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
+        }
+        if (drugProgramId == 3) {
+            setThemeRed();
+        }
+        setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
     }
 
     public static void setStatusBarGradient(Activity activity, int color) {

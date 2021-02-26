@@ -58,8 +58,6 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             .withColor(Color.WHITE)
             .withShadow();
 
-    AddNewPersonalNavigator navigator = new AddNewPersonalNavigator();
-
     PatientsViewModel viewModel;
 
     Map<String, RequestBody> map = new HashMap<>();
@@ -131,7 +129,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                     setResult(RESULT_OK, new Intent());
                     finish();
                 }
-                );
+        );
 
         viewModel.createPatientState.observe(this, contentState -> {
             if (contentState == ContentState.LOADING) {
