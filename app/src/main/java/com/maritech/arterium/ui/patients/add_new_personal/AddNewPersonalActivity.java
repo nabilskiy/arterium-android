@@ -18,10 +18,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -168,11 +168,9 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         }
 
         Editable phone = binding.ccInputPhoneNumber.getText();
-        if (phone == null ||
-                phone.toString().isEmpty()) {
-            ToastUtil.show(this, "Введіть номер телефону");
-            return;
-        } else {
+        if (phone != null &&
+                !phone.toString().isEmpty() &&
+                phone.toString().replace(" ", "").length() > 5) {
             map.put("phone", toRequestBody(phone.toString().replace(" ", "")));
         }
 
@@ -192,8 +190,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             map.put("gender", toRequestBody("f"));
         }
 
-        if (binding.ccChooseDoze.getSelectedValue() == null ||
-                binding.ccChooseDoze.getSelectedValue().isEmpty()) {
+        String s = binding.ccChooseDoze.getSelectedValue();
+        if (s == null || s.isEmpty()) {
             ToastUtil.show(this, "Виберіть дозу");
             return;
         } else {
@@ -265,9 +263,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     private void selectImage() {
         final CharSequence[] options = {"Сфотографувати", "Вибрати з галереї"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setTitle("Фотографія");
-
         builder.setItems(options, (dialog, item) -> {
             if (options[item].equals("Сфотографувати")) {
 

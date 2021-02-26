@@ -23,12 +23,6 @@ import retrofit2.http.Query;
 import rx.Observable;
 import rx.Single;
 
-/**
- * Created by ujujzk on 15.08.2017
- * Softensy Digital Studio
- * softensiteam@gmail.com
- */
-
 public interface ApiService {
 
     @POST("api/v1/auth/login")
@@ -59,5 +53,6 @@ public interface ApiService {
 
     @Multipart
     @POST("api/v1/doctors/patients")
-    Single<PatientCreateResponse> createPatient(@PartMap Map<String, RequestBody> body, @Part MultipartBody.Part img);
+    Single<PatientCreateResponse> createPatient(@PartMap Map<String, RequestBody> body,
+                                                @Part MultipartBody.Part img);
 }

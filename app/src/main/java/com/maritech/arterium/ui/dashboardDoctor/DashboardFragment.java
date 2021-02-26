@@ -22,7 +22,7 @@ import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboardDoctor.level.LevelFragment;
-import com.maritech.arterium.ui.drugPrograms.DrugProgramsDialog;
+import com.maritech.arterium.ui.drugPrograms.DrugProgramsFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsViewModel;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
@@ -142,7 +142,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         );
 
         binding.clProgram.setOnClickListener(v -> {
-            DrugProgramsDialog customDialog = new DrugProgramsDialog();
+            DrugProgramsFragment customDialog = new DrugProgramsFragment();
 
             customDialog.setListener(content -> {
                 ((MainActivity) requireActivity()).setTheme();

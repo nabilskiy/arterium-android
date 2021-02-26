@@ -20,7 +20,7 @@ import com.maritech.arterium.ui.drugPrograms.adapter.DrugProgramsAdapter;
 
 import java.util.ArrayList;
 
-public class DrugProgramsDialog extends BottomSheetDialogFragment {
+public class DrugProgramsFragment extends BottomSheetDialogFragment {
 
     private OnChooseItem onChooseItem;
 
@@ -62,15 +62,17 @@ public class DrugProgramsDialog extends BottomSheetDialogFragment {
 
     private void initView() {
         adapter = new DrugProgramsAdapter(listContent, (position, object, tittle) -> {
-            for (int i = 0; i < listContent.size(); i++) {
-                listContent.get(i).setSelected(false);
-            }
+            if (!object.isSelected()) {
+                for (int i = 0; i < listContent.size(); i++) {
+                    listContent.get(i).setSelected(false);
+                }
 
-            object.setSelected(true);
+                object.setSelected(true);
 
-            if (onChooseItem != null) {
-                Pref.getInstance().setDrugProgramId(requireContext(), object.getId());
-                onChooseItem.onChoose(object.getId());
+                if (onChooseItem != null) {
+                    Pref.getInstance().setDrugProgramId(requireContext(), object.getId());
+                    onChooseItem.onChoose(object.getId());
+                }
             }
         });
         binding.rvStyle.setAdapter(adapter);

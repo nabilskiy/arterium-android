@@ -1,12 +1,13 @@
 package com.maritech.arterium.ui.my_profile_doctor;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.databinding.FragmentMyProfileBinding;
@@ -105,7 +106,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
     }
 
     private void showLogOutDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
         builder.setTitle(getString(R.string.account_title));
         builder.setMessage(getString(R.string.dialog_logout_message));
 
@@ -117,8 +118,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                 getString(R.string.dialog_logout_cancel), (dialog, which) -> dialog.dismiss()
         );
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        builder.show();
     }
 
     public void setMyProfileContentList() {
