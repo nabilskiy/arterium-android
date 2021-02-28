@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.bumptech.glide.Glide;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
@@ -156,7 +158,6 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         TextView dose;
         TextView doseValue;
         TextView patientCardNumber;
-        ImageView ivPatientDataCardIcon;
 
         TextView tvPatientCardName = findViewById(R.id.tvPatientCardName);
         tvPatientCardName.setText(model.getName());
@@ -197,8 +198,8 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         patientCardNumber.setText("Номер картки");
 
         binding.patientCardNumber.tvPatientDataCardValue.setText(model.getCardCode());
-        ivPatientDataCardIcon = findViewById(R.id.patientCardNumber)
-                        .findViewById(R.id.ivPatientDataCardIcon);
+
+        binding.patientCardNumber.ivPatientDataCardIcon.setVisibility(View.GONE);
 
         //weight
         weight = findViewById(R.id.patientWeight)
@@ -242,7 +243,10 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     private void observeViewModel() {
         viewModel.imageResponse.observe(this, responseBody -> {
             Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
-            binding.ivMyProfileLogo.setImageBitmap(bitmap);
+
+            Glide.with(this).load(bitmap)
+                    .circleCrop()
+                    .into(binding.ivMyProfileLogo);
         });
         viewModel.imageState.observe(this, contentState -> {
             if (contentState == ContentState.ERROR) {

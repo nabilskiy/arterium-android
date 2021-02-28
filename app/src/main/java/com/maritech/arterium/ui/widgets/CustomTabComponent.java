@@ -86,16 +86,6 @@ public class CustomTabComponent extends ConstraintLayout {
             viewThree.setVisibility(INVISIBLE);
         });
 
-        tvTwo.setOnClickListener(v -> {
-            tvOne.setActivated(false);
-            tvTwo.setActivated(true);
-            tvThree.setActivated(false);
-            tvFour.setActivated(false);
-
-            viewOne.setVisibility(INVISIBLE);
-            viewTwo.setVisibility(INVISIBLE);
-            viewThree.setVisibility(VISIBLE);
-        });
         typedArray.recycle();
     }
 
@@ -136,18 +126,6 @@ public class CustomTabComponent extends ConstraintLayout {
             tvFour.setText(textFour);
         }
 
-    }
-
-    public String getSelectedValue() {
-        if (value == 1) {
-            return tvOne.getText().toString();
-        } else if (value == 2) {
-            return tvTwo.getText().toString();
-        } else if (value == 3) {
-            return tvThree.getText().toString();
-        } else {
-            return tvFour.getText().toString();
-        }
     }
 
     private void prepare(TypedArray typedArray) {

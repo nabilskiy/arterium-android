@@ -3,24 +3,17 @@ package com.maritech.arterium.ui.patients.add_new_personal;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
-
+import com.bumptech.glide.Glide;
+import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
@@ -31,37 +24,36 @@ import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.patients.PatientsViewModel;
 import com.maritech.arterium.utils.ToastUtil;
 import com.nhaarman.supertooltips.ToolTip;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalBinding> {
 
+    public static final int CAMERA_PERMISSION_REQUEST_CODE = 101;
+    public static final int CARD_PERMISSION_REQUEST_CODE = 102;
     public static final int SCAN_REQUEST_CODE = 364;
+    public static final int CAMERA_REQUEST_CODE = 500;
+    public static final int GALLERY_REQUEST_CODE = 505;
 
     private Boolean isTwoStep = false;
 
-    ToolTip toolTip = new ToolTip()
+    private final ToolTip toolTip = new ToolTip()
             .withText("Використати автозаповнення")
             .withColor(Color.WHITE)
             .withShadow();
 
-    PatientsViewModel viewModel;
+    private PatientsViewModel viewModel;
 
-    Map<String, RequestBody> map = new HashMap<>();
-    MultipartBody.Part image;
+    private Map<String, RequestBody> map = new HashMap<>();
+    private MultipartBody.Part image;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -90,16 +82,13 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         binding.toolbar.ivLeft.setOnClickListener(v -> autoFill());
 
         binding.ivCamera.setOnClickListener(v -> {
-            int result =
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-
-            if (result != PackageManager.PERMISSION_GRANTED) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 101);
-                }
-            } else {
+            if (arePermissionsGranted(new String[]{Manifest.permission.CAMERA})) {
                 startActivityForResult(
                         new Intent(this, BarcodeActivity.class), SCAN_REQUEST_CODE
+                );
+            } else {
+                requestPermissionsCompat(
+                        new String[]{Manifest.permission.CAMERA}, CARD_PERMISSION_REQUEST_CODE
                 );
             }
         });
@@ -114,11 +103,22 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
                 binding.toolbar.ivLeft.setVisibility(View.GONE);
 
+                map = new HashMap<>();
             } else {
                 this.onBackPressed();
             }
             binding.tooltip.setVisibility(View.GONE);
 
+        });
+
+        binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+        binding.ccChooseDoze.findViewById(R.id.tvOne).setOnClickListener(v -> {
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
+        });
+        binding.ccChooseDoze.findViewById(R.id.tvTwo).setOnClickListener(v -> {
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
+            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
         });
 
         observeViewModel();
@@ -127,6 +127,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     private void observeViewModel() {
         viewModel.createPatient.observe(this, patientCreateModel -> {
                     setResult(RESULT_OK, new Intent());
+
+                    hideProgressDialog();
                     finish();
                 }
         );
@@ -163,15 +165,19 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             ToastUtil.show(this, "Введіть прізвище пацієнта");
             return;
         } else {
-            String lastName = binding.ccInputName.getText() + " " + binding.ccInputSecondName.getText();
+            String lastName = binding.ccInputName
+                            .getText() + " " + binding.ccInputSecondName.getText();
+
             map.put("name", toRequestBody(lastName));
         }
 
-        Editable phone = binding.ccInputPhoneNumber.getText();
-        if (phone != null &&
-                !phone.toString().isEmpty() &&
-                phone.toString().replace(" ", "").length() > 5) {
-            map.put("phone", toRequestBody(phone.toString().replace(" ", "")));
+        if (binding.ccInputPhoneNumber.getText() != null) {
+            String phone = binding.ccInputPhoneNumber
+                    .getText().toString().replace(" ", "");
+
+            if (phone.length() == 13) {
+                map.put("phone", toRequestBody(phone));
+            }
         }
 
         if (binding.ccInputCardNumber.getText() == null ||
@@ -190,13 +196,10 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             map.put("gender", toRequestBody("f"));
         }
 
-        String s = binding.ccChooseDoze.getSelectedValue();
-        if (s == null || s.isEmpty()) {
-            ToastUtil.show(this, "Виберіть дозу");
-            return;
-        } else {
-            map.put("dose", toRequestBody(binding.ccChooseDoze.getSelectedValue()));
-        }
+        boolean isFirstActivate = binding.ccChooseDoze.findViewById(R.id.tvOne).isActivated();
+        String dose = isFirstActivate ? "25" : "50";
+
+        map.put("dose", toRequestBody(dose));
 
         navigateSecondPage();
     }
@@ -267,123 +270,72 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         builder.setTitle("Фотографія");
         builder.setItems(options, (dialog, item) -> {
             if (options[item].equals("Сфотографувати")) {
-
-                int result =
-                        ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-
-                if (result != PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA}, 102);
-                    }
-                } else {
-                    Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
-                }
+                openCamera();
             }
             if (options[item].equals("Вибрати з галереї")) {
-                Intent pickPhoto = new Intent(
-                        Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                );
-                startActivityForResult(pickPhoto, 1);
-
+                openGallery();
             }
         });
         builder.show();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case 101: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startActivityForResult(
-                            new Intent(this, BarcodeActivity.class),
-                            SCAN_REQUEST_CODE
-                    );
-
-                    binding.ccInputCardNumber.setInput("Номер картки", String.valueOf(requestCode));
-
-                } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
-                }
-            }
-            case 102: {
-                Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, 0);
-            }
+    private void openCamera() {
+        if (arePermissionsGranted(new String[]{Manifest.permission.CAMERA})) {
+            ImagePicker.Companion.with(this)
+                    .cameraOnly()
+                    .start(CAMERA_REQUEST_CODE);
+        } else {
+            requestPermissionsCompat(
+                    new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_REQUEST_CODE
+            );
         }
     }
 
+    private void openGallery() {
+        ImagePicker.Companion.with(this)
+                .compress(1024)
+                .galleryOnly()
+                .galleryMimeTypes(new String[]{
+                        "image/png",
+                        "image/jpg",
+                        "image/jpeg"
+                })
+                .maxResultSize(1080, 1920)
+                .start(GALLERY_REQUEST_CODE);
+    }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != RESULT_CANCELED) {
-            switch (requestCode) {
-                case 0:
-                    if (resultCode == RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        binding.ivAvatar.setImageBitmap(selectedImage);
+            if (data != null) {
+                if (requestCode == CAMERA_REQUEST_CODE || requestCode == GALLERY_REQUEST_CODE) {
+                    File file = ImagePicker.Companion.getFile(data);
 
-                        persistImage(selectedImage);
-                    }
+                    if (file != null)
+                        persistImage(file);
+                }
 
-                    break;
-                case 1:
-                    if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage = data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = this.getContentResolver().query(
-                                    selectedImage,
-                                    filePathColumn,
-                                    null,
-                                    null,
-                                    null
-                            );
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-
-                                Bitmap image = BitmapFactory.decodeFile(picturePath);
-                                binding.ivAvatar.setImageBitmap(image);
-                                cursor.close();
-                                persistImage(image);
-                            }
-                        }
-
-                    }
-                    break;
+                if (requestCode == SCAN_REQUEST_CODE) {
+                    binding.ccInputCardNumber
+                            .setInput("Номер картки", data.getStringExtra("result"));
+                }
             }
         }
     }
 
-    private void persistImage(Bitmap bitmap) {
-        File filesDir = this.getFilesDir();
-        File imageFile = new File(filesDir, "avatar.jpg");
+    private void persistImage(File imageFile) {
+        Glide.with(this).load(imageFile)
+                .circleCrop()
+                .into(binding.ivAvatar);
 
-        OutputStream os;
-        try {
-            os = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-            os.flush();
-            os.close();
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), imageFile);
 
-            RequestBody requestFile =
-                    RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-
-            image = MultipartBody.Part.createFormData(
-                    "imagenPerfil", imageFile.getName(), requestFile
-            );
-        } catch (Exception e) {
-            Log.e(this.getClass().getSimpleName(), "Error writing bitmap", e);
-        }
+        image = MultipartBody.Part.createFormData(
+                "img", imageFile.getName(), requestFile
+        );
     }
 
     public void autoFill() {
@@ -406,6 +358,45 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
 
         binding.tooltip.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NotNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case CARD_PERMISSION_REQUEST_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startActivityForResult(
+                            new Intent(this, BarcodeActivity.class),
+                            SCAN_REQUEST_CODE
+                    );
+                } else {
+                    Toast.makeText(
+                            this, "Permission denied", Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+            case CAMERA_PERMISSION_REQUEST_CODE: {
+                openCamera();
+            }
+        }
+    }
+
+    private boolean arePermissionsGranted(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                    != PackageManager.PERMISSION_GRANTED)
+                return false;
+        }
+        return true;
+    }
+
+    private void requestPermissionsCompat(String[] permissions, int requestCode) {
+        ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
 
 //    private boolean isPhoneValid() {

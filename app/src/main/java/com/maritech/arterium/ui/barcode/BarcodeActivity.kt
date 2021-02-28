@@ -19,6 +19,7 @@ class BarcodeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_barcode)
 
         disposable = findViewById<BarcodeView>(R.id.barcodeView)
+                .setBeepSound(true)
                 .drawOverlay()
                 .getObservable()
                 .observeOn(AndroidSchedulers.mainThread())

@@ -7,7 +7,9 @@ import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+
 import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -53,6 +55,6 @@ public interface ApiService {
 
     @Multipart
     @POST("api/v1/doctors/patients")
-    Single<PatientCreateResponse> createPatient(@PartMap Map<String, RequestBody> body,
-                                                @Part MultipartBody.Part img);
+    Single<PatientCreateResponse> createPatient(@Part MultipartBody.Part img,
+                                                @PartMap Map<String, RequestBody> body);
 }

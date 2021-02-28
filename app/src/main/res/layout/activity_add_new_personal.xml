@@ -50,16 +50,16 @@
                         android:layout_width="72dp"
                         android:layout_height="72dp"
                         android:layout_marginTop="16dp"
+                        android:background="?android:selectableItemBackgroundBorderless"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_default_avatar"
-                        android:background="?android:selectableItemBackgroundBorderless"/>
+                        app:srcCompat="@drawable/ic_default_avatar" />
 
                     <LinearLayout
+                        android:id="@+id/name_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/name_layout"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
                         android:orientation="vertical"
@@ -80,17 +80,17 @@
                             app:layout_constraintTop_toBottomOf="@+id/ivAvatar" />
 
                         <EditText
+                            android:id="@+id/ccInputName"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
+                            android:background="@drawable/login_input_bg"
+                            android:hint="Ім’я"
                             android:inputType="textCapSentences"
-                            android:id="@+id/ccInputName"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:textAppearance="@style/sf_pro_text_16"
                             android:textColor="@color/gray"
                             android:textColorHint="@color/gray"
-                            android:hint="Ім’я"
-                            android:background="@drawable/login_input_bg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
@@ -98,9 +98,9 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lastname_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/lastname_layout"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
                         android:orientation="vertical"
@@ -116,20 +116,20 @@
                             android:textAppearance="@style/sf_pro_text_14"
                             android:textColor="@color/gray_text"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <EditText
+                            android:id="@+id/ccInputSecondName"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
+                            android:background="@drawable/login_input_bg"
+                            android:hint="Фамілія"
                             android:inputType="textCapSentences"
-                            android:id="@+id/ccInputSecondName"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:textAppearance="@style/sf_pro_text_16"
                             android:textColor="@color/gray"
                             android:textColorHint="@color/gray"
-                            android:hint="Фамілія"
-                            android:background="@drawable/login_input_bg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
@@ -137,9 +137,9 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/phone_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/phone_layout"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
                         android:orientation="vertical"
@@ -155,24 +155,24 @@
                             android:textAppearance="@style/sf_pro_text_14"
                             android:textColor="@color/gray_text"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"/>
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <com.github.pinball83.maskededittext.MaskedEditText
+                            android:id="@+id/ccInputPhoneNumber"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
+                            android:background="@drawable/login_input_bg"
                             android:inputType="phone"
-                            android:id="@+id/ccInputPhoneNumber"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:textAppearance="@style/sf_pro_text_16"
                             android:textColor="@color/gray"
                             android:textColorHint="@color/gray"
-                            app:mask="+380 *** ** ** **"
-                            app:notMaskedSymbol="*"
-                            android:background="@drawable/login_input_bg"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
+                            app:layout_constraintTop_toBottomOf="@+id/inputTitle"
+                            app:mask="+380 *** ** ** **"
+                            app:notMaskedSymbol="*" />
 
                     </LinearLayout>
 
@@ -201,9 +201,11 @@
                         android:id="@+id/ivCamera"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="12dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/ic_camera_icon"
+                        android:padding="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="3dp"
+                        android:src="@drawable/ic_camera_icon"
+                        android:background="?attr/actionBarItemBackground"
                         app:layout_constraintBottom_toBottomOf="@+id/ccInputCardNumber"
                         app:layout_constraintEnd_toEndOf="@+id/ccInputCardNumber" />
 
@@ -283,14 +285,14 @@
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="34dp"
                         android:layout_marginBottom="40dp"
+                        android:backgroundTint="?colorSecondary"
+                        android:gravity="center"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:backgroundTint="?colorSecondary"
-                        app:cornerRadius="16dp"
-                        android:gravity="center"
                         android:text="Далi"
                         android:textAppearance="@style/sf_pro_semibold_16"
                         android:textColor="@color/white"
+                        app:cornerRadius="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -415,14 +417,14 @@
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="34dp"
                         android:layout_marginBottom="40dp"
+                        android:backgroundTint="?colorSecondary"
+                        android:gravity="center"
                         android:insetTop="0dp"
                         android:insetBottom="0dp"
-                        android:backgroundTint="?colorSecondary"
-                        app:cornerRadius="16dp"
-                        android:gravity="center"
                         android:text="Створити"
                         android:textAppearance="@style/sf_pro_semibold_16"
                         android:textColor="@color/white"
+                        app:cornerRadius="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

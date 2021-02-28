@@ -189,9 +189,9 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     @Override
-    public Single<PatientCreateResponse> createPatient(Map<String, RequestBody> body, MultipartBody.Part img) {
+    public Single<PatientCreateResponse> createPatient(MultipartBody.Part img, Map<String, RequestBody> body) {
         return Single.create(singleSubscriber -> provideArteriumClient()
-                .createPatient(body, img)
+                .createPatient(img, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

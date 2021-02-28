@@ -24,7 +24,7 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
 
     private OnChooseItem onChooseItem;
 
-    private ArrayList<DrugProgramModel> listContent = new ArrayList<>();
+    private final ArrayList<DrugProgramModel> listContent = new ArrayList<>();
     private DrugProgramsAdapter adapter;
 
     private DrugProgramsViewModel drugProgramsViewModel;
@@ -32,7 +32,7 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
     private DialogWithRecyclerBinding binding;
 
     @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.ChooseProgramDialog);
@@ -119,9 +119,9 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
         drugProgramsViewModel.contentState
                 .observe(getViewLifecycleOwner(), contentState -> {
                     if (contentState.isLoading()) {
-//                        binding.progressBar.setVisibility(View.VISIBLE);
+                        binding.progressBar.setVisibility(View.VISIBLE);
                     } else {
-//                        binding.progressBar.setVisibility(View.GONE);
+                        binding.progressBar.setVisibility(View.GONE);
                     }
                 });
     }

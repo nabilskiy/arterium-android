@@ -103,6 +103,9 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
                 adapter.setData(models);
             }
+
+            binding.emptyContainer
+                    .setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         });
 
 //        sharedViewModel.filter.observe(getViewLifecycleOwner(), s -> {
@@ -129,6 +132,9 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 }
 
                 adapter.setData(models);
+
+                binding.emptyContainer
+                        .setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
             }
         });
 

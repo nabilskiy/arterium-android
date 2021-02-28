@@ -77,7 +77,7 @@ public class PatientsViewModel extends BaseViewModel {
 
     public void createPatient(Map<String, RequestBody> requestBody, MultipartBody.Part img) {
         createPatientState.postValue(ContentState.LOADING);
-        model.createPatient(requestBody, img)
+        model.createPatient(img, requestBody)
                 .subscribe(
                         data -> {
                             if (data != null) {

@@ -35,7 +35,7 @@ public interface DataProvider {
 
     Single<ResponseBody> getPatientImage(int patientId);
 
-    Single<PatientCreateResponse> createPatient(Map<String, RequestBody> body, MultipartBody.Part img);
+    Single<PatientCreateResponse> createPatient(MultipartBody.Part img, Map<String, RequestBody> body);
 
     Observable<List<DrugProgramModel>> getDrugPrograms();
 }
