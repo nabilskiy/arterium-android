@@ -183,8 +183,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             binding.tvPost.setText(profileData.getInstitutionType());
                             binding.tvAllBuy.setText(getString(R.string.whole_shopping_items1,
                                     profileData.getSoldCount()));
-//                            tvLvl.setText(profileData.get());
-
+                            binding.tvLvlLitter.setText(profileData.getLevel());
+                            binding.tvLvl.setText(String.format("Рівень %s", profileData.getLevel()));
                         });
 
         profileViewModel.errorMessage

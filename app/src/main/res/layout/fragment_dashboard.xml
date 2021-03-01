@@ -172,7 +172,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_below="@id/lvl_fl"
                                 android:layout_centerHorizontal="true"
-                                android:text="Рiвень С"
                                 android:textAppearance="@style/sf_pro_text_12"
                                 android:textColor="@color/white_low_opacity" />
 

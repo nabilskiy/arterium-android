@@ -54,6 +54,12 @@ public class Profile {
     @SerializedName("sold_count")
     @Expose
     private Integer soldCount;
+    @SerializedName("primary_sold_count")
+    @Expose
+    private Integer primarySoldCount;
+    @SerializedName("level")
+    @Expose
+    private String level;
 
     public Integer getId() {
         return id;
@@ -181,6 +187,22 @@ public class Profile {
 
     public void setSoldCount(Integer soldCount) {
         this.soldCount = soldCount;
+    }
+
+    public Integer getPrimarySoldCount() {
+        return primarySoldCount;
+    }
+
+    public void setPrimarySoldCount(Integer primarySoldCount) {
+        this.primarySoldCount = primarySoldCount;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public static class Parent {
