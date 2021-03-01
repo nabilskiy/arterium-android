@@ -1,33 +1,48 @@
 package com.maritech.arterium.ui.statistics;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
+import com.maritech.arterium.common.PurchasesType;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentStatBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
-import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
+import com.maritech.arterium.ui.patients.PatientsFragment;
+import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
-    Integer count = 1;
+    Calendar calendar = Calendar.getInstance();
+    Calendar calendarFrom = Calendar.getInstance();
 
-    StatNavigator navigator = new StatNavigator();
+    private int currentMonthNum;
 
-    TextView month;
+    private StatNavigator navigator = new StatNavigator();
 
     private String fromDate;
     private String toDate;
 
     private StatisticsViewModel statisticsViewModel;
+    private PatientsSharedViewModel sharedViewModel;
+
+    private final SimpleDateFormat dateFormat =
+            new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    private final SimpleDateFormat outputDateFormat =
+            new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+    private final SimpleDateFormat outputDateFormatShort =
+            new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
     @Override
     protected int getContentView() {
@@ -38,14 +53,16 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
 
-        statisticsViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
+        if (statisticsViewModel == null) {
+            statisticsViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
+        }
+        if (sharedViewModel == null) {
+            sharedViewModel =
+                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+        }
 
         binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
         binding.statisticToolbar.ivRight.setVisibility(View.INVISIBLE);
-
-        month = binding.tvStatisticMonth;
-
-        binding.cpbStatisticGreen.setElevation(9);
 
         binding.statisticToolbar.tvToolbarTitle.setText(R.string.statistic);
 
@@ -69,12 +86,69 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
             binding.statDetails.clSearch.setVisibility(View.GONE);
         });
 
-        month.setOnClickListener(v -> CalendarBottomSheetDialog.Companion.newInstance(
+        binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(true);
+        binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setOnClickListener(v -> {
+            sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
+
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(true);
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setActivated(false);
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setActivated(false);
+        });
+
+        binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setOnClickListener(v -> {
+            sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
+
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(false);
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setActivated(true);
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setActivated(false);
+        });
+
+        binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setOnClickListener(v -> {
+            sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
+
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(false);
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setActivated(false);
+            binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setActivated(true);
+        });
+
+        sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
+
+        long mPrevClickTime = 0;
+        binding.ivPreviousMonth.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mPrevClickTime < 1000){
+                return;
+            }
+            mLastClickTime = SystemClock.elapsedRealtime();
+            currentMonthNum--;
+            if (currentMonthNum < 0) currentMonthNum = 11;
+
+            calendar.add(Calendar.MONTH, -1);
+
+            initMonths();
+        });
+        binding.ivNextMonth.setOnClickListener(view -> {
+            currentMonthNum++;
+            if (currentMonthNum > 11) currentMonthNum = 0;
+
+            calendar.add(Calendar.MONTH, 1);
+
+            initMonths();
+        });
+
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.vpPatients, PatientsFragment.getInstance())
+                .commit();
+
+        binding.tvStatisticMonth.setOnClickListener(v -> CalendarBottomSheetDialog.Companion.newInstance(
                 (dateFrom, dateTo) -> {
+                    fromDate = String.valueOf(dateFrom);
+                    toDate = String.valueOf(dateTo);
+
+                    getStatistics();
                 }, "Фільтр по даті")
                 .show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG()));
 
-        changeMonth();
+        setCurrentMonth();
 
         observeViewModel();
     }
@@ -87,17 +161,25 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     }
 
     private void observeViewModel() {
-        statisticsViewModel.dates.observe(getViewLifecycleOwner(), strings -> {
-            fromDate = strings[0];
-            fromDate = strings[1];
-
-            getStatistics();
-        });
-
         statisticsViewModel.responseLiveData
                 .observe(getViewLifecycleOwner(),
                         data -> {
+                            binding.tvStatisticShoppingAmount
+                                    .setText(String.valueOf(data.getTotal()));
 
+                            long millis = data.getLastUpdateAt() * 1000;
+                            binding.tvStatisticRestartData
+                                    .setText(outputDateFormat.format(new Date(millis)));
+                            binding.tvStatisticPeriod
+                                    .setText(outputDateFormatShort.format(new Date(millis)));
+
+                            binding.tvCpbValue.setText(String.valueOf(data.getPrimaryCount()));
+                            binding.cpbStatisticGreen.setMax(data.getTotal());
+                            binding.cpbStatisticGreen.setProgress(data.getPrimaryCount());
+
+                            binding.tvCpbValueOrange.setText(String.valueOf(data.getSecondaryCount()));
+                            binding.opbStatisticOrange.setMax(data.getTotal());
+                            binding.opbStatisticOrange.setProgress(data.getSecondaryCount());
                         });
 
         statisticsViewModel.errorMessage
@@ -106,57 +188,73 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 });
     }
 
-    private void changeMonth() {
-        binding.ivPreviousMonth.setOnClickListener(view -> {
-            count--;
-            if (count < 0) count = 11;
-            newMonth();
-        });
-        binding.ivNextMonth.setOnClickListener(view -> {
-            count++;
-            if (count > 11) count = 0;
-            newMonth();
-        });
+    private void setCurrentMonth() {
+        currentMonthNum = calendar.get(Calendar.MONTH);
+
+        initMonths();
     }
 
+    private void initMonths() {
+        String[] dates = new String[2];
 
-    private void newMonth() {
-        switch (count) {
+        dates[1] = dateFormat.format(calendar.getTime());
+
+        calendarFrom.setTime(calendar.getTime());
+        calendarFrom.add(Calendar.MONTH, -1);
+
+        dates[0] = dateFormat.format(calendarFrom.getTime());
+
+        sharedViewModel.dates.setValue(dates);
+
+        fromDate = dates[0];
+        toDate = dates[1];
+
+        getStatistics();
+
+        setMonthLabels();
+    }
+
+    private void setMonth() {
+
+    }
+
+    private void setMonthLabels() {
+        switch (currentMonthNum) {
             case 0:
-                month.setText(R.string.january);
+                binding.tvStatisticMonth.setText(R.string.january);
                 break;
             case 1:
-                month.setText(R.string.february);
+                binding.tvStatisticMonth.setText(R.string.february);
                 break;
             case 2:
-                month.setText(R.string.march);
+                binding.tvStatisticMonth.setText(R.string.march);
                 break;
             case 3:
-                month.setText(R.string.april);
+                binding.tvStatisticMonth.setText(R.string.april);
                 break;
             case 4:
-                month.setText(R.string.may);
+                binding.tvStatisticMonth.setText(R.string.may);
                 break;
             case 5:
-                month.setText(R.string.june);
+                binding.tvStatisticMonth.setText(R.string.june);
                 break;
             case 6:
-                month.setText(R.string.july);
+                binding.tvStatisticMonth.setText(R.string.july);
                 break;
             case 7:
-                month.setText(R.string.august);
+                binding.tvStatisticMonth.setText(R.string.august);
                 break;
             case 8:
-                month.setText(R.string.september);
+                binding.tvStatisticMonth.setText(R.string.september);
                 break;
             case 9:
-                month.setText(R.string.october);
+                binding.tvStatisticMonth.setText(R.string.october);
                 break;
             case 10:
-                month.setText(R.string.november);
+                binding.tvStatisticMonth.setText(R.string.november);
                 break;
             default:
-                month.setText(R.string.december);
+                binding.tvStatisticMonth.setText(R.string.december);
                 break;
         }
     }

@@ -14,8 +14,6 @@ public class StatisticsViewModel extends BaseViewModel {
     public SingleLiveEvent<ContentState> contentState = new SingleLiveEvent<>();
     public SingleLiveEvent<String> errorMessage = new SingleLiveEvent<>();
 
-    public SingleLiveEvent<String[]> dates = new SingleLiveEvent<>();
-
     private final DataProvider model;
 
     public StatisticsViewModel() {

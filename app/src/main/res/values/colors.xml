@@ -32,4 +32,8 @@
     <color name="black_low_opacity">#1A000000</color>
     <color name="grey_for_calendar_week">#4D3C3C43</color>
 
+    <string-array name="progress_bar_color">
+        <item>#228945</item>
+        <item>#59B879</item>
+    </string-array>
 </resources>

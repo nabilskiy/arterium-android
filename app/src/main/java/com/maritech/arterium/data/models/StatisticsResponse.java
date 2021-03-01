@@ -46,11 +46,11 @@ public class StatisticsResponse implements Parcelable {
         return 0;
     }
 
-    public class StatisticsModel implements Parcelable {
+    public static class StatisticsModel implements Parcelable {
 
         @SerializedName("last_update_at")
         @Expose
-        private Integer lastUpdateAt;
+        private long lastUpdateAt;
         @SerializedName("total")
         @Expose
         private Integer total;
@@ -83,11 +83,11 @@ public class StatisticsResponse implements Parcelable {
         public StatisticsModel() {
         }
 
-        public Integer getLastUpdateAt() {
+        public long getLastUpdateAt() {
             return lastUpdateAt;
         }
 
-        public void setLastUpdateAt(Integer lastUpdateAt) {
+        public void setLastUpdateAt(long lastUpdateAt) {
             this.lastUpdateAt = lastUpdateAt;
         }
 

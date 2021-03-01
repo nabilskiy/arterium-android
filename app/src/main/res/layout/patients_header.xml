@@ -148,7 +148,6 @@
 
         </FrameLayout>
 
-
         <FrameLayout
             android:id="@+id/vpPatients"
             android:layout_width="match_parent"

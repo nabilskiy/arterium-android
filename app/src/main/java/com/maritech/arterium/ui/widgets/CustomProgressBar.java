@@ -16,7 +16,7 @@ import com.maritech.arterium.utils.ScreenSize;
 public class CustomProgressBar extends LinearLayout {
 
     private TextView amount;
-    private Integer maxVal = 20;
+    private Integer maxVal = 100;
 
     public CustomProgressBar(Context context) {
         super(context);
@@ -25,8 +25,10 @@ public class CustomProgressBar extends LinearLayout {
     public CustomProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater =
+                (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.custome_progress_bar, this);
+
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CustomProgressBar);
         Integer value = typedArray.getInteger(R.styleable.CustomProgressBar_cp_value, 0);
@@ -43,6 +45,12 @@ public class CustomProgressBar extends LinearLayout {
     private void initControl(Context context, Integer value) {
         amount = findViewById(R.id.tvCpbValue);
         amount.setText(value.toString());
+    }
+
+    public void setValue(Integer value) {
+        amount.setText(String.valueOf(value));
+
+        setInsideProgress(value);
     }
 
     private void setInsideProgress(Integer value){

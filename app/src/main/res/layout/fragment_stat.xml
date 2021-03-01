@@ -41,7 +41,7 @@
                         android:id="@+id/clStatisticPeriod"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginHorizontal="12dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -71,30 +71,47 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tvStatisticMonth" />
 
-                        <ImageView
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/ivPreviousMonth"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_menu_map"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:backgroundTint="@color/light_grey"
+                            android:insetLeft="0dp"
+                            android:insetTop="0dp"
+                            android:insetRight="0dp"
+                            android:insetBottom="0dp"
                             android:paddingHorizontal="24dp"
                             android:paddingVertical="12dp"
-                            android:src="@drawable/ic_arrow"
+                            app:cornerRadius="12dp"
+                            app:icon="@drawable/ic_arrow"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/ivNextMonth"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_menu_map"
+                            android:layout_width="60dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:backgroundTint="@color/light_grey"
+                            android:insetLeft="0dp"
+                            android:insetTop="0dp"
+                            android:insetRight="0dp"
+                            android:insetBottom="0dp"
                             android:paddingHorizontal="24dp"
                             android:paddingVertical="12dp"
                             android:rotation="180"
-                            android:src="@drawable/ic_arrow"
+                            app:cornerRadius="12dp"
+                            app:icon="@drawable/ic_arrow"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -172,28 +189,134 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/clStatisticWholeShoppingAmount" />
 
-                    <com.maritech.arterium.ui.widgets.CustomProgressBar
-                        android:id="@+id/cpbStatisticGreen"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center"
-                        app:cp_value="10"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/vStatisticDivideLine" />
+                        app:layout_constraintTop_toBottomOf="@id/vStatisticDivideLine">
 
-                    <com.maritech.arterium.ui.widgets.OrangeProgressBar
-                        android:id="@+id/opbStatisticOrange"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:gravity="center"
-                        android:paddingBottom="24dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cpbStatisticGreen"
-                        app:opb_value="11" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                                    android:layout_width="match_parent"
+                                    android:layout_height="88dp"
+                                    android:id="@+id/cpbStatisticGreen"
+                                    app:rcRadius="10dp"
+                                    app:rcProgressColor="#228945"
+                                    app:rcSecondaryProgressColor="#A3A3A3"
+                                    app:rcBackgroundColor="@color/light_grey"
+                                    app:rcAnimationEnable="true"/>
+
+                                <TextView
+                                    android:id="@+id/tvCpbValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="24dp"
+                                    android:text="@string/six"
+                                    android:textAppearance="@style/H1"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/custom_progress_bar_text_size_amount"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:layout_centerVertical="true"/>
+
+                                <TextView
+                                    android:id="@+id/tvCpbValueDescribe"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@string/original_purchases"
+                                    android:textAppearance="@style/sf_pro_semibold_13"
+                                    android:textColor="@color/white"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/tvCpbValue"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:layout_toEndOf="@id/tvCpbValue"
+                                    android:layout_centerVertical="true"/>
+
+                            </RelativeLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="24dp">
+
+                        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                            android:layout_width="match_parent"
+                            android:layout_height="64dp"
+                            android:id="@+id/opbStatisticOrange"
+                            app:rcRadius="10dp"
+                            app:rcProgressColor="#D98700"
+                            app:rcSecondaryProgressColor="#A3A3A3"
+                            app:rcBackgroundColor="@color/light_grey"
+                            app:rcAnimationEnable="true"/>
+
+                        <TextView
+                            android:id="@+id/tvCpbValueOrange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="24dp"
+                            android:text="@string/six"
+                            android:textAppearance="@style/H1"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/custom_progress_bar_text_size_amount"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_centerVertical="true"/>
+
+                        <TextView
+                            android:id="@+id/tvCpbValueDescribeOrange"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Повторні \nпокупки"
+                            android:textAppearance="@style/sf_pro_semibold_13"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/opbStatisticOrange"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_toEndOf="@id/tvCpbValueOrange"
+                            android:layout_centerVertical="true"/>
+                        </RelativeLayout>
+
+<!--                        <com.maritech.arterium.ui.widgets.CustomProgressBar-->
+<!--                            android:id="@+id/cpbStatisticGreen"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="115dp"-->
+<!--                            android:layout_marginBottom="10dp"-->
+<!--                            android:gravity="center"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/vStatisticDivideLine" />-->
+
+<!--                        <com.maritech.arterium.ui.widgets.OrangeProgressBar-->
+<!--                            android:id="@+id/opbStatisticOrange"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:gravity="center"-->
+<!--                            android:paddingBottom="24dp"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/cpbStatisticGreen" />-->
+
+                    </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>

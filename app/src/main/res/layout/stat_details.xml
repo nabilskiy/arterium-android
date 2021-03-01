@@ -62,48 +62,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topLine" />
 
-        <TextView
-            android:id="@+id/tvStatDetailsData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/simple_data"
-            android:textAppearance="@style/sf_pro_text_16"
-            android:textColor="@color/gray"
-            android:textSize="@dimen/default_small_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ctcStatDetails" />
-
-        <TextView
-            android:id="@+id/tvStatDetailPersonName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/eugenii"
-            android:textAppearance="@style/sf_pro_semibold_16"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatDetailsData" />
-
-        <TextView
-            android:id="@+id/tvStatDetailLastPurchase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/last_purchases"
-            android:textAppearance="@style/sf_pro_text_12"
-            android:textColor="@color/gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatDetailPersonName" />
-
-        <View
-            android:id="@+id/vStatDetailDivideLine"
+        <FrameLayout
+            android:id="@+id/vpPatients"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/gray_view_line"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvStatDetailLastPurchase" />
+            app:layout_constraintTop_toBottomOf="@+id/ctcStatDetails" />
 
         <LinearLayout
             android:id="@+id/clSearch"

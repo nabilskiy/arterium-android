@@ -44,6 +44,10 @@ public class OrangeProgressBar extends LinearLayout {
         amount.setText(value.toString());
     }
 
+    public void setValue(Integer value) {
+        amount.setText(String.valueOf(value));
+    }
+
     private void setInsideProgress(Integer value){
         View view = findViewById(R.id.vOrangeBg);
         View layout = findViewById(R.id.clOrange);
