@@ -1,8 +1,11 @@
 package com.maritech.arterium.data.sharePref;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -12,6 +15,8 @@ import com.maritech.arterium.data.models.ProfileResponse;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.TELEPHONY_SERVICE;
 
 /**
  * Created by ujujzk on 16.08.2017
@@ -23,7 +28,6 @@ public class Pref {
 
     private static final String AUTH_TOKEN = "User";
     private static final String FIRST_LAUNCH = "FirstLaunch";
-    private static final String DEVICE_UUID = "DeviceUUID";
     private static final String USER_DATA = "UserData";
     private static final String DRUG_PROGRAM_LAST_UPDATE = "drugProgramLastUpdate";
     private static final String DRUG_PROGRAM_ID = "drugProgramKey";
@@ -81,16 +85,6 @@ public class Pref {
 
     public boolean isUserFirstLaunch(Context context) {
         return getPrefs(context).getBoolean(FIRST_LAUNCH, true);
-    }
-
-    public void setDeviceUUID(Context context, String uuid) {
-        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
-        prefsEditor.putString(DEVICE_UUID, uuid);
-        prefsEditor.apply();
-    }
-
-    public String getDeviceUUID(Context context) {
-        return getPrefs(context).getString(DEVICE_UUID, "");
     }
 
     public void setUserProfile(Context context, ProfileResponse profileResponse) {

@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
 import com.maritech.arterium.data.models.DrugProgramModel;
@@ -189,7 +190,13 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
         profileViewModel.errorMessage
                 .observe(getViewLifecycleOwner(), error -> {
-                    ToastUtil.show(requireContext(), error);
+                    if (error.contains("logged_in_from_another_device")) {
+                        MaterialAlertDialogBuilder builder =
+                                new MaterialAlertDialogBuilder(requireContext());
+                        builder.setTitle("Авторизація");
+                        builder.setMessage("Вхід був проведений за допомогою іншого пристрою");
+                        builder.show();
+                    }
                 });
 
         drugProgramsViewModel.responseLiveData

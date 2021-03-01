@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.maritech.arterium.App;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.sharePref.Pref;
+import com.maritech.arterium.utils.DeviceUtil;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -34,13 +35,9 @@ public class AuthenticationInterceptor implements Interceptor {
 
         String authToken = getToken();
 
-        String uuid = Pref.getInstance().getDeviceUUID(App.getInstance());
+        String id = DeviceUtil.getDeviceId(App.getInstance());
 
-        if (uuid.isEmpty()) {
-            uuid = UUID.randomUUID().toString();
-            Pref.getInstance().setDeviceUUID(App.getInstance(), uuid);
-        }
-        Log.e("UUID", uuid);
+        Log.e("UUID", id);
         Log.e("Token", authToken);
 
         if (!TextUtils.isEmpty(authToken)) {
@@ -49,7 +46,7 @@ public class AuthenticationInterceptor implements Interceptor {
 
         builder.header("Accept", "application/json");
         builder.header("X-Requested-With", "XMLHttpRequest");
-        builder.header("Device-Id", uuid);
+        builder.header("Device-Id", id);
 
 
         Request request = builder.build();

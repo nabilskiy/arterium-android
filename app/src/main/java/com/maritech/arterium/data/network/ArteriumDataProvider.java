@@ -123,7 +123,6 @@ public class ArteriumDataProvider implements DataProvider {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess(baseResponse -> {
                     if (baseResponse.isSuccess()) {
-                        Pref.getInstance().setDeviceUUID(App.getInstance(), "");
                         Pref.getInstance()
                                 .setUserFirstLaunch(App.getInstance(), true);
                         Pref.getInstance()
