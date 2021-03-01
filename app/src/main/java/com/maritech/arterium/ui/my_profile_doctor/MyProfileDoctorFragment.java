@@ -2,6 +2,7 @@ package com.maritech.arterium.ui.my_profile_doctor;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -53,6 +54,13 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
 
         binding.achievements.getRoot()
                 .setOnClickListener(v -> navigator.goToAchievements(navController));
+
+        binding.contactWithUs.getRoot().setOnClickListener(v -> {
+            String phone = getString(R.string.feedback_phone);
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + phone));
+            startActivity(intent);
+        });
 
         setMyProfileContentList();
 
