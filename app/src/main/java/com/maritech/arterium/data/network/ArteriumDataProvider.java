@@ -12,6 +12,7 @@ import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
 import com.maritech.arterium.data.network.interceptors.ErrorAuthTokenInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -214,5 +215,20 @@ public class ArteriumDataProvider implements DataProvider {
         )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true);
+    }
+
+    @Override
+    public Single<StatisticsResponse> getStatistics(String from,
+                                                    String to,
+                                                    int force,
+                                                    int drugProgramId) {
+        return Single.create(singleSubscriber -> provideArteriumClient()
+                .getStatistics(from, to, force, drugProgramId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
     }
 }

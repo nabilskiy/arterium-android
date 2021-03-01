@@ -6,11 +6,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentStatBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
+import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 
 public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
@@ -20,6 +24,11 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
     TextView month;
 
+    private String fromDate;
+    private String toDate;
+
+    private StatisticsViewModel statisticsViewModel;
+
     @Override
     protected int getContentView() {
         return R.layout.fragment_stat;
@@ -28,6 +37,8 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
+
+        statisticsViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
 
         binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
         binding.statisticToolbar.ivRight.setVisibility(View.INVISIBLE);
@@ -64,6 +75,35 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 .show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG()));
 
         changeMonth();
+
+        observeViewModel();
+    }
+
+    private void getStatistics() {
+        statisticsViewModel.getStatistics(fromDate,
+                toDate,
+                0,
+                Pref.getInstance().getDrugProgramId(requireContext()));
+    }
+
+    private void observeViewModel() {
+        statisticsViewModel.dates.observe(getViewLifecycleOwner(), strings -> {
+            fromDate = strings[0];
+            fromDate = strings[1];
+
+            getStatistics();
+        });
+
+        statisticsViewModel.responseLiveData
+                .observe(getViewLifecycleOwner(),
+                        data -> {
+
+                        });
+
+        statisticsViewModel.errorMessage
+                .observe(getViewLifecycleOwner(), error -> {
+
+                });
     }
 
     private void changeMonth() {

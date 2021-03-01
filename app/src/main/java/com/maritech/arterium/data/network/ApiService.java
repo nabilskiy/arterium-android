@@ -7,6 +7,7 @@ import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+import com.maritech.arterium.data.models.StatisticsResponse;
 
 import java.util.Map;
 
@@ -57,4 +58,10 @@ public interface ApiService {
     @POST("api/v1/doctors/patients")
     Single<PatientCreateResponse> createPatient(@Part MultipartBody.Part img,
                                                 @PartMap Map<String, RequestBody> body);
+
+    @GET("/api/v1/doctors/sales/statistics")
+    Single<StatisticsResponse> getStatistics(@Query("from") String from,
+                                             @Query("to") String to,
+                                             @Query("force") int force,
+                                             @Query("drug_program_id") int drugProgramId);
 }

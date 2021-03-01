@@ -7,9 +7,11 @@ import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+import com.maritech.arterium.data.models.StatisticsResponse;
 
 import java.util.List;
 import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -38,4 +40,9 @@ public interface DataProvider {
     Single<PatientCreateResponse> createPatient(MultipartBody.Part img, Map<String, RequestBody> body);
 
     Observable<List<DrugProgramModel>> getDrugPrograms();
+
+    Single<StatisticsResponse> getStatistics(String from,
+                                             String to,
+                                             int force,
+                                             int drugProgramId);
 }
