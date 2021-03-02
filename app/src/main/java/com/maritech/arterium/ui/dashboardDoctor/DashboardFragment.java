@@ -44,8 +44,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-    private final int ADD_PATIENT_REQUEST_CODE = 500;
-
     @Override
     protected int getContentView() {
         return R.layout.fragment_dashboard;
@@ -152,7 +150,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         binding.clBtnAddNewPersonal.setOnClickListener(
                 v -> {
                     Intent intent = new Intent(requireActivity(), AddNewPersonalActivity.class);
-                    startActivityForResult(intent, ADD_PATIENT_REQUEST_CODE);
+                    startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
                 }
         );
 
@@ -260,7 +258,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == ADD_PATIENT_REQUEST_CODE) {
+            if (requestCode == AddNewPersonalActivity.PATIENT_REQUEST_CODE) {
                 sharedViewModel.reload.setValue(true);
 
                 binding.details.findViewById(R.id.tvOne).setActivated(true);

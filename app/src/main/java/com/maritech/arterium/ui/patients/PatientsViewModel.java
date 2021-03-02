@@ -94,4 +94,26 @@ public class PatientsViewModel extends BaseViewModel {
                 );
     }
 
+    public void editPatient(int patientId,
+                            Map<String, RequestBody> requestBody,
+                            MultipartBody.Part img) {
+        createPatientState.postValue(ContentState.LOADING);
+        model.editPatient(patientId, img, requestBody)
+                .subscribe(
+                        data -> {
+                            if (data != null) {
+                                createPatientState.postValue(ContentState.CONTENT);
+                                createPatient.postValue(data.getData());
+                            } else {
+                                createPatientState.postValue(ContentState.EMPTY);
+                            }
+
+                        },
+                        throwable -> {
+                            createPatientState.postValue(ContentState.ERROR);
+                            createErrorMessage.postValue(throwable.getMessage());
+                        }
+                );
+    }
+
 }

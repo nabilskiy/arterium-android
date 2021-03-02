@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.patients;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,7 @@ import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
 import com.maritech.arterium.databinding.ActivityPatientCardBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
+import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -29,6 +31,7 @@ import io.card.payment.CreditCard;
 public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding> {
 
     private static final int SCAN_REQUEST_CODE = 660;
+    private static final int EDIT_REQUEST_CODE = 680;
     public static final String PATIENT_MODEL_KEY = "patientModel";
 
     PatientModel model = null;
@@ -54,6 +57,14 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
 
         binding.patientCardToolbar.tvToolbarTitle.setText(R.string.patient_card);
         binding.patientCardToolbar.ivArrow.setOnClickListener(v -> finish());
+        binding.patientCardToolbar.ivRight.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    PatientCardActivity.this, AddNewPersonalActivity.class
+            );
+            intent.putExtra(AddNewPersonalActivity.EDIT_EXTRA_KEY, true);
+            intent.putExtra(PATIENT_MODEL_KEY, model);
+            startActivityForResult(intent, EDIT_REQUEST_CODE);
+        });
 
         setPersonalCardData();
 
@@ -137,8 +148,6 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
                 .findViewById(R.id.tvPatientDataListTitle);
         potassiumEnd.setText(R.string.potassium_end);
         potassiumEndValue = findViewById(R.id.potassiumLevelOfTheEndTreatment)
-                .findViewById(R.id.tvPatientDataListValue);
-        potassiumStartValue = findViewById(R.id.potassiumLevelOfStartTreatment)
                 .findViewById(R.id.tvPatientDataListValue);
         if (model.getFinalPotassium() != null) {
             potassiumEndValue.setText(model.getFinalPotassium());
@@ -267,6 +276,13 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
                 CreditCard scanResult =
                         data.getParcelableExtra(CardIOActivity.EXTRA_SCAN_RESULT);
                 binding.patientCardNumber.tvPatientDataCardValue.setText(scanResult.cardNumber);
+            }
+        }
+
+        if (requestCode == EDIT_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                setResult(RESULT_OK, new Intent());
+                finish();
             }
         }
 

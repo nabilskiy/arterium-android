@@ -36,7 +36,8 @@
 
         <activity android:name=".ui.patients.PatientCardActivity" />
 
-        <activity android:name=".ui.login.pinCode.PinCodeActivity" />
+        <activity android:name=".ui.login.pinCode.PinCodeActivity" 
+            android:windowSoftInputMode="stateAlwaysVisible"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

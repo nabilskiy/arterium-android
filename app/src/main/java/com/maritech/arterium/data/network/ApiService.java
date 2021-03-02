@@ -59,6 +59,12 @@ public interface ApiService {
     Single<PatientCreateResponse> createPatient(@Part MultipartBody.Part img,
                                                 @PartMap Map<String, RequestBody> body);
 
+    @Multipart
+    @POST("api/v1/doctors/patients/{patientId}")
+    Single<PatientCreateResponse> editPatient(@Path("patientId") int patientId,
+                                              @Part MultipartBody.Part img,
+                                              @PartMap Map<String, RequestBody> body);
+
     @GET("/api/v1/doctors/sales/statistics")
     Single<StatisticsResponse> getStatistics(@Query("from") String from,
                                              @Query("to") String to,

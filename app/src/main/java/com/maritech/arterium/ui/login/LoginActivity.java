@@ -7,8 +7,10 @@ import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -17,6 +19,7 @@ import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.utils.ToastUtil;
+
 import org.jetbrains.annotations.NotNull;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
@@ -82,7 +85,17 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 });
 
         profileViewModel.errorMessage.observe(this,
-                error -> ToastUtil.show(this, "Ошибка при подключении"));
+                error -> {
+                    if (error.contains("logged_in_from_another_device")) {
+                        MaterialAlertDialogBuilder builder =
+                                new MaterialAlertDialogBuilder(this);
+                        builder.setTitle("Авторизація");
+                        builder.setMessage("Вхід був проведений за допомогою іншого пристрою");
+                        builder.show();
+                    } else {
+                        ToastUtil.show(this, error);
+                    }
+                });
 
         loginViewModel.login
                 .observe(this,
@@ -101,7 +114,17 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 });
 
         loginViewModel.error.observe(this,
-                error -> ToastUtil.show(this, error));
+                error -> {
+                    if (error.contains("logged_in_from_another_device")) {
+                        MaterialAlertDialogBuilder builder =
+                                new MaterialAlertDialogBuilder(this);
+                        builder.setTitle("Авторизація");
+                        builder.setMessage("Вхід був проведений за допомогою іншого пристрою");
+                        builder.show();
+                    } else {
+                        ToastUtil.show(this, error);
+                    }
+                });
     }
 
     private void checkUserType(Profile profile) {

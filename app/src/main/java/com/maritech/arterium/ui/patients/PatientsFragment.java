@@ -1,5 +1,6 @@
 package com.maritech.arterium.ui.patients;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +17,9 @@ import com.maritech.arterium.data.models.PatientModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentPatientsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.dashboardDoctor.DashboardFragment;
 import com.maritech.arterium.ui.patients.adapter.PatientPurchasesAdapter;
+import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -161,7 +164,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 (position, object) -> {
                     Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
                     intent.putExtra(PatientCardActivity.PATIENT_MODEL_KEY, object);
-                    startActivity(intent);
+                    startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
                 }
         );
         binding.rvPatients.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -176,6 +179,17 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 drugProgramId,
                 searchQuery
         );
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AddNewPersonalActivity.PATIENT_REQUEST_CODE) {
+                getPatientList();
+            }
+        }
     }
 
     @Override

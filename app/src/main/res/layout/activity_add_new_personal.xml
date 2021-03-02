@@ -72,7 +72,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
-                            android:text="Введіть ім’я"
+                            android:text="Введіть повне ім’я"
                             android:textAppearance="@style/sf_pro_text_14"
                             android:textColor="@color/gray_text"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:background="@drawable/login_input_bg"
-                            android:hint="Ім’я"
+                            android:hint="Фио"
                             android:inputType="textCapSentences"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
@@ -97,44 +97,44 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/lastname_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="24dp"
-                        android:layout_marginTop="20dp"
-                        android:orientation="vertical"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/name_layout">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/lastname_layout"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginHorizontal="24dp"-->
+<!--                        android:layout_marginTop="20dp"-->
+<!--                        android:orientation="vertical"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/name_layout">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="4dp"
-                            android:text="Введіть фамілію"
-                            android:textAppearance="@style/sf_pro_text_14"
-                            android:textColor="@color/gray_text"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginBottom="4dp"-->
+<!--                            android:text="Введіть фамілію"-->
+<!--                            android:textAppearance="@style/sf_pro_text_14"-->
+<!--                            android:textColor="@color/gray_text"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent" />-->
 
-                        <EditText
-                            android:id="@+id/ccInputSecondName"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:background="@drawable/login_input_bg"
-                            android:hint="Фамілія"
-                            android:inputType="textCapSentences"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:textAppearance="@style/sf_pro_text_16"
-                            android:textColor="@color/gray"
-                            android:textColorHint="@color/gray"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/inputTitle" />
+<!--                        <EditText-->
+<!--                            android:id="@+id/ccInputSecondName"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="40dp"-->
+<!--                            android:background="@drawable/login_input_bg"-->
+<!--                            android:hint="Фамілія"-->
+<!--                            android:inputType="textCapSentences"-->
+<!--                            android:paddingStart="8dp"-->
+<!--                            android:paddingEnd="8dp"-->
+<!--                            android:textAppearance="@style/sf_pro_text_16"-->
+<!--                            android:textColor="@color/gray"-->
+<!--                            android:textColorHint="@color/gray"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintStart_toStartOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/inputTitle" />-->
 
-                    </LinearLayout>
+<!--                    </LinearLayout>-->
 
                     <LinearLayout
                         android:id="@+id/phone_layout"
@@ -145,7 +145,7 @@
                         android:orientation="vertical"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lastname_layout">
+                        app:layout_constraintTop_toBottomOf="@+id/name_layout">
 
                         <TextView
                             android:layout_width="wrap_content"
