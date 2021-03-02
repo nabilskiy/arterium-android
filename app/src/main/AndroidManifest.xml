@@ -36,6 +36,8 @@
 
         <activity android:name=".ui.patients.PatientCardActivity" />
 
+        <activity android:name=".ui.login.pinCode.PinCodeActivity" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCnM5dAE8C37Mb62zcKSP-bhOtkVf5qCMg" />

@@ -10,6 +10,7 @@ import com.maritech.arterium.databinding.ActivitySplashBinding;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.login.LoginActivity;
+import com.maritech.arterium.ui.login.pinCode.PinCodeActivity;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
@@ -30,7 +31,13 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             if (isFirstLaunch) {
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
             } else {
-                intent = new Intent(SplashActivity.this, MainActivity.class);
+                boolean isPinEnabled = Pref.getInstance().isPinCodeEnabled(this);
+
+                if (isPinEnabled) {
+                    intent = new Intent(SplashActivity.this, PinCodeActivity.class);
+                } else {
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                }
             }
             startActivity(intent);
             finish();

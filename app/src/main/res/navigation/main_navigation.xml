@@ -193,7 +193,7 @@
 
     <!--    <fragment-->
     <!--        android:id="@+id/pinCodeFragment"-->
-    <!--        android:name="com.maritech.arterium.ui.login.pinCode.PinCodeFragment"-->
+    <!--        android:name="com.maritech.arterium.ui.login.pinCode.PinCodeActivity"-->
     <!--        android:label="PinCodeFragment"-->
     <!--        tools:layout="@layout/fragment_pin">-->
     <!--        <action-->

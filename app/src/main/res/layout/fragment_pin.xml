@@ -4,7 +4,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <com.alimuzaffar.lib.pin.PinEntryEditText
             android:id="@+id/verificationCodeInput"
@@ -35,12 +36,13 @@
             android:layout_marginHorizontal="24dp"
             android:layout_marginTop="78dp"
             android:maxEms="8"
-            android:text="Введіть Ваш пін-код."
+            android:text="Введіть новый Пін-код"
             android:textAppearance="@style/H1"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

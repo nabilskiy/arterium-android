@@ -32,6 +32,8 @@ public class Pref {
     private static final String DRUG_PROGRAM_LAST_UPDATE = "drugProgramLastUpdate";
     private static final String DRUG_PROGRAM_ID = "drugProgramKey";
     private static final String DRUG_PROGRAM_LIST = "drugProgramListKey";
+    private static final String PIN_CODE_KEY = "pinCodeKey";
+    private static final String PIN_CODE_ENABLE_KEY = "pinCodeEnableKey";
 
     //================================== SINGLETON ==========================================
 
@@ -144,5 +146,25 @@ public class Pref {
         Type itemsListType = new TypeToken<ArrayList<DrugProgramModel>>() {}.getType();
 
         return new Gson().fromJson(str,itemsListType);
+    }
+
+    public void setPinCode(Context context, String pinCode) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putString(PIN_CODE_KEY, pinCode);
+        prefsEditor.apply();
+    }
+
+    public String getPinCode(Context context) {
+        return getPrefs(context).getString(PIN_CODE_KEY, "");
+    }
+
+    public void enablePinCode(Context context, boolean enable) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putBoolean(PIN_CODE_ENABLE_KEY, enable);
+        prefsEditor.apply();
+    }
+
+    public boolean isPinCodeEnabled(Context context) {
+        return getPrefs(context).getBoolean(PIN_CODE_ENABLE_KEY, false);
     }
 }
