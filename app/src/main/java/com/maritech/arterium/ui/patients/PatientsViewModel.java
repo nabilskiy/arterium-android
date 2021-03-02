@@ -30,14 +30,13 @@ public class PatientsViewModel extends BaseViewModel {
         model = ArteriumDataProvider.getInstance();
     }
 
-    public void getPatients(int purchasesFilter,
-                            String startDate,
+    public void getPatients(String startDate,
                             String endDate,
                             int drugProgram,
                             String search) {
 
         contentState.postValue(ContentState.LOADING);
-        model.getPatients(purchasesFilter, startDate, endDate, drugProgram, search)
+        model.getPatients(0, startDate, endDate, drugProgram, search)
                 .subscribe(
                         data -> {
                             if (data != null && data.getData() != null && !data.getData().isEmpty()) {

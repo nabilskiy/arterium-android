@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/february_purchases"
+            android:text="@string/stat_purchases"
             android:textAppearance="@style/H2"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"

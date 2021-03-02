@@ -2,10 +2,15 @@ package com.maritech.arterium.ui.statistics;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.maritech.arterium.R;
@@ -29,8 +34,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
     private int currentMonthNum;
 
-    private StatNavigator navigator = new StatNavigator();
-
     private String fromDate;
     private String toDate;
 
@@ -43,6 +46,9 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
             new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
     private final SimpleDateFormat outputDateFormatShort =
             new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+
+    long mPrevClickTime = 0;
+    long mNextClickTime = 0;
 
     @Override
     protected int getContentView() {
@@ -58,67 +64,81 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
         }
         if (sharedViewModel == null) {
             sharedViewModel =
-                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+                    new ViewModelProvider(this).get(PatientsSharedViewModel.class);
         }
+
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.patients_container, PatientsFragment.getInstance())
+                .commit();
 
         binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
         binding.statisticToolbar.ivRight.setVisibility(View.INVISIBLE);
 
         binding.statisticToolbar.tvToolbarTitle.setText(R.string.statistic);
+        ((TextView) binding.details.findViewById(R.id.tvDoctors))
+                .setText(getString(R.string.stat_purchases));
 
         binding.appBar.setOutlineProvider(null);
 
-        binding.statDetails.ctcStatDetails.initForDetails();
+        binding.detailsView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
+                (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+                    if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                        binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
+                        binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
+                        binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
+                        binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
+                    }
+                });
 
-        binding.statDetails.ivStatDetailSearch.setOnClickListener(v -> {
-            binding.statDetails.ivStatDetailSearch.setVisibility(View.GONE);
-            binding.statDetails.tvPurchasesForCurrentMonth.setVisibility(View.GONE);
-            binding.statDetails.ivStatDetailFilter.setVisibility(View.GONE);
-            binding.statDetails.ivClose.setVisibility(View.VISIBLE);
-            binding.statDetails.clSearch.setVisibility(View.VISIBLE);
-        });
+        ((EditText) binding.details.findViewById(R.id.etSearch)).addTextChangedListener(textWatcher);
 
-        binding.statDetails.ivClose.setOnClickListener(v -> {
-            binding.statDetails.ivStatDetailSearch.setVisibility(View.VISIBLE);
-            binding.statDetails.tvPurchasesForCurrentMonth.setVisibility(View.VISIBLE);
-            binding.statDetails.ivStatDetailFilter.setVisibility(View.VISIBLE);
-            binding.statDetails.ivClose.setVisibility(View.GONE);
-            binding.statDetails.clSearch.setVisibility(View.GONE);
-        });
-
-        binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(true);
-        binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setOnClickListener(v -> {
+        binding.details.findViewById(R.id.tvOne).setActivated(true);
+        binding.details.findViewById(R.id.tvOne).setOnClickListener(v -> {
             sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(true);
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setActivated(false);
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setActivated(false);
+            binding.details.findViewById(R.id.tvOne).setActivated(true);
+            binding.details.findViewById(R.id.tvTwo).setActivated(false);
+            binding.details.findViewById(R.id.tvThree).setActivated(false);
         });
 
-        binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setOnClickListener(v -> {
+        binding.details.findViewById(R.id.tvTwo).setOnClickListener(v -> {
             sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
 
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(false);
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setActivated(true);
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setActivated(false);
+            binding.details.findViewById(R.id.tvOne).setActivated(false);
+            binding.details.findViewById(R.id.tvTwo).setActivated(true);
+            binding.details.findViewById(R.id.tvThree).setActivated(false);
         });
 
-        binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setOnClickListener(v -> {
+        binding.detailsView.findViewById(R.id.tvThree).setOnClickListener(v -> {
             sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
 
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvOne).setActivated(false);
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvTwo).setActivated(false);
-            binding.statDetails.ctcStatDetails.findViewById(R.id.tvThree).setActivated(true);
+            binding.details.findViewById(R.id.tvOne).setActivated(false);
+            binding.details.findViewById(R.id.tvTwo).setActivated(false);
+            binding.details.findViewById(R.id.tvThree).setActivated(true);
         });
 
         sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
-        long mPrevClickTime = 0;
+        binding.details.findViewById(R.id.ivSearch).setOnClickListener(v -> {
+            binding.details.findViewById(R.id.ivSearch).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.tvDoctors).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.ivFilter).setVisibility(View.GONE);
+            binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
+        });
+
+        binding.details.findViewById(R.id.ivClose).setOnClickListener(v -> {
+            binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
+            binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
+        });
+
         binding.ivPreviousMonth.setOnClickListener(view -> {
-            if (SystemClock.elapsedRealtime() - mPrevClickTime < 1000){
+            if (SystemClock.elapsedRealtime() - mPrevClickTime < 1000) {
                 return;
             }
-            mLastClickTime = SystemClock.elapsedRealtime();
+            mPrevClickTime = SystemClock.elapsedRealtime();
+
             currentMonthNum--;
             if (currentMonthNum < 0) currentMonthNum = 11;
 
@@ -126,7 +146,13 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
             initMonths();
         });
+
         binding.ivNextMonth.setOnClickListener(view -> {
+            if (SystemClock.elapsedRealtime() - mNextClickTime < 1000) {
+                return;
+            }
+            mNextClickTime = SystemClock.elapsedRealtime();
+
             currentMonthNum++;
             if (currentMonthNum > 11) currentMonthNum = 0;
 
@@ -135,18 +161,47 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
             initMonths();
         });
 
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.vpPatients, PatientsFragment.getInstance())
-                .commit();
+        binding.details.findViewById(R.id.ivFilter).setOnClickListener(
+                v -> CalendarBottomSheetDialog.Companion.newInstance(
+                        (dateFrom, dateTo) -> {
+                            String[] dates = new String[2];
 
-        binding.tvStatisticMonth.setOnClickListener(v -> CalendarBottomSheetDialog.Companion.newInstance(
-                (dateFrom, dateTo) -> {
-                    fromDate = String.valueOf(dateFrom);
-                    toDate = String.valueOf(dateTo);
+                            calendar.setTimeInMillis(dateTo);
+                            dates[1] = dateFormat.format(calendar.getTime());
 
-                    getStatistics();
-                }, "Фільтр по даті")
-                .show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG()));
+                            calendar.setTimeInMillis(dateFrom);
+                            dates[0] = dateFormat.format(calendar.getTime());
+
+                            sharedViewModel.dates.setValue(dates);
+                        }, "Фільтр по даті")
+                        .show(getChildFragmentManager(),
+                                CalendarBottomSheetDialog.Companion.getTAG())
+        );
+
+        binding.tvStatisticMonth.setOnClickListener(
+                v -> CalendarBottomSheetDialog.Companion.newInstance(
+                        (dateFrom, dateTo) -> {
+                            calendar.setTimeInMillis(dateTo);
+                            calendarFrom.setTimeInMillis(dateFrom);
+
+                            currentMonthNum = calendar.get(Calendar.MONTH);
+
+                            String[] dates = new String[2];
+                            dates[1] = dateFormat.format(calendar.getTime());
+                            dates[0] = dateFormat.format(calendarFrom.getTime());
+
+                            fromDate = dates[0];
+                            toDate = dates[1];
+
+                            sharedViewModel.dates.setValue(dates);
+
+                            getStatistics();
+
+                            setMonthLabels();
+                        }, "Фільтр по даті")
+                        .show(getChildFragmentManager(),
+                                CalendarBottomSheetDialog.Companion.getTAG())
+        );
 
         setCurrentMonth();
 
@@ -204,58 +259,72 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
         dates[0] = dateFormat.format(calendarFrom.getTime());
 
-        sharedViewModel.dates.setValue(dates);
-
         fromDate = dates[0];
         toDate = dates[1];
+
+        sharedViewModel.dates.setValue(dates);
 
         getStatistics();
 
         setMonthLabels();
     }
 
-    private void setMonth() {
-
-    }
-
     private void setMonthLabels() {
+        String month;
         switch (currentMonthNum) {
             case 0:
-                binding.tvStatisticMonth.setText(R.string.january);
+                month = getString(R.string.january);
                 break;
             case 1:
-                binding.tvStatisticMonth.setText(R.string.february);
+                month = getString(R.string.february);
                 break;
             case 2:
-                binding.tvStatisticMonth.setText(R.string.march);
+                month = getString(R.string.march);
                 break;
             case 3:
-                binding.tvStatisticMonth.setText(R.string.april);
+                month = getString(R.string.april);
                 break;
             case 4:
-                binding.tvStatisticMonth.setText(R.string.may);
+                month = getString(R.string.may);
                 break;
             case 5:
-                binding.tvStatisticMonth.setText(R.string.june);
+                month = getString(R.string.june);
                 break;
             case 6:
-                binding.tvStatisticMonth.setText(R.string.july);
+                month = getString(R.string.july);
                 break;
             case 7:
-                binding.tvStatisticMonth.setText(R.string.august);
+                month = getString(R.string.august);
                 break;
             case 8:
-                binding.tvStatisticMonth.setText(R.string.september);
+                month = getString(R.string.september);
                 break;
             case 9:
-                binding.tvStatisticMonth.setText(R.string.october);
+                month = getString(R.string.october);
                 break;
             case 10:
-                binding.tvStatisticMonth.setText(R.string.november);
+                month = getString(R.string.november);
                 break;
             default:
-                binding.tvStatisticMonth.setText(R.string.december);
+                month = getString(R.string.december);
                 break;
         }
+
+        binding.tvStatisticMonth.setText(month);
     }
+
+    private final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            sharedViewModel.searchQuery.setValue(s.toString());
+        }
+    };
 }

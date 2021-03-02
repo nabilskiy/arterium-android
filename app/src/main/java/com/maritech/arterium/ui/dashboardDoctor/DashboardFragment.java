@@ -22,6 +22,7 @@ import com.maritech.arterium.databinding.FragmentDashboardBinding;
 import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
 import com.maritech.arterium.ui.dashboardDoctor.level.LevelFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsViewModel;
@@ -29,8 +30,6 @@ import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
 import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
-import com.maritech.arterium.utils.ToastUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -59,7 +58,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
         if (sharedViewModel == null) {
             sharedViewModel =
-                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+                    new ViewModelProvider(this).get(PatientsSharedViewModel.class);
         }
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -70,7 +69,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         }
 
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.vpPatients, PatientsFragment.getInstance())
+                .replace(R.id.patients_container, PatientsFragment.getInstance())
                 .commit();
 
         binding.detailsView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
@@ -127,6 +126,21 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             binding.details.findViewById(R.id.ivFilter).setVisibility(View.GONE);
             binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
         });
+
+        binding.details.findViewById(R.id.ivFilter).setOnClickListener(
+                v -> CalendarBottomSheetDialog.Companion.newInstance(
+                        (dateFrom, dateTo) -> {
+                            calendar.setTimeInMillis(dateTo);
+                            dates[1] = dateFormat.format(calendar.getTime());
+
+                            calendar.setTimeInMillis(dateFrom);
+                            dates[0] = dateFormat.format(calendar.getTime());
+
+                            sharedViewModel.dates.setValue(dates);
+                        }, "Фільтр по даті")
+                        .show(getChildFragmentManager(),
+                                CalendarBottomSheetDialog.Companion.getTAG())
+        );
 
         binding.details.findViewById(R.id.ivClose).setOnClickListener(v -> {
             binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);

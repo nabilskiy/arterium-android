@@ -2,7 +2,6 @@ package com.maritech.arterium.ui.patients;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
     private String createdFromDate;
     private String createdToDate;
-    private int purchasesFilter;
     private int drugProgramId = 0;
     private String searchQuery;
 
@@ -59,16 +57,17 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.e("Patients", "onViewCreated");
         binding.setVm(viewModel);
 
         initView();
 
-        sharedViewModel =
-                new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+        if (getParentFragment() != null) {
+            sharedViewModel =
+                    new ViewModelProvider(getParentFragment()).get(PatientsSharedViewModel.class);
+        }
 
         viewModel =
-                new ViewModelProvider(requireActivity()).get(PatientsViewModel.class);
+                new ViewModelProvider(this).get(PatientsViewModel.class);
 
         observeViewModel();
     }
@@ -107,10 +106,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
             binding.emptyContainer
                     .setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         });
-
-//        sharedViewModel.filter.observe(getViewLifecycleOwner(), s -> {
-//
-//        });
 
         sharedViewModel.reload.observe(getViewLifecycleOwner(), isReload -> {
             if (isReload) {
@@ -176,7 +171,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
     private void getPatientList() {
         viewModel.getPatients(
-                purchasesFilter,
                 createdFromDate,
                 createdToDate,
                 drugProgramId,

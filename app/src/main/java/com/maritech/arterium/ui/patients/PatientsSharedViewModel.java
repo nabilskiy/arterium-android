@@ -10,6 +10,5 @@ public class PatientsSharedViewModel extends BaseViewModel {
     public SingleLiveEvent<String[]> dates = new SingleLiveEvent<>();
     public SingleLiveEvent<PurchasesType> purchasesFilter = new SingleLiveEvent<>();
     public SingleLiveEvent<String> searchQuery = new SingleLiveEvent<>();
-    public SingleLiveEvent<String> filter = new SingleLiveEvent<>();
 
 }

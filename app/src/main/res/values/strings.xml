@@ -88,7 +88,7 @@
     <string name="restart">Вiдновленно</string>
     <string name="restart_data">14 лютого, 11:44</string>
     <string name="fourty_nine">49</string>
-    <string name="february_purchases">Покупки за лютий</string>
+    <string name="stat_purchases">Покупки</string>
     <string name="all">Усi</string>
     <string name="purchases_empty">Список порожній</string>
     <string name="without_purchases">Без покупок</string>
