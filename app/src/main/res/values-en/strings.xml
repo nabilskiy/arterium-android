@@ -1,0 +1,171 @@
+<resources>
+    <string name="app_name">Arterium</string>
+
+    <string name="title_home">Profile</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_profile">Profile</string>
+
+
+    <!--Login Strings-->
+    <string name="login_password">Enter your <br /> login and password</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="enter">Login</string>
+    <string name="account_title">Account</string>
+    <string name="account_session_error">Signed in with a different device</string>
+    <string name="dialog_logout_message">Sign out from account?</string>
+    <string name="dialog_logout_ok">Sign out</string>
+    <string name="new_pin_code">Enter a new PIN</string>
+    <string name="pin_code_title">Enter your PIN</string>
+    <string name="repeat_pin_code">Repeat your PIN</string>
+    <string name="saved_pin_code">Your PIN has been saved</string>
+    <string name="pin_code_error">PIN does not match</string>
+
+
+    <!--Main Page Strings-->
+    <string name="drug_program_desc">No description</string>
+
+
+    <!--Patient Strings-->
+    <string name="full_name">Full name</string>
+    <string name="enter_full_name">Please enter full name</string>
+    <string name="phone">Phone number</string>
+    <string name="card_number">Card number</string>
+    <string name="enter_card_number">Enter card number</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="medical_data">Medical data</string>
+    <string name="weight_value">80</string>
+    <string name="weight">Weight, kg</string>
+    <string name="enter_weight">Enter weight</string>
+    <string name="growth">Height, cm</string>
+    <string name="enter_growth">Enter height</string>
+    <string name="growth_value">170</string>
+    <string name="dose">Drug dose, mg</string>
+    <string name="dose_value">10</string>
+    <string name="heart_attack">Date of heart attack</string>
+    <string name="enter_heart_attack">Enter the date of the heart attack</string>
+    <string name="drug_administration">Date of prescription of the drug</string>
+    <string name="enter_drug_administration">Enter the date of the drug prescription</string>
+    <string name="ejection_fraction">Ejection fraction</string>
+    <string name="enter_ejection_fraction">Enter ejection fraction</string>
+    <string name="ejection_fraction_value">55%</string>
+    <string name="enter_potassium_start">Enter potassium level at the start of treatment</string>
+    <string name="potassium_start">Potassium level at the beginning of treatment, mmol/l</string>
+    <string name="potassium_start_value">3,1</string>
+    <string name="enter_potassium_end">Enter potassium level at the end of treatment</string>
+    <string name="potassium_end">Potassium level at the end of treatment, mmol/l</string>
+    <string name="potassium_end_value">4</string>
+    <string name="photo_title">Photo</string>
+    <string name="pick_photo">Take photography</string>
+    <string name="gallery_title">Gallery</string>
+    <string name="pick_gallery">Choose from gallery</string>
+    <string name="new_patient">New patient</string>
+    <string name="auto_fill_patient">Use autocomplete</string>
+
+
+    <!--Statistic Strings-->
+    <string name="statistic">Statistics</string>
+    <string name="repeat_shopping">Repeated \npurchases</string>
+    <string name="original_purchases">Initial \npurchases</string>
+    <string name="total_purchases">Total \npurchases</string>
+    <string name="restart">Updated</string>
+    <string name="stat_purchases">Purchases</string>
+    <string name="all">All</string>
+    <string name="purchases_empty">The list is empty</string>
+    <string name="without_purchases">No purchases</string>
+    <string name="with_purchases">With purchases</string>
+
+
+    <!--Settings Strings-->
+    <string name="settings">Settings</string>
+    <string name="language">Language</string>
+    <string name="russian">Russian</string>
+    <string name="ukrainian">Ukrainian</string>
+    <string name="english">English</string>
+    <string name="contact_with_us">Contact with us</string>
+    <string name="my_profile">My profile</string>
+    <string name="notification">Notification</string>
+    <string name="enable_pin_code">Use PIN-code</string>
+    <string name="enable_finger_print">Enable Finger print</string>
+    <string name="enable_push">Receive push notifications</string>
+
+
+    <!--Achievements Strings-->
+    <string name="achievements">Achievements</string>
+    <string name="return_achievements">Return to Achievements</string>
+    <string name="achievements_content">Add 25 new patients and supervise them throughout the year</string>
+
+
+    <!--Doctor Strings-->
+    <string name="doctor_profile">Doctor\'s profile</string>
+    <string name="new_doctor">New doctor</string>
+    <string name="working_data">Work data</string>
+    <string name="medical">Medical representative</string>
+    <string name="new_medical">New med. representative</string>
+    <string name="choose_doctor">Select doctors</string>
+    <string name="date_filter_title">Filter by date</string>
+    <string name="level_value">Level %s</string>
+    <string name="doctor_page_title">You are on the doctor\'s page, click to return</string>
+    <string name="add_new_patient">Add a new patient</string>
+
+
+    <!--Common Strings-->
+    <string name="success_saved">Data saved successfully</string>
+    <string name="permission_denied">Access denied</string>
+    <string name="edit">Edit</string>
+    <string name="create">Create</string>
+    <string name="further">Further</string>
+    <string name="wait">Waiting..</string>
+
+
+
+    <string name="six">6</string>
+    <string name="description_what_to_do">After changing the language, you need to restart the application for the settings to take effect</string>
+    <string name="cardiologist">Cardiologist</string>
+    <string name="whole_shopping_items">Total 8 purchases</string>
+    <string name="whole_shopping_items1">Total % d purchases</string>
+    <string name="dialog_logout_cancel">Cancel</string>
+    <string name="vinich">Анастасия Винич</string>
+    <string name="pharmacy_list">List of pharmacies</string>
+    <string name="last_shopping">Last purchase 01.02.2020</string>
+    <string name="personal_data">Personal data</string>
+    <string name="feedback_phone">+380666123456</string>
+    <string name="telephone_number">Phone number</string>
+    <string name="data_of_issue">Выдана 26.01.2020</string>
+    <string name="patient_card">Patient card</string>
+    <string name="good_day_pharmacy">Pharmacy Доброго Дня</string>
+    <string name="pharmacy_address">Большая Васильковская, 114а, 1 этаж Липки, Шевченковский район, Киев</string>
+    <string name="wholesale_pharmacy">Аптека Оптовых Цен</string>
+    <string name="tas_pharmacy">Аптека TAS</string>
+    <string name="monet_pharmacy">Аптека Копейка</string>
+    <string name="swiss_pharmacy">Аптека Swiss Pharmacy</string>
+    <string name="simple_data">10 ЛЮТОГО 2020</string>
+    <string name="eugenii">Евгений Петров</string>
+    <string name="last_purchases">Last purchase in %s</string>
+    <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
+    <string name="gliptar_key_life">Гліптар – «Ключ до балансу»</string>
+    <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
+    <string name="need_more_buy">You need 2 more purchases to go to the next level</string>
+    <string name="choose_date">Select date</string>
+    <string name="country_code">+380</string>
+    <string name="splash_title">Innovation for high quality</string>
+    <string name="splash_content">Join doctors and pharmacists from all over Ukraine</string>
+
+    <string-array name="calendar_month_general">
+        <item name="calendar_january">January</item>
+        <item name="calendar_february">February</item>
+        <item name="calendar_match">March</item>
+        <item name="calendar_april">April</item>
+        <item name="calendar_may">May</item>
+        <item name="calendar_june">June</item>
+        <item name="calendar_july">July</item>
+        <item name="calendar_august">August</item>
+        <item name="calendar_september">September</item>
+        <item name="calendar_october">October</item>
+        <item name="calendar_november">November</item>
+        <item name="calendar_december">December</item>
+    </string-array>
+
+</resources>

@@ -44,10 +44,10 @@ public class PinCodeActivity extends BaseActivity<FragmentPinBinding> {
 
         if (isFromSettings) {
             if (localPinCode.isEmpty()) {
-                binding.tvEnterPin.setText("Введіть новый Пін-код");
+                binding.tvEnterPin.setText(getString(R.string.new_pin_code));
             }
         } else {
-            binding.tvEnterPin.setText("Введіть Ваш пін-код");
+            binding.tvEnterPin.setText(getString(R.string.pin_code_title));
         }
 
         binding.verificationCodeInput.setOnPinEnteredListener(str -> {
@@ -56,17 +56,17 @@ public class PinCodeActivity extends BaseActivity<FragmentPinBinding> {
                     localPinCode = str.toString();
 
                     binding.verificationCodeInput.setText(null);
-                    binding.tvEnterPin.setText("Повторіть Ваш пін-код");
+                    binding.tvEnterPin.setText(getString(R.string.repeat_pin_code));
                 } else {
                     if (str.toString().equals(localPinCode)) {
-                        ToastUtil.show(this, "Ваш пін-код збережений");
+                        ToastUtil.show(this, getString(R.string.saved_pin_code));
 
                         Pref.getInstance().setPinCode(this, localPinCode);
                         Pref.getInstance().enablePinCode(this, true);
 
                         finish();
                     } else {
-                        binding.tvEnterPin.setText("Пін-код не совпадает");
+                        binding.tvEnterPin.setText(getString(R.string.pin_code_error));
                         binding.verificationCodeInput.setText(null);
                     }
                 }

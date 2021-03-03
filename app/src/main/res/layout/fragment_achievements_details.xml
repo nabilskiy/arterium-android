@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -16,7 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:text="Нагороди"
+                android:text="@string/achievements"
                 android:textAppearance="@style/H2"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/ivAchievement"
@@ -30,7 +31,7 @@
                 android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:maxEms="18"
-                android:text="Додайте 25 нових пацієнтів і куруйте їх протягом року."
+                android:text="@string/achievements_content"
                 android:textAppearance="@style/sf_pro_text_16"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +46,8 @@
                 android:layout_marginEnd="22dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close_white" />
+                app:srcCompat="@drawable/ic_close_white"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/ivAchievement"
@@ -55,7 +57,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivClose"
-                app:srcCompat="@drawable/ic_achievement_closed" />
+                app:srcCompat="@drawable/ic_achievement_closed"
+                tools:ignore="ContentDescription" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clBtnBack"
@@ -75,14 +78,15 @@
                     android:layout_marginEnd="12dp"
                     app:layout_constraintEnd_toStartOf="@+id/tvBack"
                     app:layout_constraintTop_toTopOf="@+id/tvBack"
-                    app:srcCompat="@drawable/ic_chevron_right_purpule" />
+                    app:srcCompat="@drawable/ic_chevron_right_purpule"
+                    tools:ignore="ContentDescription" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@id/tvBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
-                    android:text="Повернутися до нагород"
+                    android:text="@string/return_achievements"
                     android:textAppearance="@style/sf_pro_semibold_16"
                     android:textColor="@color/purple"
                     app:layout_constraintBottom_toBottomOf="parent"

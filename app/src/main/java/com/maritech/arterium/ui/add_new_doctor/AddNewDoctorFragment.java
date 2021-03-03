@@ -33,8 +33,8 @@ public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBindi
         addNewPersonalViewModel = new ViewModelProvider(this).get(AddNewDoctorViewModel.class);
 
         binding.toolbar.viewOne.setActivated(true);
-        binding.toolbar.tvToolbarTitle.setText("Новий доктор");
-        binding.toolbar.tvHint.setText("Персональнi данi");
+        binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_doctor));
+        binding.toolbar.tvHint.setText(getString(R.string.personal_data));
 
         if (isMpSelected) {
             binding.toolbar.viewTwo.setActivated(true);
@@ -42,14 +42,14 @@ public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBindi
 
             binding.clProgressStepOne.setVisibility(View.GONE);
             binding.clProgressStepTwo.setVisibility(View.VISIBLE);
-            binding.toolbar.tvHint.setText("Робочі дані");
+            binding.toolbar.tvHint.setText(getString(R.string.working_data));
         } else {
             isTwoStep = false;
             binding.toolbar.viewTwo.setActivated(false);
 
             binding.clProgressStepOne.setVisibility(View.VISIBLE);
             binding.clProgressStepTwo.setVisibility(View.GONE);
-            binding.toolbar.tvHint.setText("Персональнi данi");
+            binding.toolbar.tvHint.setText(getString(R.string.personal_data));
         }
 
         binding.btnNextOne.setOnClickListener(v -> {
@@ -58,7 +58,7 @@ public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBindi
 
             binding.clProgressStepOne.setVisibility(View.GONE);
             binding.clProgressStepTwo.setVisibility(View.VISIBLE);
-            binding.toolbar.tvHint.setText("Робочі дані");
+            binding.toolbar.tvHint.setText(getString(R.string.working_data));
 
             binding.btnNextTwo.setAlpha(0.7f);
             binding.btnNextTwo.setClickable(false);
@@ -74,7 +74,7 @@ public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBindi
 
                 binding.clProgressStepOne.setVisibility(View.VISIBLE);
                 binding.clProgressStepTwo.setVisibility(View.GONE);
-                binding.toolbar.tvHint.setText("Персональнi данi");
+                binding.toolbar.tvHint.setText(getString(R.string.personal_data));
 
             } else {
                 requireActivity().onBackPressed();
@@ -99,7 +99,7 @@ public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBindi
                     ChooseMpContent result = bundle.getParcelable(BUNDLE_KEY);
 
                     binding.tvMp.setText(result.getName());
-                    binding.tvMpHint.setText("Медичний представник");
+                    binding.tvMpHint.setText(getString(R.string.medical));
                     binding.ivChooseMp.setImageResource(result.getPhoto());
 
                     isMpSelected = true;
@@ -109,7 +109,7 @@ public class AddNewDoctorFragment extends BaseFragment<FragmentAddNewDoctorBindi
 
                     binding.clProgressStepOne.setVisibility(View.GONE);
                     binding.clProgressStepTwo.setVisibility(View.VISIBLE);
-                    binding.toolbar.tvHint.setText("Робочі дані");
+                    binding.toolbar.tvHint.setText(getString(R.string.working_data));
                 }
         );
     }

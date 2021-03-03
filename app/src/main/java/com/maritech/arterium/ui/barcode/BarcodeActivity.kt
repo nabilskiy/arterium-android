@@ -23,16 +23,14 @@ class BarcodeActivity : AppCompatActivity() {
                 .drawOverlay()
                 .getObservable()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            val returnIntent = Intent()
-                            returnIntent.putExtra("result", it.displayValue)
+                .subscribe({
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("result", it.displayValue)
 
-                            setResult(RESULT_OK, returnIntent)
-                            finish()
-                        },
-                        {
-                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                        })
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
+                }, {
+                    Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                })
     }
 }

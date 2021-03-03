@@ -44,7 +44,7 @@ public class ChooseDoctorFragment extends BaseFragment<FragmentChooseMpBinding> 
 
         ChooseDoctorAdapter adapter;
 
-        binding.toolbar.tvToolbarTitle.setText("Оберiть лiкарiв");
+        binding.toolbar.tvToolbarTitle.setText(getString(R.string.choose_doctor));
 
         binding.toolbar.ivRight.setOnClickListener(v -> requireActivity().onBackPressed());
 
@@ -53,9 +53,6 @@ public class ChooseDoctorFragment extends BaseFragment<FragmentChooseMpBinding> 
         adapter = new ChooseDoctorAdapter(listContent, (position, object) -> {
             selectedObject = object;
             ArrayList<ChooseDoctorContent> list = new ArrayList<>(listSelectedObject);
-
-            Log.e("!!!!!1", String.valueOf(listSelectedObject.size()));
-
 
             if (object.getSelected()) {
                 listSelectedObject.add(object);

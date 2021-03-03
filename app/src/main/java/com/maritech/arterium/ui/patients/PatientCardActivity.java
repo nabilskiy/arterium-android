@@ -190,9 +190,8 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
                 getString(R.string.whole_shopping_items1, model.getPurchasesCount())
         );
 
-        //sex
         sex = findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListTitle);
-        sex.setText(R.string.sex);
+        sex.setText(R.string.gender);
         sexValue = findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListValue);
         if (model.getGender() != null) {
             if (model.getGender().equals("m")) {

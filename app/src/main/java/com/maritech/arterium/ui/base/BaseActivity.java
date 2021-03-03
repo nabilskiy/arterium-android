@@ -110,7 +110,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     public void showProgressDialog() {
         if (dialog == null) {
             dialog = new ProgressDialog(this);
-            dialog.setMessage("Подождите..");
+            dialog.setMessage(getString(R.string.wait));
             dialog.show();
         }
     }

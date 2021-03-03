@@ -53,7 +53,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iccpAvatar"
-                    tools:text="@string/berezniakov" />
+                    tools:text="berezniakov" />
 
                 <TextView
                     android:id="@+id/tvMyProfileSkill"
@@ -78,7 +78,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvMyProfileSkill"
-
                     tools:text="@string/whole_shopping_items" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -176,7 +175,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="14dp"
-                            android:text="Вийти"
+                            android:text="@string/dialog_logout_ok"
                             android:textAppearance="@style/sf_pro_text_16"
                             android:textColor="@color/red"
                             app:layout_constraintStart_toEndOf="@id/ivLogOut"

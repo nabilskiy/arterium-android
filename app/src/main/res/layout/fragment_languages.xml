@@ -65,27 +65,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clNamesList" />
 
-        <!--    <com.maritech.arterium.ui.widgets.CustomProgressBar-->
-        <!--        android:id="@+id/cpbTest"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        app:cp_value="8"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/tvInterfaceNameDescriptionWhatToDo"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        android:layout_marginTop="@dimen/_10sdp"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        android:layout_marginHorizontal="@dimen/_20sdp" />-->
-
-        <!--    <com.maritech.arterium.ui.widgets.OrangeProgressBar-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        app:opb_value="13"-->
-        <!--        app:layout_constraintTop_toBottomOf="@id/cpbTest"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        android:layout_marginTop="@dimen/_10sdp"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        android:layout_marginHorizontal="@dimen/_20sdp"-->
-        <!--        />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

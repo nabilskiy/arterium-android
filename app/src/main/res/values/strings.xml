@@ -1,68 +1,139 @@
 <resources>
     <string name="app_name">Arterium</string>
+
     <string name="title_home">Profile</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
-    <string name="title_achives">Achives</string>
-    <string name="title_statistics">Statistic</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="my_profile">Мій профіль</string>
-    <string name="notification">Повідомлення</string>
-    <string name="achievements">Досягнення</string>
-    <string name="contact_with_us">Зв\'язатися з нами</string>
+    <!--Login Strings-->
+    <string name="login_password">Введіть Ваш <br /> логін і пароль.</string>
+    <string name="login">Логін</string>
+    <string name="password">Пароль</string>
+    <string name="enter">Увiйти</string>
+    <string name="account_title">Аккаунт</string>
+    <string name="account_session_error">Вхід був проведений за допомогою іншого пристрою</string>
+    <string name="dialog_logout_message">Вийти з облікового запису?</string>
+    <string name="dialog_logout_ok">Вийти</string>
+    <string name="new_pin_code">Введіть новый Пін-код</string>
+    <string name="pin_code_title">Введіть Ваш пін-код</string>
+    <string name="repeat_pin_code">Повторіть Ваш пін-код</string>
+    <string name="saved_pin_code">Ваш пін-код збережений</string>
+    <string name="pin_code_error">Пін-код не співпадає</string>
+
+
+    <!--Main Page Strings-->
+    <string name="drug_program_desc">Немає опису</string>
+
+
+    <!--Patient Strings-->
+    <string name="full_name">ПIБ</string>
+    <string name="enter_full_name">Введіть повне ім\'я</string>
+    <string name="phone">Номер телефону</string>
+    <string name="card_number">Номер картки</string>
+    <string name="enter_card_number">Введіть номер картки</string>
+    <string name="gender">Стать</string>
+    <string name="male">Чоловіча</string>
+    <string name="female">Жіноча</string>
+    <string name="medical_data">Медичні дані</string>
+    <string name="weight_value">80</string>
+    <string name="weight">Вага, кг</string>
+    <string name="enter_weight">Вага, кг</string>
+    <string name="growth">Рiст, см</string>
+    <string name="enter_growth">Введіть рiст</string>
+    <string name="growth_value">170</string>
+    <string name="dose">Доза препарату, мг</string>
+    <string name="dose_value">10</string>
+    <string name="heart_attack">Дата інфаркту</string>
+    <string name="enter_heart_attack">Введіть дата інфаркту</string>
+    <string name="drug_administration">Дата призначення препарату</string>
+    <string name="enter_drug_administration">Введіть дату призначення препарату</string>
+    <string name="ejection_fraction">Фракція викиду</string>
+    <string name="enter_ejection_fraction">Введіть фракцію викиду</string>
+    <string name="ejection_fraction_value">55%</string>
+    <string name="enter_potassium_start">Введіть рівень калію на початку лікування</string>
+    <string name="potassium_start">Рівень калію на початку лікування, ммоль/л</string>
+    <string name="potassium_start_value">3,1</string>
+    <string name="enter_potassium_end">Введіть рівень калію в кінці лікування</string>
+    <string name="potassium_end">Рівень калію в кінці лікування, ммоль/л</string>
+    <string name="potassium_end_value">4</string>
+    <string name="photo_title">Фотографія</string>
+    <string name="pick_photo">Сфотографувати</string>
+    <string name="gallery_title">Вибрати з галереї</string>
+    <string name="pick_gallery">Вибрати з галереї</string>
+    <string name="new_patient">Новий пацієнт</string>
+    <string name="auto_fill_patient">Використати автозаповнення</string>
+
+
+    <!--Statistic Strings-->
+    <string name="statistic">Статистика</string>
+    <string name="repeat_shopping">Повторні \n покупки</string>
+    <string name="original_purchases">Первинні \nпокупки</string>
+    <string name="total_purchases">Всього \nпокупок</string>
+    <string name="restart">Вiдновленно</string>
+    <string name="stat_purchases">Покупки</string>
+    <string name="all">Усi</string>
+    <string name="purchases_empty">Список порожній</string>
+    <string name="without_purchases">Без покупок</string>
+    <string name="with_purchases">З покупками</string>
+
+
+    <!--Settings Strings-->
     <string name="settings">Налаштування</string>
     <string name="russian">Росiйська</string>
     <string name="ukrainian">Українська</string>
     <string name="english">Англiйська</string>
+    <string name="contact_with_us">Зв\'язатися з нами</string>
+    <string name="my_profile">Мій профіль</string>
+    <string name="notification">Повідомлення</string>
+    <string name="enable_pin_code">Запитувати пін код</string>
+    <string name="enable_finger_print">Використовувати біометрію</string>
+    <string name="enable_push">Отримувати пуш повідомлення</string>
+    <string name="language">Мова інтерфейсу</string>
+
+
+    <!--Achievements Strings-->
+    <string name="achievements">Нагороди</string>
+    <string name="return_achievements">Повернутися до нагород</string>
+    <string name="achievements_content">Додайте 25 нових пацієнтів і куруйте їх протягом року</string>
+
+
+    <!--Doctor Strings-->
+    <string name="doctor_profile">Профіль доктора</string>
+    <string name="new_doctor">Новий доктор</string>
+    <string name="working_data">Робочі дані</string>
+    <string name="medical">Медичний представник</string>
+    <string name="new_medical">Новий мед. представник</string>
+    <string name="choose_doctor">Виберіть лікарів</string>
+    <string name="date_filter_title">Фільтр по даті</string>
+    <string name="level_value">Рівень %s</string>
+    <string name="doctor_page_title">Ви на сторінці доктора, натисніть щоб повернутися</string>
+    <string name="add_new_patient">Додати нового пацієнта</string>
+
+
+    <!--Common Strings-->
+    <string name="success_saved">Дані успішно збережено</string>
+    <string name="permission_denied">Відмовлено в доступі</string>
+    <string name="edit">Редагувати</string>
+    <string name="create">Створити</string>
+    <string name="further">Далі</string>
+    <string name="wait">Почекайте..</string>
+
+
+
     <string name="six">6</string>
-    <string name="original_purchases">Первиннi \n покупки</string>
     <string name="description_what_to_do">Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу.</string>
-    <string name="login_password">Введіть Ваш <br /> логін і пароль.</string>
-    <string name="login">Логин</string>
-    <string name="password">Пароль</string>
-    <string name="enter">Увiйти</string>
-    <string name="berezniakov">Юрiй Березняков</string>
-    <string name="cardiologist">Кардіолог</string>
+    <string name="cardiologist">Кардиолог</string>
     <string name="whole_shopping_items">Всього 8 покупок</string>
     <string name="whole_shopping_items1">Всього %d покупок</string>
-    <string name="account_title">Аккаунт</string>
-    <string name="dialog_logout_message">Вийти з облікового запису?</string>
-    <string name="dialog_logout_ok">Вийти</string>
     <string name="dialog_logout_cancel">Скасування</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">Список аптек</string>
-    <string name="interfaces_name">Мова інтерфейсу</string>
     <string name="last_shopping">Остання покупка 01.02.2020</string>
     <string name="personal_data">Персональні дані</string>
-    <string name="edit">Редагувати</string>
     <string name="feedback_phone">+380666123456</string>
     <string name="telephone_number">Номер телефону</string>
-    <string name="number">+38 097 099 99 11</string>
-    <string name="card_number">8172282819192</string>
     <string name="data_of_issue">Видана 26.01.2020</string>
-    <string name="medical_data">Медичні дані</string>
-    <string name="sex">Стать</string>
-    <string name="male">Чоловіча</string>
-    <string name="female">Жiноча</string>
-    <string name="weight_value">80кг</string>
-    <string name="weight">Вага, кг</string>
-    <string name="growth">Рiст, см</string>
-    <string name="growth_value">178см</string>
-    <string name="dose">Доза препарату, мг</string>
-    <string name="dose_value">10мг</string>
-    <string name="heart_attack">Дата інфаркту</string>
-    <string name="heart_attack_value">03.01.2020</string>
-    <string name="drug_administration">Дата призначення препарату</string>
-    <string name="drug_administration_value">03.01.2020</string>
-    <string name="ejection_fraction">Фракція викиду</string>
-    <string name="ejection_fraction_value">55%</string>
-    <string name="potassium_start">Рівень калію на початку лікування, ммоль/л</string>
-    <string name="potassium_start_value">3,1</string>
-    <string name="potassium_end">Рівень калію в кінці лікування, ммоль/л</string>
-    <string name="potassium_end_value">4</string>
     <string name="patient_card">Карта пацієнта</string>
     <string name="good_day_pharmacy">Аптека Доброго Дня</string>
     <string name="pharmacy_address">Велика Василькiвська, 114а​, 1 поверх​ Липки, Шевченківський район, Київ,</string>
@@ -70,39 +141,17 @@
     <string name="tas_pharmacy">Аптека TAS</string>
     <string name="monet_pharmacy">Аптека Копейка</string>
     <string name="swiss_pharmacy">Аптека Swiss Pharmacy</string>
-    <string name="repeat_shopping">Повторні \n покупки</string>
-    <string name="january">Січень</string>
-    <string name="february">Лютий</string>
-    <string name="march">Березень</string>
-    <string name="april">Квітень</string>
-    <string name="may">Травень</string>
-    <string name="june">Червень</string>
-    <string name="july">Липень</string>
-    <string name="august">Серпень</string>
-    <string name="september">Вересень</string>
-    <string name="october">Жовтень</string>
-    <string name="november">Листопад</string>
-    <string name="december">Грудень</string>
-    <string name="statistic_period">Статистика з 01.02.2020</string>
-    <string name="total_purchases">Всього \nпокупок</string>
-    <string name="restart">Вiдновленно</string>
-    <string name="restart_data">14 лютого, 11:44</string>
-    <string name="fourty_nine">49</string>
-    <string name="stat_purchases">Покупки</string>
-    <string name="all">Усi</string>
-    <string name="purchases_empty">Список порожній</string>
-    <string name="without_purchases">Без покупок</string>
-    <string name="with_purchases">З покупками</string>
     <string name="simple_data">10 ЛЮТОГО 2020</string>
     <string name="eugenii">Евгений Петров</string>
     <string name="last_purchases">Остання покупка в %s</string>
-    <string name="statistic">Статистика</string>
     <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
     <string name="gliptar_key_life">Гліптар – «Ключ до балансу»</string>
     <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
     <string name="need_more_buy">Потрібно ще 2 покупки для переходу на наступний рівень.</string>
     <string name="choose_date">Обрати дату</string>
     <string name="country_code">+380</string>
+    <string name="splash_title">Інновації для високої якості</string>
+    <string name="splash_content">Приєднуйся до лікарів і фармацевтам з усієї України</string>
 
     <string-array name="calendar_month_general">
         <item name="calendar_january">Січень</item>
@@ -118,5 +167,18 @@
         <item name="calendar_november">Листопад</item>
         <item name="calendar_december">Грудень</item>
     </string-array>
+
+<!--    <string name="january">Січень</string>-->
+<!--    <string name="february">Лютий</string>-->
+<!--    <string name="march">Березень</string>-->
+<!--    <string name="april">Квітень</string>-->
+<!--    <string name="may">Травень</string>-->
+<!--    <string name="june">Червень</string>-->
+<!--    <string name="july">Липень</string>-->
+<!--    <string name="august">Серпень</string>-->
+<!--    <string name="september">Вересень</string>-->
+<!--    <string name="october">Жовтень</string>-->
+<!--    <string name="november">Листопад</string>-->
+<!--    <string name="december">Грудень</string>-->
 
 </resources>

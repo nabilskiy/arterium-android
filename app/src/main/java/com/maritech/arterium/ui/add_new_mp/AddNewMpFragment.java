@@ -41,9 +41,9 @@ public class AddNewMpFragment extends BaseFragment<FragmentAddNewMpBinding> {
 
         binding.toolbar.viewOne.setActivated(true);
 
-        binding.toolbar.tvToolbarTitle.setText("Новий мед. представник");
+        binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_medical));
 
-        binding.toolbar.tvHint.setText("Персональнi данi");
+        binding.toolbar.tvHint.setText(getString(R.string.personal_data));
 
         binding.btnNextOne.setOnClickListener(v -> {
             binding.toolbar.viewTwo.setActivated(true);
@@ -52,7 +52,7 @@ public class AddNewMpFragment extends BaseFragment<FragmentAddNewMpBinding> {
             binding.clProgressStepOne.setVisibility(View.GONE);
             binding.clProgressStepTwo.setVisibility(View.VISIBLE);
             binding.btnNextTwo.setVisibility(View.VISIBLE);
-            binding.toolbar.tvHint.setText("Персональнi данi");
+            binding.toolbar.tvHint.setText(getString(R.string.personal_data));
 
         });
 
@@ -66,7 +66,7 @@ public class AddNewMpFragment extends BaseFragment<FragmentAddNewMpBinding> {
                 binding.clProgressStepOne.setVisibility(View.VISIBLE);
                 binding.clProgressStepTwo.setVisibility(View.GONE);
                 binding.btnNextTwo.setVisibility(View.GONE);
-                binding.toolbar.tvHint.setText("Робочі дані");
+                binding.toolbar.tvHint.setText(getString(R.string.working_data));
 
             } else {
                 requireActivity().onBackPressed();
@@ -99,7 +99,7 @@ public class AddNewMpFragment extends BaseFragment<FragmentAddNewMpBinding> {
                     binding.btnNextTwo.setVisibility(View.VISIBLE);
                     binding.clProgressStepOne.setVisibility(View.GONE);
                     binding.clProgressStepTwo.setVisibility(View.VISIBLE);
-                    binding.toolbar.tvHint.setText("Робочі дані");
+                    binding.toolbar.tvHint.setText(getString(R.string.working_data));
 
                     binding.btnNextTwo.setAlpha(1.0f);
                     binding.btnNextTwo.setClickable(true);

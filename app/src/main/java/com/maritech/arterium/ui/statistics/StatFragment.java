@@ -173,7 +173,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                             dates[0] = dateFormat.format(calendar.getTime());
 
                             sharedViewModel.dates.setValue(dates);
-                        }, "Фільтр по даті")
+                        }, getString(R.string.date_filter_title))
                         .show(getChildFragmentManager(),
                                 CalendarBottomSheetDialog.Companion.getTAG())
         );
@@ -198,7 +198,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                             getStatistics();
 
                             setMonthLabels();
-                        }, "Фільтр по даті")
+                        }, getString(R.string.date_filter_title))
                         .show(getChildFragmentManager(),
                                 CalendarBottomSheetDialog.Companion.getTAG())
         );
@@ -270,45 +270,9 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     }
 
     private void setMonthLabels() {
-        String month;
-        switch (currentMonthNum) {
-            case 0:
-                month = getString(R.string.january);
-                break;
-            case 1:
-                month = getString(R.string.february);
-                break;
-            case 2:
-                month = getString(R.string.march);
-                break;
-            case 3:
-                month = getString(R.string.april);
-                break;
-            case 4:
-                month = getString(R.string.may);
-                break;
-            case 5:
-                month = getString(R.string.june);
-                break;
-            case 6:
-                month = getString(R.string.july);
-                break;
-            case 7:
-                month = getString(R.string.august);
-                break;
-            case 8:
-                month = getString(R.string.september);
-                break;
-            case 9:
-                month = getString(R.string.october);
-                break;
-            case 10:
-                month = getString(R.string.november);
-                break;
-            default:
-                month = getString(R.string.december);
-                break;
-        }
+        String[] months = getResources().getStringArray(R.array.calendar_month_general);
+
+        String month = months[currentMonthNum];
 
         binding.tvStatisticMonth.setText(month);
     }

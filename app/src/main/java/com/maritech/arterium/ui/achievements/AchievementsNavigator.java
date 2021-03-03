@@ -1,7 +1,5 @@
 package com.maritech.arterium.ui.achievements;
 
-import android.os.Bundle;
-
 import androidx.navigation.NavController;
 
 import com.maritech.arterium.R;

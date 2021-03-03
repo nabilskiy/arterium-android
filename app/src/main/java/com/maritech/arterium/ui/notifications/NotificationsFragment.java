@@ -34,7 +34,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
 
         binding.toolbar.ivRight.setVisibility(View.GONE);
         binding.toolbar.ivArrow.setVisibility(View.GONE);
-        binding.toolbar.tvToolbarTitle.setText("Повідомлення");
+        binding.toolbar.tvToolbarTitle.setText(getString(R.string.notification));
 
         RecyclerView rvUnread = root.findViewById(R.id.rvUnread);
         RecyclerView rvRead = root.findViewById(R.id.rvRead);

@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.drugPrograms.adapter;
 
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
 
     private ArrayList<DrugProgramModel> localDataSet;
     private DrugProgramsAdapter.OnItemClickListener onItemClickListener;
+    private Context context;
 
     public interface OnItemClickListener {
         void onItemClicked(int position, DrugProgramModel object, String tittle);
@@ -41,9 +43,11 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
         }
     }
 
-    public DrugProgramsAdapter(ArrayList<DrugProgramModel> dataSet,
+    public DrugProgramsAdapter(Context context,
+                               ArrayList<DrugProgramModel> dataSet,
                                DrugProgramsAdapter.OnItemClickListener onItemClickListener) {
         localDataSet = dataSet;
+        this.context = context;
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -57,7 +61,7 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
 
         viewHolder.ivBtnCheck.setActivated(localDataSet.get(position).isSelected());
         viewHolder.tvName.setText(String.format("%s - \"%s\"",
@@ -77,7 +81,7 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
         if (localDataSet.get(position).getDescription() != null) {
             viewHolder.tvHint.setText(localDataSet.get(position).getDescription());
         } else {
-            viewHolder.tvHint.setText("Немає опису");
+            viewHolder.tvHint.setText(context.getString(R.string.drug_program_desc));
         }
 
         if (localDataSet.size() - 1 == position) {
@@ -85,7 +89,11 @@ public class DrugProgramsAdapter extends RecyclerView.Adapter<DrugProgramsAdapte
         }
 
         viewHolder.itemView.setOnClickListener(v -> {
-            onItemClickListener.onItemClicked(position, localDataSet.get(position), String.valueOf(viewHolder.tvName.getText()));
+            onItemClickListener.onItemClicked(
+                    position,
+                    localDataSet.get(position),
+                    String.valueOf(viewHolder.tvName.getText())
+            );
             notifyDataSetChanged();
         });
 

@@ -60,11 +60,6 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     private Boolean isTwoStep = false;
 
-    private final ToolTip toolTip = new ToolTip()
-            .withText("Використати автозаповнення")
-            .withColor(Color.WHITE)
-            .withShadow();
-
     private PatientsViewModel viewModel;
     private PatientModel model;
 
@@ -73,6 +68,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+    ToolTip toolTip;
 
     @Override
     protected int getLayoutId() {
@@ -88,7 +85,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         isEditMode = getIntent().getBooleanExtra(EDIT_EXTRA_KEY, false);
 
         binding.toolbar.tvHint.setVisibility(View.VISIBLE);
-        binding.toolbar.tvHint.setText("Медичні дані");
+        binding.toolbar.tvHint.setText(getString(R.string.medical_data));
 
         binding.btnNextOne.setOnClickListener(v -> {
             validateFieldsOne();
@@ -140,15 +137,20 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
         });
 
+        toolTip = new ToolTip()
+                .withText(getString(R.string.auto_fill_patient))
+                .withColor(Color.WHITE)
+                .withShadow();
+
         if (isEditMode) {
             if (getIntent() != null) {
                 model = getIntent().getParcelableExtra(PATIENT_MODEL_KEY);
             }
-            binding.toolbar.tvToolbarTitle.setText("Редагування");
+            binding.toolbar.tvToolbarTitle.setText(getString(R.string.edit));
 
             fillPatientData();
         } else {
-            binding.toolbar.tvToolbarTitle.setText("Новий пацієнт");
+            binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_patient));
         }
 
         observeViewModel();
@@ -156,7 +158,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     private void observeViewModel() {
         viewModel.createPatient.observe(this, patientCreateModel -> {
-                    ToastUtil.show(this, "Дані успішно збережено");
+                    ToastUtil.show(this, getString(R.string.success_saved));
 
                     setResult(RESULT_OK, new Intent());
 
@@ -211,7 +213,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     private void validateFieldsOne() {
         if (binding.ccInputName.getText() == null ||
                 binding.ccInputName.getText().toString().isEmpty()) {
-            ToastUtil.show(this, "Введіть повне ім'я пацієнта");
+            ToastUtil.show(this, getString(R.string.enter_full_name));
             return;
         } else {
             String name = binding.ccInputName.getText().toString();
@@ -230,7 +232,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
         if (binding.ccInputCardNumber.getText() == null ||
                 binding.ccInputCardNumber.getText().isEmpty()) {
-            ToastUtil.show(this, "Введіть номер картки");
+            ToastUtil.show(this, getString(R.string.enter_card_number));
             return;
         } else {
             map.put("card_code", toRequestBody(binding.ccInputCardNumber.getText()));
@@ -316,15 +318,16 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     }
 
     private void selectImage() {
-        final CharSequence[] options = {"Сфотографувати", "Вибрати з галереї"};
+        final CharSequence[] options =
+                {getString(R.string.pick_photo), getString(R.string.pick_gallery)};
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
-        builder.setTitle("Фотографія");
+        builder.setTitle(getString(R.string.photo_title));
         builder.setItems(options, (dialog, item) -> {
-            if (options[item].equals("Сфотографувати")) {
+            if (options[item].equals(getString(R.string.pick_photo))) {
                 openCamera();
             }
-            if (options[item].equals("Вибрати з галереї")) {
+            if (options[item].equals(getString(R.string.pick_gallery))) {
                 openGallery();
             }
         });
@@ -371,8 +374,9 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                 }
 
                 if (requestCode == SCAN_REQUEST_CODE) {
-                    binding.ccInputCardNumber
-                            .setInput("Номер картки", data.getStringExtra("result"));
+                    binding.ccInputCardNumber.setInput(
+                            getString(R.string.card_number), data.getStringExtra("result")
+                    );
                 }
             }
         }
@@ -393,9 +397,13 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     private void fillPatientData() {
         if (model != null) {
             binding.ccInputName.setText(model.getName());
-            String phone = model.getPhone().replace("+380", "");
+            String phone = model.getPhone()
+                    .replace(getString(R.string.country_code), "");
+
             binding.ccInputPhoneNumber.setMaskedText(phone);
-            binding.ccInputCardNumber.setInput("Номер картки", model.getCardCode());
+            binding.ccInputCardNumber.setInput(
+                    getString(R.string.card_number), model.getCardCode()
+            );
 
             if (!model.getGender().isEmpty() &&
                     model.getGender().equalsIgnoreCase("m")) {
@@ -417,27 +425,32 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             if (model.getHearthAttackDate() != null) {
                 long millis = model.getHearthAttackDate() * 1000;
                 binding.ccInputDateInfarct.setInput(
-                        "Дата інфаркту", dateFormat.format(new Date(millis))
+                        getString(R.string.heart_attack), dateFormat.format(new Date(millis))
                 );
             }
 
             if (model.getHearthAttackDate() != null) {
                 long millis = model.getPrescribingDate() * 1000;
                 binding.ccDateOfStartDrug.setInput(
-                        "Дата призначення препарату", dateFormat.format(new Date(millis))
+                        getString(R.string.drug_administration), dateFormat.format(new Date(millis))
                 );
             }
 
-            binding.ccInputFraction
-                    .setInput("Фракція викиду", model.getEjectionFraction());
-            binding.ccInputFecesStart
-                    .setInput("Рівень калію на початку лікування, ммоль/л", model.getInitialPotassium());
-            binding.ccInputFecesEnd
-                    .setInput("Рівень калію в кінці лікування, ммоль/л", model.getFinalPotassium());
-            binding.ccInputWeight
-                    .setInput("Вага, кг", String.valueOf(model.getWeight()));
-            binding.ccInputHeight
-                    .setInput("Рiст, см", String.valueOf(model.getHeight()));
+            binding.ccInputFraction.setInput(
+                    getString(R.string.ejection_fraction), model.getEjectionFraction()
+            );
+            binding.ccInputFecesStart.setInput(
+                    getString(R.string.potassium_start), model.getInitialPotassium()
+            );
+            binding.ccInputFecesEnd.setInput(
+                    getString(R.string.potassium_end), model.getFinalPotassium()
+            );
+            binding.ccInputWeight.setInput(
+                    getString(R.string.weight), String.valueOf(model.getWeight())
+            );
+            binding.ccInputHeight.setInput(
+                    getString(R.string.growth), String.valueOf(model.getHeight())
+            );
 
             loadImage();
         }
@@ -446,20 +459,26 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     public void autoFill() {
         binding.toolbar.viewTwo.setActivated(true);
         isTwoStep = true;
+
         binding.ccInputDateInfarct
-                .setInput("Дата інфаркту", dateFormat.format(new Date()));
+                .setInput(getString(R.string.heart_attack), dateFormat.format(new Date()));
         binding.ccDateOfStartDrug
-                .setInput("Дата призначення препарату", dateFormat.format(new Date()));
-        binding.ccInputFraction
-                .setInput("Фракція викиду", "111");
-        binding.ccInputFecesStart
-                .setInput("Рівень калію на початку лікування, ммоль/л", "111");
-        binding.ccInputFecesEnd
-                .setInput("Рівень калію в кінці лікування, ммоль/л", "111");
-        binding.ccInputWeight
-                .setInput("Вага, кг", "10");
-        binding.ccInputHeight
-                .setInput("Рiст, см", "10");
+                .setInput(getString(R.string.drug_administration), dateFormat.format(new Date()));
+        binding.ccInputFraction.setInput(
+                getString(R.string.ejection_fraction), getString(R.string.ejection_fraction_value)
+        );
+        binding.ccInputFecesStart.setInput(
+                getString(R.string.potassium_start), getString(R.string.potassium_start_value)
+        );
+        binding.ccInputFecesEnd.setInput(
+                        getString(R.string.potassium_end), getString(R.string.potassium_end_value)
+        );
+        binding.ccInputWeight.setInput(
+                getString(R.string.weight), getString(R.string.weight_value)
+        );
+        binding.ccInputHeight.setInput(
+                getString(R.string.growth), getString(R.string.growth_value)
+        );
 
 
         binding.tooltip.setVisibility(View.GONE);
@@ -481,7 +500,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                     );
                 } else {
                     Toast.makeText(
-                            this, "Permission denied", Toast.LENGTH_SHORT
+                            this, getString(R.string.permission_denied), Toast.LENGTH_SHORT
                     ).show();
                 }
             }
@@ -503,16 +522,6 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     private void requestPermissionsCompat(String[] permissions, int requestCode) {
         ActivityCompat.requestPermissions(this, permissions, requestCode);
     }
-
-//    private boolean isPhoneValid() {
-//        if (binding.ccInputPhoneNumber.getText() != null) {
-//            String phone = binding.ccInputPhoneNumber.getText().toString();
-//
-//            return phone.matches("^\\+380\\d{9}$");
-//        } else {
-//            return false;
-//        }
-//    }
 
 }
 

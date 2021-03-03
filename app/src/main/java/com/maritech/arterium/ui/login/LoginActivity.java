@@ -89,8 +89,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                     if (error.contains("logged_in_from_another_device")) {
                         MaterialAlertDialogBuilder builder =
                                 new MaterialAlertDialogBuilder(this);
-                        builder.setTitle("Авторизація");
-                        builder.setMessage("Вхід був проведений за допомогою іншого пристрою");
+                        builder.setTitle(getString(R.string.account_title));
+                        builder.setMessage(getString(R.string.account_session_error));
                         builder.show();
                     } else {
                         ToastUtil.show(this, error);
@@ -100,7 +100,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         loginViewModel.login
                 .observe(this,
                         loginData -> {
-                            Log.e("Login", "Logged Success");
                             profileViewModel.getProfile();
                         });
 
@@ -118,8 +117,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                     if (error.contains("logged_in_from_another_device")) {
                         MaterialAlertDialogBuilder builder =
                                 new MaterialAlertDialogBuilder(this);
-                        builder.setTitle("Авторизація");
-                        builder.setMessage("Вхід був проведений за допомогою іншого пристрою");
+                        builder.setTitle(getString(R.string.account_title));
+                        builder.setMessage(getString(R.string.account_session_error));
                         builder.show();
                     } else {
                         ToastUtil.show(this, error);

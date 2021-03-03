@@ -37,7 +37,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
         binding.clLogOut.setOnClickListener(v -> showLogOutDialog());
 
         binding.myProfileToolbar.ivRight.setVisibility(View.INVISIBLE);
-        binding.myProfileToolbar.tvToolbarTitle.setText("Профіль доктора");
+        binding.myProfileToolbar.tvToolbarTitle.setText(getString(R.string.doctor_profile));
         binding.myProfileToolbar.ivArrow.setVisibility(View.INVISIBLE);
 
         binding.myProfileMainContentSettings.getRoot()

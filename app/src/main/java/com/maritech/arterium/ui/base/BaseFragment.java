@@ -73,7 +73,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     public void showProgressDialog() {
         if (dialog == null) {
             dialog = new ProgressDialog(requireContext());
-            dialog.setMessage("Подождите..");
+            dialog.setMessage(getString(R.string.wait));
             dialog.show();
         }
     }

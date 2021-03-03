@@ -11,7 +11,7 @@
             android:id="@+id/tvToolbarTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/interfaces_name"
+            android:text="@string/language"
             android:textAppearance="@style/H2"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

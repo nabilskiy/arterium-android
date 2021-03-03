@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.ui.achievements.data.AchievementsContent;
-import com.maritech.arterium.ui.add_new_mp.holder.SelectedDoctorAdapter;
-import com.maritech.arterium.ui.choose_doctor.data.ChooseDoctorContent;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapter.ViewHolder> {
 
-    private AchievementsAdapter.OnItemClickListener onItemClickListener;
+    private final AchievementsAdapter.OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener {
         void onItemClicked(int position, AchievementsContent object);
@@ -32,8 +32,8 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
         public ViewHolder(View view) {
             super(view);
 
-            tvName = (TextView) view.findViewById(R.id.tvAchievement);
-            ivFoto = (ImageView) view.findViewById(R.id.ivAchievement);
+            tvName = view.findViewById(R.id.tvAchievement);
+            ivFoto = view.findViewById(R.id.ivAchievement);
         }
     }
 
@@ -42,6 +42,7 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
         this.onItemClickListener = onItemClickListener;
     }
 
+    @NotNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -54,12 +55,8 @@ public class AchievementsAdapter extends RecyclerView.Adapter<AchievementsAdapte
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.ivFoto.setImageResource(localDataSet.get(position).getIdImage());
         viewHolder.tvName.setText(localDataSet.get(position).getIdName());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickListener.onItemClicked(position, localDataSet.get(position));
-            }
-        });
+        viewHolder.itemView.setOnClickListener(v ->
+                onItemClickListener.onItemClicked(position, localDataSet.get(position)));
 
     }
 

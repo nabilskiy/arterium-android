@@ -61,7 +61,8 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
     }
 
     private void initView() {
-        adapter = new DrugProgramsAdapter(listContent, (position, object, tittle) -> {
+        adapter = new DrugProgramsAdapter(requireContext(),
+                listContent, (position, object, tittle) -> {
             if (!object.isSelected()) {
                 for (int i = 0; i < listContent.size(); i++) {
                     listContent.get(i).setSelected(false);

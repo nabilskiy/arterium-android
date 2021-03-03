@@ -135,7 +135,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             dates[0] = dateFormat.format(calendar.getTime());
 
                             sharedViewModel.dates.setValue(dates);
-                        }, "Фільтр по даті")
+                        }, getString(R.string.date_filter_title))
                         .show(getChildFragmentManager(),
                                 CalendarBottomSheetDialog.Companion.getTAG())
         );
@@ -197,7 +197,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             binding.tvAllBuy.setText(getString(R.string.whole_shopping_items1,
                                     profileData.getSoldCount()));
                             binding.tvLvlLitter.setText(profileData.getLevel());
-                            binding.tvLvl.setText(String.format("Рівень %s", profileData.getLevel()));
+                            binding.tvLvl.setText(getString(R.string.level_value, profileData.getLevel()));
                         });
 
         profileViewModel.errorMessage
@@ -205,8 +205,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                     if (error.contains("logged_in_from_another_device")) {
                         MaterialAlertDialogBuilder builder =
                                 new MaterialAlertDialogBuilder(requireContext());
-                        builder.setTitle("Авторизація");
-                        builder.setMessage("Вхід був проведений за допомогою іншого пристрою");
+                        builder.setTitle(getString(R.string.account_title));
+                        builder.setMessage(getString(R.string.account_session_error));
                         builder.show();
                     }
                 });
@@ -230,7 +230,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                                 if (model.getDescription() != null) {
                                     binding.tvInfoProgram.setText(model.getDescription());
                                 } else {
-                                    binding.tvInfoProgram.setText("Немає опису");
+                                    binding.tvInfoProgram.setText(getString(R.string.drug_program_desc));
                                 }
                             }
                         });

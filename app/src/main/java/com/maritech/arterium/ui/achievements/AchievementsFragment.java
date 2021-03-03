@@ -1,7 +1,6 @@
 package com.maritech.arterium.ui.achievements;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,20 +53,14 @@ public class AchievementsFragment extends BaseFragment<FragmentAchievementBindin
         binding.ivClose.setOnClickListener(v -> requireActivity().onBackPressed());
 
         BaseActivity.setStatusBarGradient(requireActivity(), android.R.color.black);
-        Log.e("Bottom", this.getClass().getName());
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        Log.e("onPause", this.getClass().getName());
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        BaseActivity.setStatusBarGradientDark(requireActivity(), BaseActivity.fetchPrimaryDarkColor(requireActivity()));
+        BaseActivity.setStatusBarGradientDark(
+                requireActivity(), BaseActivity.fetchPrimaryDarkColor(requireActivity())
+        );
     }
 
     private void prepareList(ArrayList<AchievementsContent> dataList) {
