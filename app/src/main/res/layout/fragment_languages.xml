@@ -13,57 +13,121 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clNamesList"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/interfaceToolbar">
 
-            <include
-                android:id="@+id/ukrainian"
-                layout="@layout/name_item"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="24dp"
+                android:background="?android:selectableItemBackground"
+                android:id="@+id/tvUa">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/ukrainian"
+                    android:textAppearance="@style/sf_pro_text_16"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/ivUa"
+                    android:layout_width="16dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_save_icon" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_view_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tvInterfaceName" />
 
-            <include
-                android:id="@+id/russian"
-                layout="@layout/name_item"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="24dp"
+                android:background="?android:selectableItemBackground"
+                android:id="@+id/tvRu">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/russian"
+                    android:textAppearance="@style/sf_pro_text_16"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/ivRu"
+                    android:layout_width="16dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_save_icon" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_view_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ukrainian" />
+                app:layout_constraintTop_toBottomOf="@id/tvInterfaceName" />
 
-            <include
-                android:id="@+id/english"
-                layout="@layout/name_item"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/russian" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="24dp"
+                android:background="?android:selectableItemBackground"
+                android:id="@+id/tvEn">
 
-        <TextView
-            android:id="@+id/tvInterfaceNameDescriptionWhatToDo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/description_what_to_do"
-            android:textAppearance="@style/sf_pro_text_12"
-            android:textColor="@color/gray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clNamesList" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/english"
+                    android:textAppearance="@style/sf_pro_text_16"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/ivEn"
+                    android:layout_width="16dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_save_icon" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvInterfaceNameDescriptionWhatToDo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/description_what_to_do"
+                android:textAppearance="@style/sf_pro_text_12"
+                android:textColor="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

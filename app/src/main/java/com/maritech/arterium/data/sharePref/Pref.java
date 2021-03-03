@@ -34,6 +34,7 @@ public class Pref {
     private static final String DRUG_PROGRAM_LIST = "drugProgramListKey";
     private static final String PIN_CODE_KEY = "pinCodeKey";
     private static final String PIN_CODE_ENABLE_KEY = "pinCodeEnableKey";
+    private static final String LANGUAGE = "language";
 
     //================================== SINGLETON ==========================================
 
@@ -166,5 +167,15 @@ public class Pref {
 
     public boolean isPinCodeEnabled(Context context) {
         return getPrefs(context).getBoolean(PIN_CODE_ENABLE_KEY, false);
+    }
+
+    public void setLanguage(Context context, String lang) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putString(LANGUAGE, lang);
+        prefsEditor.apply();
+    }
+
+    public String getLanguage(Context context) {
+        return getPrefs(context).getString(LANGUAGE, "ua");
     }
 }

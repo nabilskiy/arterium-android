@@ -24,6 +24,8 @@
 
     <!--Main Page Strings-->
     <string name="drug_program_desc">Немає опису</string>
+    <string name="last_registrations">Останні реєстрації</string>
+    <string name="search_hint">Пошук</string>
 
 
     <!--Patient Strings-->
@@ -90,6 +92,7 @@
     <string name="enable_finger_print">Використовувати біометрію</string>
     <string name="enable_push">Отримувати пуш повідомлення</string>
     <string name="language">Мова інтерфейсу</string>
+    <string name="route">\u0020 • \u0020 Як дістатися?</string>
 
 
     <!--Achievements Strings-->
@@ -118,6 +121,7 @@
     <string name="create">Створити</string>
     <string name="further">Далі</string>
     <string name="wait">Почекайте..</string>
+    <string name="work_time">Режим работи: 8:00 — 21:00</string>
 
 
 
@@ -129,6 +133,7 @@
     <string name="dialog_logout_cancel">Скасування</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">Список аптек</string>
+    <string name="enter_pharmacy">Введіть назву або адресу</string>
     <string name="last_shopping">Остання покупка 01.02.2020</string>
     <string name="personal_data">Персональні дані</string>
     <string name="feedback_phone">+380666123456</string>

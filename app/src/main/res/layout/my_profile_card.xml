@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="2dp"
-                android:text="Медичний представник"
+                android:text="@string/medical"
                 android:textAppearance="@style/sf_pro_text_16"
                 android:textColor="@color/gray"
                 app:layout_constraintStart_toEndOf="@+id/cvLogo"

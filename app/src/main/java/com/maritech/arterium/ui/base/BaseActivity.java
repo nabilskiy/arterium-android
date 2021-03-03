@@ -9,6 +9,7 @@ import androidx.databinding.ViewDataBinding;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -20,6 +21,8 @@ import android.view.WindowManager;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 
+import java.util.Locale;
+
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
     public T binding;
@@ -30,6 +33,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme();
+        setupLocale();
 
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, getLayoutId());
@@ -126,5 +130,15 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         super.onDestroy();
 
         binding = null;
+    }
+
+    private void setupLocale() {
+        String lang = Pref.getInstance().getLanguage(this);
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = getBaseContext().getResources().getConfiguration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
     }
 }

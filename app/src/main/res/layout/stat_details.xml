@@ -99,7 +99,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="12dp"
                 android:background="@android:color/transparent"
-                android:hint="Пошук"
+                android:hint="@string/search_hint"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"
                 app:layout_constraintTop_toTopOf="parent" />

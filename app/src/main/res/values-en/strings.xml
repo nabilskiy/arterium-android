@@ -24,6 +24,8 @@
 
     <!--Main Page Strings-->
     <string name="drug_program_desc">No description</string>
+    <string name="last_registrations">Last Registrations</string>
+    <string name="search_hint">Search</string>
 
 
     <!--Patient Strings-->
@@ -90,6 +92,7 @@
     <string name="enable_pin_code">Use PIN-code</string>
     <string name="enable_finger_print">Enable Finger print</string>
     <string name="enable_push">Receive push notifications</string>
+    <string name="route">\u0020 • \u0020 How to get there?</string>
 
 
     <!--Achievements Strings-->
@@ -118,6 +121,7 @@
     <string name="create">Create</string>
     <string name="further">Further</string>
     <string name="wait">Waiting..</string>
+    <string name="work_time">Work Time: 8:00 — 21:00</string>
 
 
 
@@ -129,6 +133,7 @@
     <string name="dialog_logout_cancel">Cancel</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">List of pharmacies</string>
+    <string name="enter_pharmacy">Enter name or address</string>
     <string name="last_shopping">Last purchase 01.02.2020</string>
     <string name="personal_data">Personal data</string>
     <string name="feedback_phone">+380666123456</string>
