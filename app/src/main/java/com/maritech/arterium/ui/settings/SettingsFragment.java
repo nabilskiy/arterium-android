@@ -11,7 +11,7 @@ import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentSettingsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.login.pinCode.PinCodeActivity;
+import com.maritech.arterium.ui.security.pinCode.PinCodeActivity;
 
 public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
 

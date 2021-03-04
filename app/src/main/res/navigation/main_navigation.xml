@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/dashboardRmFragment"
-        android:name="com.maritech.arterium.ui.dashboardRm.DashboardRmFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.DashboardRmFragment"
         android:label="DashboardRmFragment"
         tools:layout="@layout/fragment_dashboard_rm">
         <action
@@ -61,7 +61,7 @@
 
     <fragment
         android:id="@+id/addNewDoctorFragment"
-        android:name="com.maritech.arterium.ui.add_new_doctor.AddNewDoctorFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_doctor.AddNewDoctorFragment"
         android:label="AddNewDoctorFragment"
         tools:layout="@layout/fragment_add_new_doctor">
         <action
@@ -75,7 +75,7 @@
 
     <fragment
         android:id="@+id/addNewMpFragment"
-        android:name="com.maritech.arterium.ui.add_new_mp.AddNewMpFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.AddNewMpFragment"
         android:label="AddNewMpFragment"
         tools:layout="@layout/fragment_add_new_mp" >
         <action
@@ -88,13 +88,13 @@
 
     <fragment
         android:id="@+id/chooseDoctorFragment"
-        android:name="com.maritech.arterium.ui.choose_doctor.ChooseDoctorFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.choose_doctor.ChooseDoctorFragment"
         android:label="ChooseDoctorFragment"
         tools:layout="@layout/fragment_choose_doctor"/>
 
     <fragment
         android:id="@+id/chooseMpFragment"
-        android:name="com.maritech.arterium.ui.choose_mp.ChooseMpFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.choose_mp.ChooseMpFragment"
         android:label="ChooseMpFragment"
         tools:layout="@layout/fragment_choose_mp">
         <argument
@@ -114,7 +114,7 @@
 
     <fragment
         android:id="@+id/pharmacyFragment"
-        android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyFragment"
+        android:name="com.maritech.arterium.ui.pharmacies.list.PharmacyFragment"
         android:label="PharmacyFragment"
         tools:layout="@layout/fragment_pharmacy" />
 
@@ -158,7 +158,7 @@
 
     <fragment
         android:id="@+id/dashboard"
-        android:name="com.maritech.arterium.ui.dashboardMp.DashboardMpFragment"
+        android:name="com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment"
         android:label="DashboardMpFragment"
         tools:layout="@layout/fragment_dashboard_mp">
         <action
@@ -193,7 +193,7 @@
 
     <!--    <fragment-->
     <!--        android:id="@+id/pinCodeFragment"-->
-    <!--        android:name="com.maritech.arterium.ui.login.pinCode.PinCodeActivity"-->
+    <!--        android:name="com.maritech.arterium.ui.security.pinCode.PinCodeActivity"-->
     <!--        android:label="PinCodeFragment"-->
     <!--        tools:layout="@layout/fragment_pin">-->
     <!--        <action-->

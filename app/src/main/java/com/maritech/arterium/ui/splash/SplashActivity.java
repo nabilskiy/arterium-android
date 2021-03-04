@@ -10,7 +10,7 @@ import com.maritech.arterium.databinding.ActivitySplashBinding;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.login.LoginActivity;
-import com.maritech.arterium.ui.login.pinCode.PinCodeActivity;
+import com.maritech.arterium.ui.security.pinCode.PinCodeActivity;
 
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 

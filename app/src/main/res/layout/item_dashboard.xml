@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.maritech.arterium.ui.dashboardMp.data.DoctorsContent" />
+            type="com.maritech.arterium.ui.dashboard.medicalRep.data.DoctorsContent" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.maritech.arterium.ui.dashboardDoctor.DashboardFragment;
+import com.maritech.arterium.ui.dashboard.doctor.DashboardFragment;
 import com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment;
 import com.maritech.arterium.ui.notifications.NotificationsFragment;
 import com.maritech.arterium.ui.statistics.StatFragment;

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/pharmacyListFragment"
-        android:name="com.maritech.arterium.ui.pharmacy_list.PharmacyListFragment"
+        android:name="com.maritech.arterium.ui.pharmacies.list.PharmacyListFragment"
         android:label="PharmacyListFragment"
         tools:layout="@layout/fragment_pharmacy_list"
         >
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/mapFragment2"
-        android:name="com.maritech.arterium.ui.map.MapFragment"
+        android:name="com.maritech.arterium.ui.pharmacies.map.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_map"
         >
