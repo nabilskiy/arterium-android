@@ -1,5 +1,6 @@
 package com.maritech.arterium.data.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -45,12 +46,9 @@ public class Profile {
     @SerializedName("institution_type")
     @Expose
     private String institutionType;
-    @SerializedName("drug_program_id")
+    @SerializedName("drug_programs")
     @Expose
-    private Integer drugProgramId;
-    @SerializedName("drug_program_title")
-    @Expose
-    private String drugProgramTitle;
+    private ArrayList<DrugProgramModel> drugPrograms = null;
     @SerializedName("sold_count")
     @Expose
     private Integer soldCount;
@@ -165,20 +163,12 @@ public class Profile {
         this.institutionType = institutionType;
     }
 
-    public Integer getDrugProgramId() {
-        return drugProgramId;
+    public ArrayList<DrugProgramModel> getDrugPrograms() {
+        return drugPrograms;
     }
 
-    public void setDrugProgramId(Integer drugProgramId) {
-        this.drugProgramId = drugProgramId;
-    }
-
-    public String getDrugProgramTitle() {
-        return drugProgramTitle;
-    }
-
-    public void setDrugProgramTitle(String drugProgramTitle) {
-        this.drugProgramTitle = drugProgramTitle;
+    public void setDrugPrograms(ArrayList<DrugProgramModel> drugPrograms) {
+        this.drugPrograms = drugPrograms;
     }
 
     public Integer getSoldCount() {

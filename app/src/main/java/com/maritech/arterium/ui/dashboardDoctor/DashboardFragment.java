@@ -25,13 +25,14 @@ import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
 import com.maritech.arterium.ui.dashboardDoctor.level.LevelFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsFragment;
-import com.maritech.arterium.ui.drugPrograms.DrugProgramsViewModel;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
 import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
@@ -39,10 +40,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     private PatientsSharedViewModel sharedViewModel;
 
     private ProfileViewModel profileViewModel;
-    private DrugProgramsViewModel drugProgramsViewModel;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+    private ArrayList<DrugProgramModel> programModels;
 
     @Override
     protected int getContentView() {
@@ -60,10 +62,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         }
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-        }
-        if (drugProgramsViewModel == null) {
-            drugProgramsViewModel =
-                    new ViewModelProvider(this).get(DrugProgramsViewModel.class);
         }
 
         getChildFragmentManager().beginTransaction()
@@ -155,7 +153,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         );
 
         binding.clProgram.setOnClickListener(v -> {
-            DrugProgramsFragment customDialog = new DrugProgramsFragment();
+            DrugProgramsFragment customDialog = DrugProgramsFragment.getInstance(programModels);
 
             customDialog.setListener(content -> {
                 ((MainActivity) requireActivity()).setTheme();
@@ -178,8 +176,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         observeViewModel();
 
         profileViewModel.getProfile();
-
-        drugProgramsViewModel.getDrugPrograms();
     }
 
     @Override
@@ -198,6 +194,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                                     profileData.getSoldCount()));
                             binding.tvLvlLitter.setText(profileData.getLevel());
                             binding.tvLvl.setText(getString(R.string.level_value, profileData.getLevel()));
+
+                            programModels = profileData.getDrugPrograms();
+
+                            initDrugPrograms();
                         });
 
         profileViewModel.errorMessage
@@ -210,30 +210,32 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                         builder.show();
                     }
                 });
+    }
 
-        drugProgramsViewModel.responseLiveData
-                .observe(getViewLifecycleOwner(),
-                        list -> {
-                            int programId = Pref.getInstance().getDrugProgramId(requireContext());
-                            DrugProgramModel model = null;
+    private void initDrugPrograms() {
+        if (programModels != null && programModels.size() != 0) {
+            int programId =
+                    Pref.getInstance().getDrugProgramId(requireContext());
+            DrugProgramModel model = null;
 
-                            for (DrugProgramModel m : list) {
-                                if (m.getId() == programId) {
-                                    model = m;
-                                    break;
-                                }
-                            }
+            for (DrugProgramModel m : programModels) {
+                if (m.getId() == programId) {
+                    model = m;
+                    break;
+                }
+            }
 
-                            if (model != null) {
-                                binding.tvCurrentProgram.setText(String.format("%s - \"%s\"", model.getTitle(), model.getSlogan()));
+            if (model != null) {
+                binding.tvCurrentProgram
+                        .setText(String.format("%s - \"%s\"", model.getTitle(), model.getSlogan()));
 
-                                if (model.getDescription() != null) {
-                                    binding.tvInfoProgram.setText(model.getDescription());
-                                } else {
-                                    binding.tvInfoProgram.setText(getString(R.string.drug_program_desc));
-                                }
-                            }
-                        });
+                if (model.getDescription() != null) {
+                    binding.tvInfoProgram.setText(model.getDescription());
+                } else {
+                    binding.tvInfoProgram.setText(getString(R.string.drug_program_desc));
+                }
+            }
+        }
     }
 
     private final TextWatcher textWatcher = new TextWatcher() {
