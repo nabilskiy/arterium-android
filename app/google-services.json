@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "253012515211",
+    "project_id": "arterium-48c4a",
+    "storage_bucket": "arterium-48c4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253012515211:android:f8d5e6f44e1fe1d5b9378e",
+        "android_client_info": {
+          "package_name": "com.maritech.arterium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253012515211-rtu2oso2dvda00hdtfp7q8fi1948b6th.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maritech.arterium",
+            "certificate_hash": "b5584adca56ef3c5eb9f92789db9542db6c01e88"
+          }
+        },
+        {
+          "client_id": "253012515211-djovkfhgod0hs2kbe0nlfab0o8rs5v8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnM5dAE8C37Mb62zcKSP-bhOtkVf5qCMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253012515211-djovkfhgod0hs2kbe0nlfab0o8rs5v8u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "253012515211-p10ca0kj1svoj4j24b9cjlvvqfspprc5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ka.arterium.com"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

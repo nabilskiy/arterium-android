@@ -30,7 +30,6 @@ public class PinCodeActivity extends BaseActivity<FragmentPinBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding.verificationCodeInput.requestFocus();
         InputMethodManager imm = (InputMethodManager)
                 getSystemService(Context.INPUT_METHOD_SERVICE);

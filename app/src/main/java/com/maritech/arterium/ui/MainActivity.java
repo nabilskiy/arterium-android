@@ -33,8 +33,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
         }
-
-//        navController = Navigation.findNavController(this, R.id.main_host_fragment);
     }
 
     @Override
