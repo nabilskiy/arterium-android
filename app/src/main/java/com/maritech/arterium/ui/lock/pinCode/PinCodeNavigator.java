@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.security.pinCode;
+package com.maritech.arterium.ui.lock.pinCode;
 
 import androidx.navigation.NavController;
 

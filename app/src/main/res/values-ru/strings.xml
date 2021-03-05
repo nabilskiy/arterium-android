@@ -93,6 +93,8 @@
     <string name="enable_finger_print">Использовать отпечатку пальца</string>
     <string name="enable_push">Получать пуш уведомления</string>
     <string name="route">\u0020 • \u0020 Как добраться?</string>
+    <string name="bio_lock_title">Biometric Authentication</string>
+    <string name="pin_code_button">Login with PIN</string>
 
 
     <!--Achievements Strings-->

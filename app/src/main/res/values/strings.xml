@@ -93,6 +93,8 @@
     <string name="enable_push">Отримувати пуш повідомлення</string>
     <string name="language">Мова інтерфейсу</string>
     <string name="route">\u0020 • \u0020 Як дістатися?</string>
+    <string name="bio_lock_title">Біометрична аутентифікація</string>
+    <string name="pin_code_button">Увійти по PIN-коду</string>
 
 
     <!--Achievements Strings-->

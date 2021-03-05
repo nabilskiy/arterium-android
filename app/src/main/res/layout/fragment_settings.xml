@@ -27,14 +27,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header" />
 
-        <com.github.iielse.switchbutton.SwitchView
+        <!--        <com.github.iielse.switchbutton.SwitchView-->
+        <!--            android:id="@+id/switchAskPinCode"-->
+        <!--            android:layout_width="52dp"-->
+        <!--            android:layout_height="32dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/header" />-->
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchAskPinCode"
-            android:layout_width="52dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:thumbTint="@color/switch_bg"
+            app:trackTint="@color/pb_bg_color"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAskPinCode"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
+            app:layout_constraintTop_toTopOf="@+id/tvAskPinCode" />
 
         <View
             android:id="@+id/viewLineOne"
@@ -44,6 +55,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:background="@color/gray_view_line"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAskPinCode" />
@@ -60,16 +72,20 @@
             android:textColor="@color/black"
             android:textSize="17sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewLineOne" />
+            app:layout_constraintTop_toBottomOf="@+id/viewLineOne"
+            android:visibility="gone"/>
 
-        <com.github.iielse.switchbutton.SwitchView
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchUseBio"
-            android:layout_width="52dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:thumbTint="@color/switch_bg"
+            app:trackTint="@color/pb_bg_color"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvUseBio"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewLineOne" />
+            app:layout_constraintTop_toTopOf="@+id/tvUseBio"
+            android:visibility="gone" />
 
         <View
             android:id="@+id/viewLineTwo"
@@ -98,14 +114,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/viewLineTwo" />
 
-        <com.github.iielse.switchbutton.SwitchView
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switchGetPushNotifications"
-            android:layout_width="52dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:thumbTint="@color/switch_bg"
+            app:trackTint="@color/pb_bg_color"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvGetPushNotifications"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/viewLineTwo" />
+            app:layout_constraintTop_toTopOf="@+id/tvGetPushNotifications" />
 
         <View
             android:id="@+id/viewLineThree"
@@ -121,17 +139,17 @@
             app:layout_constraintTop_toBottomOf="@+id/tvGetPushNotifications" />
 
         <LinearLayout
+            android:id="@+id/tvSetLanguage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvSetLanguage"
-            android:background="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewLineThree"
-            android:gravity="center_vertical"
-            android:padding="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewLineThree">
 
             <TextView
                 android:layout_width="0dp"

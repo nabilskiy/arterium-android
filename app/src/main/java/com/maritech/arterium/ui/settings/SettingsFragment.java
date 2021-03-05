@@ -6,12 +6,13 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.biometric.BiometricManager;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentSettingsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.security.pinCode.PinCodeActivity;
+import com.maritech.arterium.ui.lock.pinCode.PinCodeActivity;
 
 public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
 
@@ -23,34 +24,43 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
     }
 
     @Override
-    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View root,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
 
         boolean isPinCodeEnabled = Pref.getInstance().isPinCodeEnabled(requireContext());
         if (isPinCodeEnabled) {
-            binding.switchAskPinCode.setOpened(true);
+            binding.switchAskPinCode.setChecked(true);
         }
 
-        binding.tvAskPinCode.setOnClickListener(v -> {
-            binding.switchAskPinCode.setOpened(!binding.switchAskPinCode.isOpened());
-
-            if (binding.switchAskPinCode.isOpened()) {
+        binding.switchAskPinCode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
                 Pref.getInstance().setPinCode(requireContext(), "");
 
                 Intent intent = new Intent(requireContext(), PinCodeActivity.class);
                 intent.putExtra(PinCodeActivity.SETTINGS_EXTRA_KEY, true);
                 startActivity(intent);
             } else {
-                Pref.getInstance().enablePinCode(requireContext(), false);
+                Pref.getInstance().setPinCodeEnable(requireContext(), false);
             }
         });
 
-        binding.tvUseBio.setOnClickListener(v -> {
-            binding.switchUseBio.setOpened(!binding.switchUseBio.isOpened());
-        });
+        boolean isBioEnabled = Pref.getInstance().isFingerPrintEnabled(requireContext());
+        if (isBioEnabled) {
+            binding.switchUseBio.setChecked(true);
+        }
 
-        binding.tvGetPushNotifications.setOnClickListener(v -> {
-            binding.switchGetPushNotifications.setOpened(!binding.switchGetPushNotifications.isOpened());
+        if (isFingerPrintAvailable()) {
+            binding.tvUseBio.setVisibility(View.VISIBLE);
+            binding.switchUseBio.setVisibility(View.VISIBLE);
+            binding.viewLineOne.setVisibility(View.VISIBLE);
+
+            binding.switchUseBio.setOnCheckedChangeListener((buttonView, isChecked) ->
+                    Pref.getInstance().setFingerPrintEnable(requireContext(), isChecked));
+        }
+
+        binding.switchGetPushNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
         });
 
         binding.tvSetLanguage.setOnClickListener(
@@ -64,6 +74,11 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
         binding.header.ivBack.setOnClickListener(
                 v -> requireActivity().onBackPressed()
         );
+    }
 
+    private boolean isFingerPrintAvailable() {
+        return BiometricManager.from(requireContext())
+                .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) ==
+                BiometricManager.BIOMETRIC_SUCCESS;
     }
 }

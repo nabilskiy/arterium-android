@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.security.pinCode;
+package com.maritech.arterium.ui.lock.pinCode;
 
 import android.app.Activity;
 import android.content.Context;
@@ -62,7 +62,7 @@ public class PinCodeActivity extends BaseActivity<FragmentPinBinding> {
                         ToastUtil.show(this, getString(R.string.saved_pin_code));
 
                         Pref.getInstance().setPinCode(this, localPinCode);
-                        Pref.getInstance().enablePinCode(this, true);
+                        Pref.getInstance().setPinCodeEnable(this, true);
 
                         finish();
                     } else {
@@ -75,9 +75,9 @@ public class PinCodeActivity extends BaseActivity<FragmentPinBinding> {
                     hideKeyboard(this);
 
                     Intent intent = new Intent(this, MainActivity.class);
+                    finishAffinity();
                     startActivity(intent);
 
-                    finish();
                 } else {
                     binding.verificationCodeInput.setText(null);
                 }
