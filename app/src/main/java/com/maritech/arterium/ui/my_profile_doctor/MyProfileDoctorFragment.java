@@ -43,13 +43,6 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
         binding.myProfileMainContentSettings.getRoot()
                 .setOnClickListener(v -> navigator.goToSettings(navController));
 
-        binding.myProfileCard.getRoot().setOnClickListener(
-                v -> {
-                    //TODO
-                    ToastUtil.show(requireContext(), "MyProfileDoctorFragment");
-                }
-        );
-
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));
 
         binding.achievements.getRoot()
@@ -57,9 +50,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
 
         binding.contactWithUs.getRoot().setOnClickListener(v -> {
             String phone = getString(R.string.feedback_phone);
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + phone));
-            startActivity(intent);
+            startCall(phone);
         });
 
         setMyProfileContentList();
@@ -82,12 +73,25 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
 
                             if (profileData.getParent() != null) {
                                 Profile.Parent parent = profileData.getParent();
+                                String role = parent.getRoleKey();
+                                String phone = "+" + parent.getLogin();
+
+                                if (role != null && !role.isEmpty() &&
+                                        role.equalsIgnoreCase("AGENT")) {
+
+                                    role = getString(R.string.medical);
+                                }
+                                binding.myProfileCard
+                                        .tvCardPersonSkill.setText(role);
                                 binding.myProfileCard
                                         .tvCardPersonName.setText(parent.getName());
                                 binding.myProfileCard
-                                        .tvCardPersonSkill.setText(parent.getName());
-                                binding.myProfileCard
-                                        .tvCardPersonTelephoneNumber.setText(parent.getName());
+                                        .tvCardPersonTelephoneNumber.setText(phone);
+
+                                binding.myProfileCard.getRoot().setVisibility(View.VISIBLE);
+
+                                binding.myProfileCard.callIv
+                                        .setOnClickListener(view -> startCall(phone));
                             } else {
                                 binding.myProfileCard.getRoot().setVisibility(View.GONE);
                             }
@@ -143,6 +147,12 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                 .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_blue_settings);
         binding.contactWithUs
                 .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_blue_phone);
+    }
+
+    private void startCall(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:" + phone));
+        startActivity(intent);
     }
 
     private void logout() {

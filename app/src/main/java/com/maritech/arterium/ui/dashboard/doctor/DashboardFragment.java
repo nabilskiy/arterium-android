@@ -110,7 +110,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         Calendar calendar = Calendar.getInstance();
         dates[1] = dateFormat.format(calendar.getTime());
 
-        calendar.add(Calendar.MONTH, -3);
+        calendar.add(Calendar.MONTH, -1);
         dates[0] = dateFormat.format(calendar.getTime());
 
         sharedViewModel.dates.setValue(dates);

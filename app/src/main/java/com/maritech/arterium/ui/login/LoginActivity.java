@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
+import com.maritech.arterium.common.UserType;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.ActivityLoginBinding;
@@ -156,27 +157,5 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 //        }
     }
 
-    public enum UserType {
-        DOCTOR("doctor"),
-        MEDICAL("medical"),
-        REGIONAL("regional");
 
-        private final String type;
-
-        UserType(String stringVal) {
-            type = stringVal;
-        }
-
-        @NotNull
-        public String toString() {
-            return type;
-        }
-
-        public static String getEnumByString(String code) {
-            for (UserType e : UserType.values()) {
-                if (e.name().equals(code)) return e.name();
-            }
-            return null;
-        }
-    }
 }

@@ -7,8 +7,6 @@ import androidx.annotation.Nullable;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.databinding.FragmentDashboardMpBinding;
-import com.maritech.arterium.databinding.ItemDashboardBinding;
-import com.maritech.arterium.ui.base.BaseAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboard.medicalRep.data.DoctorsContent;
 
@@ -43,13 +41,13 @@ public class DashboardMpFragment extends BaseFragment<FragmentDashboardMpBinding
             binding.details.clSearch.setVisibility(View.GONE);
         });
 
-        BaseAdapter adapter =
-                new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
-
-        binding.details.rvDoctors.setAdapter(adapter);
-        prepareList(listDoctors);
-
-        adapter.setDataList(listDoctors);
+//        BaseAdapter adapter =
+//                new BaseAdapter(ItemDashboardBinding.class, DoctorsContent.class);
+//
+//        binding.details.rvDoctors.setAdapter(adapter);
+//        prepareList(listDoctors);
+//
+//        adapter.setDataList(listDoctors);
     }
 
     private void prepareList(ArrayList<DoctorsContent> dataList) {

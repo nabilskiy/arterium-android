@@ -42,8 +42,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    private final SimpleDateFormat outputDateFormat =
-            new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
     private final SimpleDateFormat outputDateFormatShort =
             new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
 
@@ -224,7 +222,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
                             long millis = data.getLastUpdateAt() * 1000;
                             binding.tvStatisticRestartData
-                                    .setText(outputDateFormat.format(new Date(millis)));
+                                    .setText(outputDateFormatShort.format(new Date(millis)));
                             binding.tvStatisticPeriod
                                     .setText(outputDateFormatShort.format(new Date(millis)));
 

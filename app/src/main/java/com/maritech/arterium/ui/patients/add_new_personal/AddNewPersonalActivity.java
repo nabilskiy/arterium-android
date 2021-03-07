@@ -318,6 +318,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     }
 
     private void selectImage() {
+        //TODO Add Delete Item in Dialog
+
         final CharSequence[] options =
                 {getString(R.string.pick_photo), getString(R.string.pick_gallery)};
 
