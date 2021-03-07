@@ -16,6 +16,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -53,6 +54,9 @@ public interface ApiService {
 
     @GET("api/v1/doctors/patients/{patientId}/img")
     Single<ResponseBody> getPatientImage(@Path("patientId") int patientId);
+
+    @DELETE("api/v1/doctors/patients/{patientId}/img")
+    Single<PatientCreateResponse> deletePatientImage(@Path("patientId") int patientId);
 
     @Multipart
     @POST("api/v1/doctors/patients")

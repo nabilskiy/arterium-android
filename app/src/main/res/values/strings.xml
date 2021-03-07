@@ -63,6 +63,7 @@
     <string name="pick_photo">Сфотографувати</string>
     <string name="gallery_title">Вибрати з галереї</string>
     <string name="pick_gallery">Вибрати з галереї</string>
+    <string name="delete_image">Видалити фотографію</string>
     <string name="new_patient">Новий пацієнт</string>
     <string name="auto_fill_patient">Використати автозаповнення</string>
 

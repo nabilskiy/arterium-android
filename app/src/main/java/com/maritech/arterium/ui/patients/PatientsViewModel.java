@@ -23,6 +23,9 @@ public class PatientsViewModel extends BaseViewModel {
     public SingleLiveEvent<ResponseBody> imageResponse = new SingleLiveEvent<>();
     public SingleLiveEvent<ContentState> imageState = new SingleLiveEvent<>();
     public SingleLiveEvent<String> imageErrorMessage = new SingleLiveEvent<>();
+    public SingleLiveEvent<PatientCreateModel> deleteImageResponse = new SingleLiveEvent<>();
+    public SingleLiveEvent<ContentState> deleteImageState = new SingleLiveEvent<>();
+    public SingleLiveEvent<String> deleteImageErrorMessage = new SingleLiveEvent<>();
 
     private final DataProvider model;
 
@@ -70,6 +73,25 @@ public class PatientsViewModel extends BaseViewModel {
                         throwable -> {
                             imageState.postValue(ContentState.ERROR);
                             imageErrorMessage.postValue(throwable.getMessage());
+                        }
+                );
+    }
+
+    public void deletePatientImage(int patientId) {
+        deleteImageState.postValue(ContentState.LOADING);
+        model.deletePatientImage(patientId)
+                .subscribe(
+                        data -> {
+                            if (data != null && data.getData() != null) {
+                                deleteImageState.postValue(ContentState.CONTENT);
+                                deleteImageResponse.postValue(data.getData());
+                            } else {
+                                deleteImageState.postValue(ContentState.EMPTY);
+                            }
+                        },
+                        throwable -> {
+                            deleteImageState.postValue(ContentState.ERROR);
+                            deleteImageErrorMessage.postValue(throwable.getMessage());
                         }
                 );
     }

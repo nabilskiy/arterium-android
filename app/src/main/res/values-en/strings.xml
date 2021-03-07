@@ -63,6 +63,7 @@
     <string name="pick_photo">Take photography</string>
     <string name="gallery_title">Gallery</string>
     <string name="pick_gallery">Choose from gallery</string>
+    <string name="delete_image">Delete photography</string>
     <string name="new_patient">New patient</string>
     <string name="auto_fill_patient">Use autocomplete</string>
 

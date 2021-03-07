@@ -37,6 +37,8 @@ public interface DataProvider {
 
     Single<ResponseBody> getPatientImage(int patientId);
 
+    Single<PatientCreateResponse> deletePatientImage(int patientId);
+
     Single<PatientCreateResponse> createPatient(MultipartBody.Part img,
                                                 Map<String, RequestBody> body);
 

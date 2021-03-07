@@ -187,9 +187,23 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                     .circleCrop()
                     .into(binding.ivAvatar);
         });
+
         viewModel.imageState.observe(this, contentState -> {
             if (contentState == ContentState.ERROR) {
                 binding.ivAvatar.setImageResource(R.drawable.user_placeholder);
+            }
+        });
+
+        viewModel.deleteImageResponse.observe(this, responseBody -> {
+            if (responseBody != null && !responseBody.getHasImg()) {
+                model.setHasImg(false);
+            }
+        });
+
+        viewModel.deleteImageState.observe(this, contentState -> {
+            if (contentState == ContentState.ERROR) {
+                model.setHasImg(true);
+                loadImage();
             }
         });
     }
@@ -208,6 +222,14 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     private void loadImage() {
         viewModel.getPatientImage(model.getId());
+    }
+
+    private void deleteImage() {
+        viewModel.deletePatientImage(model.getId());
+
+        Glide.with(this).load(R.drawable.user_placeholder)
+                .circleCrop()
+                .into(binding.ivAvatar);
     }
 
     private void validateFieldsOne() {
@@ -318,10 +340,19 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     }
 
     private void selectImage() {
-        //TODO Add Delete Item in Dialog
+        final CharSequence[] options;
 
-        final CharSequence[] options =
-                {getString(R.string.pick_photo), getString(R.string.pick_gallery)};
+        if (isEditMode) {
+            options = new CharSequence[]{
+                    getString(R.string.pick_photo),
+                    getString(R.string.pick_gallery),
+                    getString(R.string.delete_image)
+            };
+        } else {
+            options = new CharSequence[]{
+                    getString(R.string.pick_photo),
+                    getString(R.string.pick_gallery)};
+        }
 
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setTitle(getString(R.string.photo_title));
@@ -331,6 +362,9 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             }
             if (options[item].equals(getString(R.string.pick_gallery))) {
                 openGallery();
+            }
+            if (options[item].equals(getString(R.string.delete_image))) {
+                deleteImage();
             }
         });
         builder.show();

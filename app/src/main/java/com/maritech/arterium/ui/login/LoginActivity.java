@@ -3,13 +3,10 @@ package com.maritech.arterium.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.UserType;
@@ -20,8 +17,6 @@ import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.utils.ToastUtil;
-
-import org.jetbrains.annotations.NotNull;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
@@ -100,9 +95,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         loginViewModel.login
                 .observe(this,
-                        loginData -> {
-                            profileViewModel.getProfile();
-                        });
+                        loginData -> profileViewModel.getProfile());
 
         loginViewModel.contentState
                 .observe(this, contentState -> {
