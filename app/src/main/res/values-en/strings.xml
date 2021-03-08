@@ -126,6 +126,8 @@
     <string name="wait">Waiting..</string>
     <string name="work_time">Work Time: 8:00 — 21:00</string>
 
+    <!--Notification Strings-->
+    <string name="notifications_empty">No notifications</string>
 
 
     <string name="six">6</string>

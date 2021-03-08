@@ -1,49 +1,32 @@
 package com.maritech.arterium.ui.notifications.holder;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.maritech.arterium.R;
-import com.maritech.arterium.ui.notifications.data.NotificationsContent;
-
+import com.maritech.arterium.data.models.NotificationResponse;
 import org.jetbrains.annotations.NotNull;
-
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
-    ArrayList<NotificationsContent> localDataSet;
+
+    private final ArrayList<NotificationResponse.Data> localDataSet;
     private final NotificationsAdapter.OnItemClickListener onItemClickListener;
 
-    public interface OnItemClickListener {
-        void onItemClicked(int position, NotificationsContent object);
-    }
+    private final SimpleDateFormat dateFormat =
+            new SimpleDateFormat("HH:mm", Locale.getDefault());
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        final ConstraintLayout clItemNotifications;
-        final TextView tvMessage;
-        final TextView tvTime;
-        final View line;
 
-        public ViewHolder(View view) {
-            super(view);
-
-            tvMessage = view.findViewById(R.id.tvMessage);
-            tvTime = view.findViewById(R.id.tvTime);
-            clItemNotifications = view.findViewById(R.id.clItemNotifications);
-            line = view.findViewById(R.id.viewLine);
-        }
-    }
-
-    public NotificationsAdapter(ArrayList<NotificationsContent> dataSet,
+    public NotificationsAdapter(ArrayList<NotificationResponse.Data> dataSet,
                                 NotificationsAdapter.OnItemClickListener onItemClickListener) {
-        localDataSet = dataSet;
+        this.localDataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
     }
 
@@ -63,7 +46,11 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     @Override
     public void onBindViewHolder(NotificationsAdapter.ViewHolder viewHolder, final int position) {
 
-        viewHolder.tvTime.setText(localDataSet.get(position).getData());
+        NotificationResponse.Data model = localDataSet.get(position);
+
+        long millis = model.getCreatedAt() * 1000;
+        viewHolder.tvTime.setText(dateFormat.format(new Date(millis)));
+
         viewHolder.tvMessage.setText(localDataSet.get(position).getMessage());
 
         viewHolder.itemView.setOnClickListener(v -> {
@@ -71,9 +58,27 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             onItemClickListener.onItemClicked(position, localDataSet.get(position));
         });
 
-        if(position == getItemCount() - 1){
-            viewHolder.line.setVisibility(View.INVISIBLE);
+        viewHolder.readView.setVisibility(model.getRead() ? View.VISIBLE : View.GONE);
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final ConstraintLayout clItemNotifications;
+        final TextView tvMessage;
+        final TextView tvTime;
+        final View readView;
+
+        public ViewHolder(View view) {
+            super(view);
+
+            tvTime = view.findViewById(R.id.tvTime);
+            tvMessage = view.findViewById(R.id.tvMessage);
+            clItemNotifications = view.findViewById(R.id.clItemNotifications);
+            readView = view.findViewById(R.id.readView);
         }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(int position, NotificationResponse.Data object);
     }
 }
 

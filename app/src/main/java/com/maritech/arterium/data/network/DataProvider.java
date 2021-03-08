@@ -3,6 +3,7 @@ package com.maritech.arterium.data.network;
 
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.LoginResponse;
+import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
@@ -52,4 +53,6 @@ public interface DataProvider {
                                              String to,
                                              int force,
                                              int drugProgramId);
+
+    Single<NotificationResponse> getNotifications();
 }

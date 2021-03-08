@@ -2,23 +2,31 @@ package com.maritech.arterium.ui.notifications;
 
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.maritech.arterium.R;
+import com.maritech.arterium.common.ContentState;
+import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.databinding.FragmentNotificationsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.notifications.data.NotificationsContent;
 import com.maritech.arterium.ui.notifications.holder.NotificationsAdapter;
+import com.maritech.arterium.utils.ToastUtil;
+
 import java.util.ArrayList;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding> {
 
     private NotificationsViewModel notificationsViewModel;
 
-    private NotificationsAdapter adapterUnread;
-    private NotificationsAdapter adapterRead;
+    private NotificationsAdapter adapter;
+
+    private ArrayList<NotificationResponse.Data> notificationList = new ArrayList<>();
 
     @Override
     protected int getContentView() {
@@ -26,7 +34,8 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
     }
 
     @Override
-    public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View root,
+                              @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
 
         notificationsViewModel =
@@ -36,59 +45,45 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         binding.toolbar.ivArrow.setVisibility(View.GONE);
         binding.toolbar.tvToolbarTitle.setText(getString(R.string.notification));
 
-        RecyclerView rvUnread = root.findViewById(R.id.rvUnread);
-        RecyclerView rvRead = root.findViewById(R.id.rvRead);
+        adapter = new NotificationsAdapter(notificationList, (position, object) -> {
 
-        ArrayList<NotificationsContent> dataListUnread = new ArrayList<>();
-        ArrayList<NotificationsContent> dataListRead = new ArrayList<>();
-        prepareListUnread(dataListUnread);
-        prepareListRead(dataListRead);
-
-        adapterUnread = new NotificationsAdapter(dataListUnread, (position, object) -> {
-            dataListUnread.remove(object);
-            changeValueUnreadNotifications(dataListUnread.size());
-            dataListRead.add(0, object);
-            adapterRead.notifyDataSetChanged();
-            if(dataListUnread.isEmpty()){
-                binding.clNewNotifications.setVisibility(View.GONE);
-            }
         });
 
-        adapterRead = new NotificationsAdapter(dataListRead, (position, object) -> {
-            //selectedObject = object;
-        });
-
-        rvUnread.setAdapter(adapterUnread);
-        rvRead.setAdapter(adapterRead);
+        binding.rvNotifications.setAdapter(adapter);
 
         binding.toolbar.ivArrow.setOnClickListener(v -> requireActivity().onBackPressed());
 
-        changeValueUnreadNotifications(dataListUnread.size());
+        observeViewModel();
+
+        getNotifications();
     }
 
-    private void prepareListUnread(ArrayList<NotificationsContent> dataList) {
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Новое Уведомление", "12:48"));
+    private void observeViewModel() {
+        notificationsViewModel.responseLiveData.observe(lifecycleOwner, notificationResponse -> {
+            notificationList.clear();
+            notificationList.addAll(notificationResponse.getData());
+            adapter.notifyDataSetChanged();
+        });
+
+        notificationsViewModel.contentState.observe(this, contentState -> {
+            if (contentState == ContentState.LOADING) {
+                binding.progressBar.setVisibility(View.VISIBLE);
+            } else {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+
+            binding.emptyContainer.setVisibility(
+                    contentState == ContentState.ERROR ? View.VISIBLE : View.GONE
+            );
+
+            binding.emptyContainer.setVisibility(
+                    contentState == ContentState.EMPTY ? View.VISIBLE : View.GONE
+            );
+        });
     }
 
-    private void prepareListRead(ArrayList<NotificationsContent> dataList) {
-        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
-        dataList.add(new NotificationsContent("Пациент Евгений Петров Старое Уведомление", "12:48"));
-
-    }
-
-    private void changeValueUnreadNotifications(int newValue) {
-        binding.tvUnreadCount.setText(String.valueOf(newValue));
+    private void getNotifications() {
+        notificationsViewModel.getNotifications();
     }
 
 }

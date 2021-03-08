@@ -1,8 +1,10 @@
 package com.maritech.arterium.data.network;
 
+import com.google.gson.JsonObject;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
+import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
@@ -74,4 +76,13 @@ public interface ApiService {
                                              @Query("to") String to,
                                              @Query("force") int force,
                                              @Query("drug_program_id") int drugProgramId);
+
+    @GET("/api/v1/profile/notifications")
+    Single<NotificationResponse> getNotifications();
+
+    @POST("/api/v1/profile/notifications")
+    Single<NotificationResponse> readNotifications(JsonObject body);
+
+    @POST("/api/v1/profile/fcm-token")
+    Single<NotificationResponse> sendFirebaseToken(JsonObject body);
 }

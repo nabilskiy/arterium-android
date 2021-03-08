@@ -127,6 +127,9 @@
     <string name="work_time">Режим работи: 8:00 — 21:00</string>
 
 
+    <!--Notification Strings-->
+    <string name="notifications_empty">Немає повідомлень</string>
+
 
     <string name="six">6</string>
     <string name="description_what_to_do">Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу.</string>

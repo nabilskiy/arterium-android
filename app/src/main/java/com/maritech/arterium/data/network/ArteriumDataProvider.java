@@ -8,6 +8,7 @@ import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
+import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
@@ -251,6 +252,18 @@ public class ArteriumDataProvider implements DataProvider {
                                                     int drugProgramId) {
         return Single.create(singleSubscriber -> provideArteriumClient()
                 .getStatistics(from, to, force, drugProgramId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<NotificationResponse> getNotifications() {
+        return Single.create(singleSubscriber -> provideArteriumClient()
+                .getNotifications()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
