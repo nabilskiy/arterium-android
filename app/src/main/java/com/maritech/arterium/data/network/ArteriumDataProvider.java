@@ -8,6 +8,7 @@ import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
+import com.maritech.arterium.data.models.NotificationModel;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
@@ -17,9 +18,13 @@ import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
+
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -251,7 +256,7 @@ public class ArteriumDataProvider implements DataProvider {
     public Observable<List<DrugProgramModel>> getDrugPrograms() {
         return Observable.mergeDelayError(
                 Observable.just(Pref.getInstance().getDrugProgramList(App.getInstance()))
-                        .filter(profileResponse -> profileResponse != null),
+                        .filter(drugPrograms -> drugPrograms != null),
                 provideClient().getDrugPrograms()
                         .subscribeOn(Schedulers.io())
                         .retryWhen(isAuthException())
@@ -288,6 +293,17 @@ public class ArteriumDataProvider implements DataProvider {
         return Single.create(singleSubscriber -> provideClient()
                 .getNotifications()
                 .subscribeOn(Schedulers.io())
+                .flatMap((Func1<NotificationResponse, Single<NotificationResponse>>)
+                        notificationResponse -> {
+                            if (notificationResponse != null &&
+                                    notificationResponse.getData() != null) {
+                                Collections.sort(notificationResponse.getData(),
+                                        (o1, o2) ->
+                                                Long.compare(o2.getCreatedAt(), o1.getCreatedAt()));
+                                Collections.reverse(notificationResponse.getData());
+                            }
+                            return Single.just(notificationResponse);
+                        })
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

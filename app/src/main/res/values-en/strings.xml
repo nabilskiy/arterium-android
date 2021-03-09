@@ -129,6 +129,8 @@
 
     <!--Notification Strings-->
     <string name="notifications_empty">No notifications</string>
+    <string name="notifications_unread">Unread</string>
+    <string name="notifications_earlier">Earlier</string>
 
 
     <string name="six">6</string>

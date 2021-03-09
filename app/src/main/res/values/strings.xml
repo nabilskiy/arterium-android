@@ -130,6 +130,8 @@
 
     <!--Notification Strings-->
     <string name="notifications_empty">Немає повідомлень</string>
+    <string name="notifications_unread">Непрочитане</string>
+    <string name="notifications_earlier">Раніше</string>
 
 
     <string name="six">6</string>

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import com.maritech.arterium.R;
-import com.maritech.arterium.data.models.NotificationResponse;
+import com.maritech.arterium.data.models.NotificationModel;
 import org.jetbrains.annotations.NotNull;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -17,14 +17,14 @@ import java.util.Locale;
 
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
 
-    private final ArrayList<NotificationResponse.Data> localDataSet;
+    private final ArrayList<NotificationModel> localDataSet;
     private final NotificationsAdapter.OnItemClickListener onItemClickListener;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("HH:mm", Locale.getDefault());
 
 
-    public NotificationsAdapter(ArrayList<NotificationResponse.Data> dataSet,
+    public NotificationsAdapter(ArrayList<NotificationModel> dataSet,
                                 NotificationsAdapter.OnItemClickListener onItemClickListener) {
         this.localDataSet = dataSet;
         this.onItemClickListener = onItemClickListener;
@@ -46,7 +46,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     @Override
     public void onBindViewHolder(NotificationsAdapter.ViewHolder viewHolder, final int position) {
 
-        NotificationResponse.Data model = localDataSet.get(position);
+        NotificationModel model = localDataSet.get(position);
 
         long millis = model.getCreatedAt() * 1000;
         viewHolder.tvTime.setText(dateFormat.format(new Date(millis)));
@@ -57,15 +57,12 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             notifyDataSetChanged();
             onItemClickListener.onItemClicked(position, localDataSet.get(position));
         });
-
-        viewHolder.readView.setVisibility(model.isRead() ? View.VISIBLE : View.GONE);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final ConstraintLayout clItemNotifications;
         final TextView tvMessage;
         final TextView tvTime;
-        final View readView;
 
         public ViewHolder(View view) {
             super(view);
@@ -73,12 +70,11 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             tvTime = view.findViewById(R.id.tvTime);
             tvMessage = view.findViewById(R.id.tvMessage);
             clItemNotifications = view.findViewById(R.id.clItemNotifications);
-            readView = view.findViewById(R.id.readView);
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClicked(int position, NotificationResponse.Data object);
+        void onItemClicked(int position, NotificationModel object);
     }
 }
 

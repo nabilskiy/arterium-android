@@ -129,7 +129,9 @@
 
 
     <!--Notification Strings-->
-    <string name="notifications_empty">Немає повідомлень</string>
+    <string name="notifications_empty">Нет уведомлений</string>
+    <string name="notifications_unread">Непрочитанное</string>
+    <string name="notifications_earlier">Раньше</string>
 
 
     <string name="six">6</string>

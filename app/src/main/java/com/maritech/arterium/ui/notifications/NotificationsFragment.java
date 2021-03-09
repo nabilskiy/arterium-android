@@ -7,19 +7,22 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
-import com.maritech.arterium.data.models.NotificationResponse;
+import com.maritech.arterium.data.models.NotificationModel;
 import com.maritech.arterium.databinding.FragmentNotificationsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.notifications.holder.NotificationsAdapter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding> {
 
     private NotificationsViewModel notificationsViewModel;
 
     private NotificationsAdapter adapter;
+    private NotificationsAdapter readAdapter;
 
-    private final ArrayList<NotificationResponse.Data> notificationList = new ArrayList<>();
+    private final ArrayList<NotificationModel> newNotifications = new ArrayList<>();
+    private final ArrayList<NotificationModel> earlierNotifications = new ArrayList<>();
 
     @Override
     protected int getContentView() {
@@ -38,16 +41,20 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         binding.toolbar.ivArrow.setVisibility(View.GONE);
         binding.toolbar.tvToolbarTitle.setText(getString(R.string.notification));
 
-        adapter = new NotificationsAdapter(notificationList, (position, object) -> {
+        adapter = new NotificationsAdapter(newNotifications, (position, object) -> {
             if (!object.isRead()) {
-                notificationList.get(position).setRead(true);
-                adapter.notifyItemChanged(position);
+                setMessageUnread(object.getId());
 
                 readNotification(object);
             }
         });
 
-        binding.rvNotifications.setAdapter(adapter);
+        readAdapter = new NotificationsAdapter(earlierNotifications, (position, object) -> {
+
+        });
+
+        binding.rvUnreadNotifications.setAdapter(adapter);
+        binding.rvReadNotifications.setAdapter(readAdapter);
 
         binding.toolbar.ivArrow.setOnClickListener(v -> requireActivity().onBackPressed());
 
@@ -57,11 +64,8 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
     }
 
     private void observeViewModel() {
-        notificationsViewModel.responseLiveData.observe(lifecycleOwner, notificationResponse -> {
-            notificationList.clear();
-            notificationList.addAll(notificationResponse.getData());
-            adapter.notifyDataSetChanged();
-        });
+        notificationsViewModel.responseLiveData.observe(lifecycleOwner,
+                notificationResponse -> splitNotification(notificationResponse.getData()));
 
         notificationsViewModel.contentState.observe(this, contentState -> {
             if (contentState == ContentState.LOADING) {
@@ -80,9 +84,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         });
 
         notificationsViewModel.readLiveData.observe(lifecycleOwner, model -> {
-            if (!model.isRead()) {
-                setMessageUnread(model.getId());
-            }
+
         });
 
         notificationsViewModel.readContentState.observe(lifecycleOwner, contentState -> {
@@ -94,17 +96,59 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         notificationsViewModel.getNotifications();
     }
 
-    private void readNotification(NotificationResponse.Data data) {
+    private void readNotification(NotificationModel data) {
         notificationsViewModel.readNotification(data);
     }
 
-    private void setMessageUnread(String messageId) {
+    private void splitNotification(List<NotificationModel> notificationList) {
         for (int i = 0; i < notificationList.size(); i++) {
-            if (notificationList.get(i).getMessage().equalsIgnoreCase(messageId)) {
-                notificationList.get(i).setRead(false);
-                adapter.notifyItemChanged(i);
+            if (notificationList.get(i).isRead()) {
+                earlierNotifications.add(notificationList.get(i));
+            } else {
+                newNotifications.add(notificationList.get(i));
+            }
+        }
+
+        adapter.notifyDataSetChanged();
+        readAdapter.notifyDataSetChanged();
+
+        setVisibilityByListSize();
+    }
+
+    private void setMessageUnread(String messageId) {
+        int position = 0;
+        for (int i = 0; i < newNotifications.size(); i++) {
+            if (newNotifications.get(i).getId().equalsIgnoreCase(messageId)) {
+                position = i;
                 break;
             }
+        }
+
+
+        earlierNotifications.add(0, newNotifications.get(position));
+        earlierNotifications.get(0).setRead(false);
+        readAdapter.notifyItemInserted(0);
+
+        newNotifications.remove(position);
+        adapter.notifyItemRemoved(position);
+
+        setVisibilityByListSize();
+    }
+
+    private void setVisibilityByListSize() {
+        if (newNotifications.size() > 0) {
+            binding.unreadTv.setVisibility(View.VISIBLE);
+            binding.unreadCountTv.setVisibility(View.VISIBLE);
+            binding.unreadCountTv.setText(String.valueOf(newNotifications.size()));
+        } else {
+            binding.unreadTv.setVisibility(View.GONE);
+            binding.unreadCountTv.setVisibility(View.GONE);
+        }
+
+        if (earlierNotifications.size() > 0) {
+            binding.tvBefore.setVisibility(View.VISIBLE);
+        } else {
+            binding.tvBefore.setVisibility(View.GONE);
         }
     }
 }

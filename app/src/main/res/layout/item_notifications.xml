@@ -10,21 +10,12 @@
     android:padding="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <View
-        android:background="@drawable/notification_read_bg"
-        android:id="@+id/readView"
-        android:layout_height="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_width="8dp" />
-
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_weight="1"
         android:gravity="start"
         android:id="@+id/tvMessage"
         android:layout_height="wrap_content"
         android:layout_width="0dp"
-        android:maxLines="1"
-        android:ellipsize="end"
         tools:text="fsdf sdf sdf"
         android:textAppearance="@style/sf_pro_text_16"
         android:textColor="@color/black"

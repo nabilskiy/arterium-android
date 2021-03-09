@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.maritech.arterium.common.ContentState;
+import com.maritech.arterium.data.models.NotificationModel;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
@@ -14,7 +15,7 @@ public class NotificationsViewModel extends ViewModel {
     public SingleLiveEvent<NotificationResponse> responseLiveData = new SingleLiveEvent<>();
     public SingleLiveEvent<ContentState> contentState = new SingleLiveEvent<>();
     public SingleLiveEvent<String> errorMessage = new SingleLiveEvent<>();
-    public SingleLiveEvent<NotificationResponse.Data> readLiveData = new SingleLiveEvent<>();
+    public SingleLiveEvent<NotificationModel> readLiveData = new SingleLiveEvent<>();
     public SingleLiveEvent<ContentState> readContentState = new SingleLiveEvent<>();
     public SingleLiveEvent<String> readErrorMessage = new SingleLiveEvent<>();
 
@@ -46,11 +47,11 @@ public class NotificationsViewModel extends ViewModel {
 
     }
 
-    public void readNotification(NotificationResponse.Data data) {
+    public void readNotification(NotificationModel data) {
 
         JsonObject body = new JsonObject();
         JsonArray ids = new JsonArray();
-        ids.add(data.getMessage());
+        ids.add(data.getId());
         body.add("ids", ids);
 
         model.readNotification(body)

@@ -8,7 +8,7 @@ import java.util.List;
 public class NotificationResponse {
     @SerializedName("data")
     @Expose
-    private List<Data> data = null;
+    private List<NotificationModel> data = null;
     @SerializedName("links")
     @Expose
     private Links links;
@@ -16,11 +16,11 @@ public class NotificationResponse {
     @Expose
     private Meta meta;
 
-    public List<Data> getData() {
+    public List<NotificationModel> getData() {
         return data;
     }
 
-    public void setData(List<Data> data) {
+    public void setData(List<NotificationModel> data) {
         this.data = data;
     }
 
@@ -38,55 +38,6 @@ public class NotificationResponse {
 
     public void setMeta(Meta meta) {
         this.meta = meta;
-    }
-
-    public static class Data {
-
-        @SerializedName("id")
-        @Expose
-        private String id;
-        @SerializedName("message")
-        @Expose
-        private String message;
-        @SerializedName("read")
-        @Expose
-        private boolean read;
-        @SerializedName("created_at")
-        @Expose
-        private Integer createdAt;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public boolean isRead() {
-            return read;
-        }
-
-        public void setRead(boolean read) {
-            this.read = read;
-        }
-
-        public Integer getCreatedAt() {
-            return createdAt;
-        }
-
-        public void setCreatedAt(Integer createdAt) {
-            this.createdAt = createdAt;
-        }
-
     }
 
     public static class Link {
