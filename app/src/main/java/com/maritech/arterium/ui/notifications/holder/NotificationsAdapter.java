@@ -58,7 +58,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             onItemClickListener.onItemClicked(position, localDataSet.get(position));
         });
 
-        viewHolder.readView.setVisibility(model.getRead() ? View.VISIBLE : View.GONE);
+        viewHolder.readView.setVisibility(model.isRead() ? View.VISIBLE : View.GONE);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

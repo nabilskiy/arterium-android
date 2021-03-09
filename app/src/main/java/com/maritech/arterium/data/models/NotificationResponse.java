@@ -71,7 +71,7 @@ public class NotificationResponse {
             this.message = message;
         }
 
-        public boolean getRead() {
+        public boolean isRead() {
             return read;
         }
 

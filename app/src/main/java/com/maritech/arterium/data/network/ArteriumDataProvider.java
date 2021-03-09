@@ -1,8 +1,7 @@
 package com.maritech.arterium.data.network;
 
-
 import androidx.annotation.IntRange;
-
+import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
@@ -18,11 +17,9 @@ import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor
 import com.maritech.arterium.data.network.interceptors.ErrorAuthTokenInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -34,15 +31,10 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Single;
+import rx.SingleSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-
-/**
- * Created by ujujzk on 16.08.2017
- * Softensy Digital Studio
- * softensiteam@gmail.com
- */
 
 public class ArteriumDataProvider implements DataProvider {
 
@@ -264,6 +256,39 @@ public class ArteriumDataProvider implements DataProvider {
     public Single<NotificationResponse> getNotifications() {
         return Single.create(singleSubscriber -> provideArteriumClient()
                 .getNotifications()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new SingleSubscriber<NotificationResponse>() {
+                            @Override
+                            public void onSuccess(NotificationResponse notificationResponse) {
+                                singleSubscriber.onSuccess(notificationResponse);
+                            }
+
+                            @Override
+                            public void onError(Throwable error) {
+                                singleSubscriber.onError(error);
+                            }
+                        }
+                ));
+    }
+
+    @Override
+    public Single<BaseResponse> readNotification(JsonObject body) {
+        return Single.create(singleSubscriber -> provideArteriumClient()
+                .readNotifications(body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<BaseResponse> sendFirebaseToken(JsonObject body) {
+        return Single.create(singleSubscriber -> provideArteriumClient()
+                .sendFirebaseToken(body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

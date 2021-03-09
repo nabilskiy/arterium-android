@@ -1,6 +1,7 @@
 package com.maritech.arterium.data.network;
 
 
+import com.google.gson.JsonObject;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
@@ -55,4 +56,8 @@ public interface DataProvider {
                                              int drugProgramId);
 
     Single<NotificationResponse> getNotifications();
+
+    Single<BaseResponse> readNotification(JsonObject body);
+
+    Single<BaseResponse> sendFirebaseToken(JsonObject body);
 }

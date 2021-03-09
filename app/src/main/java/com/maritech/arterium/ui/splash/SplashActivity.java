@@ -3,11 +3,9 @@ package com.maritech.arterium.ui.splash;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
-import com.google.firebase.messaging.FirebaseMessaging;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.ActivitySplashBinding;
@@ -48,8 +46,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 checkPinCodeEnable();
             }
         }
-
-        initFirebaseToken();
     }
 
     private boolean isFingerPrintEnabled() {
@@ -120,20 +116,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             }, 1000);
 
         }
-    }
-
-    private void initFirebaseToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.e("FIREBASE TOKEN", "Fetching FCM registration token failed", task.getException());
-                        return;
-                    }
-
-                    String token = task.getResult();
-
-                    Log.e("FIREBASE TOKEN", token);
-                });
     }
 
 

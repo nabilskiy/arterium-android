@@ -2,22 +2,15 @@ package com.maritech.arterium.ui.notifications;
 
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.databinding.FragmentNotificationsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.notifications.data.NotificationsContent;
 import com.maritech.arterium.ui.notifications.holder.NotificationsAdapter;
-import com.maritech.arterium.utils.ToastUtil;
-
 import java.util.ArrayList;
 
 public class NotificationsFragment extends BaseFragment<FragmentNotificationsBinding> {
@@ -26,7 +19,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
 
     private NotificationsAdapter adapter;
 
-    private ArrayList<NotificationResponse.Data> notificationList = new ArrayList<>();
+    private final ArrayList<NotificationResponse.Data> notificationList = new ArrayList<>();
 
     @Override
     protected int getContentView() {
@@ -46,7 +39,12 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
         binding.toolbar.tvToolbarTitle.setText(getString(R.string.notification));
 
         adapter = new NotificationsAdapter(notificationList, (position, object) -> {
+            if (!object.isRead()) {
+                notificationList.get(position).setRead(true);
+                adapter.notifyItemChanged(position);
 
+                readNotification(object);
+            }
         });
 
         binding.rvNotifications.setAdapter(adapter);
@@ -80,10 +78,33 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
                     contentState == ContentState.EMPTY ? View.VISIBLE : View.GONE
             );
         });
+
+        notificationsViewModel.readLiveData.observe(lifecycleOwner, model -> {
+            if (!model.isRead()) {
+                setMessageUnread(model.getId());
+            }
+        });
+
+        notificationsViewModel.readContentState.observe(lifecycleOwner, contentState -> {
+
+        });
     }
 
     private void getNotifications() {
         notificationsViewModel.getNotifications();
     }
 
+    private void readNotification(NotificationResponse.Data data) {
+        notificationsViewModel.readNotification(data);
+    }
+
+    private void setMessageUnread(String messageId) {
+        for (int i = 0; i < notificationList.size(); i++) {
+            if (notificationList.get(i).getMessage().equalsIgnoreCase(messageId)) {
+                notificationList.get(i).setRead(false);
+                adapter.notifyItemChanged(i);
+                break;
+            }
+        }
+    }
 }

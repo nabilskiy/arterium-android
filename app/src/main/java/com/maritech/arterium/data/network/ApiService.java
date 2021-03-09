@@ -81,8 +81,8 @@ public interface ApiService {
     Single<NotificationResponse> getNotifications();
 
     @POST("/api/v1/profile/notifications")
-    Single<NotificationResponse> readNotifications(JsonObject body);
+    Single<BaseResponse> readNotifications(@Body JsonObject body);
 
     @POST("/api/v1/profile/fcm-token")
-    Single<NotificationResponse> sendFirebaseToken(JsonObject body);
+    Single<BaseResponse> sendFirebaseToken(@Body JsonObject body);
 }
