@@ -163,8 +163,8 @@
     <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
     <string name="level_title">Рiвень</string>
     <string name="level_destination">Рівень призначення</string>
-    <string name="level_purchase">Купівля</string>
-    <string name="level_purchase_month">У місяць</string>
+    <string name="level_purchase">Покупка</string>
+    <string name="level_purchase_month">В місяць</string>
     <string name="level_purchase_limit">Без обмежень</string>
     <string name="level_purchase_primary">Первинна</string>
     <string name="level_purchase_secondary">Вторинна</string>
