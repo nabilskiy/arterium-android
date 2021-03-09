@@ -39,7 +39,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="16dp"
                     android:layout_weight="1"
-                    android:text="Фільтр по даті"
+                    android:text="@string/date_filter"
                     android:textAppearance="@style/H2"
                     android:textColor="@color/black" />
 

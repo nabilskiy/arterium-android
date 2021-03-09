@@ -87,13 +87,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
                     if (!task.isSuccessful()) {
-                        Log.e("FIREBASE TOKEN",
-                                "Fetching FCM registration token failed", task.getException());
                         return;
                     }
 
                     String token = task.getResult();
-                    Log.e("FIREBASE TOKEN", token);
 
                     JsonObject body = new JsonObject();
                     body.addProperty("fcm_token", token);

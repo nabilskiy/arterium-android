@@ -17,15 +17,12 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import rx.Observable;
 import rx.Single;
 
 public interface DataProvider {
 
     Single<LoginResponse> login(String login, String password);
-
-    Call<LoginResponse> refreshToken();
 
     Single<BaseResponse> logout();
 

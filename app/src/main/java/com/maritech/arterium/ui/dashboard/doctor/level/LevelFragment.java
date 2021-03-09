@@ -34,7 +34,7 @@ public class LevelFragment extends BottomSheetDialogFragment {
         binding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_level, container, false);
 
-        binding.tvBack.setOnClickListener(v -> {
+        binding.backIv.setOnClickListener(v -> {
             if (levelCloseListener != null) {
                 levelCloseListener.onClose();
             }

@@ -37,9 +37,6 @@ public class AuthenticationInterceptor implements Interceptor {
 
         String id = DeviceUtil.getDeviceId(App.getInstance());
 
-        Log.e("UUID", id);
-        Log.e("Token", authToken);
-
         if (!TextUtils.isEmpty(authToken)) {
             builder.header("Authorization", "Bearer " + authToken);
         }
@@ -47,7 +44,6 @@ public class AuthenticationInterceptor implements Interceptor {
         builder.header("Accept", "application/json");
         builder.header("X-Requested-With", "XMLHttpRequest");
         builder.header("Device-Id", id);
-
 
         Request request = builder.build();
         return chain.proceed(request);

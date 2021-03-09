@@ -1,6 +1,7 @@
 package com.maritech.arterium.data.network;
 
 import androidx.annotation.IntRange;
+
 import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.data.models.DrugProgramModel;
@@ -14,7 +15,6 @@ import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
-import com.maritech.arterium.data.network.interceptors.ErrorAuthTokenInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 import java.util.List;
@@ -25,7 +25,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
+import retrofit2.HttpException;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -67,7 +67,7 @@ public class ArteriumDataProvider implements DataProvider {
         return getInstance();
     }
 
-    private ApiService provideArteriumClient() {
+    private ApiService provideClient() {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
@@ -83,7 +83,6 @@ public class ArteriumDataProvider implements DataProvider {
 
         return new OkHttpClient.Builder()
                 .addInterceptor(new AuthenticationInterceptor())
-                .addInterceptor(new ErrorAuthTokenInterceptor())
                 .addInterceptor(new ChuckInterceptor(App.getInstance()))
                 .addInterceptor(interceptor)
                 .connectTimeout(waitingTime, TimeUnit.SECONDS)
@@ -94,12 +93,37 @@ public class ArteriumDataProvider implements DataProvider {
 
     //==================================== DATA PROVIDER ========================================
 
+    public static Func1<Observable<? extends Throwable>, Observable<?>> isAuthException() {
+        return throwableObservable -> throwableObservable
+                .flatMap((Func1<Throwable, Observable<?>>) throwable -> {
+                    if (throwable instanceof HttpException) {
+                        HttpException httpException = (HttpException) throwable;
+
+                        if (httpException.code() == 401) {
+                            return refreshToken().toObservable();
+                        }
+                    }
+                    return Observable.error(throwable);
+                });
+    }
+
+    public static Single<LoginResponse> refreshToken() {
+        return getInstance().provideClient()
+                .refreshToken()
+                .subscribeOn(Schedulers.io())
+                .flatMap((Func1<LoginResponse, Single<LoginResponse>>) Single::just)
+                .doOnSuccess(loginResponse -> Pref.getInstance().setAuthToken(
+                        App.getInstance(), loginResponse.getData().getAccessToken()
+                ));
+    }
 
     @Override
     public Single<LoginResponse> login(String login, String password) {
         return Single.create(singleSubscriber ->
-                provideArteriumClient().login(new LoginRequest(login, password))
+                provideClient()
+                        .login(new LoginRequest(login, password))
                         .subscribeOn(Schedulers.io())
+                        .retryWhen(isAuthException())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSuccess(loginResponse -> Pref.getInstance().setAuthToken(
                                 App.getInstance(), loginResponse.getData().getAccessToken()
@@ -112,8 +136,9 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<BaseResponse> logout() {
-        return Single.create(singleSubscriber -> provideArteriumClient().logout()
+        return Single.create(singleSubscriber -> provideClient().logout()
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess(baseResponse -> {
                     if (baseResponse.isSuccess()) {
@@ -131,17 +156,14 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     @Override
-    public Call<LoginResponse> refreshToken() {
-        return provideArteriumClient().refreshToken();
-    }
-
-    @Override
     public Observable<ProfileResponse> getProfile() {
         return Observable.mergeDelayError(
                 Observable.just(Pref.getInstance().getUserProfile(App.getInstance()))
                         .filter(profileResponse -> profileResponse != null),
-                provideArteriumClient().getProfile()
-//                        .retryWhen(BaseDataManager.isAuthorizeException())
+                provideClient().getProfile()
+                        .subscribeOn(Schedulers.io())
+                        .retryWhen(isAuthException())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .doOnNext(
                                 profileResponse -> Pref.getInstance().setUserProfile(
                                         App.getInstance(), profileResponse)
@@ -158,9 +180,10 @@ public class ArteriumDataProvider implements DataProvider {
                                                 int drugProgram,
                                                 String search) {
 
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .getPatients(purchasesFilter, startDate, endDate, drugProgram, search)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -171,9 +194,10 @@ public class ArteriumDataProvider implements DataProvider {
     @Override
     public Single<ResponseBody> getPatientImage(int patientId) {
 
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .getPatientImage(patientId)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -183,9 +207,10 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<PatientCreateResponse> deletePatientImage(int patientId) {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .deletePatientImage(patientId)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -196,9 +221,10 @@ public class ArteriumDataProvider implements DataProvider {
     @Override
     public Single<PatientCreateResponse> createPatient(MultipartBody.Part img,
                                                        Map<String, RequestBody> body) {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .createPatient(img, body)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -210,9 +236,10 @@ public class ArteriumDataProvider implements DataProvider {
     public Single<PatientCreateResponse> editPatient(int patientId,
                                                      MultipartBody.Part img,
                                                      Map<String, RequestBody> body) {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .editPatient(patientId, img, body)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -225,7 +252,10 @@ public class ArteriumDataProvider implements DataProvider {
         return Observable.mergeDelayError(
                 Observable.just(Pref.getInstance().getDrugProgramList(App.getInstance()))
                         .filter(profileResponse -> profileResponse != null),
-                provideArteriumClient().getDrugPrograms()
+                provideClient().getDrugPrograms()
+                        .subscribeOn(Schedulers.io())
+                        .retryWhen(isAuthException())
+                        .observeOn(AndroidSchedulers.mainThread())
                         .flatMap((Func1<DrugProgramsResponse, Observable<List<DrugProgramModel>>>) response -> {
                             Pref.getInstance().setDrugProgramList(
                                     App.getInstance(), response.getData());
@@ -242,9 +272,10 @@ public class ArteriumDataProvider implements DataProvider {
                                                     String to,
                                                     int force,
                                                     int drugProgramId) {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .getStatistics(from, to, force, drugProgramId)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -254,9 +285,10 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<NotificationResponse> getNotifications() {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .getNotifications()
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         new SingleSubscriber<NotificationResponse>() {
@@ -275,9 +307,10 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<BaseResponse> readNotification(JsonObject body) {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .readNotifications(body)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,
@@ -287,9 +320,10 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<BaseResponse> sendFirebaseToken(JsonObject body) {
-        return Single.create(singleSubscriber -> provideArteriumClient()
+        return Single.create(singleSubscriber -> provideClient()
                 .sendFirebaseToken(body)
                 .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         singleSubscriber::onSuccess,

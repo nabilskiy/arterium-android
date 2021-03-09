@@ -10,13 +10,10 @@ import com.maritech.arterium.data.models.PatientsResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.StatisticsResponse;
-
 import java.util.Map;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -35,7 +32,7 @@ public interface ApiService {
     Single<LoginResponse> login(@Body LoginRequest body);
 
     @POST("api/v1/auth/refresh")
-    Call<LoginResponse> refreshToken();
+    Single<LoginResponse> refreshToken();
 
     @POST("api/v1/auth/logout")
     Single<BaseResponse> logout();

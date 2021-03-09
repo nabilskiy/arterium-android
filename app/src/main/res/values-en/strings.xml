@@ -115,6 +115,7 @@
     <string name="level_value">Level %s</string>
     <string name="doctor_page_title">You are on the doctor\'s page, click to return</string>
     <string name="add_new_patient">Add a new patient</string>
+    <string name="date_filter">Filter by Date</string>
 
 
     <!--Common Strings-->
@@ -154,9 +155,19 @@
     <string name="simple_data">10 ЛЮТОГО 2020</string>
     <string name="eugenii">Евгений Петров</string>
     <string name="last_purchases">Last purchase in %s</string>
-    <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
+    <string name="renial_key_life">Ренiаль – «Ключ до життя»</string>
     <string name="gliptar_key_life">Гліптар – «Ключ до балансу»</string>
     <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
+    <string name="level_title">Level</string>
+    <string name="level_destination">Assignment level</string>
+    <string name="level_purchase">Purchase</string>
+    <string name="level_purchase_month">Per month</string>
+    <string name="level_purchase_limit">No limit</string>
+    <string name="level_purchase_primary">Primary</string>
+    <string name="level_purchase_secondary">Secondary</string>
+    <string name="level_с">Level \"С\"</string>
+    <string name="level_b">Level \"B\"</string>
+    <string name="level_a">Level \"A\"</string>
     <string name="need_more_buy">You need 2 more purchases to go to the next level</string>
     <string name="choose_date">Select date</string>
     <string name="country_code">+380</string>
