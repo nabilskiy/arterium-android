@@ -8,7 +8,6 @@ import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
-import com.maritech.arterium.data.models.NotificationModel;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientsResponse;
@@ -20,7 +19,6 @@ import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -44,8 +42,6 @@ import rx.schedulers.Schedulers;
 public class ArteriumDataProvider implements DataProvider {
 
     private static final String BASE_URL = "https://doc.maritech.com.ua/";
-
-    //================================== SINGLETON ==========================================
 
     private static volatile ArteriumDataProvider instance;
 

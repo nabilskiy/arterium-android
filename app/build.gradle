@@ -39,7 +39,7 @@ android {
             def file = output.outputFile
             outputFileName = new File(file.name.replace(".apk", "-"
                     + versionName
-                    + ".apk").replace("app", "arterium-dev"))
+                    + ".apk").replace("app", "k4l-dev"))
         }
     }
 
