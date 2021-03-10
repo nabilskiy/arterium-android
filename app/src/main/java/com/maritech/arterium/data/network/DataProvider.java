@@ -6,9 +6,11 @@ import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
-import com.maritech.arterium.data.models.PatientsResponse;
+import com.maritech.arterium.data.models.PatientListResponse;
+import com.maritech.arterium.data.models.PatientResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+import com.maritech.arterium.data.models.PurchasesResponse;
 import com.maritech.arterium.data.models.StatisticsResponse;
 
 import java.util.List;
@@ -28,11 +30,13 @@ public interface DataProvider {
 
     Observable<ProfileResponse> getProfile();
 
-    Single<PatientsResponse> getPatients(int purchasesFilter,
-                                         String startDate,
-                                         String endDate,
-                                         int drugProgram,
-                                         String search);
+    Single<PatientListResponse> getPatients(int purchasesFilter,
+                                            String startDate,
+                                            String endDate,
+                                            int drugProgram,
+                                            String search);
+
+    Single<PatientResponse> getPatient(int patientId);
 
     Single<ResponseBody> getPatientImage(int patientId);
 
@@ -51,6 +55,10 @@ public interface DataProvider {
                                              String to,
                                              int force,
                                              int drugProgramId);
+
+    Single<PurchasesResponse> getDoctorsSales(String from,
+                                              String to,
+                                              int drugProgramId);
 
     Single<NotificationResponse> getNotifications();
 

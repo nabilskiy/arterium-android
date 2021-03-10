@@ -2,7 +2,8 @@ package com.maritech.arterium.ui.patients;
 
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientCreateModel;
-import com.maritech.arterium.data.models.PatientsResponse;
+import com.maritech.arterium.data.models.PatientListResponse;
+import com.maritech.arterium.data.models.PatientResponse;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
 import com.maritech.arterium.ui.base.BaseViewModel;
@@ -14,9 +15,12 @@ import okhttp3.ResponseBody;
 
 public class PatientsViewModel extends BaseViewModel {
 
-    public SingleLiveEvent<PatientsResponse> responseLiveData = new SingleLiveEvent<>();
-    public SingleLiveEvent<ContentState> contentState = new SingleLiveEvent<>();
-    public SingleLiveEvent<String> errorMessage = new SingleLiveEvent<>();
+    public SingleLiveEvent<PatientListResponse> allPatients = new SingleLiveEvent<>();
+    public SingleLiveEvent<ContentState> allPatientsState = new SingleLiveEvent<>();
+    public SingleLiveEvent<String> allPatientsMessage = new SingleLiveEvent<>();
+    public SingleLiveEvent<PatientResponse> patientById = new SingleLiveEvent<>();
+    public SingleLiveEvent<ContentState> patientByIdState = new SingleLiveEvent<>();
+    public SingleLiveEvent<String> patientByIdMessage = new SingleLiveEvent<>();
     public SingleLiveEvent<PatientCreateModel> createPatient = new SingleLiveEvent<>();
     public SingleLiveEvent<ContentState> createPatientState = new SingleLiveEvent<>();
     public SingleLiveEvent<String> createErrorMessage = new SingleLiveEvent<>();
@@ -38,21 +42,41 @@ public class PatientsViewModel extends BaseViewModel {
                             int drugProgram,
                             String search) {
 
-        contentState.postValue(ContentState.LOADING);
+        allPatientsState.postValue(ContentState.LOADING);
         model.getPatients(0, startDate, endDate, drugProgram, search)
                 .subscribe(
                         data -> {
                             if (data != null && data.getData() != null && !data.getData().isEmpty()) {
-                                contentState.postValue(ContentState.CONTENT);
-                                responseLiveData.postValue(data);
+                                allPatientsState.postValue(ContentState.CONTENT);
+                                allPatients.postValue(data);
                             } else {
-                                contentState.postValue(ContentState.EMPTY);
+                                allPatientsState.postValue(ContentState.EMPTY);
                             }
 
                         },
                         throwable -> {
-                            contentState.postValue(ContentState.ERROR);
-                            errorMessage.postValue(throwable.getMessage());
+                            allPatientsState.postValue(ContentState.ERROR);
+                            allPatientsMessage.postValue(throwable.getMessage());
+                        }
+                );
+    }
+
+    public void getPatientById(int patientId) {
+        patientByIdState.postValue(ContentState.LOADING);
+        model.getPatient(patientId)
+                .subscribe(
+                        data -> {
+                            if (data != null && data.getData() != null) {
+                                patientByIdState.postValue(ContentState.CONTENT);
+                                patientById.postValue(data);
+                            } else {
+                                patientByIdState.postValue(ContentState.EMPTY);
+                            }
+
+                        },
+                        throwable -> {
+                            patientByIdState.postValue(ContentState.ERROR);
+                            patientByIdMessage.postValue(throwable.getMessage());
                         }
                 );
     }

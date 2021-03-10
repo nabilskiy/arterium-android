@@ -1,4 +1,4 @@
-package com.maritech.arterium.ui.patients;
+package com.maritech.arterium.ui.statistics.purchases;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,37 +13,38 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
-import com.maritech.arterium.data.models.PatientModel;
+import com.maritech.arterium.data.models.PurchaseModel;
 import com.maritech.arterium.data.sharePref.Pref;
-import com.maritech.arterium.databinding.FragmentPatientsBinding;
+import com.maritech.arterium.databinding.FragmentPurchasesBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
-import com.maritech.arterium.ui.patients.adapter.PatientsAdapter;
+import com.maritech.arterium.ui.patients.PatientCardActivity;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
+import com.maritech.arterium.ui.statistics.purchases.adapter.PurchasesAdapter;
 import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.ArrayList;
 
-public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
+public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
 
-    private PatientsViewModel viewModel;
-    private PatientsSharedViewModel sharedViewModel;
+    private PurchasesViewModel viewModel;
+    private StatSharedViewModel sharedViewModel;
 
     private String createdFromDate;
     private String createdToDate;
     private int drugProgramId = 0;
     private String searchQuery;
 
-    private ArrayList<PatientModel> allList = new ArrayList<>();
-    private ArrayList<PatientModel> filteredList = new ArrayList<>();
-    private PatientsAdapter adapter;
+    private ArrayList<PurchaseModel> allList = new ArrayList<>();
+    private ArrayList<PurchaseModel> filteredList = new ArrayList<>();
+    private PurchasesAdapter adapter;
 
     @Override
     protected int getContentView() {
-        return R.layout.fragment_patients;
+        return R.layout.fragment_purchases;
     }
 
     public static Fragment getInstance() {
-        PatientsFragment fragment = new PatientsFragment();
+        PurchasesFragment fragment = new PurchasesFragment();
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;
@@ -65,11 +66,11 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
         if (getParentFragment() != null) {
             sharedViewModel =
-                    new ViewModelProvider(getParentFragment()).get(PatientsSharedViewModel.class);
+                    new ViewModelProvider(getParentFragment()).get(StatSharedViewModel.class);
         }
 
         viewModel =
-                new ViewModelProvider(this).get(PatientsViewModel.class);
+                new ViewModelProvider(this).get(PurchasesViewModel.class);
 
         observeViewModel();
     }
@@ -86,18 +87,18 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
             if (filter == PurchasesType.ALL) {
                 adapter.setData(allList);
             } else if (filter == PurchasesType.WITH) {
-                ArrayList<PatientModel> models = new ArrayList<>();
-                for (PatientModel model : filteredList) {
-                    if (model.getLastPurchaseAt() != null) {
+                ArrayList<PurchaseModel> models = new ArrayList<>();
+                for (PurchaseModel model : filteredList) {
+                    if (model.getSoldSum() != null) {
                         models.add(model);
                     }
                 }
 
                 adapter.setData(models);
             } else if (filter == PurchasesType.WITHOUT) {
-                ArrayList<PatientModel> models = new ArrayList<>();
-                for (PatientModel model : filteredList) {
-                    if (model.getLastPurchaseAt() == null) {
+                ArrayList<PurchaseModel> models = new ArrayList<>();
+                for (PurchaseModel model : filteredList) {
+                    if (model.getSoldSum() == null) {
                         models.add(model);
                     }
                 }
@@ -121,9 +122,9 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
             if (searchQuery.isEmpty()) {
                 adapter.setData(allList);
             } else {
-                ArrayList<PatientModel> models = new ArrayList<>();
-                for (PatientModel model : filteredList) {
-                    if (model.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                ArrayList<PurchaseModel> models = new ArrayList<>();
+                for (PurchaseModel model : filteredList) {
+                    if (model.getPatientName().toLowerCase().contains(searchQuery.toLowerCase())) {
                         models.add(model);
                     }
                 }
@@ -135,7 +136,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
             }
         });
 
-        viewModel.allPatients
+        viewModel.responseLiveData
                 .observe(getViewLifecycleOwner(),
                         data -> {
                             allList = data.getData();
@@ -144,11 +145,17 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                             adapter.setData(filteredList);
                         });
 
-        viewModel.allPatientsState
+        viewModel.contentState
                 .observe(getViewLifecycleOwner(), contentState -> {
-                    binding.progressBar.setVisibility(contentState.isLoading() ? View.VISIBLE : View.GONE);
-                    binding.emptyContainer.setVisibility(contentState.isEmpty() ? View.VISIBLE : View.GONE);
-                    binding.rvPatients.setVisibility(!contentState.isLoading() && !contentState.isEmpty() ? View.VISIBLE : View.GONE);
+                    binding.progressBar.setVisibility(
+                            contentState.isLoading() ? View.VISIBLE : View.GONE
+                    );
+                    binding.emptyContainer.setVisibility(
+                            contentState.isEmpty() ? View.VISIBLE : View.GONE
+                    );
+                    binding.rvPatients.setVisibility(
+                            !contentState.isLoading() && !contentState.isEmpty() ? View.VISIBLE : View.GONE
+                    );
 
                     if (contentState.isError()) {
                         ToastUtil.show(requireContext(), "Ошибка при получении данных");
@@ -157,12 +164,12 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     }
 
     private void initView() {
-        adapter = new PatientsAdapter(
+        adapter = new PurchasesAdapter(
                 requireContext(),
                 filteredList,
                 (position, object) -> {
                     Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
-                    intent.putExtra(PatientCardActivity.PATIENT_ID_KEY, object.getId());
+                    intent.putExtra(PatientCardActivity.PATIENT_ID_KEY, object.getPatientId());
                     startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
                 }
         );
@@ -172,11 +179,10 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     }
 
     private void getPatientList() {
-        viewModel.getPatients(
+        viewModel.getPurchases(
                 createdFromDate,
                 createdToDate,
-                drugProgramId,
-                searchQuery
+                drugProgramId
         );
     }
 
@@ -195,15 +201,15 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     public void onDestroyView() {
         super.onDestroyView();
 
-        if (viewModel != null && viewModel.allPatients != null) {
-            if (viewModel.allPatients.hasObservers()) {
-                viewModel.allPatients.removeObservers(lifecycleOwner);
+        if (viewModel != null && viewModel.responseLiveData != null) {
+            if (viewModel.responseLiveData.hasObservers()) {
+                viewModel.responseLiveData.removeObservers(lifecycleOwner);
             }
-            if (viewModel.allPatientsState.hasObservers()) {
-                viewModel.allPatientsState.removeObservers(lifecycleOwner);
+            if (viewModel.contentState.hasObservers()) {
+                viewModel.contentState.removeObservers(lifecycleOwner);
             }
-            if (viewModel.allPatientsMessage.hasObservers()) {
-                viewModel.allPatientsMessage.removeObservers(lifecycleOwner);
+            if (viewModel.errorMessage.hasObservers()) {
+                viewModel.errorMessage.removeObservers(lifecycleOwner);
             }
             viewModel = null;
         }

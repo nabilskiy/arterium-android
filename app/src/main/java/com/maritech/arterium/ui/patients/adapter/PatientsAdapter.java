@@ -11,21 +11,22 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.PatientModel;
+import com.maritech.arterium.utils.DateTimeUtil;
+
 import org.jetbrains.annotations.NotNull;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class PatientPurchasesAdapter
-        extends RecyclerView.Adapter<PatientPurchasesAdapter.ViewHolder> {
+public class PatientsAdapter
+        extends RecyclerView.Adapter<PatientsAdapter.ViewHolder> {
 
-    private final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+    private final SimpleDateFormat dateFormat;
 
     ArrayList<PatientModel> localDataSet;
 
-    private final PatientPurchasesAdapter.OnItemClickListener onItemClickListener;
+    private final PatientsAdapter.OnItemClickListener onItemClickListener;
     private final Context context;
 
     public interface OnItemClickListener {
@@ -50,12 +51,14 @@ public class PatientPurchasesAdapter
         }
     }
 
-    public PatientPurchasesAdapter(Context context,
-                                   ArrayList<PatientModel> dataSet,
-                                   PatientPurchasesAdapter.OnItemClickListener onItemClickListener) {
+    public PatientsAdapter(Context context,
+                           ArrayList<PatientModel> dataSet,
+                           PatientsAdapter.OnItemClickListener onItemClickListener) {
         localDataSet = dataSet;
         this.context = context;
         this.onItemClickListener = onItemClickListener;
+        this.dateFormat =
+                new SimpleDateFormat("dd MMMM yyyy", DateTimeUtil.getLocale(context));
     }
 
     public void setData(ArrayList<PatientModel> dataSet) {
@@ -66,10 +69,10 @@ public class PatientPurchasesAdapter
 
     @NotNull
     @Override
-    public PatientPurchasesAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public PatientsAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_patient_purchases, viewGroup, false);
-        return new PatientPurchasesAdapter.ViewHolder(view);
+        return new PatientsAdapter.ViewHolder(view);
     }
 
     @Override
@@ -78,7 +81,7 @@ public class PatientPurchasesAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NotNull PatientPurchasesAdapter.ViewHolder viewHolder,
+    public void onBindViewHolder(@NotNull PatientsAdapter.ViewHolder viewHolder,
                                  final int position) {
 
         long createdDateLong = localDataSet.get(position).getCreatedAt() * 1000;

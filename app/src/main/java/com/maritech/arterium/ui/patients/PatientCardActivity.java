@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
@@ -21,24 +22,26 @@ import com.maritech.arterium.data.models.PatientModel;
 import com.maritech.arterium.databinding.ActivityPatientCardBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
+import com.maritech.arterium.utils.DateTimeUtil;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
+
+import static com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity.PATIENT_MODEL_KEY;
 
 public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding> {
 
     private static final int SCAN_REQUEST_CODE = 660;
     private static final int EDIT_REQUEST_CODE = 680;
-    public static final String PATIENT_MODEL_KEY = "patientModel";
+    public static final String PATIENT_ID_KEY = "patientId";
 
+    private int patientId;
     PatientModel model = null;
     PatientsViewModel viewModel;
 
-    private final SimpleDateFormat dateFormat =
-            new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+    private SimpleDateFormat dateFormat;
 
     @Override
     protected int getLayoutId() {
@@ -52,7 +55,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
 
         if (getIntent() != null) {
-            model = getIntent().getParcelableExtra(PATIENT_MODEL_KEY);
+            patientId = getIntent().getIntExtra(PATIENT_ID_KEY, -1);
         }
 
         binding.patientCardToolbar.tvToolbarTitle.setText(R.string.patient_card);
@@ -66,13 +69,56 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
             startActivityForResult(intent, EDIT_REQUEST_CODE);
         });
 
-        setPersonalCardData();
-
-        setMedicalCardData();
+        dateFormat =
+                new SimpleDateFormat("dd MMMM yyyy", DateTimeUtil.getLocale(this));
 
         observeViewModel();
 
-        loadImage();
+        getPatient();
+    }
+
+    private void observeViewModel() {
+        viewModel.imageResponse.observe(this, responseBody -> {
+            Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
+
+            Glide.with(this).load(bitmap)
+                    .circleCrop()
+                    .into(binding.ivMyProfileLogo);
+        });
+        viewModel.imageState.observe(this, contentState -> {
+            if (contentState == ContentState.ERROR) {
+                binding.ivMyProfileLogo.setImageResource(R.drawable.user_placeholder);
+            }
+        });
+
+        viewModel.patientById.observe(this, patientResponse -> {
+            model = patientResponse.getData();
+
+            setPersonalCardData();
+
+            setMedicalCardData();
+
+            loadImage();
+        });
+
+        viewModel.patientByIdState.observe(this, new Observer<ContentState>() {
+            @Override
+            public void onChanged(ContentState contentState) {
+                binding.progressBar.setVisibility(
+                        contentState == ContentState.LOADING ? View.VISIBLE : View.GONE
+                );
+
+                if (contentState == ContentState.CONTENT) {
+                    binding.content.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void getPatient() {
+        if (patientId != -1) {
+            viewModel.getPatientById(patientId);
+        }
     }
 
     @SuppressLint("CutPasteId")
@@ -246,21 +292,6 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
 
         // MY_SCAN_REQUEST_CODE is arbitrary and is only used within this activity.
         startActivityForResult(scanIntent, SCAN_REQUEST_CODE);
-    }
-
-    private void observeViewModel() {
-        viewModel.imageResponse.observe(this, responseBody -> {
-            Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
-
-            Glide.with(this).load(bitmap)
-                    .circleCrop()
-                    .into(binding.ivMyProfileLogo);
-        });
-        viewModel.imageState.observe(this, contentState -> {
-            if (contentState == ContentState.ERROR) {
-                binding.ivMyProfileLogo.setImageResource(R.drawable.user_placeholder);
-            }
-        });
     }
 
     private void loadImage() {

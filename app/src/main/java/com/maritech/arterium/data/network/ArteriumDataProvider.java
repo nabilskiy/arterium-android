@@ -10,9 +10,11 @@ import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
-import com.maritech.arterium.data.models.PatientsResponse;
+import com.maritech.arterium.data.models.PatientListResponse;
+import com.maritech.arterium.data.models.PatientResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+import com.maritech.arterium.data.models.PurchasesResponse;
 import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -175,14 +177,28 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     @Override
-    public Single<PatientsResponse> getPatients(int purchasesFilter,
-                                                String startDate,
-                                                String endDate,
-                                                int drugProgram,
-                                                String search) {
+    public Single<PatientListResponse> getPatients(int purchasesFilter,
+                                                   String startDate,
+                                                   String endDate,
+                                                   int drugProgram,
+                                                   String search) {
 
         return Single.create(singleSubscriber -> provideClient()
                 .getPatients(purchasesFilter, startDate, endDate, drugProgram, search)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<PatientResponse> getPatient(int patientId) {
+
+        return Single.create(singleSubscriber -> provideClient()
+                .getPatient(patientId)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -275,6 +291,21 @@ public class ArteriumDataProvider implements DataProvider {
                                                     int drugProgramId) {
         return Single.create(singleSubscriber -> provideClient()
                 .getStatistics(from, to, force, drugProgramId)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<PurchasesResponse> getDoctorsSales(String from,
+                                                     String to,
+                                                     int drugProgramId) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getDoctorSales(from, to, drugProgramId)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -126,6 +126,7 @@
     <string name="further">Далі</string>
     <string name="wait">Почекайте..</string>
     <string name="work_time">Режим работи: 8:00 — 21:00</string>
+    <string name="currency" translatable="false">%s₴</string>
 
 
     <!--Notification Strings-->
@@ -176,6 +177,7 @@
     <string name="country_code">+380</string>
     <string name="splash_title">Інновації для високої якості</string>
     <string name="splash_content">Приєднуйся до лікарів і фармацевтам з усієї України</string>
+
 
     <string-array name="calendar_month_general">
         <item name="calendar_january">Січень</item>

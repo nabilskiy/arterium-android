@@ -6,11 +6,15 @@ import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
-import com.maritech.arterium.data.models.PatientsResponse;
+import com.maritech.arterium.data.models.PatientListResponse;
+import com.maritech.arterium.data.models.PatientResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
+import com.maritech.arterium.data.models.PurchasesResponse;
 import com.maritech.arterium.data.models.StatisticsResponse;
+
 import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -44,12 +48,15 @@ public interface ApiService {
     Observable<ProfileResponse> getProfile();
 
     @GET("api/v1/doctors/patients")
-    Single<PatientsResponse> getPatients(@Query("purchases_filter") int purchasesFilter,
-                                         @Query("created_from") String startDate,
-                                         @Query("end_date") String endDate,
-                                         @Query("drug_program_id") int drugProgram,
-                                         @Query("search") String search
+    Single<PatientListResponse> getPatients(@Query("purchases_filter") int purchasesFilter,
+                                            @Query("created_from") String startDate,
+                                            @Query("end_date") String endDate,
+                                            @Query("drug_program_id") int drugProgram,
+                                            @Query("search") String search
     );
+
+    @GET("api/v1/doctors/patients/{patientId}")
+    Single<PatientResponse> getPatient(@Path("patientId") int patientId);
 
     @GET("api/v1/doctors/patients/{patientId}/img")
     Single<ResponseBody> getPatientImage(@Path("patientId") int patientId);
@@ -72,6 +79,12 @@ public interface ApiService {
     Single<StatisticsResponse> getStatistics(@Query("from") String from,
                                              @Query("to") String to,
                                              @Query("force") int force,
+                                             @Query("drug_program_id") int drugProgramId);
+
+    @GET("/api/v1/doctors/sales")
+    Single<PurchasesResponse> getDoctorSales(@Query("from") String from,
+                                             @Query("to") String to,
+//                                                  @Query("purchases_filter") int purchases_filter,
                                              @Query("drug_program_id") int drugProgramId);
 
     @GET("/api/v1/profile/notifications")

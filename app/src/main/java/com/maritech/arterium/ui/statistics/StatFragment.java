@@ -19,8 +19,9 @@ import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentStatBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
-import com.maritech.arterium.ui.patients.PatientsFragment;
-import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
+import com.maritech.arterium.ui.statistics.purchases.StatSharedViewModel;
+import com.maritech.arterium.ui.statistics.purchases.PurchasesFragment;
+import com.maritech.arterium.utils.DateTimeUtil;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -38,12 +39,13 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     private String toDate;
 
     private StatisticsViewModel statisticsViewModel;
-    private PatientsSharedViewModel sharedViewModel;
+    private StatSharedViewModel sharedViewModel;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private final SimpleDateFormat outputDateFormatShort =
             new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+    private SimpleDateFormat fullDateFormatShort;
 
     long mPrevClickTime = 0;
     long mNextClickTime = 0;
@@ -62,11 +64,11 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
         }
         if (sharedViewModel == null) {
             sharedViewModel =
-                    new ViewModelProvider(this).get(PatientsSharedViewModel.class);
+                    new ViewModelProvider(this).get(StatSharedViewModel.class);
         }
 
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.patients_container, PatientsFragment.getInstance())
+                .replace(R.id.patients_container, PurchasesFragment.getInstance())
                 .commit();
 
         binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
@@ -77,6 +79,10 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 .setText(getString(R.string.stat_purchases));
 
         binding.appBar.setOutlineProvider(null);
+
+        fullDateFormatShort = new SimpleDateFormat("dd MMMM yyyy",
+                DateTimeUtil.getLocale(requireContext())
+        );
 
         binding.detailsView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
                 (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -222,7 +228,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
                             long millis = data.getLastUpdateAt() * 1000;
                             binding.tvStatisticRestartData
-                                    .setText(outputDateFormatShort.format(new Date(millis)));
+                                    .setText(fullDateFormatShort.format(new Date(millis)));
                             binding.tvStatisticPeriod
                                     .setText(outputDateFormatShort.format(new Date(millis)));
 

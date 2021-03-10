@@ -43,8 +43,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
-import static com.maritech.arterium.ui.patients.PatientCardActivity.PATIENT_MODEL_KEY;
-
 public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalBinding> {
 
     public static final int PATIENT_REQUEST_CODE = 500;
@@ -54,6 +52,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     public static final int SCAN_REQUEST_CODE = 364;
     public static final int CAMERA_REQUEST_CODE = 500;
     public static final int GALLERY_REQUEST_CODE = 505;
+    public static final String PATIENT_MODEL_KEY = "patientModelKey";
 
     public static final String EDIT_EXTRA_KEY = "editModeKey";
     private boolean isEditMode;
@@ -190,7 +189,9 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
         viewModel.imageState.observe(this, contentState -> {
             if (contentState == ContentState.ERROR) {
-                binding.ivAvatar.setImageResource(R.drawable.user_placeholder);
+                Glide.with(this).load(R.drawable.user_placeholder)
+                        .circleCrop()
+                        .into(binding.ivAvatar);
             }
         });
 
@@ -342,7 +343,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     private void selectImage() {
         final CharSequence[] options;
 
-        if (isEditMode) {
+        if (isEditMode && model.getHasImg()) {
             options = new CharSequence[]{
                     getString(R.string.pick_photo),
                     getString(R.string.pick_gallery),

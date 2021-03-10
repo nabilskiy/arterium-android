@@ -1,15 +1,15 @@
 package com.maritech.arterium.data.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PatientsResponse {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PurchasesResponse {
     @SerializedName("data")
     @Expose
-    private ArrayList<PatientModel> data = null;
+    private ArrayList<PurchaseModel> data = null;
     @SerializedName("links")
     @Expose
     private Links links;
@@ -17,11 +17,11 @@ public class PatientsResponse {
     @Expose
     private Meta meta;
 
-    public ArrayList<PatientModel> getData() {
+    public ArrayList<PurchaseModel> getData() {
         return data;
     }
 
-    public void setData(ArrayList<PatientModel> data) {
+    public void setData(ArrayList<PurchaseModel> data) {
         this.data = data;
     }
 
