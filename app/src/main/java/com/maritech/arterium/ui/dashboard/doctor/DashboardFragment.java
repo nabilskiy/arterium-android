@@ -45,6 +45,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     private ArrayList<DrugProgramModel> programModels;
 
+    private int drugProgramId;
+
     @Override
     protected int getContentView() {
         return R.layout.fragment_dashboard;
@@ -62,6 +64,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         }
+
+        drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
 
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.patients_container, PatientsFragment.getInstance())
@@ -189,10 +193,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                         profileData -> {
                             binding.tvUserName.setText(profileData.getName());
                             binding.tvPost.setText(profileData.getInstitutionType());
-                            binding.tvAllBuy.setText(getString(R.string.whole_shopping_items1,
-                                    profileData.getSoldCount()));
-                            binding.tvLvlLitter.setText(profileData.getLevel());
-                            binding.tvLvl.setText(getString(R.string.level_value, profileData.getLevel()));
 
                             programModels = profileData.getDrugPrograms();
 
@@ -213,12 +213,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     private void initDrugPrograms() {
         if (programModels != null && programModels.size() != 0) {
-            int programId =
-                    Pref.getInstance().getDrugProgramId(requireContext());
             DrugProgramModel model = null;
 
             for (DrugProgramModel m : programModels) {
-                if (m.getId() == programId) {
+                if (m.getId() == drugProgramId) {
                     model = m;
                     break;
                 }
@@ -233,6 +231,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                 } else {
                     binding.tvInfoProgram.setText(getString(R.string.drug_program_desc));
                 }
+
+                binding.tvAllBuy.setText(getString(R.string.whole_shopping_items1,
+                        model.getPrimarySoldCount()));
+                binding.tvLvlLitter.setText(model.getLevel());
+                binding.tvLvl.setText(getString(R.string.level_value, model.getLevel()));
             }
         }
     }

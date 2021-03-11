@@ -86,6 +86,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         binding.toolbar.tvHint.setVisibility(View.VISIBLE);
         binding.toolbar.tvHint.setText(getString(R.string.medical_data));
 
+        binding.toolbar.viewOne.setActivated(true);
+
         binding.btnNextOne.setOnClickListener(v -> {
             validateFieldsOne();
         });
@@ -112,6 +114,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             if (isTwoStep) {
                 isTwoStep = false;
                 binding.toolbar.viewTwo.setActivated(false);
+                binding.toolbar.viewOne.setActivated(true);
 
                 binding.clProgressStepOne.setVisibility(View.VISIBLE);
                 binding.clProgressStepTwo.setVisibility(View.GONE);
@@ -330,6 +333,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     private void navigateSecondPage() {
         binding.toolbar.viewTwo.setActivated(true);
+        binding.toolbar.viewOne.setActivated(false);
         isTwoStep = true;
 
         binding.clProgressStepOne.setVisibility(View.GONE);
@@ -495,6 +499,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     public void autoFill() {
         binding.toolbar.viewTwo.setActivated(true);
+
         isTwoStep = true;
 
         binding.ccInputDateInfarct

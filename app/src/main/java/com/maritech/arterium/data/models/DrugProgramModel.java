@@ -22,6 +22,20 @@ public class DrugProgramModel implements Parcelable {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("primary_sold_count")
+    @Expose
+    private int primarySoldCount;
+    @SerializedName("level")
+    @Expose
+    private String level;
+    @SerializedName("next_level")
+    @Expose
+    private String nextLevel;
+    @SerializedName("sells_to_next_level")
+    @Expose
+    private String sellsToNextLevel;
+
+
     @SerializedName("products")
     @Expose
     private List<Product> products = null;
@@ -36,6 +50,10 @@ public class DrugProgramModel implements Parcelable {
         this.title = ((String) in.readValue((Integer.class.getClassLoader())));
         this.slogan = ((String) in.readValue((Integer.class.getClassLoader())));
         this.description = ((String) in.readValue((Integer.class.getClassLoader())));
+        this.primarySoldCount = ((int) in.readValue((int.class.getClassLoader())));
+        this.level = ((String) in.readValue((Integer.class.getClassLoader())));
+        this.nextLevel = ((String) in.readValue((Integer.class.getClassLoader())));
+        this.sellsToNextLevel = ((String) in.readValue((String.class.getClassLoader())));
         this.selected = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
         in.readList(this.products, (DrugProgramModel.class.getClassLoader()));
     }
@@ -100,6 +118,38 @@ public class DrugProgramModel implements Parcelable {
         this.selected = selected;
     }
 
+    public int getPrimarySoldCount() {
+        return primarySoldCount;
+    }
+
+    public void setPrimarySoldCount(int primarySoldCount) {
+        this.primarySoldCount = primarySoldCount;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public String getNextLevel() {
+        return nextLevel;
+    }
+
+    public void setNextLevel(String nextLevel) {
+        this.nextLevel = nextLevel;
+    }
+
+    public String getSellsToNextLevel() {
+        return sellsToNextLevel;
+    }
+
+    public void setSellsToNextLevel(String sellsToNextLevel) {
+        this.sellsToNextLevel = sellsToNextLevel;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -111,6 +161,11 @@ public class DrugProgramModel implements Parcelable {
         dest.writeValue(title);
         dest.writeValue(slogan);
         dest.writeValue(description);
+        dest.writeValue(primarySoldCount);
+        dest.writeValue(level);
+        dest.writeValue(nextLevel);
+        dest.writeValue(sellsToNextLevel);
+        dest.writeValue(selected);
         dest.writeList(products);
     }
 
