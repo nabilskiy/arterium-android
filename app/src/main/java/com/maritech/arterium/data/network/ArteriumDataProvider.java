@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
+import com.maritech.arterium.data.models.LevelsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
@@ -19,12 +20,10 @@ import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -282,6 +281,19 @@ public class ArteriumDataProvider implements DataProvider {
         )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread(), true);
+    }
+
+    @Override
+    public Single<LevelsResponse> getLevels(int programId) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getLevels(programId)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
     }
 
     @Override

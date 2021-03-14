@@ -3,6 +3,7 @@ package com.maritech.arterium.data.network;
 
 import com.google.gson.JsonObject;
 import com.maritech.arterium.data.models.DrugProgramModel;
+import com.maritech.arterium.data.models.LevelsResponse;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
@@ -50,6 +51,8 @@ public interface DataProvider {
                                               Map<String, RequestBody> body);
 
     Observable<List<DrugProgramModel>> getDrugPrograms();
+
+    Single<LevelsResponse> getLevels(int programId);
 
     Single<StatisticsResponse> getStatistics(String from,
                                              String to,

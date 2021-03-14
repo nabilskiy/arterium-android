@@ -23,7 +23,7 @@ import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
-import com.maritech.arterium.ui.dashboard.doctor.level.LevelFragment;
+import com.maritech.arterium.ui.dashboard.doctor.levels.LevelsContainerDialog;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsFragment;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
@@ -156,7 +156,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         );
 
         binding.clProgram.setOnClickListener(v -> {
-            DrugProgramsFragment customDialog = DrugProgramsFragment.getInstance(programModels);
+            DrugProgramsFragment customDialog =
+                    DrugProgramsFragment.getInstance(programModels);
 
             customDialog.setListener(content -> {
                 ((MainActivity) requireActivity()).setTheme();
@@ -168,11 +169,13 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
         });
 
-        binding.clInfoClose.setOnClickListener(v -> actionViewModel.onRecreate.setValue(true));
+        binding.clInfoClose.setOnClickListener(
+                v -> actionViewModel.onRecreate.setValue(true)
+        );
 
         binding.lvlLayout.setOnClickListener(v -> {
-            LevelFragment fragment = new LevelFragment();
-            fragment.setListener(fragment::dismiss);
+            LevelsContainerDialog fragment =
+                    LevelsContainerDialog.getInstance(programModels);
             fragment.show(getChildFragmentManager(), "LevelFragment");
         });
 

@@ -158,19 +158,22 @@
     <string name="simple_data">10 ЛЮТОГО 2020</string>
     <string name="eugenii">Евгений Петров</string>
     <string name="last_purchases">Последняя покупка в %s</string>
+    <string name="renial">Рениаль</string>
+    <string name="gliptar">Глиптар</string>
+    <string name="sagrada">Саграда</string>
     <string name="renial_key_life">Рениаль – «Ключ до життя»</string>
-    <string name="gliptar_key_life">Гліптар – «Ключ до балансу»</string>
+    <string name="gliptar_key_life">Глиптар – «Ключ до балансу»</string>
     <string name="sagrada_key_life">Саграда – «Квиток у майбутне»</string>
     <string name="level_title">Уровень</string>
     <string name="level_destination">Уровень назначения</string>
     <string name="level_purchase">Покупка</string>
     <string name="level_purchase_month">В месяц</string>
-    <string name="level_purchase_limit">Без ограничений</string>
+    <string name="level_purchase_limit">∞</string>
     <string name="level_purchase_primary">Первичная</string>
     <string name="level_purchase_secondary">Вторичная</string>
-    <string name="level_с">Уровень \"С\"</string>
-    <string name="level_b">Уровень \"B\"</string>
-    <string name="level_a">Уровень \"A\"</string>
+    <string name="level_с">Уровень С</string>
+    <string name="level_b">Уровень B</string>
+    <string name="level_a">Уровень A</string>
 
     <string name="need_more_buy">Нужно еще 2 покупки для перехода на следующий уровень</string>
     <string name="choose_date">Выбрать дату</string>

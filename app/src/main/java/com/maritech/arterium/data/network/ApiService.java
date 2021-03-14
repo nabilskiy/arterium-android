@@ -2,6 +2,7 @@ package com.maritech.arterium.data.network;
 
 import com.google.gson.JsonObject;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
+import com.maritech.arterium.data.models.LevelsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
 import com.maritech.arterium.data.models.LoginResponse;
 import com.maritech.arterium.data.models.NotificationResponse;
@@ -43,6 +44,9 @@ public interface ApiService {
 
     @GET("api/v1/info/drug-programs")
     Observable<DrugProgramsResponse> getDrugPrograms();
+
+    @GET("api/v1/info/levels")
+    Single<LevelsResponse> getLevels(@Query("drug_program_id") int drugProgram);
 
     @GET("api/v1/profile")
     Observable<ProfileResponse> getProfile();

@@ -28,7 +28,6 @@ public class CustomTabComponent extends ConstraintLayout {
     View viewTwo;
     View viewThree;
 
-
     public CustomTabComponent(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -90,7 +89,6 @@ public class CustomTabComponent extends ConstraintLayout {
     }
 
     private void initSwitch(Context context, Integer value, TypedArray typedArray) {
-
         if (value == 1) {
             tvOne.setActivated(true);
             tvOne.setText(textOne);
@@ -145,15 +143,20 @@ public class CustomTabComponent extends ConstraintLayout {
         viewThree = findViewById(R.id.viewThree);
     }
 
-    public void initForDetails(){
-        tvOne.setActivated(true);
-        tvOne.setText(textOne);
-        tvTwo.setText(textTwo);
-        tvThree.setText(textThree);
+    public void setTabs(int value, String first, String second, String third) {
+        textOne = first;
 
-        tvFour.setVisibility(GONE);
-
-        viewThree.setVisibility(GONE);
+        if (value == 2) {
+            textTwo = second;
+        }
+        if (value == 3) {
+            textTwo = second;
+            textThree = third;
+        }
+        initSwitch(getContext(), value, null);
     }
+
+
+
 
 }
