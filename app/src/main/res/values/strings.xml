@@ -52,7 +52,7 @@
     <string name="enter_drug_administration">Введіть дату призначення препарату</string>
     <string name="ejection_fraction">Фракція викиду</string>
     <string name="enter_ejection_fraction">Введіть фракцію викиду</string>
-    <string name="ejection_fraction_value">55%</string>
+    <string name="ejection_fraction_value">55</string>
     <string name="enter_potassium_start">Введіть рівень калію на початку лікування</string>
     <string name="potassium_start">Рівень калію на початку лікування, ммоль/л</string>
     <string name="potassium_start_value">3,1</string>
@@ -66,6 +66,32 @@
     <string name="delete_image">Видалити фотографію</string>
     <string name="new_patient">Новий пацієнт</string>
     <string name="auto_fill_patient">Використати автозаповнення</string>
+    <string name="enter_value">Введіть значение</string>
+    <string name="date_oks">Дата ГКС</string>
+    <string name="option_oks">Форма/варіант ГКС</string>
+    <string name="coronary_angiography">Коронарографія</string>
+    <string name="occlusion_zone">Зона окклюзії , КА</string>
+    <string name="occlusion_degree">Ступінь окклюзії коронарної  артерії, %</string>
+    <string name="coronary_dominance_type">Тип домінантності коронарного кровообігу</string>
+    <string name="level_hba1c">Рівень HbA1c, %</string>
+    <string name="fasting_glycemia">Глікемія натще, ммоль/л</string>
+    <string name="postprandial_glycemia">Постпрандіальна глікемія, ммоль/л</string>
+    <string name="index_homa_ir">Iндекс HOMA-IR</string>
+    <string name="sad">САТ</string>
+    <string name="dad">ДАТ</string>
+    <string name="imt">ІМТ</string>
+    <string name="age">Вік, років</string>
+    <string name="occlusion_zone_value">Басейн правої КА | басейн лівої КА</string>
+    <string name="occlusion_degree_value">50</string>
+    <string name="coronary_dominance_type_value">Правий</string>
+    <string name="level_hba1c_value">6.5</string>
+    <string name="fasting_glycemia_value">7</string>
+    <string name="postprandial_glycemia_value">11.1</string>
+    <string name="index_homa_ir_value">2</string>
+    <string name="sad_value">100</string>
+    <string name="dad_value">70</string>
+    <string name="imt_value">10</string>
+    <string name="age_value">40</string>
 
 
     <!--Statistic Strings-->
@@ -197,17 +223,16 @@
         <item name="calendar_december">Грудень</item>
     </string-array>
 
-<!--    <string name="january">Січень</string>-->
-<!--    <string name="february">Лютий</string>-->
-<!--    <string name="march">Березень</string>-->
-<!--    <string name="april">Квітень</string>-->
-<!--    <string name="may">Травень</string>-->
-<!--    <string name="june">Червень</string>-->
-<!--    <string name="july">Липень</string>-->
-<!--    <string name="august">Серпень</string>-->
-<!--    <string name="september">Вересень</string>-->
-<!--    <string name="october">Жовтень</string>-->
-<!--    <string name="november">Листопад</string>-->
-<!--    <string name="december">Грудень</string>-->
+    <string-array name="oks_options">
+        <item name="0">Нестабільна стенокардія</item>
+        <item name="1">STEMI</item>
+        <item name="2">nSTEMI</item>
+    </string-array>
+
+    <string-array name="coronary_angiography">
+        <item name="0">Так</item>
+        <item name="1">Ні</item>
+        <item name="2">90/10</item>
+    </string-array>
 
 </resources>

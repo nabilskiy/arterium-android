@@ -54,6 +54,10 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     public static final int GALLERY_REQUEST_CODE = 505;
     public static final String PATIENT_MODEL_KEY = "patientModelKey";
 
+    final int PROGRAM_RENIAL = 1;
+    final int PROGRAM_GLIPTAR = 2;
+    final int PROGRAM_SAGRADA = 4;
+
     public static final String EDIT_EXTRA_KEY = "editModeKey";
     private boolean isEditMode;
 
@@ -70,6 +74,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     ToolTip toolTip;
 
+    private int programId;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_add_new_personal;
@@ -82,6 +88,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
 
         isEditMode = getIntent().getBooleanExtra(EDIT_EXTRA_KEY, false);
+        programId = Pref.getInstance().getDrugProgramId(this);
 
         binding.toolbar.tvHint.setVisibility(View.VISIBLE);
         binding.toolbar.tvHint.setText(getString(R.string.medical_data));
@@ -96,7 +103,33 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
         binding.ivAvatar.setOnClickListener(v -> selectImage());
 
-        binding.toolbar.ivLeft.setOnClickListener(v -> autoFill());
+        binding.toolbar.ivLeft.setOnClickListener(v -> {
+            binding.toolbar.viewTwo.setActivated(true);
+
+            isTwoStep = true;
+
+            binding.tooltip.setVisibility(View.GONE);
+
+            if (programId == PROGRAM_RENIAL) {
+                autoFillRenialData();
+            }
+            if (programId == PROGRAM_GLIPTAR) {
+                autoFillGliptarData();
+            }
+            if (programId == PROGRAM_SAGRADA) {
+                autoFillSagradaData();
+            }
+
+            binding.ccInputWeight.setInput(
+                    getString(R.string.weight), getString(R.string.weight_value)
+            );
+            binding.ccInputHeight.setInput(
+                    getString(R.string.growth), getString(R.string.growth_value)
+            );
+            binding.ccInputAge.setInput(
+                    getString(R.string.age), getString(R.string.age_value)
+            );
+        });
 
         binding.ivCamera.setOnClickListener(v -> {
             if (arePermissionsGranted(new String[]{Manifest.permission.CAMERA})) {
@@ -117,7 +150,20 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                 binding.toolbar.viewOne.setActivated(true);
 
                 binding.clProgressStepOne.setVisibility(View.VISIBLE);
-                binding.clProgressStepTwo.setVisibility(View.GONE);
+
+                if (programId == PROGRAM_RENIAL) {
+                    binding.renialLayout.setVisibility(View.GONE);
+                }
+                if (programId == PROGRAM_GLIPTAR) {
+                    binding.gliptarLayout.setVisibility(View.GONE);
+                }
+                if (programId == PROGRAM_SAGRADA) {
+                    binding.sagradaLayout.setVisibility(View.GONE);
+                }
+                binding.ccInputAge.setVisibility(View.GONE);
+                binding.ccInputWeight.setVisibility(View.GONE);
+                binding.ccInputHeight.setVisibility(View.GONE);
+                binding.btnNextTwo.setVisibility(View.GONE);
 
                 binding.toolbar.ivLeft.setVisibility(View.GONE);
 
@@ -150,7 +196,19 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             }
             binding.toolbar.tvToolbarTitle.setText(getString(R.string.edit));
 
-            fillPatientData();
+            if (model != null) {
+                loadImage();
+
+                if (programId == PROGRAM_RENIAL) {
+                    fillRenialPatientData();
+                }
+                if (programId == PROGRAM_GLIPTAR) {
+                    fillGliptarPatientData();
+                }
+                if (programId == PROGRAM_SAGRADA) {
+                    fillSagradaPatientData();
+                }
+            }
         } else {
             binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_patient));
         }
@@ -337,7 +395,20 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         isTwoStep = true;
 
         binding.clProgressStepOne.setVisibility(View.GONE);
-        binding.clProgressStepTwo.setVisibility(View.VISIBLE);
+
+        if (programId == PROGRAM_RENIAL) {
+            binding.renialLayout.setVisibility(View.VISIBLE);
+        }
+        if (programId == PROGRAM_GLIPTAR) {
+            binding.gliptarLayout.setVisibility(View.VISIBLE);
+        }
+        if (programId == PROGRAM_SAGRADA) {
+            binding.sagradaLayout.setVisibility(View.VISIBLE);
+        }
+        binding.ccInputAge.setVisibility(View.VISIBLE);
+        binding.ccInputWeight.setVisibility(View.VISIBLE);
+        binding.ccInputHeight.setVisibility(View.VISIBLE);
+        binding.btnNextTwo.setVisibility(View.VISIBLE);
 
         binding.tooltip.showToolTipForView(toolTip, binding.toolbar.ivLeft);
         binding.toolbar.ivLeft.setVisibility(View.VISIBLE);
@@ -435,73 +506,98 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         );
     }
 
-    private void fillPatientData() {
-        if (model != null) {
-            binding.ccInputName.setText(model.getName());
-            String phone = model.getPhone()
-                    .replace(getString(R.string.country_code), "");
+    private void fillRenialPatientData() {
+        binding.ccInputName.setText(model.getName());
+        String phone = model.getPhone()
+                .replace(getString(R.string.country_code), "");
 
-            binding.ccInputPhoneNumber.setMaskedText(phone);
-            binding.ccInputCardNumber.setInput(
-                    getString(R.string.card_number), model.getCardCode()
-            );
+        binding.ccInputPhoneNumber.setMaskedText(phone);
+        binding.ccInputCardNumber.setInput(
+                getString(R.string.card_number), model.getCardCode()
+        );
 
-            if (!model.getGender().isEmpty() &&
-                    model.getGender().equalsIgnoreCase("m")) {
-                binding.radioGroup.check(R.id.radio_male);
-            } else {
-                binding.radioGroup.check(R.id.radio_female);
-            }
-
-            if (!model.getDose().isEmpty() &&
-                    model.getDose().equalsIgnoreCase("50")) {
-
-                binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
-                binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
-            } else {
-                binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
-                binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
-            }
-
-            if (model.getHearthAttackDate() != null) {
-                long millis = model.getHearthAttackDate() * 1000;
-                binding.ccInputDateInfarct.setInput(
-                        getString(R.string.heart_attack), dateFormat.format(new Date(millis))
-                );
-            }
-
-            if (model.getHearthAttackDate() != null) {
-                long millis = model.getPrescribingDate() * 1000;
-                binding.ccDateOfStartDrug.setInput(
-                        getString(R.string.drug_administration), dateFormat.format(new Date(millis))
-                );
-            }
-
-            binding.ccInputFraction.setInput(
-                    getString(R.string.ejection_fraction), model.getEjectionFraction()
-            );
-            binding.ccInputFecesStart.setInput(
-                    getString(R.string.potassium_start), model.getInitialPotassium()
-            );
-            binding.ccInputFecesEnd.setInput(
-                    getString(R.string.potassium_end), model.getFinalPotassium()
-            );
-            binding.ccInputWeight.setInput(
-                    getString(R.string.weight), String.valueOf(model.getWeight())
-            );
-            binding.ccInputHeight.setInput(
-                    getString(R.string.growth), String.valueOf(model.getHeight())
-            );
-
-            loadImage();
+        if (!model.getGender().isEmpty() &&
+                model.getGender().equalsIgnoreCase("m")) {
+            binding.radioGroup.check(R.id.radio_male);
+        } else {
+            binding.radioGroup.check(R.id.radio_female);
         }
+
+        if (!model.getDose().isEmpty() &&
+                model.getDose().equalsIgnoreCase("50")) {
+
+            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
+        } else {
+            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+        }
+
+        if (model.getHearthAttackDate() != null) {
+            long millis = model.getHearthAttackDate() * 1000;
+            binding.ccInputDateInfarct.setInput(
+                    getString(R.string.heart_attack), dateFormat.format(new Date(millis))
+            );
+        }
+
+        if (model.getHearthAttackDate() != null) {
+            long millis = model.getPrescribingDate() * 1000;
+            binding.ccDateOfStartDrug.setInput(
+                    getString(R.string.drug_administration), dateFormat.format(new Date(millis))
+            );
+        }
+
+        binding.ccInputFraction.setInput(
+                getString(R.string.ejection_fraction), model.getEjectionFraction()
+        );
+        binding.ccInputFecesStart.setInput(
+                getString(R.string.potassium_start), model.getInitialPotassium()
+        );
+        binding.ccInputFecesEnd.setInput(
+                getString(R.string.potassium_end), model.getFinalPotassium()
+        );
+        binding.ccInputWeight.setInput(
+                getString(R.string.weight), String.valueOf(model.getWeight())
+        );
+        binding.ccInputHeight.setInput(
+                getString(R.string.growth), String.valueOf(model.getHeight())
+        );
     }
 
-    public void autoFill() {
-        binding.toolbar.viewTwo.setActivated(true);
+    private void fillGliptarPatientData() {
+        binding.ccInputFastingGlycemia
+                .setInput(getString(R.string.fasting_glycemia), model.getFastingGlycemia());
+        binding.ccInputPostprandialGlycemia
+                .setInput(getString(R.string.postprandial_glycemia), model.getPostprandialGlycemia());
+        binding.ccInputIndexHomaIr
+                .setInput(getString(R.string.index_homa_ir), model.getIndexHomaIr());
+        binding.ccInputSad
+                .setInput(getString(R.string.sad), model.getSad());
+        binding.ccInputDad
+                .setInput(getString(R.string.dad), model.getDad());
+        binding.ccInputImt
+                .setInput(getString(R.string.imt), model.getImt());
+    }
 
-        isTwoStep = true;
+    private void fillSagradaPatientData() {
+        if (model.getDateOks() != null) {
+            long dateOks = model.getDateOks() * 1000;
+            binding.ccInputDateInfarct.setInput(
+                    getString(R.string.date_oks), dateFormat.format(new Date(dateOks))
+            );
+        }
 
+        binding.ccInputOcclusionZone.setInput(
+                getString(R.string.occlusion_zone), model.getOcclusionZone()
+        );
+        binding.ccInputOcclusionDegree.setInput(
+                getString(R.string.occlusion_degree), model.getOcclusionDegree()
+        );
+        binding.ccInputCoronaryDominanceType
+                .setInput(getString(R.string.coronary_dominance_type), model.getCoronaryDominanceType());
+    }
+
+    public void autoFillRenialData() {
         binding.ccInputDateInfarct
                 .setInput(getString(R.string.heart_attack), dateFormat.format(new Date()));
         binding.ccDateOfStartDrug
@@ -513,17 +609,36 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                 getString(R.string.potassium_start), getString(R.string.potassium_start_value)
         );
         binding.ccInputFecesEnd.setInput(
-                        getString(R.string.potassium_end), getString(R.string.potassium_end_value)
+                getString(R.string.potassium_end), getString(R.string.potassium_end_value)
         );
-        binding.ccInputWeight.setInput(
-                getString(R.string.weight), getString(R.string.weight_value)
-        );
-        binding.ccInputHeight.setInput(
-                getString(R.string.growth), getString(R.string.growth_value)
-        );
+    }
 
+    public void autoFillSagradaData() {
+        binding.ccInputDateOks
+                .setInput(getString(R.string.date_oks), dateFormat.format(new Date()));
+        binding.ccInputOcclusionZone
+                .setInput(getString(R.string.occlusion_zone), getString(R.string.occlusion_zone_value));
+        binding.ccInputOcclusionDegree
+                .setInput(getString(R.string.occlusion_degree), getString(R.string.occlusion_degree_value));
+        binding.ccInputCoronaryDominanceType
+                .setInput(getString(R.string.coronary_dominance_type), getString(R.string.coronary_dominance_type_value));
+    }
 
-        binding.tooltip.setVisibility(View.GONE);
+    public void autoFillGliptarData() {
+        binding.ccInputLevelHba1c
+                .setInput(getString(R.string.level_hba1c), getString(R.string.level_hba1c_value));
+        binding.ccInputFastingGlycemia
+                .setInput(getString(R.string.fasting_glycemia), getString(R.string.fasting_glycemia_value));
+        binding.ccInputPostprandialGlycemia
+                .setInput(getString(R.string.postprandial_glycemia), getString(R.string.postprandial_glycemia_value));
+        binding.ccInputIndexHomaIr
+                .setInput(getString(R.string.index_homa_ir), getString(R.string.index_homa_ir_value));
+        binding.ccInputSad
+                .setInput(getString(R.string.sad), getString(R.string.sad_value));
+        binding.ccInputDad
+                .setInput(getString(R.string.dad), getString(R.string.dad_value));
+        binding.ccInputImt
+                .setInput(getString(R.string.imt), getString(R.string.imt_value));
     }
 
     @Override

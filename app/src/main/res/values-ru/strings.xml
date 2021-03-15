@@ -52,7 +52,7 @@
     <string name="enter_drug_administration">Введите дату назначения препарата</string>
     <string name="ejection_fraction">Фракция выброса</string>
     <string name="enter_ejection_fraction">Введите фракцию выброса</string>
-    <string name="ejection_fraction_value">55%</string>
+    <string name="ejection_fraction_value">55</string>
     <string name="enter_potassium_start">Введите уровень калия в начале лечения</string>
     <string name="potassium_start">Уровень калия в начале лечения, ммоль/л</string>
     <string name="potassium_start_value">3,1</string>
@@ -66,6 +66,32 @@
     <string name="delete_image">Удалить фотографию</string>
     <string name="new_patient">Новый пациент</string>
     <string name="auto_fill_patient">Использовать автозаполнение</string>
+    <string name="enter_value">Введите значение</string>
+    <string name="date_oks">Дата ОКС</string>
+    <string name="option_oks">Форма/вариант ОКС</string>
+    <string name="coronary_angiography">Коронарография</string>
+    <string name="occlusion_zone">Зона окклюзии, КА</string>
+    <string name="occlusion_degree">Степень окклюзии коронарной артерии, %</string>
+    <string name="coronary_dominance_type">Тип доминантности коронарного кровообращения</string>
+    <string name="level_hba1c">Уровень HbA1c, %</string>
+    <string name="fasting_glycemia">Гликемия натощак, ммоль/л</string>
+    <string name="postprandial_glycemia">Постпрандиальной гликемии, ммоль/л</string>
+    <string name="index_homa_ir">Индекс HOMA-IR</string>
+    <string name="sad">САД</string>
+    <string name="dad">ДАД</string>
+    <string name="imt">ИМТ</string>
+    <string name="age">Возраст, лет</string>
+    <string name="occlusion_zone_value">Бассейн правой КА | бассейн левой КА</string>
+    <string name="occlusion_degree_value">50</string>
+    <string name="coronary_dominance_type_value">Правый</string>
+    <string name="level_hba1c_value">6.5</string>
+    <string name="fasting_glycemia_value">7</string>
+    <string name="postprandial_glycemia_value">11.1</string>
+    <string name="index_homa_ir_value">2</string>
+    <string name="sad_value">100</string>
+    <string name="dad_value">70</string>
+    <string name="imt_value">10</string>
+    <string name="age_value">40</string>
 
 
     <!--Statistic Strings-->
@@ -194,6 +220,18 @@
         <item name="calendar_october">Октябрь</item>
         <item name="calendar_november">Ноябрь</item>
         <item name="calendar_december">Декабрь</item>
+    </string-array>
+
+    <string-array name="oks_options">
+        <item name="0">Нестабильная стенокардия</item>
+        <item name="1">STEMI</item>
+        <item name="2">nSTEMI</item>
+    </string-array>
+
+    <string-array name="coronary_angiography">
+        <item name="0">Да</item>
+        <item name="1">Нет</item>
+        <item name="2">90/10</item>
     </string-array>
 
 </resources>

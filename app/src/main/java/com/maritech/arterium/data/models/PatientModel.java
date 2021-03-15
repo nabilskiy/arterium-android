@@ -13,6 +13,12 @@ public class PatientModel implements Parcelable {
     @SerializedName("id")
     @Expose
     private Integer id;
+    @SerializedName("has_img")
+    @Expose
+    private Boolean hasImg;
+    @SerializedName("drug_program")
+    @Expose
+    private DrugProgramModel drugProgramModel;
     @SerializedName("name")
     @Expose
     private String name;
@@ -25,12 +31,6 @@ public class PatientModel implements Parcelable {
     @SerializedName("gender")
     @Expose
     private String gender;
-    @SerializedName("dose")
-    @Expose
-    private String dose;
-    @SerializedName("drug_program")
-    @Expose
-    private DrugProgramModel drugProgramModel;
     @SerializedName("created_at")
     @Expose
     private Long createdAt;
@@ -46,6 +46,12 @@ public class PatientModel implements Parcelable {
     @SerializedName("weight")
     @Expose
     private Integer weight;
+    @SerializedName("age")
+    @Expose
+    private Integer age;
+    @SerializedName("dose")
+    @Expose
+    private String dose;
     @SerializedName("hearth_attack_date")
     @Expose
     private Long hearthAttackDate;
@@ -61,9 +67,45 @@ public class PatientModel implements Parcelable {
     @SerializedName("final_potassium")
     @Expose
     private String finalPotassium;
-    @SerializedName("has_img")
+    @SerializedName("date_oks")
     @Expose
-    private Boolean hasImg;
+    private Long dateOks;
+    @SerializedName("option_oks")
+    @Expose
+    private String optionOks;
+    @SerializedName("occlusion_zone")
+    @Expose
+    private String occlusionZone;
+    @SerializedName("occlusion_degree")
+    @Expose
+    private String occlusionDegree;
+    @SerializedName("coronary_angiography")
+    @Expose
+    private String coronaryAngiography;
+    @SerializedName("coronary_dominance_type")
+    @Expose
+    private String coronaryDominanceType;
+    @SerializedName("level_hba1c")
+    @Expose
+    private String levelHba1c;
+    @SerializedName("fasting_glycemia")
+    @Expose
+    private String fastingGlycemia;
+    @SerializedName("postprandial_glycemia")
+    @Expose
+    private String postprandialGlycemia;
+    @SerializedName("index_homa_ir")
+    @Expose
+    private String indexHomaIr;
+    @SerializedName("sad")
+    @Expose
+    private String sad;
+    @SerializedName("dad")
+    @Expose
+    private String dad;
+    @SerializedName("imt")
+    @Expose
+    private String imt;
 
     public final static Parcelable.Creator<PatientModel> CREATOR = new Creator<PatientModel>() {
         public PatientModel createFromParcel(Parcel in) {
@@ -78,23 +120,37 @@ public class PatientModel implements Parcelable {
 
     protected PatientModel(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.hasImg = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
         this.cardCode = ((String) in.readValue((String.class.getClassLoader())));
         this.phone = ((String) in.readValue((String.class.getClassLoader())));
         this.gender = ((String) in.readValue((String.class.getClassLoader())));
-        this.dose = ((String) in.readValue((String.class.getClassLoader())));
-        this.drugProgramModel = ((DrugProgramModel) in.readValue((DrugProgramModel.class.getClassLoader())));
         this.createdAt = ((Long) in.readValue((Long.class.getClassLoader())));
         this.lastPurchaseAt = ((Long) in.readValue((Long.class.getClassLoader())));
         this.purchasesCount = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.height = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.weight = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.age = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.dose = ((String) in.readValue((String.class.getClassLoader())));
         this.hearthAttackDate = ((Long) in.readValue((Long.class.getClassLoader())));
         this.prescribingDate = ((Long) in.readValue((Long.class.getClassLoader())));
         this.ejectionFraction = ((String) in.readValue((String.class.getClassLoader())));
         this.initialPotassium = ((String) in.readValue((String.class.getClassLoader())));
         this.finalPotassium = ((String) in.readValue((String.class.getClassLoader())));
-        this.hasImg = ((Boolean) in.readValue((Boolean.class.getClassLoader())));
+        this.dateOks = ((Long) in.readValue((Long.class.getClassLoader())));
+        this.optionOks = ((String) in.readValue((String.class.getClassLoader())));
+        this.occlusionZone = ((String) in.readValue((String.class.getClassLoader())));
+        this.occlusionDegree = ((String) in.readValue((String.class.getClassLoader())));
+        this.coronaryAngiography = ((String) in.readValue((String.class.getClassLoader())));
+        this.coronaryDominanceType = ((String) in.readValue((String.class.getClassLoader())));
+        this.levelHba1c = ((String) in.readValue((String.class.getClassLoader())));
+        this.fastingGlycemia = ((String) in.readValue((String.class.getClassLoader())));
+        this.postprandialGlycemia = ((String) in.readValue((String.class.getClassLoader())));
+        this.indexHomaIr = ((String) in.readValue((String.class.getClassLoader())));
+        this.sad = ((String) in.readValue((String.class.getClassLoader())));
+        this.dad = ((String) in.readValue((String.class.getClassLoader())));
+        this.imt = ((String) in.readValue((String.class.getClassLoader())));
+        this.drugProgramModel = ((DrugProgramModel) in.readValue((DrugProgramModel.class.getClassLoader())));
     }
 
     public PatientModel() {
@@ -106,6 +162,14 @@ public class PatientModel implements Parcelable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean getHasImg() {
+        return hasImg;
+    }
+
+    public void setHasImg(Boolean hasImg) {
+        this.hasImg = hasImg;
     }
 
     public String getName() {
@@ -138,22 +202,6 @@ public class PatientModel implements Parcelable {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getDose() {
-        return dose;
-    }
-
-    public void setDose(String dose) {
-        this.dose = dose;
-    }
-
-    public DrugProgramModel getDrugProgramModel() {
-        return drugProgramModel;
-    }
-
-    public void setDrugProgramModel(DrugProgramModel drugProgramModel) {
-        this.drugProgramModel = drugProgramModel;
     }
 
     public Long getCreatedAt() {
@@ -196,6 +244,22 @@ public class PatientModel implements Parcelable {
         this.weight = weight;
     }
 
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getDose() {
+        return dose;
+    }
+
+    public void setDose(String dose) {
+        this.dose = dose;
+    }
+
     public Long getHearthAttackDate() {
         return hearthAttackDate;
     }
@@ -236,33 +300,151 @@ public class PatientModel implements Parcelable {
         this.finalPotassium = finalPotassium;
     }
 
-    public Boolean getHasImg() {
-        return hasImg;
+    public Long getDateOks() {
+        return dateOks;
     }
 
-    public void setHasImg(Boolean hasImg) {
-        this.hasImg = hasImg;
+    public void setDateOks(Long dateOks) {
+        this.dateOks = dateOks;
+    }
+
+    public String getOptionOks() {
+        return optionOks;
+    }
+
+    public void setOptionOks(String optionOks) {
+        this.optionOks = optionOks;
+    }
+
+    public String getOcclusionZone() {
+        return occlusionZone;
+    }
+
+    public void setOcclusionZone(String occlusionZone) {
+        this.occlusionZone = occlusionZone;
+    }
+
+    public String getOcclusionDegree() {
+        return occlusionDegree;
+    }
+
+    public void setOcclusionDegree(String occlusionDegree) {
+        this.occlusionDegree = occlusionDegree;
+    }
+
+    public String getCoronaryAngiography() {
+        return coronaryAngiography;
+    }
+
+    public void setCoronaryAngiography(String coronaryAngiography) {
+        this.coronaryAngiography = coronaryAngiography;
+    }
+
+    public String getCoronaryDominanceType() {
+        return coronaryDominanceType;
+    }
+
+    public void setCoronaryDominanceType(String coronaryDominanceType) {
+        this.coronaryDominanceType = coronaryDominanceType;
+    }
+
+    public String getLevelHba1c() {
+        return levelHba1c;
+    }
+
+    public void setLevelHba1c(String levelHba1c) {
+        this.levelHba1c = levelHba1c;
+    }
+
+    public String getFastingGlycemia() {
+        return fastingGlycemia;
+    }
+
+    public void setFastingGlycemia(String fastingGlycemia) {
+        this.fastingGlycemia = fastingGlycemia;
+    }
+
+    public String getPostprandialGlycemia() {
+        return postprandialGlycemia;
+    }
+
+    public void setPostprandialGlycemia(String postprandialGlycemia) {
+        this.postprandialGlycemia = postprandialGlycemia;
+    }
+
+    public String getIndexHomaIr() {
+        return indexHomaIr;
+    }
+
+    public void setIndexHomaIr(String indexHomaIr) {
+        this.indexHomaIr = indexHomaIr;
+    }
+
+    public String getSad() {
+        return sad;
+    }
+
+    public void setSad(String sad) {
+        this.sad = sad;
+    }
+
+    public String getDad() {
+        return dad;
+    }
+
+    public void setDad(String dad) {
+        this.dad = dad;
+    }
+
+    public String getImt() {
+        return imt;
+    }
+
+    public void setImt(String imt) {
+        this.imt = imt;
+    }
+
+    public DrugProgramModel getDrugProgramModel() {
+        return drugProgramModel;
+    }
+
+    public void setDrugProgramModel(DrugProgramModel drugProgramModel) {
+        this.drugProgramModel = drugProgramModel;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(id);
+        dest.writeValue(hasImg);
         dest.writeValue(name);
         dest.writeValue(cardCode);
         dest.writeValue(phone);
         dest.writeValue(gender);
-        dest.writeValue(dose);
-        dest.writeValue(drugProgramModel);
         dest.writeValue(createdAt);
         dest.writeValue(lastPurchaseAt);
         dest.writeValue(purchasesCount);
         dest.writeValue(height);
         dest.writeValue(weight);
+        dest.writeValue(age);
+        dest.writeValue(dose);
         dest.writeValue(hearthAttackDate);
         dest.writeValue(prescribingDate);
         dest.writeValue(ejectionFraction);
         dest.writeValue(initialPotassium);
         dest.writeValue(finalPotassium);
-        dest.writeValue(hasImg);
+        dest.writeValue(dateOks);
+        dest.writeValue(optionOks);
+        dest.writeValue(occlusionZone);
+        dest.writeValue(occlusionDegree);
+        dest.writeValue(coronaryAngiography);
+        dest.writeValue(coronaryDominanceType);
+        dest.writeValue(levelHba1c);
+        dest.writeValue(fastingGlycemia);
+        dest.writeValue(postprandialGlycemia);
+        dest.writeValue(indexHomaIr);
+        dest.writeValue(sad);
+        dest.writeValue(dad);
+        dest.writeValue(imt);
+        dest.writeValue(drugProgramModel);
     }
 
     public int describeContents() {

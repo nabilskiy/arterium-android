@@ -52,7 +52,7 @@
     <string name="enter_drug_administration">Enter the date of the drug prescription</string>
     <string name="ejection_fraction">Ejection fraction</string>
     <string name="enter_ejection_fraction">Enter ejection fraction</string>
-    <string name="ejection_fraction_value">55%</string>
+    <string name="ejection_fraction_value">55</string>
     <string name="enter_potassium_start">Enter potassium level at the start of treatment</string>
     <string name="potassium_start">Potassium level at the beginning of treatment, mmol/l</string>
     <string name="potassium_start_value">3,1</string>
@@ -66,6 +66,32 @@
     <string name="delete_image">Delete photography</string>
     <string name="new_patient">New patient</string>
     <string name="auto_fill_patient">Use autocomplete</string>
+    <string name="enter_value">Enter value</string>
+    <string name="date_oks">Date of ACS</string>
+    <string name="option_oks">Form / variant of ACS</string>
+    <string name="coronary_angiography">Coronary angiography</string>
+    <string name="occlusion_zone">Occlusion zone, CA</string>
+    <string name="occlusion_degree">Coronary artery occlusion degree, %</string>
+    <string name="coronary_dominance_type">Dominance type of coronary circulation</string>
+    <string name="level_hba1c">HbA1c level, %</string>
+    <string name="fasting_glycemia">Fasting glycemia, ммоль/л</string>
+    <string name="postprandial_glycemia">Postprandial glycemia, ммоль/л</string>
+    <string name="index_homa_ir">HOMA-IR Index</string>
+    <string name="sad">САД</string>
+    <string name="dad">ДАД</string>
+    <string name="imt">ИМТ</string>
+    <string name="age">Age</string>
+    <string name="occlusion_zone_value">КА</string>
+    <string name="occlusion_degree_value">50</string>
+    <string name="coronary_dominance_type_value">Right</string>
+    <string name="level_hba1c_value">6.5</string>
+    <string name="fasting_glycemia_value">7</string>
+    <string name="postprandial_glycemia_value">11.1</string>
+    <string name="index_homa_ir_value">2</string>
+    <string name="sad_value">100</string>
+    <string name="dad_value">70</string>
+    <string name="imt_value">10</string>
+    <string name="age_value">40</string>
 
 
     <!--Statistic Strings-->
@@ -192,6 +218,18 @@
         <item name="calendar_october">October</item>
         <item name="calendar_november">November</item>
         <item name="calendar_december">December</item>
+    </string-array>
+
+    <string-array name="oks_options">
+        <item name="0">Unstable angina</item>
+        <item name="1">STEMI</item>
+        <item name="2">nSTEMI</item>
+    </string-array>
+
+    <string-array name="coronary_angiography">
+        <item name="0">Yes</item>
+        <item name="1">No</item>
+        <item name="2">90/10</item>
     </string-array>
 
 </resources>

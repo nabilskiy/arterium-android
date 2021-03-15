@@ -28,7 +28,7 @@ public class LevelsContainerDialog extends BottomSheetDialogFragment {
     
     final int PROGRAM_RENIAL = 1;
     final int PROGRAM_GLIPTAR = 2;
-    final int PROGRAM_SAGRADA = 3;
+    final int PROGRAM_SAGRADA = 4;
 
     public static LevelsContainerDialog getInstance(ArrayList<DrugProgramModel> models) {
         Bundle bundle = new Bundle();

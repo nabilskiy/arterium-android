@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
+import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.ActivityPatientCardBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
@@ -37,6 +38,11 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     private static final int EDIT_REQUEST_CODE = 680;
     public static final String PATIENT_ID_KEY = "patientId";
 
+    final int PROGRAM_RENIAL = 1;
+    final int PROGRAM_GLIPTAR = 2;
+    final int PROGRAM_SAGRADA = 4;
+
+    private int programId;
     private int patientId;
     PatientModel model = null;
     PatientsViewModel viewModel;
@@ -53,6 +59,8 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         super.onCreate(savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
+
+        programId = Pref.getInstance().getDrugProgramId(this);
 
         if (getIntent() != null) {
             patientId = getIntent().getIntExtra(PATIENT_ID_KEY, -1);
@@ -94,23 +102,32 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         viewModel.patientById.observe(this, patientResponse -> {
             model = patientResponse.getData();
 
+            loadImage();
+
             setPersonalCardData();
 
-            setMedicalCardData();
+            if (programId == PROGRAM_RENIAL) {
+                binding.clPatientMedicalDataRenial.setVisibility(View.VISIBLE);
+                setMedicalCardDataRenial();
+            }
+            if (programId == PROGRAM_GLIPTAR) {
+                binding.clPatientMedicalDataGliptar.setVisibility(View.VISIBLE);
+                setMedicalCardDataGliptar();
+            }
+            if (programId == PROGRAM_SAGRADA) {
+                binding.clPatientMedicalDataSagrada.setVisibility(View.VISIBLE);
+                setMedicalCardDataSagrada();
+            }
 
-            loadImage();
         });
 
-        viewModel.patientByIdState.observe(this, new Observer<ContentState>() {
-            @Override
-            public void onChanged(ContentState contentState) {
-                binding.progressBar.setVisibility(
-                        contentState == ContentState.LOADING ? View.VISIBLE : View.GONE
-                );
+        viewModel.patientByIdState.observe(this, contentState -> {
+            binding.progressBar.setVisibility(
+                    contentState == ContentState.LOADING ? View.VISIBLE : View.GONE
+            );
 
-                if (contentState == ContentState.CONTENT) {
-                    binding.content.setVisibility(View.VISIBLE);
-                }
+            if (contentState == ContentState.CONTENT) {
+                binding.content.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -122,10 +139,125 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     }
 
     @SuppressLint("CutPasteId")
-    public void setMedicalCardData(){
-        ImageView medicalDataIcon;
-        TextView tvPatientCardName;
-        TextView medicalTitle;
+    private void setMedicalCardDataSagrada() {
+        ImageView medicalDataIcon = findViewById(R.id.patientMedicalDataSagrada)
+                .findViewById(R.id.ivPatientDataIcon);
+        medicalDataIcon.setBackgroundResource(R.drawable.ic_medical_data);
+        TextView medicalTitle = findViewById(R.id.patientMedicalDataSagrada)
+                .findViewById(R.id.tvPatientData);
+        medicalTitle.setText(R.string.medical_data);
+
+        TextView ccInputOptionOks = findViewById(R.id.ccInputOptionOks)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputOptionOksValue = findViewById(R.id.ccInputOptionOks)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputOptionOks.setText(getString(R.string.option_oks));
+        ccInputOptionOksValue.setText(model.getOptionOks());
+
+        TextView ccInputDateOks = findViewById(R.id.ccInputDateOks)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputDateOksValue = findViewById(R.id.ccInputDateOks)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputDateOks.setText(getString(R.string.date_oks));
+
+        if (model.getDateOks() != null) {
+            long millis = model.getHearthAttackDate() * 1000;
+            ccInputDateOksValue.setText(dateFormat.format(new Date(millis)));
+        } else {
+            ccInputDateOksValue.setText("");
+        }
+
+        TextView ccInputCoronary = findViewById(R.id.ccInputCoronary)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputCoronaryValue = findViewById(R.id.ccInputCoronary)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputCoronary.setText(getString(R.string.coronary_angiography));
+        ccInputCoronaryValue.setText(model.getCoronaryAngiography());
+
+        TextView ccInputOcclusionZone = findViewById(R.id.ccInputOcclusionZone)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputOcclusionZoneValue = findViewById(R.id.ccInputOcclusionZone)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputOcclusionZone.setText(getString(R.string.occlusion_zone));
+        ccInputOcclusionZoneValue.setText(model.getOcclusionZone());
+
+        TextView ccInputOcclusionDegree = findViewById(R.id.ccInputOcclusionDegree)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputOcclusionDegreeValue = findViewById(R.id.ccInputOcclusionDegree)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputOcclusionDegree.setText(getString(R.string.occlusion_degree));
+        ccInputOcclusionDegreeValue.setText(model.getOcclusionDegree());
+
+        TextView ccInputCoronaryDominanceType = findViewById(R.id.ccInputCoronaryDominanceType)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputCoronaryDominanceTypeValue = findViewById(R.id.ccInputCoronaryDominanceType)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputCoronaryDominanceType.setText(getString(R.string.occlusion_degree));
+        ccInputCoronaryDominanceTypeValue.setText(model.getCoronaryDominanceType());
+
+    }
+
+    @SuppressLint("CutPasteId")
+    private void setMedicalCardDataGliptar() {
+        ImageView medicalDataIcon = findViewById(R.id.patientMedicalDataGliptar)
+                .findViewById(R.id.ivPatientDataIcon);
+        medicalDataIcon.setBackgroundResource(R.drawable.ic_medical_data);
+        TextView medicalTitle = findViewById(R.id.patientMedicalDataGliptar)
+                .findViewById(R.id.tvPatientData);
+        medicalTitle.setText(R.string.medical_data);
+
+        TextView ccInputLevelHba1c = findViewById(R.id.ccInputLevelHba1c)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputLevelHba1cValue = findViewById(R.id.ccInputLevelHba1c)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputLevelHba1c.setText(getString(R.string.level_hba1c));
+        ccInputLevelHba1cValue.setText(model.getLevelHba1c());
+
+        TextView ccInputFastingGlycemia = findViewById(R.id.ccInputFastingGlycemia)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputFastingGlycemiaValue = findViewById(R.id.ccInputFastingGlycemia)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputFastingGlycemia.setText(getString(R.string.fasting_glycemia));
+        ccInputFastingGlycemiaValue.setText(model.getFastingGlycemia());
+
+        TextView ccInputPostprandialGlycemia = findViewById(R.id.ccInputPostprandialGlycemia)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputPostprandialGlycemiaValue = findViewById(R.id.ccInputPostprandialGlycemia)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputPostprandialGlycemia.setText(getString(R.string.postprandial_glycemia));
+        ccInputPostprandialGlycemiaValue.setText(model.getPostprandialGlycemia());
+
+        TextView ccInputIndexHomaIr = findViewById(R.id.ccInputIndexHomaIr)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputIndexHomaIrValue = findViewById(R.id.ccInputIndexHomaIr)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputIndexHomaIr.setText(getString(R.string.index_homa_ir));
+        ccInputIndexHomaIrValue.setText(model.getIndexHomaIr());
+
+        TextView ccInputSad = findViewById(R.id.ccInputSad)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputSadValue = findViewById(R.id.ccInputSad)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputSad.setText(getString(R.string.sad));
+        ccInputSadValue.setText(model.getSad());
+
+        TextView ccInputDad = findViewById(R.id.ccInputDad)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputDadValue = findViewById(R.id.ccInputDad)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputDad.setText(getString(R.string.dad));
+        ccInputDadValue.setText(model.getDad());
+
+        TextView ccInputImt = findViewById(R.id.ccInputImt)
+                .findViewById(R.id.tvPatientDataListTitle);
+        TextView ccInputImtValue = findViewById(R.id.ccInputImt)
+                .findViewById(R.id.tvPatientDataListValue);
+        ccInputImt.setText(getString(R.string.imt));
+        ccInputImtValue.setText(model.getImt());
+    }
+
+    @SuppressLint("CutPasteId")
+    public void setMedicalCardDataRenial(){
         TextView heartAttack;
         TextView heartAttackValue;
         TextView drugAdministration;
@@ -136,12 +268,14 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         TextView potassiumStartValue;
         TextView potassiumEnd;
         TextView potassiumEndValue;
+        TextView dose;
+        TextView doseValue;
 
         //medical data
-        medicalDataIcon = findViewById(R.id.patientMedicalData)
+        ImageView medicalDataIcon = findViewById(R.id.patientMedicalData)
                 .findViewById(R.id.ivPatientDataIcon);
         medicalDataIcon.setBackgroundResource(R.drawable.ic_medical_data);
-        medicalTitle = findViewById(R.id.patientMedicalData)
+        TextView medicalTitle = findViewById(R.id.patientMedicalData)
                 .findViewById(R.id.tvPatientData);
         medicalTitle.setText(R.string.medical_data);
 
@@ -200,6 +334,16 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         }
         findViewById(R.id.potassiumLevelOfTheEndTreatment)
                 .findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
+
+        //dose
+        dose = findViewById(R.id.patientDrugsDose)
+                .findViewById(R.id.tvPatientDataListTitle);
+        dose.setText(R.string.dose);
+        doseValue = findViewById(R.id.patientDrugsDose)
+                .findViewById(R.id.tvPatientDataListValue);
+        doseValue.setText(String.valueOf(model.getDose()));
+        findViewById(R.id.patientDrugsDose)
+                .findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
     }
 
     @SuppressLint("CutPasteId")
@@ -210,8 +354,6 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         TextView weightValue;
         TextView growth;
         TextView growthValue;
-        TextView dose;
-        TextView doseValue;
         TextView patientCardNumber;
 
         TextView tvPatientCardName = findViewById(R.id.tvPatientCardName);
@@ -249,7 +391,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
 
         patientCardNumber = findViewById(R.id.patientCardNumber)
                 .findViewById(R.id.tvPatientDataCardTitle);
-        patientCardNumber.setText("Номер картки");
+        patientCardNumber.setText(getString(R.string.card_number));
 
         binding.patientCardNumber.tvPatientDataCardValue.setText(model.getCardCode());
 
@@ -270,16 +412,6 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         growthValue = findViewById(R.id.patientGrowth)
                 .findViewById(R.id.tvPatientDataListValue);
         growthValue.setText(String.valueOf(model.getHeight()));
-
-        //dose
-        dose = findViewById(R.id.patientDrugsDose)
-                .findViewById(R.id.tvPatientDataListTitle);
-        dose.setText(R.string.dose);
-        doseValue = findViewById(R.id.patientDrugsDose)
-                .findViewById(R.id.tvPatientDataListValue);
-        doseValue.setText(String.valueOf(model.getDose()));
-        findViewById(R.id.patientDrugsDose)
-                .findViewById(R.id.vDivideLine).setVisibility(View.INVISIBLE);
     }
 
     public void onScanPress(View v) {
