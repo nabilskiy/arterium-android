@@ -55,7 +55,7 @@
     <string name="ejection_fraction_value">55</string>
     <string name="enter_potassium_start">Введіть рівень калію на початку лікування</string>
     <string name="potassium_start">Рівень калію на початку лікування, ммоль/л</string>
-    <string name="potassium_start_value">3,1</string>
+    <string name="potassium_start_value">3.5</string>
     <string name="enter_potassium_end">Введіть рівень калію в кінці лікування</string>
     <string name="potassium_end">Рівень калію в кінці лікування, ммоль/л</string>
     <string name="potassium_end_value">4</string>
@@ -70,7 +70,7 @@
     <string name="date_oks">Дата ГКС</string>
     <string name="option_oks">Форма/варіант ГКС</string>
     <string name="coronary_angiography">Коронарографія</string>
-    <string name="occlusion_zone">Зона окклюзії , КА</string>
+    <string name="occlusion_zone">Зона окклюзії, КА</string>
     <string name="occlusion_degree">Ступінь окклюзії коронарної  артерії, %</string>
     <string name="coronary_dominance_type">Тип домінантності коронарного кровообігу</string>
     <string name="level_hba1c">Рівень HbA1c, %</string>

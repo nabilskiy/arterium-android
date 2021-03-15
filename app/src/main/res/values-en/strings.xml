@@ -55,7 +55,7 @@
     <string name="ejection_fraction_value">55</string>
     <string name="enter_potassium_start">Enter potassium level at the start of treatment</string>
     <string name="potassium_start">Potassium level at the beginning of treatment, mmol/l</string>
-    <string name="potassium_start_value">3,1</string>
+    <string name="potassium_start_value">3.5</string>
     <string name="enter_potassium_end">Enter potassium level at the end of treatment</string>
     <string name="potassium_end">Potassium level at the end of treatment, mmol/l</string>
     <string name="potassium_end_value">4</string>
