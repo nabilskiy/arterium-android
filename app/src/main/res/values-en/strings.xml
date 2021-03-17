@@ -196,6 +196,7 @@
     <string name="level_purchase_limit">∞</string>
     <string name="level_purchase_primary">Primary</string>
     <string name="level_purchase_secondary">Secondary</string>
+    <string name="level_purchase_repeat">Repeated</string>
     <string name="level_с">Level С</string>
     <string name="level_b">Level B</string>
     <string name="level_a">Level A</string>

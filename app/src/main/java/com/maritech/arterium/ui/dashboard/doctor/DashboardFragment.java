@@ -57,9 +57,9 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         super.onViewCreated(root, savedInstanceState);
         actionViewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
 
-        if (sharedViewModel == null) {
+        if (sharedViewModel == null && getParentFragment() != null) {
             sharedViewModel =
-                    new ViewModelProvider(this).get(PatientsSharedViewModel.class);
+                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
         }
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);

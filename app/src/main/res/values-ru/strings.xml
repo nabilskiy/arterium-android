@@ -197,6 +197,7 @@
     <string name="level_purchase_limit">∞</string>
     <string name="level_purchase_primary">Первичная</string>
     <string name="level_purchase_secondary">Вторичная</string>
+    <string name="level_purchase_repeat">Повторная</string>
     <string name="level_с">Уровень С</string>
     <string name="level_b">Уровень B</string>
     <string name="level_a">Уровень A</string>

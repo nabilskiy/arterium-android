@@ -65,7 +65,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
         if (getParentFragment() != null) {
             sharedViewModel =
-                    new ViewModelProvider(getParentFragment()).get(PatientsSharedViewModel.class);
+                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
         }
 
         viewModel =

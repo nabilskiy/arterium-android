@@ -39,8 +39,8 @@ public class MyProfileFragment extends BaseFragment<FragmentMyProfileBinding> {
 
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));
 
-        binding.achievements.getRoot()
-                .setOnClickListener(v -> navigator.goToAchievements(navController));
+//        binding.achievements.getRoot()
+//                .setOnClickListener(v -> navigator.goToAchievements(navController));
 
         binding.contactWithUs.getRoot().setOnClickListener(v -> {
             String phone = getString(R.string.feedback_phone);
@@ -53,15 +53,15 @@ public class MyProfileFragment extends BaseFragment<FragmentMyProfileBinding> {
     }
 
     public void setMyProfileContentList(){
-        binding.achievements
-                .tvMyProfileListTitle.setText(R.string.achievements);
+//        binding.achievements
+//                .tvMyProfileListTitle.setText(R.string.achievements);
         binding.contactWithUs
                 .tvMyProfileListTitle.setText(R.string.contact_with_us);
         binding.myProfileMainContentSettings
                 .tvMyProfileListTitle.setText(R.string.settings);
 
-        binding.achievements
-                .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_achives);
+//        binding.achievements
+//                .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_achives);
         binding.myProfileMainContentSettings
                 .ivMyProfileListIcon.setBackgroundResource(R.drawable.ic_blue_settings);
         binding.contactWithUs.ivMyProfileListIcon

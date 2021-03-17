@@ -49,12 +49,14 @@
             android:id="@+id/ivLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="52dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:padding="12dp"
+            android:layout_marginEnd="10dp"
+            android:background="?attr/actionBarItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_lightning" />
+            app:layout_constraintBottom_toBottomOf="@+id/tvToolbarTitle"
+            app:layout_constraintTop_toTopOf="@+id/tvToolbarTitle"
+            app:srcCompat="@drawable/ic_lightning"
+            android:visibility="gone"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llProgress"
