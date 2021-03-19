@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "253012515211-p10ca0kj1svoj4j24b9cjlvvqfspprc5.apps.googleusercontent.com",
+              "client_id": "253012515211-53t8cjlcehb405lon1jdsec9ofmcc07m.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "ka.arterium.com"
+                "bundle_id": "com.Arterium"
               }
             }
           ]

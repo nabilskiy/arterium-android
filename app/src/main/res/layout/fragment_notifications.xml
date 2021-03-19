@@ -58,6 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
+            android:paddingBottom="50dp"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +74,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:id="@+id/unread_layout"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -85,8 +89,7 @@
                         android:background="@drawable/purple_bg"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        android:text="@string/notifications_unread"
-                        android:visibility="gone"/>
+                        android:text="@string/notifications_unread"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -100,8 +103,7 @@
                         android:background="@drawable/notification_read_bg"
                         android:textSize="13sp"
                         android:textColor="@color/white"
-                        tools:text="5"
-                        android:visibility="gone"/>
+                        tools:text="5"/>
 
                 </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.NotificationModel;
@@ -22,7 +23,6 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("HH:mm", Locale.getDefault());
-
 
     public NotificationsAdapter(ArrayList<NotificationModel> dataSet,
                                 NotificationsAdapter.OnItemClickListener onItemClickListener) {
@@ -51,12 +51,25 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         long millis = model.getCreatedAt() * 1000;
         viewHolder.tvTime.setText(dateFormat.format(new Date(millis)));
 
-        viewHolder.tvMessage.setText(localDataSet.get(position).getMessage());
+        if (localDataSet.get(position).getMessage() != null) {
+            viewHolder.tvMessage.setText(localDataSet.get(position).getMessage().getMessage());
+        }
 
         viewHolder.itemView.setOnClickListener(v -> {
             notifyDataSetChanged();
             onItemClickListener.onItemClicked(position, localDataSet.get(position));
         });
+
+        boolean isNewMessages = !model.isRead();
+        if (isNewMessages) {
+            viewHolder.tvMessage.setTextColor(
+                    ContextCompat.getColor(viewHolder.tvMessage.getContext(), R.color.black)
+            );
+        } else {
+            viewHolder.tvMessage.setTextColor(
+                    ContextCompat.getColor(viewHolder.tvMessage.getContext(), R.color.gray)
+            );
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
