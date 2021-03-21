@@ -2,6 +2,8 @@ package com.maritech.arterium.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -43,6 +45,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         login = findViewById(R.id.etInputLogin);
         password = findViewById(R.id.etInputPassword);
+
+        login.addTextChangedListener(textWatcher);
+        password.addTextChangedListener(textWatcher);
 
         CheckBox checkBox = findViewById(R.id.cbShowHide);
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -129,6 +134,28 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                     }
                 });
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            String loginStr = login.getText().toString();
+            String pass = password.getText().toString();
+
+            if (!loginStr.isEmpty() && !pass.isEmpty()) {
+                binding.btnLogin.setEnabled(true);
+            } else {
+                binding.btnLogin.setEnabled(false);
+            }
+        }
+    };
 
     private void checkUserType(Profile profile) {
         Bundle result = new Bundle();

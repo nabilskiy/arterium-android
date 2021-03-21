@@ -11,16 +11,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.maritech.arterium.R
 import com.maritech.arterium.databinding.BottomSheetDialogCalendarBinding
-
 import com.maritech.arterium.utils.args.*
 import com.maritech.arterium.utils.calendar_decorators.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 import java.util.*
-
-
-
 
 class CalendarBottomSheetDialog : BottomSheetDialogFragment() {
 
