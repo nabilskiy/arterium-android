@@ -56,7 +56,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         TextView btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(
-                v -> loginViewModel.login(login.getText().toString(), password.getText().toString())
+                v -> {
+                    String loginStr = login.getText().toString();
+
+                    if (loginStr.length() > 4) {
+                        loginViewModel.login(loginStr, password.getText().toString());
+                    } else {
+                        ToastUtil.show(this, getString(R.string.login_error));
+                    }
+                }
+
         );
 
         observeViewModel();

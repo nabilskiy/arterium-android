@@ -9,6 +9,7 @@
     <!--Login Strings-->
     <string name="login_password">Введіть Ваш <br /> логін і пароль.</string>
     <string name="login">Логін</string>
+    <string name="login_error">Перевірте правильність логіна</string>
     <string name="password">Пароль</string>
     <string name="enter">Увiйти</string>
     <string name="account_title">Аккаунт</string>

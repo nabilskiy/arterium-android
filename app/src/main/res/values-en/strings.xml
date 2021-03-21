@@ -9,6 +9,7 @@
     <!--Login Strings-->
     <string name="login_password">Enter your <br /> login and password</string>
     <string name="login">Login</string>
+    <string name="login_error">Check the login</string>
     <string name="password">Password</string>
     <string name="enter">Login</string>
     <string name="account_title">Account</string>
