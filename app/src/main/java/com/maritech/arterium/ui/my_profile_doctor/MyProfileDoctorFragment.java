@@ -7,15 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentMyProfileBinding;
-import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.login.LoginActivity;
 import com.maritech.arterium.ui.login.LoginViewModel;
 import com.maritech.arterium.utils.ToastUtil;
 
@@ -115,7 +114,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
         logoutViewModel.logout
                 .observe(getViewLifecycleOwner(),
                         loginData -> {
-                            startActivity(new Intent(getActivity(), MainActivity.class));
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
                             requireActivity().finishAffinity();
                         });
 
