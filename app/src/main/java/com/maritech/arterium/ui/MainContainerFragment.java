@@ -34,7 +34,7 @@ public class MainContainerFragment
 
         viewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
         viewModel.onBackPress.observe(lifecycleOwner, onBackPressObserver);
-        viewModel.onRecreate.observe(lifecycleOwner, onRecreateObserver);
+
 
         bottomNavigationView = binding.bottomNav;
         viewPager2 = binding.viewPager;
@@ -86,13 +86,5 @@ public class MainContainerFragment
         }
     };
 
-    private final Observer<Boolean> onRecreateObserver = new Observer<Boolean>() {
-        @Override
-        public void onChanged(Boolean aBoolean) {
-            if (aBoolean) {
-                viewPager2.setAdapter(pagerAdapter);
-                actionViewModel.onRecreate.setValue(false);
-            }
-        }
-    };
+
 }

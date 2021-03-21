@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -31,6 +32,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
         firebaseViewModel = new ViewModelProvider(this).get(FirebaseViewModel.class);
+        viewModel.onRecreate.observe(this, onRecreateObserver);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.main_host_fragment);
@@ -56,6 +58,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         return navController.navigateUp() || super.onSupportNavigateUp();
     }
 
+    private final Observer<Boolean> onRecreateObserver = new Observer<Boolean>() {
+        @Override
+        public void onChanged(Boolean aBoolean) {
+            if (aBoolean) {
+                viewModel.onRecreate.setValue(false);
+                recreate();
+            }
+        }
+    };
+
     @Override
     public void onBackPressed() {
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -65,8 +77,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();
 
             int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
-//            List<Fragment> fragments = navHostChildFragmentManager.getFragments();
-//            int fragmentCount = fragments.size();
 
             if (backStackEntryCount > 0) {
                 navController.navigateUp();

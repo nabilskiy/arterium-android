@@ -51,7 +51,7 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
             setThemeBlue();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        if (drugProgramId == 3) {
+        if (drugProgramId == 4) {
             setThemeRed();
         }
         setStatusBarGradientDrawable(this, R.drawable.gradient_primary);

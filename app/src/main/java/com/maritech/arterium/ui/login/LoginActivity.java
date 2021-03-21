@@ -58,8 +58,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         btnLogin.setOnClickListener(
                 v -> {
                     String loginStr = login.getText().toString();
+                    String pass = password.getText().toString();
 
-                    if (loginStr.length() > 4) {
+                    if (!loginStr.isEmpty() && !pass.isEmpty()) {
                         loginViewModel.login(loginStr, password.getText().toString());
                     } else {
                         ToastUtil.show(this, getString(R.string.login_error));

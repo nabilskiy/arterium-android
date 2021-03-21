@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="76dp"
             android:maxEms="6"
-            android:text="@string/login_password"
+            android:text="@string/login_title"
             android:textAppearance="@style/H1"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/clLoginPasswordField"
