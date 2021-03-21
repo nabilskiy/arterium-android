@@ -10,7 +10,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.Profile;
+import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentMyProfileBinding;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
@@ -66,10 +68,23 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                         profileData -> {
                             binding.tvMyProfileName.setText(profileData.getName());
                             binding.tvMyProfileSkill.setText(profileData.getInstitutionType());
-                            binding.tvMyProfileShopingAmount.setText(
-                                    getString(R.string.whole_shopping_items1,
-                                            profileData.getSoldCount())
-                            );
+
+                            DrugProgramModel model = null;
+                            int drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
+
+                            for (DrugProgramModel m : profileData.getDrugPrograms()) {
+                                if (m.getId() == drugProgramId) {
+                                    model = m;
+                                    break;
+                                }
+                            }
+
+                            if (model != null) {
+                                binding.tvMyProfileShopingAmount.setText(
+                                        getString(R.string.whole_shopping_items1,
+                                                model.getPrimarySoldCount())
+                                );
+                            }
 
                             if (profileData.getParent() != null) {
                                 Profile.Parent parent = profileData.getParent();
