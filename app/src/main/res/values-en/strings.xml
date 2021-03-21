@@ -10,6 +10,7 @@
     <string name="login_title">Enter your <br /> login and password</string>
     <string name="login">Login</string>
     <string name="login_error">Fields must be filled</string>
+    <string name="login_response_error">Wrong login or password</string>
     <string name="password">Password</string>
     <string name="enter">Login</string>
     <string name="account_title">Account</string>

@@ -10,6 +10,7 @@
     <string name="login_title">Введіть Ваш <br /> логін і пароль</string>
     <string name="login">Логін</string>
     <string name="login_error">Поля повинні бути заповнені</string>
+    <string name="login_response_error">Невірний логін або пароль</string>
     <string name="password">Пароль</string>
     <string name="enter">Увiйти</string>
     <string name="account_title">Аккаунт</string>

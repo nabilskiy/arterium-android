@@ -79,6 +79,7 @@ public class PinCodeActivity extends BaseActivity<FragmentPinBinding> {
 
                 } else {
                     binding.verificationCodeInput.setText(null);
+                    ToastUtil.show(this, getString(R.string.pin_code_error));
                 }
             }
         });
