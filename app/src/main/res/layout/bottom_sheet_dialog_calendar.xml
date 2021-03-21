@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="22dp"
+                    android:id="@+id/ivClose"
                     app:srcCompat="@drawable/ic_close_gray" />
             </LinearLayout>
 

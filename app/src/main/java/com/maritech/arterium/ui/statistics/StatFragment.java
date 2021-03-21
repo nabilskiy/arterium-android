@@ -32,6 +32,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
     Calendar calendar = Calendar.getInstance();
     Calendar calendarFrom = Calendar.getInstance();
+    Calendar calendarCurrent = Calendar.getInstance();
 
     private int currentMonthNum;
 
@@ -177,7 +178,12 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                             dates[0] = dateFormat.format(calendar.getTime());
 
                             sharedViewModel.dates.setValue(dates);
-                        }, getString(R.string.date_filter_title))
+                        },
+                        null,
+                        null,
+                        calendarCurrent.getTimeInMillis(),
+                        null,
+                        getString(R.string.date_filter_title))
                         .show(getChildFragmentManager(),
                                 CalendarBottomSheetDialog.Companion.getTAG())
         );
@@ -202,7 +208,12 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                             getStatistics();
 
                             setMonthLabels();
-                        }, getString(R.string.date_filter_title))
+                        },
+                        null,
+                        null,
+                        calendarCurrent.getTimeInMillis(),
+                        null,
+                        getString(R.string.date_filter_title))
                         .show(getChildFragmentManager(),
                                 CalendarBottomSheetDialog.Companion.getTAG())
         );
@@ -271,6 +282,16 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
         getStatistics();
 
         setMonthLabels();
+
+        checkCurrentMonth();
+    }
+
+    private void checkCurrentMonth() {
+        if (calendar.get(Calendar.MONTH) == calendarCurrent.get(Calendar.MONTH)) {
+            binding.ivNextMonth.setEnabled(false);
+        } else {
+            binding.ivNextMonth.setEnabled(true);
+        }
     }
 
     private void setMonthLabels() {

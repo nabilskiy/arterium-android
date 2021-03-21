@@ -126,6 +126,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
         });
 
+        Calendar calendarCurrent = Calendar.getInstance();
         binding.details.findViewById(R.id.ivFilter).setOnClickListener(
                 v -> CalendarBottomSheetDialog.Companion.newInstance(
                         (dateFrom, dateTo) -> {
@@ -136,7 +137,12 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             dates[0] = dateFormat.format(calendar.getTime());
 
                             sharedViewModel.dates.setValue(dates);
-                        }, getString(R.string.date_filter_title))
+                        },
+                        null,
+                        null,
+                        calendarCurrent.getTimeInMillis(),
+                        null,
+                        getString(R.string.date_filter_title))
                         .show(getChildFragmentManager(),
                                 CalendarBottomSheetDialog.Companion.getTAG())
         );

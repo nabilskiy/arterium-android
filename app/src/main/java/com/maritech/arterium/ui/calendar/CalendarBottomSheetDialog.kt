@@ -141,6 +141,9 @@ class CalendarBottomSheetDialog : BottomSheetDialogFragment() {
 
         dialog.setContentView(binding.root)
 
+        binding.ivClose.setOnClickListener {
+            dismiss()
+        }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
