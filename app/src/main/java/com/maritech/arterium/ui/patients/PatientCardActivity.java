@@ -161,7 +161,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         ccInputDateOks.setText(getString(R.string.date_oks));
 
         if (model.getDateOks() != null) {
-            long millis = model.getHearthAttackDate() * 1000;
+            long millis = model.getDateOks() * 1000;
             ccInputDateOksValue.setText(dateFormat.format(new Date(millis)));
         } else {
             ccInputDateOksValue.setText("");

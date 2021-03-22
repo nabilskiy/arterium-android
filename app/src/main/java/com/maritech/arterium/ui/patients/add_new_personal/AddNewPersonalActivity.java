@@ -177,15 +177,26 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
         });
 
-        binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
-        binding.ccChooseDoze.findViewById(R.id.tvOne).setOnClickListener(v -> {
+        if (programId == PROGRAM_RENIAL) {
+            binding.ccChooseDoze.setTabs(2, "25", "50", null);
             binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
-            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
-        });
-        binding.ccChooseDoze.findViewById(R.id.tvTwo).setOnClickListener(v -> {
-            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
-            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
-        });
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setOnClickListener(v -> {
+                binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+                binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
+            });
+            binding.ccChooseDoze.findViewById(R.id.tvTwo).setOnClickListener(v -> {
+                binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
+                binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
+            });
+        }
+        if (programId == PROGRAM_GLIPTAR) {
+            binding.ccChooseDoze.setTabs(1, "50", null, null);
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+        }
+        if (programId == PROGRAM_SAGRADA) {
+            binding.ccChooseDoze.setTabs(1, "10", null, null);
+            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+        }
 
         toolTip = new ToolTip()
                 .withText(getString(R.string.auto_fill_patient))
@@ -215,9 +226,13 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             }
         } else {
             binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_patient));
+            if (programId == PROGRAM_RENIAL) {
+                binding.cardNumber.setText("md0009");
+            }
             if (programId == PROGRAM_GLIPTAR) {
                 binding.cardNumber.setText("md0064");
-            } else {
+            }
+            if (programId == PROGRAM_SAGRADA) {
                 binding.cardNumber.setText("md0009");
             }
         }
@@ -339,8 +354,17 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             map.put("gender", toRequestBody("f"));
         }
 
-        boolean isFirstActivate = binding.ccChooseDoze.findViewById(R.id.tvOne).isActivated();
-        String dose = isFirstActivate ? "25" : "50";
+        String dose;
+
+        if (programId == PROGRAM_GLIPTAR) {
+            dose = "50";
+        } else  if (programId == PROGRAM_SAGRADA) {
+            dose = "10";
+        } else {
+            boolean isFirstActivate = binding.ccChooseDoze.findViewById(R.id.tvOne).isActivated();
+
+            dose = isFirstActivate ? "25" : "50";
+        }
 
         map.put("dose", toRequestBody(dose));
 
@@ -598,14 +622,18 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             binding.radioGroup.check(R.id.radio_female);
         }
 
-        if (!model.getDose().isEmpty() &&
-                model.getDose().equalsIgnoreCase("50")) {
+        if (programId == PROGRAM_RENIAL) {
+            if (!model.getDose().isEmpty() &&
+                    model.getDose().equalsIgnoreCase("50")) {
 
-            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
-            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
+                binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
+                binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(false);
+            } else {
+                binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
+                binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+            }
         } else {
-            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
-            binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
+            binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(true);
         }
     }
 
