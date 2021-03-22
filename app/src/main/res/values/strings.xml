@@ -7,12 +7,12 @@
 
 
     <!--Login Strings-->
-    <string name="login_title">Введіть Ваш <br /> логін і пароль</string>
+    <string name="login_title">Введіть Ваш <br /> логін та пароль</string>
     <string name="login">Логін</string>
     <string name="login_error">Поля повинні бути заповнені</string>
     <string name="login_response_error">Невірний логін або пароль</string>
     <string name="password">Пароль</string>
-    <string name="enter">Увiйти</string>
+    <string name="enter">Ввiйти</string>
     <string name="account_title">Аккаунт</string>
     <string name="account_session_error">Вхід був проведений за допомогою іншого пристрою</string>
     <string name="dialog_logout_message">Вийти з облікового запису?</string>
@@ -207,7 +207,7 @@
     <string name="choose_date">Обрати дату</string>
     <string name="country_code">+380</string>
     <string name="splash_title">Інновації для високої якості</string>
-    <string name="splash_content">Приєднуйся до лікарів і фармацевтам з усієї України</string>
+    <string name="splash_content">Приєднуйся до лікарів і фармацевтам з всієї України</string>
 
 
     <string-array name="calendar_month_general">

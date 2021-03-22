@@ -125,7 +125,8 @@
                 android:textAppearance="@style/sf_pro_text_12"
                 android:textColor="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"/>
 
         </LinearLayout>
 
