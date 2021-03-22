@@ -43,6 +43,7 @@ import rx.schedulers.Schedulers;
 public class ArteriumDataProvider implements DataProvider {
 
     private static final String BASE_URL = "https://doc.maritech.com.ua/";
+//    private static final String BASE_URL = "https://k4l.com.ua/api/v1/";
 
     private static volatile ArteriumDataProvider instance;
 
