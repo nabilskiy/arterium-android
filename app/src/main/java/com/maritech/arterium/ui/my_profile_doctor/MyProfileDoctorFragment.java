@@ -14,6 +14,7 @@ import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentMyProfileBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.feedback.FeedbackActivity;
 import com.maritech.arterium.ui.login.LoginActivity;
 import com.maritech.arterium.ui.login.LoginViewModel;
 import com.maritech.arterium.utils.ToastUtil;
@@ -50,8 +51,8 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
 //                .setOnClickListener(v -> navigator.goToAchievements(navController));
 
         binding.contactWithUs.getRoot().setOnClickListener(v -> {
-            String phone = getString(R.string.feedback_phone);
-            startCall(phone);
+            Intent intent = new Intent(requireActivity(), FeedbackActivity.class);
+            startActivity(intent);
         });
 
         setMyProfileContentList();

@@ -124,6 +124,14 @@
     <string name="route">\u0020 • \u0020 Як дістатися?</string>
     <string name="bio_lock_title">Біометрична аутентифікація</string>
     <string name="pin_code_button">Увійти по PIN-коду</string>
+    <string name="feedback">Зворотній зв\'язок</string>
+    <string name="feedback_title">Заголовок</string>
+    <string name="feedback_enter_title">Введіть заголовок</string>
+    <string name="feedback_text">Текст</string>
+    <string name="feedback_enter_text">Введіть текст</string>
+    <string name="send">Отправить</string>
+    <string name="feedback_send_success">Повідомлення успішно відправлено</string>
+    <string name="feedback_send_failure">Помилка при відправці повідомлення</string>
 
 
     <!--Achievements Strings-->

@@ -99,4 +99,7 @@ public interface ApiService {
 
     @POST("/api/v1/profile/fcm-token")
     Single<BaseResponse> sendFirebaseToken(@Body JsonObject body);
+
+    @POST("/api/v1/contact-us")
+    Single<BaseResponse> sendFeedback(@Body RequestBody body);
 }

@@ -68,4 +68,6 @@ public interface DataProvider {
     Single<BaseResponse> readNotification(JsonObject body);
 
     Single<BaseResponse> sendFirebaseToken(JsonObject body);
+
+    Single<BaseResponse> sendFeedback(RequestBody body);
 }

@@ -36,6 +36,8 @@
 
         <activity android:name=".ui.patients.PatientCardActivity" />
 
+        <activity android:name=".ui.feedback.FeedbackActivity" />
+
         <activity android:name=".ui.lock.pinCode.PinCodeActivity"
             android:windowSoftInputMode="stateAlwaysVisible"/>
 

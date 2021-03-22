@@ -124,6 +124,14 @@
     <string name="route">\u0020 • \u0020 How to get there?</string>
     <string name="bio_lock_title">Биометрическая аутентификация</string>
     <string name="pin_code_button">Войти по PIN-коду</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedback_title">Title</string>
+    <string name="feedback_enter_title">Enter title</string>
+    <string name="feedback_text">Message</string>
+    <string name="feedback_enter_text">Enter message</string>
+    <string name="send">Send</string>
+    <string name="feedback_send_success">Message sent successfully</string>
+    <string name="feedback_send_failure">Error sending message</string>
 
 
     <!--Achievements Strings-->

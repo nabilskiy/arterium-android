@@ -385,4 +385,17 @@ public class ArteriumDataProvider implements DataProvider {
                         singleSubscriber::onError
                 ));
     }
+
+    @Override
+    public Single<BaseResponse> sendFeedback(RequestBody body) {
+        return Single.create(singleSubscriber -> provideClient()
+                .sendFeedback(body)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
 }
