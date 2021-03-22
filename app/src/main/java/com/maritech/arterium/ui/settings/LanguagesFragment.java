@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentLanguagesBinding;
+import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.base.BaseNavigator;
 
@@ -26,6 +29,8 @@ public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
+        actionViewModel =
+                new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
 
         binding.interfaceToolbar.ivRight.setVisibility(View.INVISIBLE);
 
@@ -35,16 +40,19 @@ public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
         binding.tvUa.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), ua);
             setLangSelected(ua);
+            actionViewModel.onRecreate.setValue(true);
         });
 
         binding.tvRu.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), ru);
             setLangSelected(ru);
+            actionViewModel.onRecreate.setValue(true);
         });
 
         binding.tvEn.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), en);
             setLangSelected(en);
+            actionViewModel.onRecreate.setValue(true);
         });
 
         binding.interfaceToolbar.ivArrow.setOnClickListener(v -> requireActivity().onBackPressed());
@@ -55,29 +63,5 @@ public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
         binding.ivRu.setVisibility(lang.equalsIgnoreCase(ru) ? View.VISIBLE : View.INVISIBLE);
         binding.ivEn.setVisibility(lang.equalsIgnoreCase(en) ? View.VISIBLE : View.INVISIBLE);
     }
-
-//    public void setCheckboxStatus(CheckBox view) {
-//        for (int i = 0; i < binding.clNamesList.getChildCount(); i++) {
-//            CheckBox checkBox = binding.clNamesList.getChildAt(i).findViewById(R.id.cbShowHide);
-//            if (view.isChecked() && view == checkBox) {
-//                binding.clNamesList.getChildAt(i).findViewById(R.id.cbShowHide).setVisibility(View.VISIBLE);
-//            } else {
-//                binding.clNamesList.getChildAt(i).findViewById(R.id.cbShowHide).setVisibility(View.INVISIBLE);
-//                checkBox.setChecked(false);
-//            }
-//        }
-//    }
-//
-//    public void changeInterfaceName() {
-//        for (int i = 0; i < binding.clNamesList.getChildCount(); i++) {
-//            binding.clNamesList.getChildAt(i).setOnClickListener(view -> {
-//                CheckBox checkBox = view.findViewById(R.id.cbShowHide);
-//                checkBox.setChecked(true);
-//                setCheckboxStatus(checkBox);
-//            });
-//
-//        }
-//    }
-
 
 }
