@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.patients.add_new_personal;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -81,6 +82,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         return R.layout.activity_add_new_personal;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,6 +213,11 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             }
         } else {
             binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_patient));
+            if (programId == PROGRAM_GLIPTAR) {
+                binding.cardNumber.setText("md0064");
+            } else {
+                binding.cardNumber.setText("md0009");
+            }
         }
 
         observeViewModel();
@@ -314,12 +321,12 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             }
         }
 
-        if (binding.ccInputCardNumber.getText() == null ||
-                binding.ccInputCardNumber.getText().isEmpty()) {
+        if (binding.cardNumber.getText() == null ||
+                binding.cardNumber.getText().length() < 13) {
             ToastUtil.show(this, getString(R.string.enter_card_number));
             return;
         } else {
-            map.put("card_code", toRequestBody(binding.ccInputCardNumber.getText()));
+            map.put("card_code", toRequestBody(binding.cardNumber.getText().toString()));
         }
 
         int selectedId = binding.radioGroup.getCheckedRadioButtonId();
@@ -486,9 +493,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                 }
 
                 if (requestCode == SCAN_REQUEST_CODE) {
-                    binding.ccInputCardNumber.setInput(
-                            getString(R.string.card_number), data.getStringExtra("result")
-                    );
+                    binding.cardNumber.setText(data.getStringExtra("result"));
                 }
             }
         }
@@ -512,9 +517,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                 .replace(getString(R.string.country_code), "");
 
         binding.ccInputPhoneNumber.setMaskedText(phone);
-        binding.ccInputCardNumber.setInput(
-                getString(R.string.card_number), model.getCardCode()
-        );
+        binding.cardNumber.setText(model.getCardCode());
 
         if (!model.getGender().isEmpty() &&
                 model.getGender().equalsIgnoreCase("m")) {

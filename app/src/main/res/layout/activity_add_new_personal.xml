@@ -136,18 +136,44 @@
                             app:notMaskedSymbol="*" />
                     </LinearLayout>
 
-                    <com.maritech.arterium.ui.widgets.CustomInput
-                        android:id="@+id/ccInputCardNumber"
-                        layout="@layout/custome_input"
+                    <LinearLayout
+                        android:id="@+id/card_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
-                        app:ci_field_value="@string/enter_card_number"
-                        app:ci_title="@string/card_number"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/phone_layout"/>
+                        app:layout_constraintTop_toBottomOf="@id/phone_layout">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/enter_card_number"
+                            android:textAppearance="@style/sf_pro_text_14"
+                            android:textColor="@color/gray_text"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <EditText
+                            android:id="@+id/cardNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/login_input_bg"
+                            android:inputType="textNoSuggestions"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:textAppearance="@style/sf_pro_text_16"
+                            android:textColor="@color/gray"
+                            android:textColorHint="@color/gray"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/inputTitle"
+                            android:maxLength="13"
+                            tools:ignore="TextFields" />
+                    </LinearLayout>
 
                     <ImageView
                         android:id="@+id/ivCamera"
@@ -158,8 +184,8 @@
                         android:background="?attr/actionBarItemBackground"
                         android:padding="5dp"
                         android:src="@drawable/ic_camera_icon"
-                        app:layout_constraintBottom_toBottomOf="@+id/ccInputCardNumber"
-                        app:layout_constraintEnd_toEndOf="@+id/ccInputCardNumber"
+                        app:layout_constraintBottom_toBottomOf="@+id/card_layout"
+                        app:layout_constraintEnd_toEndOf="@+id/card_layout"
                         tools:ignore="ContentDescription" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -172,7 +198,7 @@
                         android:textColor="@color/gray"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ccInputCardNumber" />
+                        app:layout_constraintTop_toBottomOf="@+id/card_layout" />
 
                     <RadioGroup
                         android:id="@+id/radioGroup"
