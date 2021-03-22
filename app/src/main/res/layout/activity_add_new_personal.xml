@@ -165,6 +165,7 @@
                             android:inputType="textNoSuggestions"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
+                            android:textAllCaps="true"
                             android:textAppearance="@style/sf_pro_text_16"
                             android:textColor="@color/gray"
                             android:textColorHint="@color/gray"

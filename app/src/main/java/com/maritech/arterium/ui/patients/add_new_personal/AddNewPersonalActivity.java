@@ -227,13 +227,13 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         } else {
             binding.toolbar.tvToolbarTitle.setText(getString(R.string.new_patient));
             if (programId == PROGRAM_RENIAL) {
-                binding.cardNumber.setText("md0009");
+                binding.cardNumber.setText("MD0009");
             }
             if (programId == PROGRAM_GLIPTAR) {
-                binding.cardNumber.setText("md0064");
+                binding.cardNumber.setText("MD0064");
             }
             if (programId == PROGRAM_SAGRADA) {
-                binding.cardNumber.setText("md0009");
+                binding.cardNumber.setText("MD0009");
             }
         }
 

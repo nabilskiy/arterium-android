@@ -4,6 +4,7 @@ import androidx.annotation.IntRange;
 
 import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LevelsResponse;
@@ -42,8 +43,7 @@ import rx.schedulers.Schedulers;
 
 public class ArteriumDataProvider implements DataProvider {
 
-    private static final String BASE_URL = "https://doc.maritech.com.ua/";
-//    private static final String BASE_URL = "https://k4l.com.ua/api/v1/";
+    private static final String BASE_URL = BuildConfig.BASE_URL;
 
     private static volatile ArteriumDataProvider instance;
 
