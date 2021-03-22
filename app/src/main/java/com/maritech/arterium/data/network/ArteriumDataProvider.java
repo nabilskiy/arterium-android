@@ -109,7 +109,7 @@ public class ArteriumDataProvider implements DataProvider {
                 });
     }
 
-    public static Single<LoginResponse> refreshToken() {
+    public synchronized static Single<LoginResponse> refreshToken() {
         return getInstance().provideClient()
                 .refreshToken()
                 .subscribeOn(Schedulers.io())
