@@ -7,9 +7,9 @@ public class NotificationModel {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("message")
+    @SerializedName("data")
     @Expose
-    private String message;
+    private Message message;
     @SerializedName("read")
     @Expose
     private boolean read;
@@ -25,11 +25,11 @@ public class NotificationModel {
         this.id = id;
     }
 
-    public String getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
@@ -49,4 +49,19 @@ public class NotificationModel {
         this.createdAt = createdAt;
     }
 
+    public static class Message {
+
+        @SerializedName("message")
+        @Expose
+        private String message;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+    }
 }

@@ -57,7 +57,7 @@
     <string name="ejection_fraction_value">55</string>
     <string name="enter_potassium_start">Введите уровень калия в начале лечения</string>
     <string name="potassium_start">Уровень калия в начале лечения, ммоль/л</string>
-    <string name="potassium_start_value">3,1</string>
+    <string name="potassium_start_value">3.5</string>
     <string name="enter_potassium_end">Введите уровень калия в конце лечения</string>
     <string name="potassium_end">Уровень калия в конце лечения, ммоль/л</string>
     <string name="potassium_end_value">4</string>
@@ -199,6 +199,7 @@
     <string name="level_purchase_limit">∞</string>
     <string name="level_purchase_primary">Первичная</string>
     <string name="level_purchase_secondary">Вторичная</string>
+    <string name="level_purchase_repeat">Повторная</string>
     <string name="level_с">Уровень С</string>
     <string name="level_b">Уровень B</string>
     <string name="level_a">Уровень A</string>

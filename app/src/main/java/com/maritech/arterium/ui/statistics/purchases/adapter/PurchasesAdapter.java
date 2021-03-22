@@ -111,14 +111,20 @@ public class PurchasesAdapter
         viewHolder.tvName.setText(localDataSet.get(position).getPatientName());
 
         String purchase = localDataSet.get(position).getSoldSum();
+
         if (purchase == null || purchase.isEmpty()) {
             viewHolder.tvLastBuy.setText(context.getString(R.string.without_purchases));
             viewHolder.tvLastBuy.setTextColor(Color.parseColor("#FF3347"));
         } else {
-            viewHolder.tvLastBuy.setText(
-                    context.getString(R.string.currency, localDataSet.get(position).getSoldSum())
-            );
-            viewHolder.tvLastBuy.setTextColor(Color.parseColor("#228945"));
+            if (localDataSet.get(position).getIsPrimary()) {
+                viewHolder.tvLastBuy.setText(
+                        context.getString(R.string.level_purchase_primary)
+                );
+                viewHolder.tvLastBuy.setTextColor(Color.parseColor("#228945"));
+            } else {
+                viewHolder.tvLastBuy.setText(context.getString(R.string.level_purchase_repeat));
+                viewHolder.tvLastBuy.setTextColor(Color.parseColor("#D98700"));
+            }
         }
 
         viewHolder.clItemNotifications.setOnClickListener(

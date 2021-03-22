@@ -126,7 +126,7 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
 
 
         earlierNotifications.add(0, newNotifications.get(position));
-        earlierNotifications.get(0).setRead(false);
+        earlierNotifications.get(0).setRead(true);
         readAdapter.notifyItemInserted(0);
 
         newNotifications.remove(position);
@@ -137,12 +137,10 @@ public class NotificationsFragment extends BaseFragment<FragmentNotificationsBin
 
     private void setVisibilityByListSize() {
         if (newNotifications.size() > 0) {
-            binding.unreadTv.setVisibility(View.VISIBLE);
-            binding.unreadCountTv.setVisibility(View.VISIBLE);
+            binding.unreadLayout.setVisibility(View.VISIBLE);
             binding.unreadCountTv.setText(String.valueOf(newNotifications.size()));
         } else {
-            binding.unreadTv.setVisibility(View.GONE);
-            binding.unreadCountTv.setVisibility(View.GONE);
+            binding.unreadLayout.setVisibility(View.GONE);
         }
 
         if (earlierNotifications.size() > 0) {

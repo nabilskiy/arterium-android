@@ -201,6 +201,8 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             if (model != null) {
                 loadImage();
 
+                fillPatientInfo();
+
                 if (programId == PROGRAM_RENIAL) {
                     fillRenialPatientData();
                 }
@@ -381,6 +383,76 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             map.put("final_potassium", toRequestBody(binding.ccInputFecesEnd.getText()));
         }
 
+        if (binding.ccInputDateOks.getText() != null &&
+                !binding.ccInputDateOks.getText().isEmpty()) {
+            map.put("date_oks", toRequestBody(binding.ccInputDateOks.getText()));
+        }
+
+        if (binding.ccInputOptionOks.getSelectedItem() != null &&
+                !binding.ccInputOptionOks.getSelectedItem().toString().isEmpty()) {
+            map.put("option_oks", toRequestBody(binding.ccInputOptionOks.getSelectedItem().toString()));
+        }
+
+        if (binding.ccInputOcclusionZone.getText() != null &&
+                !binding.ccInputOcclusionZone.getText().isEmpty()) {
+            map.put("occlusion_zone", toRequestBody(binding.ccInputOcclusionZone.getText()));
+        }
+
+        if (binding.ccInputOcclusionDegree.getText() != null &&
+                !binding.ccInputOcclusionDegree.getText().isEmpty()) {
+            map.put("occlusion_degree", toRequestBody(binding.ccInputOcclusionDegree.getText()));
+        }
+
+        if (binding.ccInputCoronaryDominanceType.getText() != null &&
+                !binding.ccInputCoronaryDominanceType.getText().isEmpty()) {
+            map.put("coronary_dominance_type", toRequestBody(binding.ccInputCoronaryDominanceType.getText()));
+        }
+
+        if (binding.ccInputLevelHba1c.getText() != null &&
+                !binding.ccInputLevelHba1c.getText().isEmpty()) {
+            map.put("level_hba1c", toRequestBody(binding.ccInputLevelHba1c.getText()));
+        }
+
+        if (binding.ccInputFastingGlycemia.getText() != null &&
+                !binding.ccInputFastingGlycemia.getText().isEmpty()) {
+            map.put("fasting_glycemia", toRequestBody(binding.ccInputFastingGlycemia.getText()));
+        }
+
+        if (binding.ccInputPostprandialGlycemia.getText() != null &&
+                !binding.ccInputPostprandialGlycemia.getText().isEmpty()) {
+            map.put("postprandial_glycemia", toRequestBody(binding.ccInputPostprandialGlycemia.getText()));
+        }
+
+        if (binding.ccInputIndexHomaIr.getText() != null &&
+                !binding.ccInputIndexHomaIr.getText().isEmpty()) {
+            map.put("index_homa_ir", toRequestBody(binding.ccInputIndexHomaIr.getText()));
+        }
+
+        if (binding.ccInputSad.getText() != null &&
+                !binding.ccInputSad.getText().isEmpty()) {
+            map.put("sad", toRequestBody(binding.ccInputSad.getText()));
+        }
+
+        if (binding.ccInputDad.getText() != null &&
+                !binding.ccInputDad.getText().isEmpty()) {
+            map.put("dad", toRequestBody(binding.ccInputDad.getText()));
+        }
+
+        if (binding.ccInputImt.getText() != null &&
+                !binding.ccInputImt.getText().isEmpty()) {
+            map.put("imt", toRequestBody(binding.ccInputImt.getText()));
+        }
+
+        if (binding.ccInputAge.getText() != null &&
+                !binding.ccInputAge.getText().isEmpty()) {
+            map.put("age", toRequestBody(binding.ccInputAge.getText()));
+        }
+
+        if (binding.ccInputCoronary.getSelectedItem() != null &&
+                !binding.ccInputCoronary.getSelectedItem().toString().isEmpty()) {
+            map.put("coronary_angiography", toRequestBody(binding.ccInputCoronary.getSelectedItem().toString()));
+        }
+
         if (isEditMode) {
             editPatient();
         } else {
@@ -511,7 +583,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
         );
     }
 
-    private void fillRenialPatientData() {
+    private void fillPatientInfo() {
         binding.ccInputName.setText(model.getName());
         String phone = model.getPhone()
                 .replace(getString(R.string.country_code), "");
@@ -535,7 +607,9 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             binding.ccChooseDoze.findViewById(R.id.tvTwo).setActivated(false);
             binding.ccChooseDoze.findViewById(R.id.tvOne).setActivated(true);
         }
+    }
 
+    private void fillRenialPatientData() {
         if (model.getHearthAttackDate() != null) {
             long millis = model.getHearthAttackDate() * 1000;
             binding.ccInputDateInfarct.setInput(
