@@ -9,6 +9,7 @@ import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientListResponse;
 import com.maritech.arterium.data.models.PatientResponse;
+import com.maritech.arterium.data.models.PharmacyResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.PurchasesResponse;
@@ -102,4 +103,7 @@ public interface ApiService {
 
     @POST("/api/v1/contact-us")
     Single<BaseResponse> sendFeedback(@Body RequestBody body);
+
+    @GET("/api/v1/info/pharmacies")
+    Single<PharmacyResponse> getPharmacies();
 }

@@ -14,6 +14,7 @@ import com.maritech.arterium.data.models.NotificationResponse;
 import com.maritech.arterium.data.models.PatientCreateResponse;
 import com.maritech.arterium.data.models.PatientListResponse;
 import com.maritech.arterium.data.models.PatientResponse;
+import com.maritech.arterium.data.models.PharmacyResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.PurchasesResponse;
@@ -391,6 +392,19 @@ public class ArteriumDataProvider implements DataProvider {
     public Single<BaseResponse> sendFeedback(RequestBody body) {
         return Single.create(singleSubscriber -> provideClient()
                 .sendFeedback(body)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<PharmacyResponse> getPharmacies() {
+        return Single.create(singleSubscriber -> provideClient()
+                .getPharmacies()
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())

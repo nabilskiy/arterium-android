@@ -11,9 +11,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.models.PharmacyModel;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ViewPagerAdapter extends PagerAdapter {
@@ -24,37 +26,31 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     private final ViewPagerAdapter.OnItemClickListener onItemClickListener;
 
-    Context context;
-    int[] pharmacy;
+    ArrayList<PharmacyModel> models;
 
     LayoutInflater mLayoutInflater;
-    private View view;
-    private Object object;
 
     public ViewPagerAdapter(Context context,
-                            int[] pharmacy,
+                            ArrayList<PharmacyModel> pharmacyModels,
                             ViewPagerAdapter.OnItemClickListener onItemClickListener) {
-        this.context = context;
-        this.pharmacy = pharmacy;
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.models = pharmacyModels;
+        this.mLayoutInflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.onItemClickListener = onItemClickListener;
     }
 
     @Override
     public float getPageWidth(int position) {
-        return 0.95f;
+        return 0.80f;
     }
 
     @Override
     public int getCount() {
-        return pharmacy.length;
+        return models.size();
     }
-
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        this.view = view;
-        this.object = object;
         return view == object;
     }
 
@@ -65,13 +61,12 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         TextView pharmacyTitle =
                 itemView.findViewById(R.id.pharmacy).findViewById(R.id.tvPharmacyItemTitle);
-        pharmacyTitle.setText(pharmacy[position]);
+        pharmacyTitle.setText(models.get(position).getName());
 
         itemView.findViewById(R.id.pharmacy).setBackgroundResource(R.drawable.bg_items_pharmacy);
         Objects.requireNonNull(container).addView(itemView);
 
         itemView.setOnClickListener(v -> onItemClickListener.onItemClicked(position));
-
 
         return itemView;
     }

@@ -114,7 +114,7 @@
 
     <fragment
         android:id="@+id/pharmacyFragment"
-        android:name="com.maritech.arterium.ui.pharmacies.list.PharmacyFragment"
+        android:name="com.maritech.arterium.ui.pharmacies.PharmacyFragment"
         android:label="PharmacyFragment"
         tools:layout="@layout/fragment_pharmacy" />
 

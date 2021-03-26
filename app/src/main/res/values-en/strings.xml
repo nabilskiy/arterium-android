@@ -121,7 +121,8 @@
     <string name="enable_pin_code">Use PIN-code</string>
     <string name="enable_finger_print">Enable Finger print</string>
     <string name="enable_push">Receive push notifications</string>
-    <string name="route">\u0020 • \u0020 How to get there?</string>
+    <string name="route">How to get there?</string>
+<!--    <string name="route">\u0020 • \u0020 How to get there?</string>-->
     <string name="bio_lock_title">Биометрическая аутентификация</string>
     <string name="pin_code_button">Войти по PIN-коду</string>
     <string name="feedback">Feedback</string>
@@ -177,6 +178,9 @@
     <string name="dialog_logout_cancel">Cancel</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">List of pharmacies</string>
+    <string name="pharmacy_list_empty">Empty list</string>
+    <string name="pharmacy_list_error">Error getting pharmacies</string>
+    <string name="retry">Retry</string>
     <string name="enter_pharmacy">Enter name or address</string>
     <string name="last_shopping">Last purchase 01.02.2020</string>
     <string name="personal_data">Personal data</string>

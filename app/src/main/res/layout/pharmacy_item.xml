@@ -2,11 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="16dp">
+        android:paddingTop="16dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvPharmacyItemTitle"
@@ -31,30 +36,37 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvPharmacyItemTitle" />
 
-        <ImageView
-            android:id="@+id/ivPharmacyIcon"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ic_pharmacy_clock"
-            app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress" />
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tvWorkingHours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="8dp"
-            android:alpha="0.4"
-            android:text="@string/work_time"
-            android:textAppearance="@style/sf_pro_text_12"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
-            app:layout_constraintStart_toEndOf="@id/ivPharmacyIcon"
-            app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress"
-            app:layout_constraintVertical_bias="0.769" />
+            <ImageView
+                android:id="@+id/ivPharmacyIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_pharmacy_clock"
+                app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress" />
+
+            <TextView
+                android:id="@+id/tvWorkingHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:alpha="0.4"
+                android:text="@string/work_time"
+                android:textAppearance="@style/sf_pro_text_12"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/vPharmacyDivideLine"
+                app:layout_constraintStart_toEndOf="@id/ivPharmacyIcon"
+                app:layout_constraintTop_toBottomOf="@id/tvPharmacyAddress"
+                app:layout_constraintVertical_bias="0.769" />
+
+        </LinearLayout>
 
         <View
             android:id="@+id/vPharmacyDivideLine"
@@ -66,36 +78,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivPharmacyIcon" />
 
-        <TextView
-            android:id="@+id/tvPharmacyDistance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="5км​"
-            android:textAppearance="@style/sf_pro_semibold_13"
-            android:textColor="?colorSecondary"
-            app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"
-            app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvPharmacyDistance"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="8dp"-->
+        <!--            android:text="5км​"-->
+        <!--            android:textAppearance="@style/sf_pro_semibold_13"-->
+        <!--            android:textColor="?colorSecondary"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />-->
 
-        <TextView
-            android:id="@+id/tvHowToGetToKnow"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/route"
-            android:textAppearance="@style/sf_pro_semibold_13"
-            android:textColor="?colorSecondary"
-            app:layout_constraintStart_toEndOf="@id/tvPharmacyDistance"
-            app:layout_constraintTop_toTopOf="@+id/tvPharmacyDistance" />
+            android:id="@+id/route_layout"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine">
 
-        <ImageView
-            android:id="@+id/ivPharmacyItemArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ic_gray_arrow"
-            app:layout_constraintEnd_toEndOf="@+id/vPharmacyDivideLine"
-            app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
+            <TextView
+                android:id="@+id/tvHowToGetToKnow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/route"
+                android:textAppearance="@style/sf_pro_semibold_13"
+                android:textColor="?colorSecondary"
+                app:layout_constraintStart_toStartOf="@+id/vPharmacyDivideLine"
+                app:layout_constraintTop_toBottomOf="@id/vPharmacyDivideLine" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/ivPharmacyItemArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:background="@drawable/ic_gray_arrow" />
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 </layout>

@@ -2,17 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:padding="0dp"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="?android:selectableItemBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
         android:id="@+id/pharmacy"
         layout="@layout/pharmacy_item"
-        android:layout_width="360dp"
-        android:layout_height="160dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:padding="0dp"
         android:layout_marginStart="12dp"

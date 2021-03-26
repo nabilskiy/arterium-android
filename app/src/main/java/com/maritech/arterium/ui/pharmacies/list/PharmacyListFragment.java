@@ -4,13 +4,22 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.models.PharmacyModel;
 import com.maritech.arterium.databinding.FragmentPharmacyListBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.pharmacies.PharmaciesViewModel;
+import com.maritech.arterium.ui.pharmacies.list.adapter.PharmaciesAdapter;
+
+import java.util.ArrayList;
 
 public class PharmacyListFragment extends BaseFragment<FragmentPharmacyListBinding> {
 
-    PharmacyNavigator navigator = new PharmacyNavigator();
+    private PharmaciesViewModel pharmaciesViewModel;
+
+    private final ArrayList<PharmacyModel> models = new ArrayList<>();
+    private PharmaciesAdapter adapter;
 
     @Override
     protected int getContentView() {
@@ -21,30 +30,24 @@ public class PharmacyListFragment extends BaseFragment<FragmentPharmacyListBindi
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
 
-        setPharmacyList();
+        pharmaciesViewModel =
+                new ViewModelProvider(requireActivity()).get(PharmaciesViewModel.class);
 
-        View navController = root.findViewById(R.id.nav_pharmacy);
+        initRecyclerView();
 
-        binding.goodDayPharmacy.getRoot()
-                .setOnClickListener(view -> navigator.goToMap(navController));
-
-        binding.wholesalePharmacyPrice.getRoot()
-                .setOnClickListener(view -> navigator.goToMap(navController));
-
-        binding.TASPharmacy.getRoot()
-                .setOnClickListener(view -> navigator.goToMap(navController));
-
-        binding.monetPharmacy.getRoot()
-                .setOnClickListener(view -> navigator.goToMap(navController));
+        observeViewModel();
     }
 
-    private void setPharmacyList() {
-        binding.wholesalePharmacyPrice.tvPharmacyItemTitle.setText(R.string.wholesale_pharmacy);
-        binding.TASPharmacy.tvPharmacyItemTitle.setText(R.string.tas_pharmacy);
-        binding.monetPharmacy.tvPharmacyItemTitle.setText(R.string.monet_pharmacy);
-        binding.swissPharmacy.tvPharmacyItemTitle.setText(R.string.swiss_pharmacy);
+    private void observeViewModel() {
+        pharmaciesViewModel.modelList.observe(getViewLifecycleOwner(),
+                list -> adapter.setData(list));
+    }
 
-//        Log.e("Bottom", this.getClass().getName());
-//        baseActivity.findViewById(R.id.bottom_nav_view).setVisibility(View.GONE);
+    private void initRecyclerView() {
+        adapter = new PharmaciesAdapter(requireActivity(),
+                models,
+                (position, object) ->
+                        pharmaciesViewModel.selectedPharmacyPosition.setValue(position));
+        binding.list.setAdapter(adapter);
     }
 }

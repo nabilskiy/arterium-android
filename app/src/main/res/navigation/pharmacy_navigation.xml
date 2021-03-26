@@ -9,8 +9,7 @@
         android:id="@+id/pharmacyListFragment"
         android:name="com.maritech.arterium.ui.pharmacies.list.PharmacyListFragment"
         android:label="PharmacyListFragment"
-        tools:layout="@layout/fragment_pharmacy_list"
-        >
+        tools:layout="@layout/fragment_pharmacy_list">
         <action
             android:id="@+id/action_pharmacyListFragment_to_mapFragment2"
             app:destination="@id/mapFragment2" />
@@ -20,8 +19,7 @@
         android:id="@+id/mapFragment2"
         android:name="com.maritech.arterium.ui.pharmacies.map.MapFragment"
         android:label="MapFragment"
-        tools:layout="@layout/fragment_map"
-        >
+        tools:layout="@layout/fragment_map">
         <action
             android:id="@+id/action_mapFragment2_to_pharmacyListFragment"
             app:destination="@id/pharmacyListFragment" />
