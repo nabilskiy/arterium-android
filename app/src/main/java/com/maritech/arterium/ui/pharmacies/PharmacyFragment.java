@@ -68,9 +68,9 @@ public class PharmacyFragment extends BaseFragment<FragmentPharmacyBinding> {
                     pharmaciesViewModel.modelList.setValue(models);
                 });
 
-        pharmaciesViewModel.selectedPharmacyPosition.observe(
-                getViewLifecycleOwner(), position -> binding.pharmacyPager.setCurrentItem(1)
-        );
+//        pharmaciesViewModel.selectedPharmacyPosition.observe(
+//                getViewLifecycleOwner(), position -> binding.pharmacyPager.setCurrentItem(1)
+//        );
 
         pharmaciesViewModel.contentState.observe(this, contentState -> {
             if (contentState == ContentState.LOADING) {

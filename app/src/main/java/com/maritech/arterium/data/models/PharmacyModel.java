@@ -3,10 +3,15 @@ package com.maritech.arterium.data.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.maps.android.clustering.ClusterItem;
 
-public class PharmacyModel implements Parcelable {
+public class PharmacyModel implements Parcelable, ClusterItem {
 
     @SerializedName("id")
     @Expose
@@ -105,6 +110,24 @@ public class PharmacyModel implements Parcelable {
         dest.writeValue(address);
         dest.writeValue(lon);
         dest.writeValue(lat);
+    }
+
+    @NonNull
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(Double.parseDouble(lat), Double.parseDouble(lon));
+    }
+
+    @Nullable
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Nullable
+    @Override
+    public String getSnippet() {
+        return null;
     }
 
     public int describeContents() {
