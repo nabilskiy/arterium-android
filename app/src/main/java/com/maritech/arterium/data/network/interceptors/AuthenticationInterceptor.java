@@ -52,4 +52,6 @@ public class AuthenticationInterceptor implements Interceptor {
     private String getToken() {
         return Pref.getInstance().getAuthToken(App.getInstance());
     }
+
+
 }

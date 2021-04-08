@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.DrugProgramModel;
@@ -72,12 +74,13 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                             DrugProgramModel model = null;
                             int drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
 
-                            for (DrugProgramModel m : profileData.getDrugPrograms()) {
-                                if (m.getId() == drugProgramId) {
-                                    model = m;
-                                    break;
+                            if (profileData.getDrugPrograms() != null)
+                                for (DrugProgramModel m : profileData.getDrugPrograms()) {
+                                    if (m.getId() == drugProgramId) {
+                                        model = m;
+                                        break;
+                                    }
                                 }
-                            }
 
                             if (model != null) {
                                 binding.tvMyProfileShopingAmount.setText(

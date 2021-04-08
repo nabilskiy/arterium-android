@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_nav_menu"
             android:layout_gravity="bottom">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

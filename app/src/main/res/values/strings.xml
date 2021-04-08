@@ -250,4 +250,12 @@
         <item name="2">90/10</item>
     </string-array>
 
+<!--    roles-->
+    <string name="rm">Регіональний менеджер</string>
+    <string name="mp">Медичний представник</string>
+    <string name="mps">Медичні представники</string>
+
+
+
+
 </resources>

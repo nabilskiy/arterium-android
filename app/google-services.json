@@ -14,11 +14,51 @@
       },
       "oauth_client": [
         {
+          "client_id": "253012515211-bph3bd5tk2vl1mn78mil27dsq0scep7v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maritech.arterium",
+            "certificate_hash": "49f64796e545eaa458eba20b78629756b70114e7"
+          }
+        },
+        {
+          "client_id": "253012515211-d0bmfplkdcsn3atcdsk2kes5svl3d42n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maritech.arterium",
+            "certificate_hash": "daa9045d07e0c89607f5b256ccc8dd8910980abf"
+          }
+        },
+        {
+          "client_id": "253012515211-jccbv5fcpokg3efc75rdu4u2inn316no.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maritech.arterium",
+            "certificate_hash": "2e67b6eb244cf8613ce831cf6f08ea2124c52194"
+          }
+        },
+        {
+          "client_id": "253012515211-q7mat9of7ek52c0a247631a58qloe7hc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maritech.arterium",
+            "certificate_hash": "8a9421bc24932cb3fcbdcc4b318cf66610e637d5"
+          }
+        },
+        {
           "client_id": "253012515211-rtu2oso2dvda00hdtfp7q8fi1948b6th.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.maritech.arterium",
             "certificate_hash": "b5584adca56ef3c5eb9f92789db9542db6c01e88"
+          }
+        },
+        {
+          "client_id": "253012515211-sg2pm4bu8im7l3hoiq6gr2paqqd18mih.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.maritech.arterium",
+            "certificate_hash": "e6467778a32974d4bf69bc65a71850df74190a55"
           }
         },
         {

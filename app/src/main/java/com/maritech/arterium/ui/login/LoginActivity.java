@@ -1,15 +1,20 @@
 package com.maritech.arterium.ui.login;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.lifecycle.ViewModelProvider;
+
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.UserType;
 import com.maritech.arterium.data.models.Profile;
@@ -22,7 +27,8 @@ import com.maritech.arterium.utils.ToastUtil;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
-    static final String BUNDLE_KEY = "login";
+    private static final String TAG = "LoginActivity_TAG";
+    public static final String BUNDLE_KEY = "login";
     static final String REQUEST_KEY = "requestLoginKey";
 
     private EditText password;
@@ -39,6 +45,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.i(TAG, "onCreate: ");
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -62,8 +70,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         TextView btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(
                 v -> {
-                    String loginStr = login.getText().toString();
-                    String pass = password.getText().toString();
+                    String loginStr = login.getText().toString().trim();
+                    String pass = password.getText().toString().trim();
 
                     if (!loginStr.isEmpty() && !pass.isEmpty()) {
                         loginViewModel.login(loginStr, password.getText().toString());
@@ -74,6 +82,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         );
 
+        debugListener();
         observeViewModel();
     }
 
@@ -157,29 +166,53 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         }
     };
 
+    private void debugListener() {
+        if (BuildConfig.DEBUG) {
+            binding.etInputLogin.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    binding.etInputPassword.setText(s);
+                }
+            });
+        }
+    }
+
     private void checkUserType(Profile profile) {
         Bundle result = new Bundle();
 
-        String role = profile.getRoleKey();
+        String role = profile.getRoleKey().toLowerCase();
+        Log.i(TAG, "checkUserType: " + role);
 
 //        boolean isPinEnabled = Pref.getInstance().isPinEnabled();
 
         Intent intent = new Intent(this, MainActivity.class);
 
-        if (role.toLowerCase().equals(UserType.DOCTOR.toString())) {
-            result.putString(BUNDLE_KEY, "doctor");
+        if (role.equals(UserType.DOCTOR.toString())) {
+            intent.putExtra(BUNDLE_KEY, UserType.DOCTOR.toString());
 //            navigator.goToDoctorDashboard(navController);
 
-            startActivity(intent);
-            finish();
-        } else if (role.toLowerCase().equals(UserType.REGIONAL.toString())) {
-            result.putString(BUNDLE_KEY, "regional");
+
+        } else if (role.equals(UserType.REGIONAL.toString())) {
+            intent.putExtra(BUNDLE_KEY, UserType.REGIONAL.toString());
 //            navigator.goToRegionalDashboard(navController);
 
-        } else if (role.toLowerCase().equals(UserType.MEDICAL.toString())) {
+        } else if (role.equals(UserType.MEDICAL.toString())) {
 //            navigator.goToMedicalDashboard(navController);
-            result.putString(BUNDLE_KEY, "medical");
+            intent.putExtra(BUNDLE_KEY, UserType.MEDICAL.toString());
         }
+        Pref.getInstance().setRole(this, role);
+        startActivity(intent);
+        finish();
 
 //        if (isPinEnabled) {
 //            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);

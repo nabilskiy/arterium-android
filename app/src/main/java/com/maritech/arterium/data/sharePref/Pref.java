@@ -9,6 +9,7 @@ import android.telephony.TelephonyManager;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.maritech.arterium.common.UserType;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.ProfileResponse;
 
@@ -36,6 +37,7 @@ public class Pref {
     private static final String PIN_CODE_ENABLE_KEY = "pinCodeEnableKey";
     private static final String BIO_ENABLE_KEY = "bioEnableKey";
     private static final String LANGUAGE = "language";
+    private static final String ROLE = "role";
 
     //================================== SINGLETON ==========================================
 
@@ -79,6 +81,16 @@ public class Pref {
 
     public String getAuthToken(Context context) {
         return getPrefs(context).getString(AUTH_TOKEN, "");
+    }
+
+    public void setRole(Context context, String role) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putString(ROLE, role);
+        prefsEditor.apply();
+    }
+
+    public String getRole(Context context) {
+        return getPrefs(context).getString(ROLE, UserType.DOCTOR.toString());
     }
 
     public void setUserFirstLaunch(Context context, boolean isFirstLaunch) {

@@ -2,6 +2,7 @@ package com.maritech.arterium.ui.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -32,6 +33,11 @@ public class CustomInput  extends LinearLayout {
         typedArray.recycle();
     }
 
+    public void addTextChangeListener(TextWatcher watcher) {
+        if(customInputValue!=null)
+            customInputValue.addTextChangedListener(watcher);
+    }
+
     public CustomInput(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -51,6 +57,7 @@ public class CustomInput  extends LinearLayout {
     }
 
     public String getText() {
-        return customInputValue.getText().toString();
+        String txt = customInputValue.getText() == null ? "" : customInputValue.getText().toString();
+        return txt;
     }
 }

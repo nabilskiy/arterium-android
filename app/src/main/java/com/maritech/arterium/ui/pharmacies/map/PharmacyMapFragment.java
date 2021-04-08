@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui.pharmacies.map;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -102,8 +103,11 @@ public class PharmacyMapFragment
 //        );
     }
 
+    public static final String TAG = "MAP_FRAGMENT_TAG";
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.i(TAG, "onMapReady: ");
         this.googleMap = googleMap;
         LatLng latLng = new LatLng(49.0577374, 30.5431185);
 

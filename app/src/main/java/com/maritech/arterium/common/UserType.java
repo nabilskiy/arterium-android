@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 public enum UserType {
         DOCTOR("doctor"),
         MEDICAL("medical"),
-        REGIONAL("regional");
+        REGIONAL("manager");
 
         private final String type;
 

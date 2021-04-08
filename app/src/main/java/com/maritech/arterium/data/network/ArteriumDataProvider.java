@@ -5,6 +5,7 @@ import androidx.annotation.IntRange;
 import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.BuildConfig;
+import com.maritech.arterium.data.models.AgentResponseModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LevelsResponse;
@@ -22,10 +23,12 @@ import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -36,6 +39,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+import rx.Scheduler;
 import rx.Single;
 import rx.SingleSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -194,6 +198,21 @@ public class ArteriumDataProvider implements DataProvider {
                         singleSubscriber::onError
                 ));
     }
+
+
+    @Override
+    public Single<AgentResponseModel> getAgents() {
+        return Single.create(singleSubscriber -> provideClient()
+                .getAgents()
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
 
     @Override
     public Single<PatientResponse> getPatient(int patientId) {

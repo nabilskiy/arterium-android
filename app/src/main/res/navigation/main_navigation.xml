@@ -10,6 +10,9 @@
         android:name="com.maritech.arterium.ui.MainContainerFragment"
         android:label="ViewPagerContainerFragment"
         tools:layout="@layout/fragment_main_container">
+        <argument
+            android:name="role"
+            app:argType="string" />
 
         <action
             android:id="@+id/action_dashboardFragment_to_dashboardRmFragment"
@@ -75,9 +78,9 @@
 
     <fragment
         android:id="@+id/addNewMpFragment"
-        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.AddNewMpFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.AddNewMpActivity"
         android:label="AddNewMpFragment"
-        tools:layout="@layout/fragment_add_new_mp" >
+        tools:layout="@layout/activity_add_new_mp" >
         <action
             android:id="@+id/action_addNewMpFragment_to_chooseDoctorFragment"
             app:destination="@id/chooseDoctorFragment" />

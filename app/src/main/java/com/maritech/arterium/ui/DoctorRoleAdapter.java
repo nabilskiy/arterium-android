@@ -10,10 +10,10 @@ import com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment;
 import com.maritech.arterium.ui.notifications.NotificationsFragment;
 import com.maritech.arterium.ui.statistics.StatFragment;
 
-public class MainFragmentAdapter extends FragmentStateAdapter {
+public class DoctorRoleAdapter extends FragmentStateAdapter {
 
-    public MainFragmentAdapter(@NonNull FragmentManager fragmentManager,
-                               @NonNull Lifecycle lifecycle) {
+    public DoctorRoleAdapter(@NonNull FragmentManager fragmentManager,
+                             @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
