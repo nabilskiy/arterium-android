@@ -67,6 +67,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_8sdp"
             android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,14 +79,13 @@
                 android:background="#D7D8D9" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clSearch"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_item_find"
                 android:gravity="center_vertical"
-                android:visibility="gone"
                 android:orientation="horizontal"
+                android:visibility="visible"
                 tools:visibility="visible">
 
                 <ImageView
@@ -118,10 +118,9 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/search_hint"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"
                     app:layout_constraintEnd_toStartOf="@id/ivSearchCancel"
+                    app:layout_constraintStart_toEndOf="@+id/ivSearchInCl"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -137,6 +136,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvHint"
+            android:layout_marginTop="@dimen/_14sdp"
             tools:visibility="gone">
 
             <View

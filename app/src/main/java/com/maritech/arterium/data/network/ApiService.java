@@ -1,7 +1,10 @@
 package com.maritech.arterium.data.network;
 
 import com.google.gson.JsonObject;
+import com.maritech.arterium.data.models.AddDoctorsRequestModel;
+import com.maritech.arterium.data.models.AgentRequestModel;
 import com.maritech.arterium.data.models.AgentResponseModel;
+import com.maritech.arterium.data.models.CreateAgentResponseModel;
 import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LevelsResponse;
@@ -17,6 +20,7 @@ import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.PurchasesResponse;
 import com.maritech.arterium.data.models.StatisticsResponse;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -24,6 +28,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -114,4 +119,11 @@ public interface ApiService {
 
     @GET("/api/v1/doctors")
     Single<DoctorsResponseModel> getDoctors();
+
+    @POST("/api/v1/agents")
+    Single<CreateAgentResponseModel> saveAgent(@Body AgentRequestModel agent);
+
+    @POST("/api/v1/agents/{agent_id}/doctors")
+    Single<BaseResponse> addDoctorsToAgent(@Path("agent_id") int agent_id,
+                                           @Field("doctor_ids") AddDoctorsRequestModel ids);
 }

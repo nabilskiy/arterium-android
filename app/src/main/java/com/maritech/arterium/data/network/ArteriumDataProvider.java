@@ -5,7 +5,10 @@ import androidx.annotation.IntRange;
 import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.BuildConfig;
+import com.maritech.arterium.data.models.AddDoctorsRequestModel;
+import com.maritech.arterium.data.models.AgentRequestModel;
 import com.maritech.arterium.data.models.AgentResponseModel;
+import com.maritech.arterium.data.models.CreateAgentResponseModel;
 import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
@@ -30,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Scheduler;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -40,7 +44,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-import rx.Scheduler;
 import rx.Single;
 import rx.SingleSubscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -144,6 +147,33 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     @Override
+    public Single<CreateAgentResponseModel> saveAgent(AgentRequestModel requestModel) {
+        return Single.create(singleSubscriber ->
+                provideClient()
+                        .saveAgent(requestModel)
+                        .subscribeOn(Schedulers.io())
+                        .retryWhen(isAuthException())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                singleSubscriber::onSuccess,
+                                singleSubscriber::onError
+                        ));
+    }
+
+    @Override
+    public Single<BaseResponse> addDoctors(int id, AddDoctorsRequestModel doctors) {
+        return Single.create(singleSubscriber ->
+                provideClient()
+                        .addDoctorsToAgent(id, doctors)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                singleSubscriber::onSuccess,
+                                singleSubscriber::onError
+                        ));
+    }
+
+    @Override
     public Single<BaseResponse> logout() {
         return Single.create(singleSubscriber -> provideClient().logout()
                 .subscribeOn(Schedulers.io())
@@ -163,7 +193,6 @@ public class ArteriumDataProvider implements DataProvider {
                         singleSubscriber::onError
                 ));
     }
-
 
 
     @Override

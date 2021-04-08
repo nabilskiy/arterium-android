@@ -256,6 +256,7 @@
     <string name="mps">Медичні представники</string>
 
 
-
+<string name="add_doctors">Додати лікарів</string>
+    <string name="constraint_doctors">Прикріплені лікарі</string>
 
 </resources>

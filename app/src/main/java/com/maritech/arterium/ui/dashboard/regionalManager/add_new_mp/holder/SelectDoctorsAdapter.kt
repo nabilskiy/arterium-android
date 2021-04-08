@@ -1,28 +1,35 @@
 package com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.maritech.arterium.R
 import com.maritech.arterium.data.models.DoctorsModel
-import com.maritech.arterium.databinding.ItemAgentsBinding
 import com.maritech.arterium.databinding.ItemChooseMpBinding
 
 class SelectDoctorsAdapter(
-        val onClickListener: SelectDoctorOnClickListener,
-        val doctors: List<DoctorsModel>
+        val onClickListener: SelectDoctorOnClickListener
 ) : RecyclerView.Adapter<SelectDoctorsAdapter.ViewHolder>() {
 
-    private var _binding: ItemChooseMpBinding? = null
-    private val binding get() = _binding!!
+    private val TAG = "AddNewMpActivity_TAG"
+
+    var doctors: List<DoctorsModel> = listOf()
+        set(doctors) {
+            field = doctors
+            notifyDataSetChanged()
+        }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        _binding = ItemChooseMpBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder()
+        return ViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_choose_mp, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.i(TAG, "onBindViewHolder: $position")
         val doctor = doctors[position]
         holder.tvName.text = doctor.name
         holder.tvCity.text = doctor.city
@@ -33,13 +40,13 @@ class SelectDoctorsAdapter(
     override fun getItemCount(): Int = doctors.size
 
 
-    inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-        val tvName = binding.tvUserName
-        val ivChecked = binding.ivCheck
-        val tvCity = binding.tvUserCity
+    inner class ViewHolder(rootView: View) : RecyclerView.ViewHolder(rootView) {
+        val tvName = rootView.findViewById<AppCompatTextView>(R.id.tvUserName)
+        val tvCity = rootView.findViewById<AppCompatTextView>(R.id.tvUserCity)
+        val ivChecked = rootView.findViewById<View>(R.id.ivCheck)
 
         init {
-            binding.root.setOnClickListener {
+            rootView.setOnClickListener {
                 if (ivChecked.visibility == View.VISIBLE)
                     ivChecked.visibility = View.GONE
                 else ivChecked.visibility = View.VISIBLE

@@ -43,6 +43,11 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
         profileViewModel.getProfile()
     }
 
+    override fun onResume() {
+        super.onResume()
+        dashboardViewModel.getAgents()
+    }
+
     private fun setListeners() {
         binding!!.details.ivSearch.setOnClickListener { v: View? ->
             binding!!.details.ivSearch.visibility = View.GONE

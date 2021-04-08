@@ -3,23 +3,28 @@ package com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.maritech.arterium.R
 import com.maritech.arterium.data.models.DoctorsModel
 import com.maritech.arterium.databinding.ItemChooseMpBinding
 
 class SelectedDoctorsAdapter(
-        val onClickListener: RemoveDoctorsOnClickListener,
-        val doctors: List<DoctorsModel>
-):RecyclerView.Adapter<SelectedDoctorsAdapter.ViewHolder>() {
+        val onClickListener: RemoveDoctorsOnClickListener
+) : RecyclerView.Adapter<SelectedDoctorsAdapter.ViewHolder>() {
+
+    var doctors: List<DoctorsModel> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
-    private var _binding: ItemChooseMpBinding? = null
-    private val binding get() = _binding!!
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        _binding = ItemChooseMpBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder()
+        return ViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_choose_mp, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -31,17 +36,17 @@ class SelectedDoctorsAdapter(
     override fun getItemCount(): Int = doctors.size
 
 
-    inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-        val tvName = binding.tvUserName
-        val tvCity = binding.tvUserCity
-        val ivRemove = binding.ivRemove
-
+    inner class ViewHolder(rootView:View) : RecyclerView.ViewHolder(rootView) {
+        val tvName = rootView.findViewById<AppCompatTextView>(R.id.tvUserName)
+        val tvCity = rootView.findViewById<AppCompatTextView>(R.id.tvUserCity)
+        val ivRemove =  rootView.findViewById<View>(R.id.ivRemove)
         init {
             ivRemove.visibility = View.VISIBLE
             ivRemove.setOnClickListener {
                 doctors[adapterPosition].selected = !doctors[adapterPosition].selected
                 onClickListener.onClick()
             }
+            rootView.findViewById<View>(R.id.ivArrow).visibility = View.GONE
         }
     }
 
