@@ -34,7 +34,6 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected void onCreate(Bundle savedInstanceState) {
         setTheme();
         setupLocale();
-
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setLifecycleOwner(this);

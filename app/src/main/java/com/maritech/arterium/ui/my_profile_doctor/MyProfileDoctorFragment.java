@@ -70,17 +70,19 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                         profileData -> {
                             binding.tvMyProfileName.setText(profileData.getName());
                             binding.tvMyProfileSkill.setText(profileData.getInstitutionType());
-
                             DrugProgramModel model = null;
                             int drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
-
                             if (profileData.getDrugPrograms() != null)
                                 for (DrugProgramModel m : profileData.getDrugPrograms()) {
                                     if (m.getId() == drugProgramId) {
                                         model = m;
-                                        break;
                                     }
                                 }
+
+                            if (model == null && profileData.getDrugPrograms() != null){
+                                model = profileData.getDrugPrograms().get(0);
+                            }
+
 
                             if (model != null) {
                                 binding.tvMyProfileShopingAmount.setText(
@@ -88,7 +90,6 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                                                 model.getPrimarySoldCount())
                                 );
                             }
-
                             if (profileData.getParent() != null) {
                                 Profile.Parent parent = profileData.getParent();
                                 String role = parent.getRoleKey();

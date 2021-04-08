@@ -71,10 +71,7 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        drugProgramsViewModel =
-                new ViewModelProvider(requireActivity()).get(DrugProgramsViewModel.class);
-
+        drugProgramsViewModel = new ViewModelProvider(requireActivity()).get(DrugProgramsViewModel.class);
         initView();
     }
 
@@ -85,9 +82,7 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
                 for (int i = 0; i < listContent.size(); i++) {
                     listContent.get(i).setSelected(false);
                 }
-
                 object.setSelected(true);
-
                 if (onChooseItem != null) {
                     Pref.getInstance().setDrugProgramId(requireContext(), object.getId());
                     onChooseItem.onChoose(object.getId());
@@ -96,16 +91,13 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
         });
         binding.rvStyle.setAdapter(adapter);
         initSelectedProgram();
-
         binding.tvBack.setOnClickListener(v -> dismiss());
-
         if (getDialog() != null) {
             getDialog().setCanceledOnTouchOutside(true);
         }
 
         if (loadNewDrugPrograms) {
             observerViewModel();
-
             getPrograms();
         }
     }
@@ -144,15 +136,12 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
 
     private void initSelectedProgram() {
         int selectedId = Pref.getInstance().getDrugProgramId(requireContext());
-
         for (int i = 0; i < listContent.size(); i++) {
             listContent.get(i).setSelected(false);
-
             if (selectedId == listContent.get(i).getId()) {
                 listContent.get(i).setSelected(true);
             }
         }
-
         adapter.notifyDataSetChanged();
     }
 
