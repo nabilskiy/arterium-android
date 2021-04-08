@@ -31,7 +31,7 @@
 
 
     <!--Patient Strings-->
-    <string name="full_name">ФИО</string>
+    <string name="full_name">Петров Иван Иванович</string>
     <string name="enter_full_name">Введите полное имя</string>
     <string name="phone">Номер телефона</string>
     <string name="card_number">Номер карты</string>

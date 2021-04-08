@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "com.maritech.arterium"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode versionCodeTimeStamp
         versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
@@ -137,6 +137,6 @@ dependencies {
     debugImplementation "com.readystatesoftware.chuck:library:1.1.0" //HTTP inspector
     releaseImplementation "com.readystatesoftware.chuck:library-no-op:1.1.0"
 
-
+    implementation 'com.github.anirudhmpai:EasyLocationFetch:2.1.1'
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }

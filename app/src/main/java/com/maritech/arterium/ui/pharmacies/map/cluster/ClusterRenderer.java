@@ -27,7 +27,7 @@ public class ClusterRenderer extends DefaultClusterRenderer<PharmacyModel> {
 
     @Override
     protected void onBeforeClusterItemRendered(PharmacyModel item, MarkerOptions markerOptions) {
-        markerOptions.icon(getMarkerIconFromDrawable(markerDrawable));
+        markerOptions.icon( getMarkerIconFromDrawable(markerDrawable));
         markerOptions.title(item.getName());
         markerOptions.snippet(item.getName());
         super.onBeforeClusterItemRendered(item, markerOptions);

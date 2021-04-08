@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.PharmacyModel;
+import com.maritech.arterium.utils.NavigateUtils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +43,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
     @Override
     public float getPageWidth(int position) {
-        return 0.80f;
+        return 0.85f;
     }
 
     @Override
@@ -58,16 +60,15 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.item, container, false);
-
-        TextView pharmacyTitle =
-                itemView.findViewById(R.id.pharmacy).findViewById(R.id.tvPharmacyItemTitle);
+        TextView pharmacyTitle = itemView.findViewById(R.id.pharmacy).findViewById(R.id.tvPharmacyItemTitle);
         pharmacyTitle.setText(models.get(position).getName());
-
+        TextView pharmacyAddress = itemView.findViewById(R.id.pharmacy).findViewById(R.id.tvPharmacyAddress);
+        pharmacyAddress.setText(models.get(position).getAddress());
+        FrameLayout route_layout = itemView.findViewById(R.id.pharmacy).findViewById(R.id.route_layout);
+        route_layout.setOnClickListener(v -> NavigateUtils.navigateGoogleMaps(itemView.getContext(), models.get(position)));
         itemView.findViewById(R.id.pharmacy).setBackgroundResource(R.drawable.bg_items_pharmacy);
         Objects.requireNonNull(container).addView(itemView);
-
         itemView.setOnClickListener(v -> onItemClickListener.onItemClicked(position));
-
         return itemView;
     }
 

@@ -31,7 +31,7 @@
 
 
     <!--Patient Strings-->
-    <string name="full_name">Full name</string>
+    <string name="full_name">Petrov Ivan Ivanovich</string>
     <string name="enter_full_name">Please enter full name</string>
     <string name="phone">Phone number</string>
     <string name="card_number">Card number</string>
