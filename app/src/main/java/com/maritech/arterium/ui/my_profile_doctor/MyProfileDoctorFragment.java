@@ -118,6 +118,9 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
         logoutViewModel.logout
                 .observe(getViewLifecycleOwner(),
                         loginData -> {
+                            Pref.getInstance().setUserFirstLaunch(requireActivity(), true);
+                            Pref.getInstance().setUserProfile(requireActivity(), null);
+                            Pref.getInstance().setAuthToken(requireActivity(), "");
                             startActivity(new Intent(getActivity(), LoginActivity.class));
                             requireActivity().finishAffinity();
                         });
