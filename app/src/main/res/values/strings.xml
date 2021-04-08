@@ -176,7 +176,7 @@
     <string name="description_what_to_do">Після зміни мови необхідно перезапустити додаток, щоб налаштування вступили в силу.</string>
     <string name="cardiologist">Кардиолог</string>
     <string name="whole_shopping_items">Всього 8 покупок</string>
-    <string name="whole_shopping_items1">Всього %d покупок</string>
+    <string name="whole_shopping_items1">Всього %1$d покупок до %2$s</string>
     <string name="dialog_logout_cancel">Скасування</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">Список аптек</string>

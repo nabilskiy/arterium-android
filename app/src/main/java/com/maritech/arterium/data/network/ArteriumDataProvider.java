@@ -215,7 +215,6 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<PatientResponse> getPatient(int patientId) {
-
         return Single.create(singleSubscriber -> provideClient()
                 .getPatient(patientId)
                 .subscribeOn(Schedulers.io())

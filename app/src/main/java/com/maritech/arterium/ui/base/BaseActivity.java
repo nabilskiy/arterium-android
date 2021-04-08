@@ -18,6 +18,7 @@ import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 
@@ -50,7 +51,8 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
             setThemeBlue();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        if (drugProgramId == 4) {
+        int sagradaId = BuildConfig.DEBUG ? 4 : 3;
+        if (drugProgramId == sagradaId) {
             setThemeRed();
         }
         setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
@@ -103,13 +105,14 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     public static int fetchPrimaryDarkColor(Context mContext) {
         TypedValue typedValue = new TypedValue();
-        TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimaryDark });
+        TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimaryDark});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;
     }
 
     private ProgressDialog dialog;
+
     public void showProgressDialog() {
         if (dialog == null) {
             dialog = new ProgressDialog(this);

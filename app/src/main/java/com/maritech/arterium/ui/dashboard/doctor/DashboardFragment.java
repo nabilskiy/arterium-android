@@ -29,6 +29,7 @@ import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
 import com.maritech.arterium.ui.patients.PatientsSharedViewModel;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
+import com.maritech.arterium.utils.DateTimeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -113,9 +114,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         String[] dates = new String[2];
         Calendar calendar = Calendar.getInstance();
         dates[1] = dateFormat.format(calendar.getTime());
-
-        calendar.add(Calendar.MONTH, -3);
-        dates[0] = dateFormat.format(calendar.getTime());
+        dates[0] = Calendar.getInstance().get(Calendar.YEAR)+"-01-01";
 
         sharedViewModel.dates.setValue(dates);
 
@@ -132,10 +131,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                         (dateFrom, dateTo) -> {
                             calendar.setTimeInMillis(dateTo);
                             dates[1] = dateFormat.format(calendar.getTime());
-
                             calendar.setTimeInMillis(dateFrom);
                             dates[0] = dateFormat.format(calendar.getTime());
-
                             sharedViewModel.dates.setValue(dates);
                         },
                         null,
@@ -239,7 +236,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                     binding.tvInfoProgram.setText(getString(R.string.drug_program_desc));
                 }
                 binding.tvAllBuy.setText(getString(R.string.whole_shopping_items1,
-                        model.getPrimarySoldCount()));
+                        model.getPrimarySoldCount(), DateTimeUtil.getCurrentMonth()));
                 binding.tvLvlLitter.setText(model.getLevel());
                 binding.tvLvl.setText(getString(R.string.level_value, model.getLevel()));
             }

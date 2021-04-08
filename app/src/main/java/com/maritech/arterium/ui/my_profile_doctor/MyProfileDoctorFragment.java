@@ -19,6 +19,7 @@ import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.feedback.FeedbackActivity;
 import com.maritech.arterium.ui.login.LoginActivity;
 import com.maritech.arterium.ui.login.LoginViewModel;
+import com.maritech.arterium.utils.DateTimeUtil;
 import com.maritech.arterium.utils.ToastUtil;
 
 @SuppressLint("CutPasteId")
@@ -82,12 +83,10 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                             if (model == null && profileData.getDrugPrograms() != null){
                                 model = profileData.getDrugPrograms().get(0);
                             }
-
-
                             if (model != null) {
                                 binding.tvMyProfileShopingAmount.setText(
                                         getString(R.string.whole_shopping_items1,
-                                                model.getPrimarySoldCount())
+                                                model.getPrimarySoldCount(), DateTimeUtil.getCurrentMonth())
                                 );
                             }
                             if (profileData.getParent() != null) {

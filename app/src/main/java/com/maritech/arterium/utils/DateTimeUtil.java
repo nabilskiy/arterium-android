@@ -4,6 +4,11 @@ import android.content.Context;
 
 import com.maritech.arterium.data.sharePref.Pref;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class DateTimeUtil {
@@ -19,5 +24,13 @@ public class DateTimeUtil {
             return new Locale("uk");
         }
     }
+
+
+    public static String getCurrentMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat( "dd MMMM", Locale.getDefault() );
+        return dateFormat.format( new Date() );
+    }
+
+
 
 }

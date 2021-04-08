@@ -175,7 +175,7 @@
     <string name="description_what_to_do">После изменения языка необходимо перезапустить приложение, чтобы настройки вступили в силу</string>
     <string name="cardiologist">Кардіолог</string>
     <string name="whole_shopping_items">Всего 8 покупок</string>
-    <string name="whole_shopping_items1">Всего %d покупок</string>
+    <string name="whole_shopping_items1">Всего %1$d покупок до %2$s</string>
     <string name="dialog_logout_cancel">Отмена</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">Список аптек</string>

@@ -19,7 +19,7 @@ public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
 
     String ru = "ru";
     String en = "en";
-    String ua = "ua";
+    String ua = "uk";
 
     @Override
     protected int getContentView() {

@@ -174,7 +174,7 @@
     <string name="description_what_to_do">After changing the language, you need to restart the application for the settings to take effect</string>
     <string name="cardiologist">Cardiologist</string>
     <string name="whole_shopping_items">Total 8 purchases</string>
-    <string name="whole_shopping_items1">Total %d purchases</string>
+    <string name="whole_shopping_items1">Total %1$d purchases until %2$s</string>
     <string name="dialog_logout_cancel">Cancel</string>
     <string name="vinich">Анастасия Винич</string>
     <string name="pharmacy_list">List of pharmacies</string>

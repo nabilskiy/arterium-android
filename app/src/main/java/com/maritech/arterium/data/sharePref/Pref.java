@@ -199,6 +199,6 @@ public class Pref {
     }
 
     public String getLanguage(Context context) {
-        return getPrefs(context).getString(LANGUAGE, "ua");
+        return getPrefs(context).getString(LANGUAGE, "uk");
     }
 }
