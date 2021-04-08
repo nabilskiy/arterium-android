@@ -8,31 +8,36 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.maritech.arterium.R;
+import com.maritech.arterium.data.models.DoctorsModel;
 import com.maritech.arterium.databinding.ActivityAddNewMpBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
+import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectDoctorsAdapter;
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectedDoctorAdapter;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.choose_doctor.data.ChooseDoctorContent;
+import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectedDoctorsAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
 
     static final String BUNDLE_KEY = "selectedItem";
     static final String REQUEST_KEY = "requestKey";
 
-    private Boolean isTwoStep = false;
-    private Boolean isMpSelected = false;
+
+    private int currentStep = 0;
 
     SelectedDoctorAdapter adapter;
-
-    private ArrayList<ChooseDoctorContent> listSelectedObject = new ArrayList<>();
-
     AddNewMpNavigator navigator = new AddNewMpNavigator();
     private AddNewMpViewModel addNewPersonalViewModel;
+
+    private SelectedDoctorAdapter selectedDoctorAdapter;
+    private SelectDoctorsAdapter selectDoctorsAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +56,9 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
         initListeners();
     }
 
+    private void initAdapters() {
+        selectDoctorsAdapter = new SelectDoctorsAdapter()
+    }
 
 
     private void init() {
@@ -75,8 +83,10 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     }
 
     private void goBack() {
-        if (isTwoStep)
+        if (currentStep == 1)
             showFirstStep();
+        else if (currentStep == 2)
+            showSecondStep();
         else finish();
     }
 
@@ -85,7 +95,7 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     }
 
     private void showFirstStep() {
-        isTwoStep = false;
+        currentStep = 0;
         binding.toolbar.viewTwo.setActivated(false);
 
         binding.clProgressStepOne.setVisibility(View.VISIBLE);
@@ -95,9 +105,8 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     }
 
     private void showSecondStep() {
+        currentStep = 1;
         binding.toolbar.viewTwo.setActivated(true);
-        isTwoStep = true;
-
         binding.clProgressStepOne.setVisibility(View.GONE);
         binding.clProgressStepTwo.setVisibility(View.VISIBLE);
         binding.btnNextTwo.setVisibility(View.VISIBLE);
@@ -105,10 +114,22 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     }
 
     private void showDoctorsList() {
+        currentStep = 2;
+    }
+
+    private final SelectedDoctorsAdapter.RemoveDoctorsOnClickListener removeDoctorsOnClickListener =
+            new SelectedDoctorsAdapter.RemoveDoctorsOnClickListener() {
+                @Override
+                public void onClick() {
+                    addNewPersonalViewModel.notifyDoctorsSetChanged();
+                }
+            };
+
+    private void doctorsObserver(List<DoctorsModel> doctors) {
 
     }
 
-    private TextWatcher watcher = new TextWatcher() {
+    private final TextWatcher watcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -121,9 +142,9 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
 
         @Override
         public void afterTextChanged(Editable s) {
-            if (!isTwoStep)
+//            if (!isTwoStep)
                 changeFirstStepNextButState();
-            else changeSecStepNextButState();
+//            else changeSecStepNextButState();
         }
     };
 
@@ -191,7 +212,6 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
 //                    });
 //                    binding.rvSelectedDoctors.setAdapter(adapter);
 //                });
-
 
 
     @Override

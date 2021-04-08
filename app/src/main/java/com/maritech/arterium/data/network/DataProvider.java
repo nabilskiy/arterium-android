@@ -4,6 +4,7 @@ package com.maritech.arterium.data.network;
 import com.google.gson.JsonObject;
 import com.maritech.arterium.data.models.AgentModel;
 import com.maritech.arterium.data.models.AgentResponseModel;
+import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.LevelsResponse;
 import com.maritech.arterium.data.models.LoginResponse;
@@ -77,4 +78,6 @@ public interface DataProvider {
     Single<BaseResponse> sendFeedback(RequestBody body);
 
     Single<PharmacyResponse> getPharmacies();
+
+    Single<DoctorsResponseModel> getDoctors();
 }

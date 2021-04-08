@@ -2,6 +2,7 @@ package com.maritech.arterium.data.network;
 
 import com.google.gson.JsonObject;
 import com.maritech.arterium.data.models.AgentResponseModel;
+import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LevelsResponse;
 import com.maritech.arterium.data.models.LoginRequest;
@@ -110,4 +111,7 @@ public interface ApiService {
 
     @GET("/api/v1/agents")
     Single<AgentResponseModel> getAgents();
+
+    @GET("/api/v1/doctors")
+    Single<DoctorsResponseModel> getDoctors();
 }

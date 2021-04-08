@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.data.models.AgentResponseModel;
+import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LevelsResponse;
@@ -163,6 +164,8 @@ public class ArteriumDataProvider implements DataProvider {
                 ));
     }
 
+
+
     @Override
     public Observable<ProfileResponse> getProfile() {
         return Observable.mergeDelayError(
@@ -204,6 +207,19 @@ public class ArteriumDataProvider implements DataProvider {
     public Single<AgentResponseModel> getAgents() {
         return Single.create(singleSubscriber -> provideClient()
                 .getAgents()
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<DoctorsResponseModel> getDoctors() {
+        return Single.create(singleSubscriber -> provideClient()
+                .getDoctors()
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
