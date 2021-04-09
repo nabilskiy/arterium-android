@@ -256,7 +256,8 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     private boolean isFirstStepValid() {
         return (!binding.ccInputName.getText().isEmpty() &&
                 !binding.ccInputSecondName.getText().isEmpty() &&
-                !binding.ccInputPhoneNumber.getRawText().isEmpty());
+                !binding.ccInputPhoneNumber.getRawText().isEmpty()) &&
+                binding.ccInputPhoneNumber.getRawText().length() >= 9;
     }
 
 
