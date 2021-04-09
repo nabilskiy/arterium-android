@@ -87,7 +87,6 @@
                             android:src="@drawable/ic_default_avatar"
                             app:backgroundRingColor="@android:color/transparent"
                             app:backgroundRingSize="12dp"
-                            app:progress="32"
                             app:progressRingColor="#BCD6D6"
                             app:progressRingCorner="ROUND"
                             app:progressRingOutline="true"

@@ -31,6 +31,11 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     @LayoutRes
     protected abstract int getLayoutId();
 
+    //todo move const
+    final int PROGRAM_RENIAL = 1;
+    final int PROGRAM_GLIPTAR = 2;
+    final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme();
@@ -43,15 +48,15 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     public void setTheme() {
         int drugProgramId = Pref.getInstance().getDrugProgramId(this);
 
-        if (drugProgramId == 1) {
+        if (drugProgramId == PROGRAM_RENIAL) {
             setThemeDefault();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        if (drugProgramId == 2) {
+        if (drugProgramId == PROGRAM_GLIPTAR) {
             setThemeBlue();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        int sagradaId = BuildConfig.DEBUG ? 4 : 3;
+        int sagradaId = PROGRAM_SAGRADA;
         if (drugProgramId == sagradaId) {
             setThemeRed();
         }

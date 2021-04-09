@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
 import com.github.drjacky.imagepicker.ImagePicker;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
@@ -57,7 +58,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
     final int PROGRAM_RENIAL = 1;
     final int PROGRAM_GLIPTAR = 2;
-    final int PROGRAM_SAGRADA = 4;
+    final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
 
     public static final String EDIT_EXTRA_KEY = "editModeKey";
     private boolean isEditMode;
@@ -329,13 +330,12 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             map.put("name", toRequestBody(name));
         }
 
-        if (binding.ccInputPhoneNumber.getText() != null) {
-            String phone = binding.ccInputPhoneNumber
-                    .getText().toString().replace(" ", "");
-
-            if (phone.length() == 13) {
+        String phone = binding.ccInputPhoneNumber.getText().toString().replace(" ", "");
+        if (phone != null && phone.length() == 13) {
                 map.put("phone", toRequestBody(phone));
-            }
+        }else {
+            ToastUtil.show(this, getString(R.string.phone));
+            return;
         }
 
         if (binding.cardNumber.getText() == null ||
@@ -358,11 +358,10 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
         if (programId == PROGRAM_GLIPTAR) {
             dose = "50";
-        } else  if (programId == PROGRAM_SAGRADA) {
+        } else if (programId == PROGRAM_SAGRADA) {
             dose = "10";
         } else {
             boolean isFirstActivate = binding.ccChooseDoze.findViewById(R.id.tvOne).isActivated();
-
             dose = isFirstActivate ? "25" : "50";
         }
 
