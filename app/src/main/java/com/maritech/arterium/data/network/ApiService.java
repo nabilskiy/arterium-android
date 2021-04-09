@@ -123,7 +123,7 @@ public interface ApiService {
     @POST("/api/v1/agents")
     Single<CreateAgentResponseModel> saveAgent(@Body AgentRequestModel agent);
 
-    @POST("/api/v1/agents/{agent_id}/doctors")
-    Single<BaseResponse> addDoctorsToAgent(@Path("agent_id") int agent_id,
+    @POST("/api/v1/agents/{agentId}/doctors")
+    Single<BaseResponse> addDoctorsToAgent(@Path("agentId") String agent_id,
                                            @Field("doctor_ids") AddDoctorsRequestModel ids);
 }

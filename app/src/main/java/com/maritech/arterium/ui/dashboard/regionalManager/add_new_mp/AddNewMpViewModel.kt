@@ -47,15 +47,17 @@ class AddNewMpViewModel : ViewModel() {
         contentState.value = ContentState.LOADING
         dataProvider.saveAgent(agent).subscribe(
                 { data: CreateAgentResponseModel ->
-                    if(data.error.isNotEmpty()){
+                    if (data.error.isNotEmpty()) {
+                        Log.i(TAG, "save: error")
                         contentState.postValue(ContentState.ERROR)
                         return@subscribe
                     }
+                    Log.i(TAG, "save: OK")
                     addDoctors(data.data.id)
                 },
                 { throwable: Throwable ->
+                    Log.i(TAG, "save: ERROR")
                     contentState.postValue(ContentState.ERROR)
-                    Log.i(TAG, "save: ")
                 }
         )
     }
@@ -84,5 +86,7 @@ class AddNewMpViewModel : ViewModel() {
         }
         return list.toList()
     }
+
+
 
 }

@@ -84,7 +84,7 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
 
         binding.btnNextTwo.setOnClickListener(v -> {
             save();
-            finish();
+//            finish();
         });
         binding.ccInputName.addTextChangeListener(watcher);
         binding.ccInputPhoneNumber.addTextChangeListener(watcher);

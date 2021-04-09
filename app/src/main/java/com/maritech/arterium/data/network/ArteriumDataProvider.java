@@ -164,7 +164,7 @@ public class ArteriumDataProvider implements DataProvider {
     public Single<BaseResponse> addDoctors(int id, AddDoctorsRequestModel doctors) {
         return Single.create(singleSubscriber ->
                 provideClient()
-                        .addDoctorsToAgent(id, doctors)
+                        .addDoctorsToAgent(String.valueOf(id), doctors)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
