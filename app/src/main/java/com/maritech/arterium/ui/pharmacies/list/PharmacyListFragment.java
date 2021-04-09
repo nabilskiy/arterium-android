@@ -16,6 +16,7 @@ import com.maritech.arterium.databinding.FragmentPharmacyListBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.pharmacies.PharmaciesViewModel;
 import com.maritech.arterium.ui.pharmacies.list.adapter.PharmaciesAdapter;
+import com.maritech.arterium.utils.NavigateUtils;
 
 import java.util.ArrayList;
 
@@ -52,21 +53,11 @@ public class PharmacyListFragment extends BaseFragment<FragmentPharmacyListBindi
         adapter = new PharmaciesAdapter(requireActivity(),
                 models,
                 (position, object) -> {
-                    navigateGoogleMaps(object);
+                    NavigateUtils.navigateGoogleMaps(requireActivity(), object);
 //                    pharmaciesViewModel.selectedPharmacyPosition.setValue(position)
                 });
         binding.list.setAdapter(adapter);
     }
 
-    private void navigateGoogleMaps(PharmacyModel model) {
-        LatLng latLng = new LatLng(
-                Double.parseDouble(model.getLat()), Double.parseDouble(model.getLon())
-        );
 
-        String url = "https://www.google.com/maps/dir/?api=1&destination=" +
-                latLng.latitude + "," + latLng.longitude + "&travelmode=driving";
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        startActivity(intent);
-    }
 }

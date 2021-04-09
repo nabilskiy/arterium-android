@@ -42,14 +42,13 @@ public class LoginViewModel extends BaseViewModel {
                 .subscribe(
                         data -> {
                             contentState.postValue(ContentState.CONTENT);
-
                             boolean isLoggedOut = data.isSuccess();
                             logout.postValue(isLoggedOut);
-
                         },
                         throwable -> {
                             contentState.postValue(ContentState.ERROR);
                             error.postValue(throwable.getMessage());
+                            logout.postValue(true);
                         }
                 );
     }

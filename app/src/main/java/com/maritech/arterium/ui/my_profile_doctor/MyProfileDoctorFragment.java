@@ -19,6 +19,7 @@ import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.feedback.FeedbackActivity;
 import com.maritech.arterium.ui.login.LoginActivity;
 import com.maritech.arterium.ui.login.LoginViewModel;
+import com.maritech.arterium.utils.DateTimeUtil;
 import com.maritech.arterium.utils.ToastUtil;
 
 @SuppressLint("CutPasteId")
@@ -70,25 +71,24 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                         profileData -> {
                             binding.tvMyProfileName.setText(profileData.getName());
                             binding.tvMyProfileSkill.setText(profileData.getInstitutionType());
-
                             DrugProgramModel model = null;
                             int drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
-
                             if (profileData.getDrugPrograms() != null)
                                 for (DrugProgramModel m : profileData.getDrugPrograms()) {
                                     if (m.getId() == drugProgramId) {
                                         model = m;
-                                        break;
                                     }
                                 }
 
+                            if (model == null && profileData.getDrugPrograms() != null){
+                                model = profileData.getDrugPrograms().get(0);
+                            }
                             if (model != null) {
                                 binding.tvMyProfileShopingAmount.setText(
                                         getString(R.string.whole_shopping_items1,
-                                                model.getPrimarySoldCount())
+                                                model.getPrimarySoldCount(), DateTimeUtil.getCurrentMonth())
                                 );
                             }
-
                             if (profileData.getParent() != null) {
                                 Profile.Parent parent = profileData.getParent();
                                 String role = parent.getRoleKey();
@@ -118,6 +118,9 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
         logoutViewModel.logout
                 .observe(getViewLifecycleOwner(),
                         loginData -> {
+                            Pref.getInstance().setUserFirstLaunch(requireActivity(), true);
+                            Pref.getInstance().setUserProfile(requireActivity(), null);
+                            Pref.getInstance().setAuthToken(requireActivity(), "");
                             startActivity(new Intent(getActivity(), LoginActivity.class));
                             requireActivity().finishAffinity();
                         });

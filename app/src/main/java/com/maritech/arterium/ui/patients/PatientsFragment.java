@@ -52,7 +52,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
     }
 
@@ -60,17 +59,11 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setVm(viewModel);
-
         initView();
-
         if (getParentFragment() != null) {
-            sharedViewModel =
-                    new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
+            sharedViewModel = new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
         }
-
-        viewModel =
-                new ViewModelProvider(this).get(PatientsViewModel.class);
-
+        viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
         observeViewModel();
     }
 
@@ -78,7 +71,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
         sharedViewModel.dates.observe(getViewLifecycleOwner(), strings -> {
             createdFromDate = strings[0];
             createdToDate = strings[1];
-
             getPatientList();
         });
 
@@ -92,7 +84,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                         models.add(model);
                     }
                 }
-
                 adapter.setData(models);
             } else if (filter == PurchasesType.WITHOUT) {
                 ArrayList<PatientModel> models = new ArrayList<>();
@@ -101,12 +92,10 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                         models.add(model);
                     }
                 }
-
                 adapter.setData(models);
             }
 
-            binding.emptyContainer
-                    .setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
+            binding.emptyContainer.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
         });
 
         sharedViewModel.reload.observe(getViewLifecycleOwner(), isReload -> {
@@ -172,18 +161,12 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     }
 
     private void getPatientList() {
-        viewModel.getPatients(
-                createdFromDate,
-                createdToDate,
-                drugProgramId,
-                searchQuery
-        );
+        viewModel.getPatients(createdFromDate, createdToDate, drugProgramId, searchQuery);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == AddNewPersonalActivity.PATIENT_REQUEST_CODE) {
                 getPatientList();

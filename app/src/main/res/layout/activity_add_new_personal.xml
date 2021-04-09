@@ -85,7 +85,7 @@
                             android:layout_height="40dp"
                             android:background="@drawable/login_input_bg"
                             android:hint="@string/full_name"
-                            android:inputType="textCapSentences"
+                            android:inputType="textCapWords"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:textAppearance="@style/sf_pro_text_16"

@@ -61,17 +61,11 @@ public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.setVm(viewModel);
-
         initView();
-
         if (getParentFragment() != null) {
-            sharedViewModel =
-                    new ViewModelProvider(getParentFragment()).get(StatSharedViewModel.class);
+            sharedViewModel = new ViewModelProvider(getParentFragment()).get(StatSharedViewModel.class);
         }
-
-        viewModel =
-                new ViewModelProvider(this).get(PurchasesViewModel.class);
-
+        viewModel = new ViewModelProvider(this).get(PurchasesViewModel.class);
         observeViewModel();
     }
 
@@ -79,7 +73,6 @@ public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
         sharedViewModel.dates.observe(getViewLifecycleOwner(), strings -> {
             createdFromDate = strings[0];
             createdToDate = strings[1];
-
             getPatientList();
         });
 

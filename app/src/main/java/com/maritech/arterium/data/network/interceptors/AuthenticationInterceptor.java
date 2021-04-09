@@ -17,10 +17,6 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-/**
- * Created by Aleksandr Litvinchuck on 03.01.2018.
- */
-
 public class AuthenticationInterceptor implements Interceptor {
 
     public AuthenticationInterceptor() {

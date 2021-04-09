@@ -18,6 +18,7 @@ import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 
@@ -30,11 +31,15 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     @LayoutRes
     protected abstract int getLayoutId();
 
+    //todo move const
+    final int PROGRAM_RENIAL = 1;
+    final int PROGRAM_GLIPTAR = 2;
+    final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme();
         setupLocale();
-
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setLifecycleOwner(this);
@@ -43,15 +48,16 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     public void setTheme() {
         int drugProgramId = Pref.getInstance().getDrugProgramId(this);
 
-        if (drugProgramId == 1) {
+        if (drugProgramId == PROGRAM_RENIAL) {
             setThemeDefault();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        if (drugProgramId == 2) {
+        if (drugProgramId == PROGRAM_GLIPTAR) {
             setThemeBlue();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        if (drugProgramId == 4) {
+        int sagradaId = PROGRAM_SAGRADA;
+        if (drugProgramId == sagradaId) {
             setThemeRed();
         }
         setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
@@ -104,13 +110,14 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     public static int fetchPrimaryDarkColor(Context mContext) {
         TypedValue typedValue = new TypedValue();
-        TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimaryDark });
+        TypedArray a = mContext.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimaryDark});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;
     }
 
     private ProgressDialog dialog;
+
     public void showProgressDialog() {
         if (dialog == null) {
             dialog = new ProgressDialog(this);

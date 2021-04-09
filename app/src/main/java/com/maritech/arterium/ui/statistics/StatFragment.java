@@ -23,9 +23,10 @@ import com.maritech.arterium.ui.statistics.purchases.StatSharedViewModel;
 import com.maritech.arterium.ui.statistics.purchases.PurchasesFragment;
 import com.maritech.arterium.utils.DateTimeUtil;
 
-import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class StatFragment extends BaseFragment<FragmentStatBinding> {
@@ -35,6 +36,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     Calendar calendarCurrent = Calendar.getInstance();
 
     private int currentMonthNum;
+
 
     private String fromDate;
     private String toDate;
@@ -64,8 +66,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
             statisticsViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
         }
         if (sharedViewModel == null) {
-            sharedViewModel =
-                    new ViewModelProvider(this).get(StatSharedViewModel.class);
+            sharedViewModel = new ViewModelProvider(this).get(StatSharedViewModel.class);
         }
 
         getChildFragmentManager().beginTransaction()
@@ -74,7 +75,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
         binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
         binding.statisticToolbar.ivRight.setVisibility(View.INVISIBLE);
-
         binding.statisticToolbar.tvToolbarTitle.setText(R.string.statistic);
         ((TextView) binding.details.findViewById(R.id.tvDoctors))
                 .setText(getString(R.string.stat_purchases));
@@ -260,19 +260,38 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
     private void setCurrentMonth() {
         currentMonthNum = calendar.get(Calendar.MONTH);
-
         initMonths();
     }
 
-    private void initMonths() {
+    private String[] printdate() {
         String[] dates = new String[2];
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        System.out.println("First Day of Month: " + dateFormat.format(calendar.getTime()));
+        dates[0] = dateFormat.format(calendar.getTime());
+        if (calendar.get(Calendar.MONTH) == calendarCurrent.get(Calendar.MONTH)) {
+            System.out.println("currentMonthNum: ");
+            System.out.println("Last Day of Month: " + dateFormat.format(calendarCurrent.getTime()));
+            dates[1] = dateFormat.format(calendarCurrent.getTime());
+        } else {
+            calendar.add(Calendar.MONTH, 1);
+            calendar.add(Calendar.DATE, -1);
+            java.util.Date lastDayOfMonth = calendar.getTime();
+            System.out.println("Last Day of Month: " + dateFormat.format(lastDayOfMonth));
+            dates[1] = dateFormat.format(lastDayOfMonth);
+        }
 
-        dates[1] = dateFormat.format(calendar.getTime());
+        return dates;
+    }
 
-        calendarFrom.setTime(calendar.getTime());
-        calendarFrom.add(Calendar.MONTH, -1);
+    private void initMonths() {
+        String[] dates = printdate();
 
-        dates[0] = dateFormat.format(calendarFrom.getTime());
+//                new String[2];
+//        dates[1] = dateFormat.format(calendar.getTime());
+//
+//        calendarFrom.set(Calendar.DAY_OF_MONTH, 1);
+//        dates[0] = dateFormat.format(calendarFrom.getTime());
+
 
         fromDate = dates[0];
         toDate = dates[1];

@@ -42,29 +42,22 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
         binding = DataBindingUtil.inflate(inflater, getContentView(), container, false);
         binding.setLifecycleOwner(getViewLifecycleOwner());
-
         actionViewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
-
         lifecycleOwner = getViewLifecycleOwner();
-
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view,
-                              @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         navController = Navigation.findNavController(requireActivity(), R.id.main_host_fragment);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         binding = null;
     }
 

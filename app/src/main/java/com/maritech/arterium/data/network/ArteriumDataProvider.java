@@ -110,7 +110,6 @@ public class ArteriumDataProvider implements DataProvider {
                 .flatMap((Func1<Throwable, Observable<?>>) throwable -> {
                     if (throwable instanceof HttpException) {
                         HttpException httpException = (HttpException) throwable;
-
                         if (httpException.code() == 401) {
                             return refreshToken().toObservable();
                         }
@@ -124,8 +123,8 @@ public class ArteriumDataProvider implements DataProvider {
                 .refreshToken()
                 .subscribeOn(Schedulers.io())
                 .flatMap((Func1<LoginResponse, Single<LoginResponse>>) Single::just)
-                .doOnSuccess(loginResponse -> Pref.getInstance().setAuthToken(
-                        App.getInstance(), loginResponse.getData().getAccessToken()
+                .doOnSuccess(loginResponse ->
+                        Pref.getInstance().setAuthToken(App.getInstance(), loginResponse.getData().getAccessToken()
                 ));
     }
 
@@ -261,7 +260,6 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<PatientResponse> getPatient(int patientId) {
-
         return Single.create(singleSubscriber -> provideClient()
                 .getPatient(patientId)
                 .subscribeOn(Schedulers.io())

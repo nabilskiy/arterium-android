@@ -3,9 +3,13 @@ package com.maritech.arterium.ui.pharmacies.map;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.anirudh.locationfetch.EasyLocationFetch;
+import com.anirudh.locationfetch.GeoLocationModel;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +28,9 @@ import com.maritech.arterium.databinding.FragmentMapBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.pharmacies.PharmaciesViewModel;
 import com.maritech.arterium.ui.pharmacies.map.cluster.ClusterRenderer;
+
 import java.util.ArrayList;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -85,12 +91,9 @@ public class PharmacyMapFragment
                 list -> {
                     models.clear();
                     models.addAll(list);
-
                     initViewPagerAdapter();
-
                     if (googleMap != null) {
                         googleMap.clear();
-
                         addMarkers();
                     }
                 });
@@ -122,24 +125,17 @@ public class PharmacyMapFragment
 
     private void setUpCluster() {
         clusterManager = new ClusterManager<>(requireContext(), googleMap);
-
         clusterRenderer = new ClusterRenderer(requireContext(), googleMap, clusterManager);
         clusterManager.setRenderer(clusterRenderer);
-
         clusterManager
                 .setOnClusterClickListener(cluster -> {
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                            cluster.getPosition(),
-                            (float) Math.floor(googleMap.getCameraPosition().zoom + 3)
-                            ), 300,
-                            null
-                    );
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cluster.getPosition(),
+                            (float) Math.floor(googleMap.getCameraPosition().zoom + 3)), 300, null);
                     return true;
                 });
 
         clusterManager.setOnClusterItemClickListener(item -> {
             setViewPagerByPosition(item);
-
             animateCamera(item);
             return true;
         });
@@ -152,34 +148,29 @@ public class PharmacyMapFragment
     private void addMarkers() {
         if (googleMap != null) {
             binding.progressBar.setVisibility(View.VISIBLE);
-
             double minLat = Integer.MAX_VALUE;
             double maxLat = Integer.MIN_VALUE;
             double minLon = Integer.MAX_VALUE;
             double maxLon = Integer.MIN_VALUE;
-
             for (int i = 0; i < models.size(); i++) {
                 clusterManager.addItem(models.get(i));
-
                 maxLat = Math.max(Double.parseDouble(models.get(i).getLat()), maxLat);
                 minLat = Math.min(Double.parseDouble(models.get(i).getLat()), minLat);
                 maxLon = Math.max(Double.parseDouble(models.get(i).getLon()), maxLon);
                 minLon = Math.min(Double.parseDouble(models.get(i).getLon()), minLon);
             }
-
             LatLngBounds bounds = new LatLngBounds.Builder()
                     .include(new LatLng(maxLat, maxLon))
                     .include(new LatLng(minLat, minLon))
                     .build();
-
             int width = getResources().getDisplayMetrics().widthPixels;
             int height = getResources().getDisplayMetrics().heightPixels;
             int padding = (int) (width * 0.25);
-
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-
-            googleMap.animateCamera(cu);
-
+            GeoLocationModel geoLocationModel = new EasyLocationFetch(requireContext()).getLocationData();
+            LatLng latLng = new LatLng(geoLocationModel.getLattitude(), geoLocationModel.getLongitude());
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+          //  CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+         //   googleMap.animateCamera(cu);
             binding.progressBar.setVisibility(View.GONE);
         }
     }
@@ -189,7 +180,6 @@ public class PharmacyMapFragment
                 .subscribeOn(Schedulers.io())
                 .flatMap((Function<ArrayList<PharmacyModel>, ObservableSource<Integer>>) pharmacyModels -> {
                     int position = -1;
-
                     for (int i = 0; i < pharmacyModels.size(); i++) {
                         position = i;
 
@@ -256,7 +246,6 @@ public class PharmacyMapFragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         disposable.dispose();
     }
 }

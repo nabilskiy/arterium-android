@@ -40,7 +40,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 import rx.Single;
 
-public interface ApiService {
+public interface    ApiService {
 
     @POST("api/v1/auth/login")
     Single<LoginResponse> login(@Body LoginRequest body);

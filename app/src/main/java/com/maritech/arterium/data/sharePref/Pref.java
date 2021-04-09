@@ -19,12 +19,6 @@ import java.util.List;
 
 import static android.content.Context.TELEPHONY_SERVICE;
 
-/**
- * Created by ujujzk on 16.08.2017
- * Softensy Digital Studio
- * softensiteam@gmail.com
- */
-
 public class Pref {
 
     private static final String AUTH_TOKEN = "User";
@@ -199,6 +193,6 @@ public class Pref {
     }
 
     public String getLanguage(Context context) {
-        return getPrefs(context).getString(LANGUAGE, "ua");
+        return getPrefs(context).getString(LANGUAGE, "uk");
     }
 }
