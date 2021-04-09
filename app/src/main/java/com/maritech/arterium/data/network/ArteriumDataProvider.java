@@ -2,6 +2,8 @@ package com.maritech.arterium.data.network;
 
 import androidx.annotation.IntRange;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.maritech.arterium.App;
 import com.maritech.arterium.BuildConfig;
@@ -125,7 +127,7 @@ public class ArteriumDataProvider implements DataProvider {
                 .flatMap((Func1<LoginResponse, Single<LoginResponse>>) Single::just)
                 .doOnSuccess(loginResponse ->
                         Pref.getInstance().setAuthToken(App.getInstance(), loginResponse.getData().getAccessToken()
-                ));
+                        ));
     }
 
     @Override
@@ -161,9 +163,15 @@ public class ArteriumDataProvider implements DataProvider {
 
     @Override
     public Single<BaseResponse> addDoctors(int id, AddDoctorsRequestModel doctors) {
+        JsonObject body = new JsonObject();
+        JsonArray arr = new JsonArray();
+        for (int doctor : doctors.getIds()) {
+            arr.add(doctor);
+        }
+        body.add("doctor_ids", arr);
         return Single.create(singleSubscriber ->
                 provideClient()
-                        .addDoctorsToAgent(String.valueOf(id), doctors)
+                        .addDoctorsToAgent(String.valueOf(id), body)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(

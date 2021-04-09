@@ -29,7 +29,6 @@ class SelectDoctorsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i(TAG, "onBindViewHolder: $position")
         val doctor = doctors[position]
         holder.tvName.text = doctor.name
         holder.tvCity.text = doctor.city

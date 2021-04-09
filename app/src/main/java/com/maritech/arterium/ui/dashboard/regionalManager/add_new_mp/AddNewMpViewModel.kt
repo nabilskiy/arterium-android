@@ -25,7 +25,6 @@ class AddNewMpViewModel : ViewModel() {
         doctorsStateLiveData.value = ContentState.LOADING
         dataProvider.doctors.subscribe(
                 { data: DoctorsResponseModel ->
-                    Log.i(TAG, "getDoctorsList: ")
                     if (data.data.isEmpty())
                         return@subscribe
                     doctorsStateLiveData.postValue(ContentState.CONTENT)
@@ -47,23 +46,21 @@ class AddNewMpViewModel : ViewModel() {
         contentState.value = ContentState.LOADING
         dataProvider.saveAgent(agent).subscribe(
                 { data: CreateAgentResponseModel ->
-                    if (data!=null && data.error!=null && data.error.isNotEmpty()) {
-                        Log.i(TAG, "save: error")
+                    if (data != null && data.error != null && data.error.isNotEmpty()) {
+                        Log.i(TAG, "save: error is not empty")
                         contentState.postValue(ContentState.ERROR)
                         return@subscribe
                     }
-                    Log.i(TAG, "save: OK")
                     addDoctors(data.data.id)
                 },
                 { throwable: Throwable ->
-                    Log.i(TAG, "save: ERROR")
+                    Log.i(TAG, "save: ERROR" + throwable.printStackTrace())
                     contentState.postValue(ContentState.ERROR)
                 }
         )
     }
 
     private fun addDoctors(id:Int) {
-        Log.i(TAG, "addDoctors: ")
         dataProvider.addDoctors(id, AddDoctorsRequestModel(getDoctorsIds())).subscribe(
                 { data: BaseResponse ->
                     if (data.isSuccess) {
@@ -73,8 +70,8 @@ class AddNewMpViewModel : ViewModel() {
                         contentState.postValue(ContentState.ERROR)
                 },
                 { throwable: Throwable ->
+                    Log.i(TAG, "addDoctors: ERROR " + throwable.message)
                     contentState.postValue(ContentState.ERROR)
-                    Log.i(TAG, "addDoctors: ${throwable.message}")
                 }
         )
     }
