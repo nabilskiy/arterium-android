@@ -100,14 +100,11 @@ public class PharmacyFragment extends BaseFragment<FragmentPharmacyBinding> {
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
-
         @Override
         public void afterTextChanged(Editable s) {
             ArrayList<PharmacyModel> newModel = new ArrayList<>();
@@ -116,7 +113,6 @@ public class PharmacyFragment extends BaseFragment<FragmentPharmacyBinding> {
                     newModel.add(models.get(i));
                 }
             }
-
             pharmaciesViewModel.modelList.setValue(newModel);
         }
     };
@@ -124,7 +120,7 @@ public class PharmacyFragment extends BaseFragment<FragmentPharmacyBinding> {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         binding = null;
     }
+
 }

@@ -375,7 +375,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         }
         TextView tvPatientCardShoppingAmount = findViewById(R.id.tvPatientCardShoppingAmount);
         tvPatientCardShoppingAmount.setText(
-                getString(R.string.whole_shopping_items1, model.getPurchasesCount())
+                getString(R.string.whole_shopping_items1, model.getPurchasesCount(), DateTimeUtil.getCurrentMonth())
         );
 
         sex = findViewById(R.id.patientSex).findViewById(R.id.tvPatientDataListTitle);
