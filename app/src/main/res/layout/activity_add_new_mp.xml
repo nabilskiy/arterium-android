@@ -43,7 +43,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/ivAvatar"
@@ -76,26 +76,66 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="24dp"
                         android:layout_marginTop="20dp"
-                        app:ci_field_value="Введіть фамілію"
-                        app:ci_title="Фамілія"
+                        app:ci_field_value="@string/enter_sername"
+                        app:ci_title="@string/second_name"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ccInputName" />
 
-                    <com.maritech.arterium.ui.widgets.CustomInput
-                        android:id="@+id/ccInputPhoneNumber"
-                        layout="@layout/custome_input"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="24dp"
-                        android:layout_marginTop="20dp"
-                        app:ci_field_value="+380"
-                        app:ci_title="Номер телефону"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
+                        android:id="@+id/clPhone"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="20dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ccInputSecondName" />
+                        app:layout_constraintTop_toBottomOf="@+id/ccInputSecondName"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/inputTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/phone_number"
+                            android:textAppearance="@style/sf_pro_text_14"
+                            android:textColor="@color/gray_text"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="@drawable/login_input_bg"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/inputTitle">
+
+                            <br.com.sapereaude.maskedEditText.MaskedEditText
+                                android:id="@+id/ccInputPhoneNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:background="@null"
+                                app:allowed_chars="1234567890"
+                                app:enable_ime_action="true"
+                                app:keep_hint="false"
+                                app:mask="+380 (##) ###-##-##"
+                                tools:ignore="RtlSymmetry"
+                                android:inputType="phone"
+                                android:paddingStart="8dp"
+                                android:textAppearance="@style/sf_pro_text_16"
+                                android:textColor="@color/gray"
+                                android:textColorHint="@color/gray"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -108,7 +148,7 @@
                         android:textColor="@color/gray"
                         android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ccInputPhoneNumber" />
+                        app:layout_constraintTop_toBottomOf="@+id/clPhone" />
 
                     <RadioGroup
                         android:id="@+id/radioGroup"
@@ -192,8 +232,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:visibility="visible">
+                    app:layout_constraintVertical_bias="0.0">
 
                     <ScrollView
                         android:layout_width="match_parent"

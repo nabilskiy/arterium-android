@@ -1,0 +1,10 @@
+br/com/sapereaude/maskedEditText/Range.java
+ br.com.sapereaude.maskedEditText.Range
+br/com/sapereaude/maskedEditText/RawText.java
+ br.com.sapereaude.maskedEditText.RawText
+br/com/sapereaude/maskedEditText/BuildConfig.java
+ br.com.sapereaude.maskedEditText.BuildConfig
+br/com/sapereaude/maskedEditText/MaskedEditText.java
+ br.com.sapereaude.maskedEditText.MaskedEditText
+ br.com.sapereaude.maskedEditText.MaskedEditText$1
+ br.com.sapereaude.maskedEditText.MaskedEditText$2

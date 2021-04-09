@@ -87,7 +87,7 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
 //            finish();
         });
         binding.ccInputName.addTextChangeListener(watcher);
-        binding.ccInputPhoneNumber.addTextChangeListener(watcher);
+        binding.ccInputPhoneNumber.addTextChangedListener(watcher);
         binding.ccInputSecondName.addTextChangeListener(watcher);
 
         viewModel.getDoctors().observe(this, this::doctorsObserver);
@@ -122,7 +122,7 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     private void save() {
         String gender = binding.radioGroup.getCheckedRadioButtonId() == R.id.radio_female ? "f" : "m";
         AgentRequestModel model = new AgentRequestModel(
-                binding.ccInputPhoneNumber.getText(),
+                "380" + binding.ccInputPhoneNumber.getRawText(),
                 binding.ccInputName.getText() + " " + binding.ccInputSecondName.getText(),
                 gender
         );
@@ -256,7 +256,7 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     private boolean isFirstStepValid() {
         return (!binding.ccInputName.getText().isEmpty() &&
                 !binding.ccInputSecondName.getText().isEmpty() &&
-                !binding.ccInputPhoneNumber.getText().isEmpty());
+                !binding.ccInputPhoneNumber.getRawText().isEmpty());
     }
 
 
@@ -264,5 +264,6 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
     protected int getLayoutId() {
         return R.layout.activity_add_new_mp;
     }
+
 }
 

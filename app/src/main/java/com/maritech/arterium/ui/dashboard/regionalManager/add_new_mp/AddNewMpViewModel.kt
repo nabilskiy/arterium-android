@@ -47,7 +47,7 @@ class AddNewMpViewModel : ViewModel() {
         contentState.value = ContentState.LOADING
         dataProvider.saveAgent(agent).subscribe(
                 { data: CreateAgentResponseModel ->
-                    if (data.error.isNotEmpty()) {
+                    if (data!=null && data.error!=null && data.error.isNotEmpty()) {
                         Log.i(TAG, "save: error")
                         contentState.postValue(ContentState.ERROR)
                         return@subscribe

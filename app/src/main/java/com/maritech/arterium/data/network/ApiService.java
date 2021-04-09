@@ -29,6 +29,7 @@ import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -123,6 +124,7 @@ public interface ApiService {
     @POST("/api/v1/agents")
     Single<CreateAgentResponseModel> saveAgent(@Body AgentRequestModel agent);
 
+    @FormUrlEncoded
     @POST("/api/v1/agents/{agentId}/doctors")
     Single<BaseResponse> addDoctorsToAgent(@Path("agentId") String agent_id,
                                            @Field("doctor_ids") AddDoctorsRequestModel ids);

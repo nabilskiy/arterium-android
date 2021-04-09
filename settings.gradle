@@ -1,2 +1,3 @@
+include ':MaskedEditText'
 include ':app'
 rootProject.name = "Key4Life"

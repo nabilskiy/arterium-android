@@ -36,6 +36,10 @@
     <string name="phone">Номер телефону</string>
     <string name="card_number">Номер картки</string>
     <string name="enter_card_number">Введіть номер картки</string>
+    <string name="enter_phone_number">Введіть номер телефону</string>
+    <string name="enter_sername">Введіть фамілію</string>
+    <string name="second_name">Фамілія</string>
+    <string name="phone_number">Номер телефону</string>
     <string name="gender">Стать</string>
     <string name="male">Чоловіча</string>
     <string name="female">Жіноча</string>
