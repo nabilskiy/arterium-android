@@ -5,6 +5,8 @@ import com.maritech.arterium.data.models.AddDoctorsRequestModel;
 import com.maritech.arterium.data.models.AgentRequestModel;
 import com.maritech.arterium.data.models.AgentResponseModel;
 import com.maritech.arterium.data.models.CreateAgentResponseModel;
+import com.maritech.arterium.data.models.CreateDoctorRequestModel;
+import com.maritech.arterium.data.models.CreateDoctorResponseModel;
 import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
 import com.maritech.arterium.data.models.LevelsResponse;
@@ -18,6 +20,7 @@ import com.maritech.arterium.data.models.PharmacyResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.PurchasesResponse;
+import com.maritech.arterium.data.models.RegionsResponseModel;
 import com.maritech.arterium.data.models.StatisticsResponse;
 
 import java.util.List;
@@ -127,4 +130,10 @@ public interface    ApiService {
     @POST("/api/v1/agents/{agentId}/doctors")
     Single<BaseResponse> addDoctorsToAgent(@Path("agentId") String agent_id,
                                            @Body JsonObject ids);
+
+    @POST("api/v1/doctors")
+    Single<CreateDoctorResponseModel> createDoctor(@Body CreateDoctorRequestModel doctor);
+
+    @GET("/api/v1/info/regions")
+    Single<RegionsResponseModel> getRegions();
 }

@@ -64,7 +64,7 @@
 
     <fragment
         android:id="@+id/addNewDoctorFragment"
-        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_doctor.AddNewDoctorFragment"
+        android:name="com.maritech.arterium.ui.dashboard.regionalManager.add_new_doctor.AddNewDoctorActivity"
         android:label="AddNewDoctorFragment"
         tools:layout="@layout/fragment_add_new_doctor">
         <action

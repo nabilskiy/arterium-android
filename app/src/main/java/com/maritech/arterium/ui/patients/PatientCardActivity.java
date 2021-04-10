@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientModel;
@@ -40,7 +41,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
 
     final int PROGRAM_RENIAL = 1;
     final int PROGRAM_GLIPTAR = 2;
-    final int PROGRAM_SAGRADA = 4;
+    final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
 
     private int programId;
     private int patientId;

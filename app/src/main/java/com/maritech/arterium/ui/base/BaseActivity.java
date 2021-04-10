@@ -32,9 +32,9 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
     protected abstract int getLayoutId();
 
     //todo move const
-    final int PROGRAM_RENIAL = 1;
-    final int PROGRAM_GLIPTAR = 2;
-    final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
+    public final int PROGRAM_RENIAL = 1;
+    public final int PROGRAM_GLIPTAR = 2;
+    public final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

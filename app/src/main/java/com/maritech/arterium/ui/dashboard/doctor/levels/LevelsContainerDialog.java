@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -28,7 +29,7 @@ public class LevelsContainerDialog extends BottomSheetDialogFragment {
     
     final int PROGRAM_RENIAL = 1;
     final int PROGRAM_GLIPTAR = 2;
-    final int PROGRAM_SAGRADA = 4;
+    final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;;
 
     public static LevelsContainerDialog getInstance(ArrayList<DrugProgramModel> models) {
         Bundle bundle = new Bundle();

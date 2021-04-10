@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ public class CustomInput  extends LinearLayout {
     public CustomInput(Context context) { super(context); }
 
     TextView customInputTitle;
-    TextView customInputValue;
+    EditText customInputValue;
 
     public CustomInput(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -54,6 +55,12 @@ public class CustomInput  extends LinearLayout {
         customInputTitle.setText(title);
         customInputValue = findViewById(R.id.etCustomInput);
         customInputValue.setText(fieldText);
+    }
+
+
+
+    public void setText(String text) {
+        customInputValue.setText(text);
     }
 
     public String getText() {

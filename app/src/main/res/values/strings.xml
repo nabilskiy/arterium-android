@@ -40,6 +40,10 @@
     <string name="enter_sername">Введіть фамілію</string>
     <string name="second_name">Фамілія</string>
     <string name="phone_number">Номер телефону</string>
+    <string name="choose_mp">Оберіть мед. представника</string>
+    <string name="choose_region">Оберіть регіон</string>
+    <string name="enter_region">Введіть область</string>
+    <string name="region">Регіон</string>
     <string name="gender">Стать</string>
     <string name="male">Чоловіча</string>
     <string name="female">Жіноча</string>

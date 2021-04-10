@@ -11,6 +11,8 @@ import com.maritech.arterium.data.models.AddDoctorsRequestModel;
 import com.maritech.arterium.data.models.AgentRequestModel;
 import com.maritech.arterium.data.models.AgentResponseModel;
 import com.maritech.arterium.data.models.CreateAgentResponseModel;
+import com.maritech.arterium.data.models.CreateDoctorRequestModel;
+import com.maritech.arterium.data.models.CreateDoctorResponseModel;
 import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.DrugProgramsResponse;
@@ -25,6 +27,7 @@ import com.maritech.arterium.data.models.PharmacyResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.PurchasesResponse;
+import com.maritech.arterium.data.models.RegionsResponseModel;
 import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -85,7 +88,7 @@ public class ArteriumDataProvider implements DataProvider {
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
-                .client(provideHttpClient(60))
+                .client(provideHttpClient(20))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiService.class);
@@ -152,6 +155,20 @@ public class ArteriumDataProvider implements DataProvider {
         return Single.create(singleSubscriber ->
                 provideClient()
                         .saveAgent(requestModel)
+                        .subscribeOn(Schedulers.io())
+                        .retryWhen(isAuthException())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                singleSubscriber::onSuccess,
+                                singleSubscriber::onError
+                        ));
+    }
+
+    @Override
+    public Single<CreateDoctorResponseModel> createDoctor(CreateDoctorRequestModel doctor) {
+        return Single.create(singleSubscriber ->
+                provideClient()
+                        .createDoctor(doctor)
                         .subscribeOn(Schedulers.io())
                         .retryWhen(isAuthException())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -390,6 +407,19 @@ public class ArteriumDataProvider implements DataProvider {
                                                      int drugProgramId) {
         return Single.create(singleSubscriber -> provideClient()
                 .getDoctorSales(from, to, drugProgramId)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<RegionsResponseModel> getRegions() {
+        return Single.create(singleSubscriber -> provideClient()
+                .getRegions()
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())

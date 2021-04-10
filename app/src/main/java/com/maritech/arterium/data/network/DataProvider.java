@@ -7,6 +7,8 @@ import com.maritech.arterium.data.models.AgentModel;
 import com.maritech.arterium.data.models.AgentRequestModel;
 import com.maritech.arterium.data.models.AgentResponseModel;
 import com.maritech.arterium.data.models.CreateAgentResponseModel;
+import com.maritech.arterium.data.models.CreateDoctorRequestModel;
+import com.maritech.arterium.data.models.CreateDoctorResponseModel;
 import com.maritech.arterium.data.models.DoctorsResponseModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.LevelsResponse;
@@ -19,6 +21,7 @@ import com.maritech.arterium.data.models.PharmacyResponse;
 import com.maritech.arterium.data.models.ProfileResponse;
 import com.maritech.arterium.data.models.BaseResponse;
 import com.maritech.arterium.data.models.PurchasesResponse;
+import com.maritech.arterium.data.models.RegionsResponseModel;
 import com.maritech.arterium.data.models.StatisticsResponse;
 
 import java.util.List;
@@ -87,4 +90,8 @@ public interface DataProvider {
     Single<CreateAgentResponseModel> saveAgent(AgentRequestModel requestModel);
 
     Single<BaseResponse> addDoctors(int id, AddDoctorsRequestModel doctors);
+
+    Single<CreateDoctorResponseModel> createDoctor(CreateDoctorRequestModel doctor);
+
+    Single<RegionsResponseModel> getRegions();
 }

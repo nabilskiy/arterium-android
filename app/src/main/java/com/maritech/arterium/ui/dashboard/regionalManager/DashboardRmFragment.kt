@@ -12,6 +12,7 @@ import com.maritech.arterium.data.models.AgentModel
 import com.maritech.arterium.data.models.Profile
 import com.maritech.arterium.databinding.FragmentDashboardRmBinding
 import com.maritech.arterium.ui.base.BaseFragment
+import com.maritech.arterium.ui.dashboard.regionalManager.add_new_doctor.AddNewDoctorActivity
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.AddNewMpActivity
 import com.maritech.arterium.ui.dashboard.regionalManager.dialog.DialogNewAccount
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel
@@ -66,7 +67,7 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
 
     private val dialogListener: DialogListener = object : DialogListener {
         override fun addDoctor() {
-            navigator.goToAddNewDoctor(navController)
+            startActivity(Intent(requireContext(), AddNewDoctorActivity::class.java))
         }
 
         override fun addMP() {

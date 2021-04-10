@@ -7,6 +7,11 @@ data class DoctorsResponseModel(
         val data:List<DoctorsModel>
 )
 
+data class CreateDoctorResponseModel(
+        @SerializedName("data")
+        val data: DoctorsModel
+)
+
 data class DoctorsModel(
         @SerializedName("id")
         val id: Int,
@@ -37,5 +42,6 @@ data class DoctorsModel(
         @SerializedName("total_sold_count")
         val totalSold: Int,
         var selected:Boolean = false
+){
 
-)
+}

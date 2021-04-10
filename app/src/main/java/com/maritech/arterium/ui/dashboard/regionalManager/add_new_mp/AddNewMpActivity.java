@@ -35,7 +35,6 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
 
     private int currentStep = 0;
 
-    AddNewMpNavigator navigator = new AddNewMpNavigator();
     private AddNewMpViewModel viewModel;
 
     private SelectedDoctorsAdapter selectedDoctorAdapter = null;

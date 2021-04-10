@@ -25,8 +25,10 @@ class AddNewMpViewModel : ViewModel() {
         doctorsStateLiveData.value = ContentState.LOADING
         dataProvider.doctors.subscribe(
                 { data: DoctorsResponseModel ->
-                    if (data.data.isEmpty())
+                    if (data.data.isEmpty()) {
+                        contentState.postValue(ContentState.ERROR)
                         return@subscribe
+                    }
                     doctorsStateLiveData.postValue(ContentState.CONTENT)
                     doctors.postValue(data.data)
                 },
@@ -42,7 +44,7 @@ class AddNewMpViewModel : ViewModel() {
         selectedDoctors.postValue(doctors.value?.filter { it.selected })
     }
 
-    fun save(agent:AgentRequestModel) {
+    fun save(agent: AgentRequestModel) {
         contentState.value = ContentState.LOADING
         dataProvider.saveAgent(agent).subscribe(
                 { data: CreateAgentResponseModel ->
@@ -60,7 +62,7 @@ class AddNewMpViewModel : ViewModel() {
         )
     }
 
-    private fun addDoctors(id:Int) {
+    private fun addDoctors(id: Int) {
         dataProvider.addDoctors(id, AddDoctorsRequestModel(getDoctorsIds())).subscribe(
                 { data: BaseResponse ->
                     if (data.isSuccess) {
@@ -76,14 +78,13 @@ class AddNewMpViewModel : ViewModel() {
         )
     }
 
-    private fun getDoctorsIds():List<Int> {
+    private fun getDoctorsIds(): List<Int> {
         val list = mutableListOf<Int>()
         for (doctor in selectedDoctors.value ?: listOf()) {
             list.add(doctor.id)
         }
         return list.toList()
     }
-
 
 
 }
