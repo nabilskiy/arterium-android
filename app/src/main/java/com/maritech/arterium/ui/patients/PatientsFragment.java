@@ -49,6 +49,13 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
         return fragment;
     }
 
+    public static Fragment getInstance(Bundle bundle) {
+        if(bundle == null) return getInstance();
+        PatientsFragment fragment = new PatientsFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

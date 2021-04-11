@@ -44,6 +44,7 @@
     <string name="choose_region">Оберіть регіон</string>
     <string name="enter_region">Введіть область</string>
     <string name="region">Регіон</string>
+    <string name="total_sold">Всього %1$d покупок</string>
     <string name="gender">Стать</string>
     <string name="male">Чоловіча</string>
     <string name="female">Жіноча</string>

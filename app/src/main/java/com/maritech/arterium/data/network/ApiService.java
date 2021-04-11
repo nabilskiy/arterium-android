@@ -136,4 +136,10 @@ public interface    ApiService {
 
     @GET("/api/v1/info/regions")
     Single<RegionsResponseModel> getRegions();
+
+    @GET("/api/v1/doctors")
+    Single<DoctorsResponseModel> getDoctorsByAgentId(@Query("agent_id") int agentId);
+
+    @GET("/api/v1/doctors/{doctorId}")
+    Single<CreateDoctorResponseModel> getDoctorById(@Path("doctorId") int id);
 }

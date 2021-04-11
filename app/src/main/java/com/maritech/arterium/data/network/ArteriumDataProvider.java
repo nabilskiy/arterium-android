@@ -179,6 +179,20 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     @Override
+    public Single<CreateDoctorResponseModel> getDoctorById(int id) {
+        return Single.create(singleSubscriber ->
+                provideClient()
+                        .getDoctorById(id)
+                        .subscribeOn(Schedulers.io())
+                        .retryWhen(isAuthException())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(
+                                singleSubscriber::onSuccess,
+                                singleSubscriber::onError
+                        ));
+    }
+
+    @Override
     public Single<BaseResponse> addDoctors(int id, AddDoctorsRequestModel doctors) {
         JsonObject body = new JsonObject();
         JsonArray arr = new JsonArray();
@@ -282,6 +296,18 @@ public class ArteriumDataProvider implements DataProvider {
                 ));
     }
 
+    @Override
+    public Single<DoctorsResponseModel> getDoctorsById(int id) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getDoctorsByAgentId(id)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
 
     @Override
     public Single<PatientResponse> getPatient(int patientId) {

@@ -73,6 +73,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         sendFirebaseToken();
     }
 
+    public void openMpDashboardFromRM(Bundle bundle) {
+        bundle.putString("role", UserType.VIEW_ONLY_MEDICAL.toString());
+//        navController.setGraph(navController.getGraph(), bundle);
+        navController.navigate(R.id.dashboard, bundle);
+    }
+
+    public void openDoctorMpDashboardFromMP(Bundle bundle) {
+        bundle.putString("role", UserType.VIEW_ONLY_DOCTOR.toString());
+        navController.navigate(R.id.mainFragment, bundle);
+    }
+
     private void observeViewModel() {
         firebaseViewModel.responseLiveData.observe(
                 this,

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maritech.arterium.R
@@ -11,7 +12,9 @@ import com.maritech.arterium.common.ContentState
 import com.maritech.arterium.data.models.AgentModel
 import com.maritech.arterium.data.models.Profile
 import com.maritech.arterium.databinding.FragmentDashboardRmBinding
+import com.maritech.arterium.ui.MainActivity
 import com.maritech.arterium.ui.base.BaseFragment
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_doctor.AddNewDoctorActivity
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.AddNewMpActivity
 import com.maritech.arterium.ui.dashboard.regionalManager.dialog.DialogNewAccount
@@ -77,7 +80,13 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
 
     private val agentsOnClickListener = object : AgentsAdapter.AgentsOnClickListener {
         override fun onClick(agent: AgentModel) {
-
+            Log.i(TAG, "onClick: ${agent.id}")
+            val bundle = bundleOf(
+                    DashboardMpFragment.ID_KEY_BUNDLE to agent.id,
+                    DashboardMpFragment.NAME_KEY_BUNDLE to agent.name
+            )
+//            navigator.goToMPDashboard(activity?.navi, bundle)
+            (activity as MainActivity).openMpDashboardFromRM(bundle)
         }
     }
 

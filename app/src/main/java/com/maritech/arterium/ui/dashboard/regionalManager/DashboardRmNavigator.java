@@ -1,5 +1,7 @@
 package com.maritech.arterium.ui.dashboard.regionalManager;
 
+import android.os.Bundle;
+
 import androidx.navigation.NavController;
 
 import com.maritech.arterium.R;
@@ -20,6 +22,10 @@ public class DashboardRmNavigator extends BaseNavigator {
     }
     public void goToAddNewDoctor(NavController navController) {
         navController.navigate(R.id.action_dashboardRmFragment_to_addNewDoctorFragment);
+    }
+
+    public void goToMPDashboard(NavController navController, Bundle bundle) {
+        navController.navigate(R.id.action_dashboardRmFragment_to_dashboardFragment, bundle);
     }
 
 }

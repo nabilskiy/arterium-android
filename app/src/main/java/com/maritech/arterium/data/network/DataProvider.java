@@ -94,4 +94,8 @@ public interface DataProvider {
     Single<CreateDoctorResponseModel> createDoctor(CreateDoctorRequestModel doctor);
 
     Single<RegionsResponseModel> getRegions();
+
+    Single<DoctorsResponseModel> getDoctorsById(int id);
+
+    Single<CreateDoctorResponseModel> getDoctorById(int id);
 }

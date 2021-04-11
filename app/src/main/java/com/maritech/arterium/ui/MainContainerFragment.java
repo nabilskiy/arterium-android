@@ -44,7 +44,6 @@ public class MainContainerFragment
         super.onViewCreated(view, savedInstanceState);
 
 
-
         sharedViewModel = new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
         viewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
         viewModel.onBackPress.observe(lifecycleOwner, onBackPressObserver);
@@ -54,9 +53,8 @@ public class MainContainerFragment
         viewPager2 = binding.viewPager;
 
 
-
-        if(getArguments() != null &&
-                getArguments().containsKey("role")){
+        if (getArguments() != null &&
+                getArguments().containsKey("role")) {
             role = getArguments().getString("role");
             setRole();
         }
@@ -64,13 +62,30 @@ public class MainContainerFragment
 
     private void setRole() {
         Log.i(TAG, "setRole: " + role);
-        if(role.equals(UserType.DOCTOR.toString()))
+        if (role.equals(UserType.DOCTOR.toString()))
             setDoctorRole();
-        else if(role.equals(UserType.REGIONAL.toString()))
+        else if (role.equals(UserType.REGIONAL.toString()))
             setRMRole();
-        else if(role.equals(UserType.MEDICAL.toString()))
+        else if (role.equals(UserType.MEDICAL.toString()))
             setMPRole();
-        else setViewOnlyDoctorRole();
+        else if (role.equals(UserType.VIEW_ONLY_MEDICAL.toString()))
+            setViewOnlyMpRole();
+        else
+            setViewOnlyDoctorRole();
+    }
+
+    private void setViewOnlyMpRole() {
+
+        viewPager2.setUserInputEnabled(false);
+        viewPager2.setOffscreenPageLimit(1);
+
+        pagerAdapter = new ViewOnlyMPRoleAdapter(
+                getChildFragmentManager(), lifecycleOwner.getLifecycle(), getArguments()
+        );
+        bottomNavigationView.setVisibility(View.GONE);
+        viewPager2.setAdapter(pagerAdapter);
+
+        binding.addFab.setVisibility(View.GONE);
     }
 
     private void setDoctorRole() {
@@ -106,6 +121,27 @@ public class MainContainerFragment
         viewPager2.setAdapter(pagerAdapter);
     }
 
+    private void setViewOnlyDoctorRole() {
+        Log.i(TAG, "setViewOnlyDoctorRole: ");
+        viewPager2.setUserInputEnabled(false);
+        viewPager2.setOffscreenPageLimit(2);
+
+        pagerAdapter = new ViewOnlyDoctorRoleAdapter(getChildFragmentManager(),
+                lifecycleOwner.getLifecycle(),
+                getArguments());
+        bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_view_only_doctor);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            if(item.getItemId() == R.id.dashboard){
+                navigatePager(0);
+            } else {
+                navigatePager(1);
+            }
+            return true;
+        });
+        binding.addFab.setVisibility(View.GONE);
+        viewPager2.setAdapter(pagerAdapter);
+    }
+
     private void setRMRole() {
         Log.i(TAG, "setRMRole: ");
         viewPager2.setUserInputEnabled(false);
@@ -116,7 +152,7 @@ public class MainContainerFragment
 
         bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_rm_mp);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            if(item.getItemId() == R.id.dashboard){
+            if (item.getItemId() == R.id.dashboard) {
                 navigatePager(0);
             } else {
                 navigatePager(1);
@@ -133,12 +169,12 @@ public class MainContainerFragment
         viewPager2.setUserInputEnabled(false);
         viewPager2.setOffscreenPageLimit(2);
 
-        pagerAdapter = new RMRoleAdapter(getChildFragmentManager(),
+        pagerAdapter = new MPRoleAdapter(getChildFragmentManager(),
                 lifecycleOwner.getLifecycle());
 
         bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_rm_mp);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            if(item.getItemId() == R.id.dashboard){
+            if (item.getItemId() == R.id.dashboard) {
                 navigatePager(0);
             } else {
                 navigatePager(1);
@@ -147,10 +183,6 @@ public class MainContainerFragment
         });
         binding.addFab.setVisibility(View.GONE);
         viewPager2.setAdapter(pagerAdapter);
-    }
-
-    private void setViewOnlyDoctorRole() {
-        Log.i(TAG, "setViewOnlyDoctorRole: ");
     }
 
 

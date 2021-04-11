@@ -5,17 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
 import com.maritech.arterium.common.PurchasesType;
+import com.maritech.arterium.data.models.DoctorsModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
@@ -24,6 +27,8 @@ import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
 import com.maritech.arterium.ui.dashboard.doctor.levels.LevelsContainerDialog;
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment;
+import com.maritech.arterium.ui.dashboard.regionalManager.DashboardRmFragment;
 import com.maritech.arterium.ui.drugPrograms.DrugProgramsFragment;
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel;
 import com.maritech.arterium.ui.patients.PatientsFragment;
@@ -36,27 +41,50 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel.TAG;
+
 public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     private PatientsSharedViewModel sharedViewModel;
 
     private ProfileViewModel profileViewModel;
+    private DashboardViewModel viewModel;
 
     private final SimpleDateFormat dateFormat =
             new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     private ArrayList<DrugProgramModel> programModels;
 
+    private int id = -1;
+    private String name = null;
+    private boolean isFromMP = false;
+
     private int drugProgramId;
+
+    private final String[] dates = new String[2];
+    private final Calendar calendar = Calendar.getInstance();
+    private final Calendar calendarCurrent = Calendar.getInstance();
+
 
     @Override
     protected int getContentView() {
         return R.layout.fragment_dashboard;
     }
 
+    private void initBundle() {
+        if (getArguments() != null) {
+            if (getArguments().containsKey(DashboardMpFragment.ID_KEY_BUNDLE)) {
+                isFromMP = true;
+                id = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
+            }
+        }
+        Log.i(TAG, "initBundle: " + isFromMP + " " + id);
+    }
+
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
+        initBundle();
         actionViewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
 
         if (sharedViewModel == null && getParentFragment() != null) {
@@ -66,11 +94,14 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         }
+        if(viewModel == null)
+            viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
+        if (!isFromMP)
+            drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
 
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.patients_container, PatientsFragment.getInstance())
+                .replace(R.id.patients_container, PatientsFragment.getInstance(getArguments()))
                 .commit();
 
         binding.detailsView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener)
@@ -111,67 +142,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
         sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
-        String[] dates = new String[2];
-        Calendar calendar = Calendar.getInstance();
+
         dates[1] = dateFormat.format(calendar.getTime());
-        dates[0] = Calendar.getInstance().get(Calendar.YEAR)+"-01-01";
+        dates[0] = Calendar.getInstance().get(Calendar.YEAR) + "-01-01";
 
         sharedViewModel.dates.setValue(dates);
-
-        binding.details.findViewById(R.id.ivSearch).setOnClickListener(v -> {
-            binding.details.findViewById(R.id.ivSearch).setVisibility(View.GONE);
-            binding.details.findViewById(R.id.tvDoctors).setVisibility(View.GONE);
-            binding.details.findViewById(R.id.ivFilter).setVisibility(View.GONE);
-            binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
-        });
-
-        Calendar calendarCurrent = Calendar.getInstance();
-        binding.details.findViewById(R.id.ivFilter).setOnClickListener(
-                v -> CalendarBottomSheetDialog.Companion.newInstance(
-                        (dateFrom, dateTo) -> {
-                            calendar.setTimeInMillis(dateTo);
-                            dates[1] = dateFormat.format(calendar.getTime());
-                            calendar.setTimeInMillis(dateFrom);
-                            dates[0] = dateFormat.format(calendar.getTime());
-                            sharedViewModel.dates.setValue(dates);
-                        },
-                        null,
-                        null,
-                        calendarCurrent.getTimeInMillis(),
-                        null,
-                        getString(R.string.date_filter_title))
-                        .show(getChildFragmentManager(),
-                                CalendarBottomSheetDialog.Companion.getTAG())
-        );
-
-        binding.details.findViewById(R.id.ivClose).setOnClickListener(v -> {
-            binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
-            binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
-            binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
-            binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
-        });
-
-        binding.clBtnAddNewPersonal.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(requireActivity(), AddNewPersonalActivity.class);
-                    startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
-                }
-        );
-
-        binding.clProgram.setOnClickListener(v -> {
-            DrugProgramsFragment customDialog = DrugProgramsFragment.getInstance(programModels);
-            customDialog.setListener(content -> {
-                ((MainActivity) requireActivity()).setTheme();
-                customDialog.dismiss();
-                actionViewModel.onRecreate.setValue(true);
-            });
-
-            customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
-        });
-
-        binding.clInfoClose.setOnClickListener(
-                v -> actionViewModel.onRecreate.setValue(true)
-        );
 
         binding.lvlLayout.setOnClickListener(v -> {
             LevelsContainerDialog fragment =
@@ -180,13 +155,94 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         });
 
         observeViewModel();
-        profileViewModel.getProfile();
+        if(!isFromMP)
+            profileViewModel.getProfile();
+        else
+            viewModel.getDoctor(id);
+        initListeners();
+
+        if(isFromMP)
+            binding.clBtnAddNewPersonal.setVisibility(View.GONE);
+    }
+
+    private void initListeners() {
+        binding.details.findViewById(R.id.ivClose).setOnClickListener(v -> {
+            closeSearchOnClick();
+        });
+        binding.clBtnAddNewPersonal.setOnClickListener(
+                v -> {
+                    Intent intent = new Intent(requireActivity(), AddNewPersonalActivity.class);
+                    startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
+                }
+        );
+        binding.clProgram.setOnClickListener(v -> {
+            drugProgramOnClick();
+        });
+        binding.details.findViewById(R.id.ivFilter).setOnClickListener(v -> filterOnCLick());
+        binding.details.findViewById(R.id.ivSearch).setOnClickListener(v -> {
+            searchOnClick();
+        });
+        binding.clInfoClose.setOnClickListener(
+                v -> actionViewModel.onRecreate.setValue(true)
+        );
+    }
+
+    private void searchOnClick() {
+        binding.details.findViewById(R.id.ivSearch).setVisibility(View.GONE);
+        binding.details.findViewById(R.id.tvDoctors).setVisibility(View.GONE);
+        binding.details.findViewById(R.id.ivFilter).setVisibility(View.GONE);
+        binding.details.findViewById(R.id.clSearch).setVisibility(View.VISIBLE);
+    }
+
+    private void filterOnCLick() {
+        CalendarBottomSheetDialog.Companion.newInstance(
+                (dateFrom, dateTo) -> {
+                    calendar.setTimeInMillis(dateTo);
+                    dates[1] = dateFormat.format(calendar.getTime());
+                    calendar.setTimeInMillis(dateFrom);
+                    dates[0] = dateFormat.format(calendar.getTime());
+                    sharedViewModel.dates.setValue(dates);
+                },
+                null,
+                null,
+                calendarCurrent.getTimeInMillis(),
+                null,
+                getString(R.string.date_filter_title))
+                .show(getChildFragmentManager(),
+                        CalendarBottomSheetDialog.Companion.getTAG());
+    }
+
+    private void drugProgramOnClick() {
+        DrugProgramsFragment customDialog = DrugProgramsFragment.getInstance(programModels);
+        customDialog.setListener(content -> {
+            ((MainActivity) requireActivity()).setTheme();
+            customDialog.dismiss();
+            actionViewModel.onRecreate.setValue(true);
+        });
+
+        customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
+    }
+
+    private void closeSearchOnClick() {
+        binding.details.findViewById(R.id.ivSearch).setVisibility(View.VISIBLE);
+        binding.details.findViewById(R.id.tvDoctors).setVisibility(View.VISIBLE);
+        binding.details.findViewById(R.id.ivFilter).setVisibility(View.VISIBLE);
+        binding.details.findViewById(R.id.clSearch).setVisibility(View.GONE);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    private void observeDoctorLiveData(DoctorsModel doctor) {
+        binding.tvUserName.setText(doctor.getName());
+        binding.tvPost.setText(doctor.getInstitutionType());
+        binding.tvAllBuy.setText(getString(R.string.total_sold, doctor.getTotalSold()));
+        binding.tvLvlLitter.setText(doctor.getPrograms().get(0).getLevel().toUpperCase());
+        programModels = new ArrayList<>(doctor.getPrograms());
+//        initDrugPrograms();
     }
 
     private void observeViewModel() {
@@ -209,6 +265,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                         builder.show();
                     }
                 });
+        viewModel.getDoctorLiveData().observe(lifecycleOwner, this::observeDoctorLiveData);
     }
 
     private void initDrugPrograms() {

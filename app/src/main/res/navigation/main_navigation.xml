@@ -164,6 +164,14 @@
         android:name="com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment"
         android:label="DashboardMpFragment"
         tools:layout="@layout/fragment_dashboard_mp">
+        <argument
+            android:name="mpNameArg"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="mpIdArg"
+            app:argType="integer"
+            android:defaultValue="-1" />
         <action
             android:id="@+id/action_dashboardMpFragment_to_dashboardFragment"
             app:destination="@id/mainFragment" />
