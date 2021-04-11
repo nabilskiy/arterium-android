@@ -9,11 +9,8 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         instance = this;
     }
-
-
 
     public static App getInstance() {
         return instance;

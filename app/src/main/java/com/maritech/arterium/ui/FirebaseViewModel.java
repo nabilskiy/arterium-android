@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui;
 
 import androidx.lifecycle.ViewModel;
+
 import com.google.gson.JsonObject;
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.BaseResponse;
@@ -22,15 +23,12 @@ public class FirebaseViewModel extends ViewModel {
 
     public void sendFirebaseToken(JsonObject body) {
         contentState.postValue(ContentState.LOADING);
-
-        model.sendFirebaseToken(body)
-                .subscribe(data -> responseLiveData.postValue(data),
-                        throwable -> {
-                            contentState.postValue(ContentState.ERROR);
-                            errorMessage.postValue(throwable.getMessage());
-                        }
-                );
-
+        model.sendFirebaseToken(body).subscribe(data -> responseLiveData.postValue(data),
+                throwable -> {
+                    contentState.postValue(ContentState.ERROR);
+                    errorMessage.postValue(throwable.getMessage());
+                }
+        );
     }
 
 }

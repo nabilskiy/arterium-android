@@ -26,7 +26,6 @@ import com.maritech.arterium.utils.ToastUtil;
 public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBinding> {
 
     MyProfileDoctorNavigator navigator = new MyProfileDoctorNavigator();
-
     ProfileViewModel viewModel = new ProfileViewModel();
     LoginViewModel logoutViewModel = new LoginViewModel();
 
@@ -38,16 +37,11 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-
         binding.clLogOut.setOnClickListener(v -> showLogOutDialog());
-
         binding.myProfileToolbar.ivRight.setVisibility(View.INVISIBLE);
         binding.myProfileToolbar.tvToolbarTitle.setText(getString(R.string.doctor_profile));
         binding.myProfileToolbar.ivArrow.setVisibility(View.INVISIBLE);
-
-        binding.myProfileMainContentSettings.getRoot()
-                .setOnClickListener(v -> navigator.goToSettings(navController));
-
+        binding.myProfileMainContentSettings.getRoot().setOnClickListener(v -> navigator.goToSettings(navController));
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));
 
 //        binding.achievements.getRoot()
@@ -80,7 +74,7 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                                     }
                                 }
 
-                            if (model == null && profileData.getDrugPrograms() != null){
+                            if (model == null && profileData.getDrugPrograms() != null) {
                                 model = profileData.getDrugPrograms().get(0);
                             }
                             if (model != null) {

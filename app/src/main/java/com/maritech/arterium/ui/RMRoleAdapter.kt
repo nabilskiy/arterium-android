@@ -6,6 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.maritech.arterium.ui.dashboard.regionalManager.DashboardRmFragment
 import com.maritech.arterium.ui.my_profile.MyProfileFragment
+import com.maritech.arterium.ui.my_profile_doctor.MyProfileDoctorFragment
 
 class RMRoleAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
     : FragmentStateAdapter(fragmentManager, lifecycle) {
@@ -14,7 +15,7 @@ class RMRoleAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle)
     override fun createFragment(position: Int): Fragment {
        return when (position) {
             0-> DashboardRmFragment()
-           else -> MyProfileFragment()
+           else -> MyProfileDoctorFragment()
         }
     }
 }

@@ -45,15 +45,11 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Log.i(TAG, "onCreate: ");
-
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
-
         login = findViewById(R.id.etInputLogin);
         password = findViewById(R.id.etInputPassword);
-
         login.addTextChangedListener(textWatcher);
         password.addTextChangedListener(textWatcher);
 
@@ -81,7 +77,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 }
 
         );
-
         debugListener();
         observeViewModel();
     }
@@ -91,7 +86,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 .observe(this, profile -> {
                     hideProgressDialog();
                     Pref.getInstance().setUserFirstLaunch(this, false);
-
                     checkUserType(profile);
                 });
 
@@ -189,23 +183,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     private void checkUserType(Profile profile) {
         Bundle result = new Bundle();
-
         String role = profile.getRoleKey().toLowerCase();
         Log.i(TAG, "checkUserType: " + role);
-
 //        boolean isPinEnabled = Pref.getInstance().isPinEnabled();
-
         Intent intent = new Intent(this, MainActivity.class);
-
         if (role.equals(UserType.DOCTOR.toString())) {
             intent.putExtra(BUNDLE_KEY, UserType.DOCTOR.toString());
 //            navigator.goToDoctorDashboard(navController);
-
-
         } else if (role.equals(UserType.REGIONAL.toString())) {
             intent.putExtra(BUNDLE_KEY, UserType.REGIONAL.toString());
 //            navigator.goToRegionalDashboard(navController);
-
         } else if (role.equals(UserType.MEDICAL.toString())) {
 //            navigator.goToMedicalDashboard(navController);
             intent.putExtra(BUNDLE_KEY, UserType.MEDICAL.toString());
@@ -213,7 +200,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         Pref.getInstance().setRole(this, role);
         startActivity(intent);
         finish();
-
 //        if (isPinEnabled) {
 //            getParentFragmentManager().setFragmentResult(REQUEST_KEY, result);
 //            navigator.goToPin(navController);

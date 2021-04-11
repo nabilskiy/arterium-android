@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public enum UserType {
     DOCTOR("doctor"),
-    MEDICAL("medical"),
+    MEDICAL("agent"),
     REGIONAL("manager"),
     VIEW_ONLY_MEDICAL("viewMedical"),
     VIEW_ONLY_DOCTOR("viewDoctor");

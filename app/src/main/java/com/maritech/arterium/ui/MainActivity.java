@@ -55,21 +55,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             } else Log.i(TAG, "onCreate: " + bundle.getString(BUNDLE_KEY));
         }
 
-
-
-
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.main_host_fragment);
-
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
             Bundle bundle = new Bundle();
             bundle.putString("role", role);
             navController.setGraph(navController.getGraph(), bundle);
         }
-
         observeViewModel();
-
         sendFirebaseToken();
     }
 
@@ -137,12 +130,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     if (!task.isSuccessful()) {
                         return;
                     }
-
                     String token = task.getResult();
-
                     JsonObject body = new JsonObject();
                     body.addProperty("fcm_token", token);
-
                     firebaseViewModel.sendFirebaseToken(body);
                 });
     }
