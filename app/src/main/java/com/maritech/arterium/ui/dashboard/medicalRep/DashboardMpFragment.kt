@@ -103,7 +103,7 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
             object : DoctorsAdapter.DoctorsOnClickListener {
                 override fun onClick(doctor: DoctorsModel) {
                     val bundle = bundleOf(ID_KEY_BUNDLE to doctor.id)
-                    (activity as MainActivity).openDoctorMpDashboardFromMP(bundle)
+//                    (activity as MainActivity).openDoctorMpDashboardFromMP(bundle)
                 }
             }
 
