@@ -142,4 +142,11 @@ public interface    ApiService {
 
     @GET("/api/v1/doctors/{doctorId}")
     Single<CreateDoctorResponseModel> getDoctorById(@Path("doctorId") int id);
+
+    @GET("/api/v1/doctors/{doctorId}")
+    Single<PatientListResponse> getDoctorsPatients(@Path("doctorId") int id,
+                                                   @Query("purchases_filter") Integer filter,
+                                                   @Query("created_from") String dateCreatedFrom,
+                                                   @Query("created_to") String dateCreatedTo,
+                                                   @Query("search") String search);
 }

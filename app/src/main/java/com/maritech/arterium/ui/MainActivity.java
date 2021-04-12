@@ -17,18 +17,22 @@ import com.maritech.arterium.common.UserType;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.ActivityMainBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment;
 import com.maritech.arterium.ui.login.LoginActivity;
 
 import static com.maritech.arterium.ui.login.LoginActivity.BUNDLE_KEY;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
-    private static final String TAG = MainActivity.class.getName();
+    private static final String TAG = MainActivity.class.getName() + "_TAG";
 
     private NavController navController;
 
     private ActivityActionViewModel viewModel;
     private FirebaseViewModel firebaseViewModel;
+
+    private int MP_ID = -1;
+    private String MP_NAME = null;
 
     @Override
     protected int getLayoutId() {
@@ -69,11 +73,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     public void openMpDashboardFromRM(Bundle bundle) {
         bundle.putString("role", UserType.VIEW_ONLY_MEDICAL.toString());
 //        navController.setGraph(navController.getGraph(), bundle);
-        navController.navigate(R.id.dashboard, bundle);
+        navController.navigate(R.id.mainFragment, bundle);
     }
 
-    public void openDoctorMpDashboardFromMP(Bundle bundle) {
+    public void openDoctorDashboardFromMP(Bundle bundle) {
         bundle.putString("role", UserType.VIEW_ONLY_DOCTOR.toString());
+        MP_ID = bundle.getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
+        MP_NAME = bundle.getString(DashboardMpFragment.NAME_KEY_BUNDLE, null);
         navController.navigate(R.id.mainFragment, bundle);
     }
 
@@ -101,6 +107,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     public void onBackPressed() {
+        Log.i(TAG, "onBackPressed: ");
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.main_host_fragment);
 
@@ -110,16 +117,34 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
 
             if (backStackEntryCount > 0) {
+                if (MP_ID >= 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(DashboardMpFragment.NAME_KEY_BUNDLE, MP_NAME);
+                    bundle.putInt(DashboardMpFragment.ID_KEY_BUNDLE, MP_ID);
+                    MP_NAME = null;
+                    MP_ID = -1;
+                    openMpDashboardFromRM(bundle);
+                }
                 navController.navigateUp();
             } else {
                 if (viewModel.onBackPress.getValue() != null && !viewModel.onBackPress.getValue()) {
+                    Log.i(TAG, "onBackPressed: setValue");
                     viewModel.onBackPress.setValue(true);
                 } else {
-                    super.onBackPressed();
+                    if (MP_ID >= 0) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(DashboardMpFragment.NAME_KEY_BUNDLE, MP_NAME);
+                        bundle.putInt(DashboardMpFragment.ID_KEY_BUNDLE, MP_ID);
+                        MP_NAME = null;
+                        MP_ID = -1;
+                        openMpDashboardFromRM(bundle);
+                    } else
+                        super.onBackPressed();
                 }
             }
 
         } else {
+            Log.i(TAG, "onBackPressed: navhost = null");
             super.onBackPressed();
         }
     }

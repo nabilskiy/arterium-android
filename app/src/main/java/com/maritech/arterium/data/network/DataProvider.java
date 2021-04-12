@@ -30,6 +30,8 @@ import java.util.Map;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 import rx.Single;
 
@@ -98,4 +100,10 @@ public interface DataProvider {
     Single<DoctorsResponseModel> getDoctorsById(int id);
 
     Single<CreateDoctorResponseModel> getDoctorById(int id);
+
+    Single<PatientListResponse> getDoctorsPatients(int id,
+                                                   Integer filter,
+                                                   String dateCreatedFrom,
+                                                   String dateCreatedTo,
+                                                   String search);
 }

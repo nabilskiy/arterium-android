@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maritech.arterium.R
@@ -103,7 +102,7 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
             object : DoctorsAdapter.DoctorsOnClickListener {
                 override fun onClick(doctor: DoctorsModel) {
                     val bundle = bundleOf(ID_KEY_BUNDLE to doctor.id)
-//                    (activity as MainActivity).openDoctorMpDashboardFromMP(bundle)
+                    (activity as MainActivity).openDoctorDashboardFromMP(bundle)
                 }
             }
 
