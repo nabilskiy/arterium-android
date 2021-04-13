@@ -3,6 +3,7 @@ package com.maritech.arterium.ui.statistics.purchases;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -17,12 +18,15 @@ import com.maritech.arterium.data.models.PurchaseModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentPurchasesBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment;
 import com.maritech.arterium.ui.patients.PatientCardActivity;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 import com.maritech.arterium.ui.statistics.purchases.adapter.PurchasesAdapter;
 import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.ArrayList;
+
+import static com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel.TAG;
 
 public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
 
@@ -32,8 +36,9 @@ public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
     private String createdFromDate;
     private String createdToDate;
     private int drugProgramId = 0;
-    private String searchQuery;
+    private int doctorId = -1;
 
+    private String searchQuery;
     private ArrayList<PurchaseModel> allList = new ArrayList<>();
     private ArrayList<PurchaseModel> filteredList = new ArrayList<>();
     private PurchasesAdapter adapter;
@@ -50,11 +55,21 @@ public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
         return fragment;
     }
 
+    public static Fragment getInstance(Bundle bundle) {
+        if (bundle == null) return getInstance();
+        PurchasesFragment fragment = new PurchasesFragment();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
+        if (getArguments() != null && getArguments().containsKey(DashboardMpFragment.ID_KEY_BUNDLE)) {
+            doctorId = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
+        }
+        Log.i(TAG, "onCreate PurchasesFragment: " + doctorId);
     }
 
     @Override
@@ -163,6 +178,8 @@ public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
                 (position, object) -> {
                     Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
                     intent.putExtra(PatientCardActivity.PATIENT_ID_KEY, object.getPatientId());
+                    if (doctorId >= 0)
+                        intent.putExtra(DashboardMpFragment.ID_KEY_BUNDLE, doctorId);
                     startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
                 }
         );
@@ -172,17 +189,15 @@ public class PurchasesFragment extends BaseFragment<FragmentPurchasesBinding> {
     }
 
     private void getPatientList() {
-        viewModel.getPurchases(
-                createdFromDate,
-                createdToDate,
-                drugProgramId
-        );
+        if (doctorId >= 0)
+            viewModel.getPurchasesByDoctorId(doctorId, createdFromDate, createdToDate, drugProgramId);
+        else
+            viewModel.getPurchases(createdFromDate, createdToDate, drugProgramId);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == AddNewPersonalActivity.PATIENT_REQUEST_CODE) {
                 getPatientList();

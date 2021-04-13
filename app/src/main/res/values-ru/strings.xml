@@ -248,5 +248,19 @@
         <item name="1">Нет</item>
         <item name="2">90/10</item>
     </string-array>
+    <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="total_sold">Всего %1$d покупок</string>
+    <string name="region">Регион</string>
+    <string name="choose_region">Выберите регион</string>
+    <string name="enter_region">Введите область</string>
+    <string name="choose_mp">Выберите мед. представителя</string>
+    <string name="phone_number">Телефон</string>
+    <string name="second_name">Фамилия</string>
+    <string name="enter_sername">Введите фамилию</string>
+    <string name="rm">Региональный менеджер</string>
+    <string name="mp">Медицинский представитель</string>
+    <string name="mps">Медицинские представители</string>
+    <string name="add_doctors">Добавть доктора</string>
+    <string name="constraint_doctors">Прикрепленные доктора</string>
 
 </resources>

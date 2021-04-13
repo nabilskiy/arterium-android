@@ -53,6 +53,8 @@ public interface DataProvider {
 
     Single<PatientResponse> getPatient(int patientId);
 
+    Single<PatientResponse> getPatientByDoctorId(int doctorId, int patientId);
+
     Single<ResponseBody> getPatientImage(int patientId);
 
     Single<PatientCreateResponse> deletePatientImage(int patientId);
@@ -82,6 +84,11 @@ public interface DataProvider {
     Single<PurchasesResponse> getDoctorsSales(String from,
                                               String to,
                                               int drugProgramId);
+
+    Single<PurchasesResponse> getDoctorsSalesByDoctorId(int doctorId,
+                                                        String from,
+                                                        String to,
+                                                        int drugProgramId);
 
     Single<NotificationResponse> getNotifications();
 

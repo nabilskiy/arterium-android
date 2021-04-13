@@ -131,7 +131,7 @@
     <string name="enable_push">Отримувати пуш повідомлення</string>
     <string name="language">Мова інтерфейсу</string>
     <string name="route">Як дістатися?</string>
-<!--    <string name="route">\u0020 • \u0020 Як дістатися?</string>-->
+    <!--    <string name="route">\u0020 • \u0020 Як дістатися?</string>-->
     <string name="bio_lock_title">Біометрична аутентифікація</string>
     <string name="pin_code_button">Увійти по PIN-коду</string>
     <string name="feedback">Зворотній зв\'язок</string>
@@ -259,13 +259,13 @@
         <item name="2">90/10</item>
     </string-array>
 
-<!--    roles-->
+    <!--    roles-->
     <string name="rm">Регіональний менеджер</string>
     <string name="mp">Медичний представник</string>
     <string name="mps">Медичні представники</string>
 
 
-<string name="add_doctors">Додати лікарів</string>
+    <string name="add_doctors">Додати лікарів</string>
     <string name="constraint_doctors">Прикріплені лікарі</string>
 
 </resources>

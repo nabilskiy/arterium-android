@@ -114,6 +114,28 @@ public class PatientsViewModel extends BaseViewModel {
                 );
     }
 
+    public void getPatientByIdByDoctorId(int doctorId, int patientId) {
+        patientByIdState.postValue(ContentState.LOADING);
+        model.getPatientByDoctorId(doctorId, patientId)
+                .subscribe(
+                        data -> {
+                            if (data != null && data.getData() != null) {
+                                Log.i(TAG, "getPatientById: NULL");
+                                patientByIdState.postValue(ContentState.CONTENT);
+                                patientById.postValue(data);
+                            } else {
+                                patientByIdState.postValue(ContentState.EMPTY);
+                            }
+
+                        },
+                        throwable -> {
+                            Log.i(TAG, "getPatientById: " + throwable.getMessage());
+                            patientByIdState.postValue(ContentState.ERROR);
+                            patientByIdMessage.postValue(throwable.getMessage());
+                        }
+                );
+    }
+
     public void getPatientImage(int patientId) {
         imageState.postValue(ContentState.LOADING);
         model.getPatientImage(patientId)

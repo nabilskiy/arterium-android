@@ -108,14 +108,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     public void onBackPressed() {
         Log.i(TAG, "onBackPressed: ");
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.main_host_fragment);
-
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
         if (navHostFragment != null) {
             FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();
-
             int backStackEntryCount = navHostChildFragmentManager.getBackStackEntryCount();
-
             if (backStackEntryCount > 0) {
                 if (MP_ID >= 0) {
                     Bundle bundle = new Bundle();
@@ -123,9 +119,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     bundle.putInt(DashboardMpFragment.ID_KEY_BUNDLE, MP_ID);
                     MP_NAME = null;
                     MP_ID = -1;
-                    openMpDashboardFromRM(bundle);
+                   // openMpDashboardFromRM(bundle);
+                    navController.navigateUp();
+                }else{
+                    navController.navigateUp();
                 }
-                navController.navigateUp();
             } else {
                 if (viewModel.onBackPress.getValue() != null && !viewModel.onBackPress.getValue()) {
                     Log.i(TAG, "onBackPressed: setValue");
@@ -142,7 +140,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                         super.onBackPressed();
                 }
             }
-
         } else {
             Log.i(TAG, "onBackPressed: navhost = null");
             super.onBackPressed();

@@ -42,19 +42,12 @@ public class MainContainerFragment
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         sharedViewModel = new ViewModelProvider(requireActivity()).get(PatientsSharedViewModel.class);
         viewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
         viewModel.onBackPress.observe(lifecycleOwner, onBackPressObserver);
-
-
         bottomNavigationView = binding.bottomNav;
         viewPager2 = binding.viewPager;
-
-
-        if (getArguments() != null &&
-                getArguments().containsKey("role")) {
+        if (getArguments() != null && getArguments().containsKey("role")) {
             role = getArguments().getString("role");
             setRole();
         }
@@ -75,16 +68,13 @@ public class MainContainerFragment
     }
 
     private void setViewOnlyMpRole() {
-
         viewPager2.setUserInputEnabled(false);
         viewPager2.setOffscreenPageLimit(1);
-
         pagerAdapter = new ViewOnlyMPRoleAdapter(
                 getChildFragmentManager(), lifecycleOwner.getLifecycle(), getArguments()
         );
         bottomNavigationView.setVisibility(View.GONE);
         viewPager2.setAdapter(pagerAdapter);
-
         binding.addFab.setVisibility(View.GONE);
     }
 
@@ -131,7 +121,7 @@ public class MainContainerFragment
                 getArguments());
         bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_view_only_doctor);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            if(item.getItemId() == R.id.dashboard){
+            if (item.getItemId() == R.id.dashboard) {
                 navigatePager(0);
             } else {
                 navigatePager(1);
@@ -168,10 +158,8 @@ public class MainContainerFragment
         Log.i(TAG, "setMPRole: ");
         viewPager2.setUserInputEnabled(false);
         viewPager2.setOffscreenPageLimit(2);
-
         pagerAdapter = new MPRoleAdapter(getChildFragmentManager(),
                 lifecycleOwner.getLifecycle());
-
         bottomNavigationView.inflateMenu(R.menu.bottom_nav_menu_rm_mp);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             if (item.getItemId() == R.id.dashboard) {
@@ -184,7 +172,6 @@ public class MainContainerFragment
         binding.addFab.setVisibility(View.GONE);
         viewPager2.setAdapter(pagerAdapter);
     }
-
 
     private void navigatePager(int position) {
 //        bottomNavigationView.setVisibility(position == 2 ? View.GONE : View.VISIBLE);

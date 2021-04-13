@@ -74,6 +74,10 @@ public interface ApiService {
     @GET("api/v1/doctors/patients/{patientId}")
     Single<PatientResponse> getPatient(@Path("patientId") int patientId);
 
+    @GET("api/v1/doctors/{doctorId}/patients/{patientId}")
+    Single<PatientResponse> getPatientByDoctorId(@Path("doctorId") int id,
+                                                 @Path("patientId") int patientId);
+
     @GET("api/v1/doctors/patients/{patientId}/img")
     Single<ResponseBody> getPatientImage(@Path("patientId") int patientId);
 
@@ -157,4 +161,10 @@ public interface ApiService {
                                                       @Query("to") String to,
                                                       @Query("force") int force,
                                                       @Query("drug_program_id") int drugProgramId);
+
+    @GET("/api/v1/doctors/{doctorId}/sales")
+    Single<PurchasesResponse> getDoctorSalesByDoctorId(@Path("doctorId") int doctorID,
+                                                       @Query("from") String from,
+                                                       @Query("to") String to,
+                                                       @Query("drug_program_id") int drugProgramId);
 }

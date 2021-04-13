@@ -23,11 +23,13 @@ import com.maritech.arterium.data.models.PatientModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.ActivityPatientCardBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 import com.maritech.arterium.utils.DateTimeUtil;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+
 import io.card.payment.CardIOActivity;
 import io.card.payment.CreditCard;
 
@@ -38,7 +40,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     private static final int SCAN_REQUEST_CODE = 660;
     private static final int EDIT_REQUEST_CODE = 680;
     public static final String PATIENT_ID_KEY = "patientId";
-
+    private int doctorId = -1;
     final int PROGRAM_RENIAL = 1;
     final int PROGRAM_GLIPTAR = 2;
     final int PROGRAM_SAGRADA = BuildConfig.DEBUG ? 4 : 3;
@@ -58,38 +60,30 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
-
         programId = Pref.getInstance().getDrugProgramId(this);
-
         if (getIntent() != null) {
             patientId = getIntent().getIntExtra(PATIENT_ID_KEY, -1);
+            doctorId = getIntent().getIntExtra(DashboardMpFragment.ID_KEY_BUNDLE, -1);
+            if (doctorId>0)
+                binding.patientCardToolbar.ivRight.setVisibility(View.GONE);
         }
-
         binding.patientCardToolbar.tvToolbarTitle.setText(R.string.patient_card);
         binding.patientCardToolbar.ivArrow.setOnClickListener(v -> finish());
         binding.patientCardToolbar.ivRight.setOnClickListener(v -> {
-            Intent intent = new Intent(
-                    PatientCardActivity.this, AddNewPersonalActivity.class
-            );
+            Intent intent = new Intent(PatientCardActivity.this, AddNewPersonalActivity.class);
             intent.putExtra(AddNewPersonalActivity.EDIT_EXTRA_KEY, true);
             intent.putExtra(PATIENT_MODEL_KEY, model);
             startActivityForResult(intent, EDIT_REQUEST_CODE);
         });
-
-        dateFormat =
-                new SimpleDateFormat("dd MMMM yyyy", DateTimeUtil.getLocale(this));
-
+        dateFormat = new SimpleDateFormat("dd MMMM yyyy", DateTimeUtil.getLocale(this));
         observeViewModel();
-
         getPatient();
     }
 
     private void observeViewModel() {
         viewModel.imageResponse.observe(this, responseBody -> {
             Bitmap bitmap = BitmapFactory.decodeStream(responseBody.byteStream());
-
             Glide.with(this).load(bitmap)
                     .circleCrop()
                     .into(binding.ivMyProfileLogo);
@@ -102,11 +96,8 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
 
         viewModel.patientById.observe(this, patientResponse -> {
             model = patientResponse.getData();
-
             loadImage();
-
             setPersonalCardData();
-
             if (programId == PROGRAM_RENIAL) {
                 binding.clPatientMedicalDataRenial.setVisibility(View.VISIBLE);
                 setMedicalCardDataRenial();
@@ -134,8 +125,14 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     }
 
     private void getPatient() {
-        if (patientId != -1) {
-            viewModel.getPatientById(patientId);
+        if (doctorId >= 0) {
+            if (patientId != -1) {
+                viewModel.getPatientByIdByDoctorId(doctorId, patientId);
+            }
+        } else {
+            if (patientId != -1) {
+                viewModel.getPatientById(patientId);
+            }
         }
     }
 
@@ -258,7 +255,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     }
 
     @SuppressLint("CutPasteId")
-    public void setMedicalCardDataRenial(){
+    public void setMedicalCardDataRenial() {
         TextView heartAttack;
         TextView heartAttackValue;
         TextView drugAdministration;
@@ -290,6 +287,8 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         if (model.getHearthAttackDate() != null) {
             long millis = model.getHearthAttackDate() * 1000;
             heartAttackValue.setText(dateFormat.format(new Date(millis)));
+        }else {
+            heartAttackValue.setText("");
         }
 
         //drug
@@ -348,7 +347,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
     }
 
     @SuppressLint("CutPasteId")
-    public void setPersonalCardData(){
+    public void setPersonalCardData() {
         TextView sex;
         TextView sexValue;
         TextView weight;
@@ -356,6 +355,9 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         TextView growth;
         TextView growthValue;
         TextView patientCardNumber;
+
+        TextView tvPatientPhone = findViewById(R.id.tvPatientDataListValue);
+        tvPatientPhone.setText(model.getPhone());
 
         TextView tvPatientCardName = findViewById(R.id.tvPatientCardName);
         tvPatientCardName.setText(model.getName());
@@ -367,9 +369,9 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
             tvPatientCardLastShopping.setTextColor(Color.parseColor("#FF3347"));
         } else {
             tvPatientCardLastShopping.setText(getString(
-                            R.string.last_purchases, dateFormat.format(
-                                    new Date(lastPurchases * 1000)
-                            ))
+                    R.string.last_purchases, dateFormat.format(
+                            new Date(lastPurchases * 1000)
+                    ))
             );
             tvPatientCardLastShopping
                     .setTextColor(ContextCompat.getColor(this, R.color.gray));

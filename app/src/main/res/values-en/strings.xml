@@ -246,5 +246,19 @@
         <item name="1">No</item>
         <item name="2">90/10</item>
     </string-array>
+    <string name="enter_phone_number">Enter phone number</string>
+    <string name="enter_sername">Enter fullname</string>
+    <string name="second_name">Fullname</string>
+    <string name="phone_number">Phone</string>
+    <string name="choose_mp">Choose MP</string>
+    <string name="choose_region">Choose region</string>
+    <string name="enter_region">Choose region</string>
+    <string name="region">Region</string>
+    <string name="total_sold">Total %1$d sales</string>
+    <string name="rm">Regional Manager</string>
+    <string name="mp">Medical representative</string>
+    <string name="mps">Medical representatives</string>
+    <string name="add_doctors">Add Doctor</string>
+    <string name="constraint_doctors">Attached doctors</string>
 
 </resources>

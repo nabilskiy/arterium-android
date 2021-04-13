@@ -340,6 +340,21 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     @Override
+    public Single<PatientResponse> getPatientByDoctorId(int doctorId,
+                                                        int patientId) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getPatientByDoctorId(doctorId, patientId)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+
+    @Override
     public Single<ResponseBody> getPatientImage(int patientId) {
 
         return Single.create(singleSubscriber -> provideClient()
@@ -467,6 +482,22 @@ public class ArteriumDataProvider implements DataProvider {
                                                      int drugProgramId) {
         return Single.create(singleSubscriber -> provideClient()
                 .getDoctorSales(from, to, drugProgramId)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<PurchasesResponse> getDoctorsSalesByDoctorId(int doctorId,
+                                                               String from,
+                                                               String to,
+                                                               int drugProgramId) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getDoctorSalesByDoctorId(doctorId, from, to, drugProgramId)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())

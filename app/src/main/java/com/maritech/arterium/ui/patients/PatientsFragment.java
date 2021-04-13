@@ -133,9 +133,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                         models.add(model);
                     }
                 }
-
                 adapter.setData(models);
-
                 binding.emptyContainer
                         .setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
             }
@@ -147,7 +145,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                             Log.i(TAG, "observeViewModel: " + data.getData().size());
                             allList = data.getData();
                             filteredList = data.getData();
-
                             adapter.setData(filteredList);
                         });
 
@@ -169,9 +166,10 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 requireContext(),
                 filteredList,
                 (position, object) -> {
-                    if (doctorId >= 0) return;
                     Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
                     intent.putExtra(PatientCardActivity.PATIENT_ID_KEY, object.getId());
+                    if (doctorId >= 0)
+                        intent.putExtra(DashboardMpFragment.ID_KEY_BUNDLE, doctorId);
                     startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
                 }
         );

@@ -49,6 +49,7 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
 
     override fun onResume() {
         super.onResume()
+        binding!!.details.tvDoctors.text = getString(R.string.mps)
         dashboardViewModel.getAgents()
     }
 

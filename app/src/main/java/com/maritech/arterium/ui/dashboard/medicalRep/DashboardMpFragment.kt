@@ -56,7 +56,6 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
         }
         if (name != null) {
             binding!!.tvUserName.text = name
-            disableListeners()
             viewModel.getDoctorsById(agentId)
         } else {
             profileViewModel.getProfile()
@@ -71,12 +70,6 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
         viewModel.doctorsViewStateLiveData.observe(lifecycleOwner, this::observeContentState)
         viewModel.doctorsLiveData.observe(lifecycleOwner, this::observeDoctorsList)
         profileViewModel.responseLiveData.observe(lifecycleOwner, this::observeProfileResponse)
-
-
-    }
-
-    private fun disableListeners() {
-
     }
 
     private fun observeContentState(state: ContentState) {
@@ -95,6 +88,7 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
     }
 
     private fun observeDoctorsList(doctors: List<DoctorsModel>) {
+        binding!!.details.tvDoctors.text = getString(R.string.constraint_doctors)
         adapter.doctors = doctors
     }
 

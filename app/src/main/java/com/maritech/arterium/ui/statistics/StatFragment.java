@@ -64,7 +64,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     @Override
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
-
         if (statisticsViewModel == null) {
             statisticsViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
         }
@@ -76,7 +75,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
             doctorId = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
 
         getChildFragmentManager().beginTransaction()
-                .replace(R.id.patients_container, PurchasesFragment.getInstance())
+                .replace(R.id.patients_container, PurchasesFragment.getInstance(getArguments()))
                 .commit();
 
         binding.statisticToolbar.ivArrow.setVisibility(View.INVISIBLE);
@@ -86,7 +85,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 .setText(getString(R.string.stat_purchases));
 
         binding.appBar.setOutlineProvider(null);
-
         fullDateFormatShort = new SimpleDateFormat("dd MMMM yyyy",
                 DateTimeUtil.getLocale(requireContext())
         );
@@ -102,11 +100,9 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 });
 
         ((EditText) binding.details.findViewById(R.id.etSearch)).addTextChangedListener(textWatcher);
-
         binding.details.findViewById(R.id.tvOne).setActivated(true);
         binding.details.findViewById(R.id.tvOne).setOnClickListener(v -> {
             sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
-
             binding.details.findViewById(R.id.tvOne).setActivated(true);
             binding.details.findViewById(R.id.tvTwo).setActivated(false);
             binding.details.findViewById(R.id.tvThree).setActivated(false);
@@ -114,7 +110,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
         binding.details.findViewById(R.id.tvTwo).setOnClickListener(v -> {
             sharedViewModel.purchasesFilter.setValue(PurchasesType.WITH);
-
             binding.details.findViewById(R.id.tvOne).setActivated(false);
             binding.details.findViewById(R.id.tvTwo).setActivated(true);
             binding.details.findViewById(R.id.tvThree).setActivated(false);
@@ -122,7 +117,6 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
         binding.detailsView.findViewById(R.id.tvThree).setOnClickListener(v -> {
             sharedViewModel.purchasesFilter.setValue(PurchasesType.WITHOUT);
-
             binding.details.findViewById(R.id.tvOne).setActivated(false);
             binding.details.findViewById(R.id.tvTwo).setActivated(false);
             binding.details.findViewById(R.id.tvThree).setActivated(true);
@@ -149,12 +143,9 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 return;
             }
             mPrevClickTime = SystemClock.elapsedRealtime();
-
             currentMonthNum--;
             if (currentMonthNum < 0) currentMonthNum = 11;
-
             calendar.add(Calendar.MONTH, -1);
-
             initMonths();
         });
 
@@ -163,12 +154,10 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 return;
             }
             mNextClickTime = SystemClock.elapsedRealtime();
-
             currentMonthNum++;
             if (currentMonthNum > 11) currentMonthNum = 0;
 
             calendar.add(Calendar.MONTH, 1);
-
             initMonths();
         });
 
@@ -176,13 +165,10 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                 v -> CalendarBottomSheetDialog.Companion.newInstance(
                         (dateFrom, dateTo) -> {
                             String[] dates = new String[2];
-
                             calendar.setTimeInMillis(dateTo);
                             dates[1] = dateFormat.format(calendar.getTime());
-
                             calendar.setTimeInMillis(dateFrom);
                             dates[0] = dateFormat.format(calendar.getTime());
-
                             sharedViewModel.dates.setValue(dates);
                         },
                         null,
@@ -190,8 +176,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                         calendarCurrent.getTimeInMillis(),
                         null,
                         getString(R.string.date_filter_title))
-                        .show(getChildFragmentManager(),
-                                CalendarBottomSheetDialog.Companion.getTAG())
+                        .show(getChildFragmentManager(), CalendarBottomSheetDialog.Companion.getTAG())
         );
 
         binding.tvStatisticMonth.setOnClickListener(
@@ -199,20 +184,14 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
                         (dateFrom, dateTo) -> {
                             calendar.setTimeInMillis(dateTo);
                             calendarFrom.setTimeInMillis(dateFrom);
-
                             currentMonthNum = calendar.get(Calendar.MONTH);
-
                             String[] dates = new String[2];
                             dates[1] = dateFormat.format(calendar.getTime());
                             dates[0] = dateFormat.format(calendarFrom.getTime());
-
                             fromDate = dates[0];
                             toDate = dates[1];
-
                             sharedViewModel.dates.setValue(dates);
-
                             getStatistics();
-
                             setMonthLabels();
                         },
                         null,
@@ -240,19 +219,16 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
         statisticsViewModel.responseLiveData
                 .observe(getViewLifecycleOwner(),
                         data -> {
-                            binding.tvStatisticShoppingAmount
-                                    .setText(String.valueOf(data.getTotal()));
+                            binding.tvStatisticShoppingAmount.setText(String.valueOf(data.getTotal()));
 
                             long millis = data.getLastUpdateAt() * 1000;
                             binding.tvStatisticRestartData
                                     .setText(fullDateFormatShort.format(new Date(millis)));
                             binding.tvStatisticPeriod
                                     .setText(outputDateFormatShort.format(new Date(millis)));
-
                             binding.tvCpbValue.setText(String.valueOf(data.getPrimaryCount()));
                             binding.cpbStatisticGreen.setMax(data.getTotal());
                             binding.cpbStatisticGreen.setProgress(data.getPrimaryCount());
-
                             binding.tvCpbValueOrange.setText(String.valueOf(data.getSecondaryCount()));
                             binding.opbStatisticOrange.setMax(data.getTotal());
                             binding.opbStatisticOrange.setProgress(data.getSecondaryCount());
@@ -275,39 +251,23 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
         System.out.println("First Day of Month: " + dateFormat.format(calendar.getTime()));
         dates[0] = dateFormat.format(calendar.getTime());
         if (calendar.get(Calendar.MONTH) == calendarCurrent.get(Calendar.MONTH)) {
-            System.out.println("currentMonthNum: ");
-            System.out.println("Last Day of Month: " + dateFormat.format(calendarCurrent.getTime()));
             dates[1] = dateFormat.format(calendarCurrent.getTime());
         } else {
             calendar.add(Calendar.MONTH, 1);
             calendar.add(Calendar.DATE, -1);
             java.util.Date lastDayOfMonth = calendar.getTime();
-            System.out.println("Last Day of Month: " + dateFormat.format(lastDayOfMonth));
             dates[1] = dateFormat.format(lastDayOfMonth);
         }
-
         return dates;
     }
 
     private void initMonths() {
         String[] dates = printdate();
-
-//                new String[2];
-//        dates[1] = dateFormat.format(calendar.getTime());
-//
-//        calendarFrom.set(Calendar.DAY_OF_MONTH, 1);
-//        dates[0] = dateFormat.format(calendarFrom.getTime());
-
-
         fromDate = dates[0];
         toDate = dates[1];
-
         sharedViewModel.dates.setValue(dates);
-
         getStatistics();
-
         setMonthLabels();
-
         checkCurrentMonth();
     }
 
@@ -321,9 +281,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
 
     private void setMonthLabels() {
         String[] months = getResources().getStringArray(R.array.calendar_month_general);
-
         String month = months[currentMonthNum];
-
         binding.tvStatisticMonth.setText(month);
     }
 
