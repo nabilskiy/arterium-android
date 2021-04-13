@@ -43,7 +43,7 @@ import retrofit2.http.Query;
 import rx.Observable;
 import rx.Single;
 
-public interface    ApiService {
+public interface ApiService {
 
     @POST("api/v1/auth/login")
     Single<LoginResponse> login(@Body LoginRequest body);
@@ -143,10 +143,18 @@ public interface    ApiService {
     @GET("/api/v1/doctors/{doctorId}")
     Single<CreateDoctorResponseModel> getDoctorById(@Path("doctorId") int id);
 
-    @GET("/api/v1/doctors/{doctorId}")
+    @GET("/api/v1/doctors/{doctorId}/patients")
     Single<PatientListResponse> getDoctorsPatients(@Path("doctorId") int id,
                                                    @Query("purchases_filter") Integer filter,
                                                    @Query("created_from") String dateCreatedFrom,
                                                    @Query("created_to") String dateCreatedTo,
+                                                   @Query("drug_program_id") int drugProgram,
                                                    @Query("search") String search);
+
+    @GET("/api/v1/doctors/{doctorId}/sales/statistics")
+    Single<StatisticsResponse> getStatisticByDoctorId(@Path("doctorId") int doctorID,
+                                                      @Query("from") String from,
+                                                      @Query("to") String to,
+                                                      @Query("force") int force,
+                                                      @Query("drug_program_id") int drugProgramId);
 }

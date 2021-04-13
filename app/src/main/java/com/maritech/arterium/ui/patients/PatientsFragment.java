@@ -3,6 +3,7 @@ package com.maritech.arterium.ui.patients;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -17,11 +18,15 @@ import com.maritech.arterium.data.models.PatientModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentPatientsBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
+import com.maritech.arterium.ui.dashboard.doctor.DashboardFragment;
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment;
 import com.maritech.arterium.ui.patients.adapter.PatientsAdapter;
 import com.maritech.arterium.ui.patients.add_new_personal.AddNewPersonalActivity;
 import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.ArrayList;
+
+import static com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel.TAG;
 
 public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
@@ -32,6 +37,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     private String createdToDate;
     private int drugProgramId = 0;
     private String searchQuery;
+    private int doctorId = -1;
 
     private ArrayList<PatientModel> allList = new ArrayList<>();
     private ArrayList<PatientModel> filteredList = new ArrayList<>();
@@ -50,7 +56,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     }
 
     public static Fragment getInstance(Bundle bundle) {
-        if(bundle == null) return getInstance();
+        if (bundle == null) return getInstance();
         PatientsFragment fragment = new PatientsFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -60,6 +66,10 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
+        if (getArguments() != null && getArguments().containsKey(DashboardMpFragment.ID_KEY_BUNDLE)) {
+            doctorId = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
+        }
+        Log.i(TAG, "onCreate: " + doctorId);
     }
 
     @Override
@@ -134,6 +144,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
         viewModel.allPatients
                 .observe(getViewLifecycleOwner(),
                         data -> {
+                            Log.i(TAG, "observeViewModel: " + data.getData().size());
                             allList = data.getData();
                             filteredList = data.getData();
 
@@ -147,7 +158,8 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                     binding.rvPatients.setVisibility(!contentState.isLoading() && !contentState.isEmpty() ? View.VISIBLE : View.GONE);
 
                     if (contentState.isError()) {
-                        ToastUtil.show(requireContext(), "Ошибка при получении данных");
+                        if (doctorId < 0)
+                            ToastUtil.show(requireContext(), "Ошибка при получении данных");
                     }
                 });
     }
@@ -157,6 +169,7 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
                 requireContext(),
                 filteredList,
                 (position, object) -> {
+                    if (doctorId >= 0) return;
                     Intent intent = new Intent(requireActivity(), PatientCardActivity.class);
                     intent.putExtra(PatientCardActivity.PATIENT_ID_KEY, object.getId());
                     startActivityForResult(intent, AddNewPersonalActivity.PATIENT_REQUEST_CODE);
@@ -168,7 +181,17 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
     }
 
     private void getPatientList() {
-        viewModel.getPatients(createdFromDate, createdToDate, drugProgramId, searchQuery);
+        if (doctorId >= 0)
+            viewModel.getPatientsByDoctoID(doctorId, createdFromDate, createdToDate, drugProgramId, searchQuery);
+        else
+            viewModel.getPatients(createdFromDate, createdToDate, drugProgramId, searchQuery);
+    }
+
+    private void getNoFilterPatientList() {
+        if (doctorId >= 0)
+            viewModel.getPatientsByDoctoID(doctorId, null, null, drugProgramId, null);
+        else
+            viewModel.getPatients(createdFromDate, createdToDate, drugProgramId, searchQuery);
     }
 
     @Override

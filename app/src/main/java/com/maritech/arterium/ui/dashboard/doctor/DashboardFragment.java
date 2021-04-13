@@ -45,6 +45,7 @@ import static com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel.TAG;
 
 public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
+
     private PatientsSharedViewModel sharedViewModel;
 
     private ProfileViewModel profileViewModel;
@@ -76,6 +77,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             if (getArguments().containsKey(DashboardMpFragment.ID_KEY_BUNDLE)) {
                 isFromMP = true;
                 id = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
+                binding.clProgram.setVisibility(View.GONE);
+                binding.emptyView.setVisibility(View.VISIBLE);
             }
         }
         Log.i(TAG, "initBundle: " + isFromMP + " " + id);
@@ -143,8 +146,12 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
 
-        dates[1] = dateFormat.format(calendar.getTime());
-        dates[0] = Calendar.getInstance().get(Calendar.YEAR) + "-01-01";
+//        dates[1] = dateFormat.format(calendar.getTime());
+//        dates[0] = Calendar.getInstance().get(Calendar.YEAR) + "-01-01";
+
+        dates[1] = null;
+        dates[0] = null;
+
 
         sharedViewModel.dates.setValue(dates);
 

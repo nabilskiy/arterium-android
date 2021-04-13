@@ -25,7 +25,11 @@ class ViewOnlyDoctorRoleAdapter(
                 fragment.arguments = bundle
                 fragment
             }
-            else -> StatFragment()
+            else -> {
+                val fragment = StatFragment()
+                fragment.arguments = bundle
+                fragment
+            }
         }
     }
 }

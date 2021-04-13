@@ -73,6 +73,12 @@ public interface DataProvider {
                                              int force,
                                              int drugProgramId);
 
+    Single<StatisticsResponse> getStatisticByDoctorId(int doctorId,
+                                                      String from,
+                                                      String to,
+                                                      int force,
+                                                      int drugProgramId);
+
     Single<PurchasesResponse> getDoctorsSales(String from,
                                               String to,
                                               int drugProgramId);
@@ -105,5 +111,6 @@ public interface DataProvider {
                                                    Integer filter,
                                                    String dateCreatedFrom,
                                                    String dateCreatedTo,
+                                                   int drugProgram,
                                                    String search);
 }

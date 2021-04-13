@@ -20,10 +20,44 @@ public class StatisticsViewModel extends BaseViewModel {
         model = ArteriumDataProvider.getInstance();
     }
 
-    public void getStatistics(String from,
-                              String to,
-                              int force,
-                              int drugProgramId) {
+    public void getStatistic(int doctorId,
+                             String from,
+                             String to,
+                             int force,
+                             int drugProgramId) {
+        if (doctorId < 0)
+            getStatistics(from, to, force, drugProgramId);
+        else getStatisticById(doctorId, from, to, force, drugProgramId);
+    }
+
+    private void getStatisticById(int doctorId,
+                                  String from,
+                                  String to,
+                                  int force,
+                                  int drugProgramId) {
+        contentState.postValue(ContentState.LOADING);
+        model.getStatisticByDoctorId(doctorId, from, to, force, drugProgramId)
+                .subscribe(
+                        data -> {
+                            if (data != null && data.getData() != null) {
+                                contentState.postValue(ContentState.CONTENT);
+                                responseLiveData.postValue(data.getData());
+                            } else {
+                                contentState.postValue(ContentState.EMPTY);
+                            }
+
+                        },
+                        throwable -> {
+                            contentState.postValue(ContentState.ERROR);
+                            errorMessage.postValue(throwable.getMessage());
+                        }
+                );
+    }
+
+    private void getStatistics(String from,
+                               String to,
+                               int force,
+                               int drugProgramId) {
 
         contentState.postValue(ContentState.LOADING);
         model.getStatistics(from, to, force, drugProgramId)
@@ -43,4 +77,6 @@ public class StatisticsViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
 }

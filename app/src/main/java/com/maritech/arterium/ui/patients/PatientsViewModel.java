@@ -1,5 +1,7 @@
 package com.maritech.arterium.ui.patients;
 
+import android.util.Log;
+
 import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.PatientCreateModel;
 import com.maritech.arterium.data.models.PatientListResponse;
@@ -8,10 +10,14 @@ import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
 import com.maritech.arterium.ui.base.BaseViewModel;
 import com.maritech.arterium.ui.base.SingleLiveEvent;
+
 import java.util.Map;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+
+import static com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel.TAG;
 
 public class PatientsViewModel extends BaseViewModel {
 
@@ -61,12 +67,38 @@ public class PatientsViewModel extends BaseViewModel {
                 );
     }
 
+    public void getPatientsByDoctoID(int doctorId,
+                                     String startDate,
+                                     String endDate,
+                                     int drugProgram,
+                                     String search) {
+
+        allPatientsState.postValue(ContentState.LOADING);
+        model.getDoctorsPatients(doctorId, 0, startDate, endDate, drugProgram, search)
+                .subscribe(
+                        data -> {
+                            if (data != null && data.getData() != null && !data.getData().isEmpty()) {
+                                allPatientsState.postValue(ContentState.CONTENT);
+                                allPatients.postValue(data);
+                            } else {
+                                allPatientsState.postValue(ContentState.EMPTY);
+                            }
+
+                        },
+                        throwable -> {
+                            allPatientsState.postValue(ContentState.ERROR);
+                            allPatientsMessage.postValue(throwable.getMessage());
+                        }
+                );
+    }
+
     public void getPatientById(int patientId) {
         patientByIdState.postValue(ContentState.LOADING);
         model.getPatient(patientId)
                 .subscribe(
                         data -> {
                             if (data != null && data.getData() != null) {
+                                Log.i(TAG, "getPatientById: NULL");
                                 patientByIdState.postValue(ContentState.CONTENT);
                                 patientById.postValue(data);
                             } else {
@@ -75,6 +107,7 @@ public class PatientsViewModel extends BaseViewModel {
 
                         },
                         throwable -> {
+                            Log.i(TAG, "getPatientById: " + throwable.getMessage());
                             patientByIdState.postValue(ContentState.ERROR);
                             patientByIdMessage.postValue(throwable.getMessage());
                         }

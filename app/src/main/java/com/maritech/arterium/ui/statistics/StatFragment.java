@@ -19,6 +19,7 @@ import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentStatBinding;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
+import com.maritech.arterium.ui.dashboard.medicalRep.DashboardMpFragment;
 import com.maritech.arterium.ui.statistics.purchases.StatSharedViewModel;
 import com.maritech.arterium.ui.statistics.purchases.PurchasesFragment;
 import com.maritech.arterium.utils.DateTimeUtil;
@@ -53,6 +54,8 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     long mPrevClickTime = 0;
     long mNextClickTime = 0;
 
+    private int doctorId = -1;
+
     @Override
     protected int getContentView() {
         return R.layout.fragment_stat;
@@ -68,6 +71,9 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
         if (sharedViewModel == null) {
             sharedViewModel = new ViewModelProvider(this).get(StatSharedViewModel.class);
         }
+
+        if (getArguments() != null)
+            doctorId = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
 
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.patients_container, PurchasesFragment.getInstance())
@@ -224,7 +230,7 @@ public class StatFragment extends BaseFragment<FragmentStatBinding> {
     }
 
     private void getStatistics() {
-        statisticsViewModel.getStatistics(fromDate,
+        statisticsViewModel.getStatistic(doctorId, fromDate,
                 toDate,
                 0,
                 Pref.getInstance().getDrugProgramId(requireContext()));

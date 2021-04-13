@@ -269,6 +269,23 @@ public class ArteriumDataProvider implements DataProvider {
                 ));
     }
 
+    @Override
+    public Single<PatientListResponse> getDoctorsPatients(int id,
+                                                          Integer filter,
+                                                          String dateCreatedFrom,
+                                                          String dateCreatedTo,
+                                                          int programId,
+                                                          String search) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getDoctorsPatients(id, filter, dateCreatedFrom, dateCreatedTo, programId, search)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
 
     @Override
     public Single<AgentResponseModel> getAgents() {
@@ -418,6 +435,23 @@ public class ArteriumDataProvider implements DataProvider {
                                                     int drugProgramId) {
         return Single.create(singleSubscriber -> provideClient()
                 .getStatistics(from, to, force, drugProgramId)
+                .subscribeOn(Schedulers.io())
+                .retryWhen(isAuthException())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        singleSubscriber::onSuccess,
+                        singleSubscriber::onError
+                ));
+    }
+
+    @Override
+    public Single<StatisticsResponse> getStatisticByDoctorId(int doctorId,
+                                                             String from,
+                                                             String to,
+                                                             int force,
+                                                             int drugProgramId) {
+        return Single.create(singleSubscriber -> provideClient()
+                .getStatisticByDoctorId(doctorId, from, to, force, drugProgramId)
                 .subscribeOn(Schedulers.io())
                 .retryWhen(isAuthException())
                 .observeOn(AndroidSchedulers.mainThread())
