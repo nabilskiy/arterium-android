@@ -97,7 +97,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         }
-        if(viewModel == null)
+        if (viewModel == null)
             viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
         if (!isFromMP)
@@ -162,20 +162,23 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         });
 
         observeViewModel();
-        if(!isFromMP)
+        if (!isFromMP)
             profileViewModel.getProfile();
         else
             viewModel.getDoctor(id);
         initListeners();
 
-        if(isFromMP)
+        if (isFromMP) {
             binding.clBtnAddNewPersonal.setVisibility(View.GONE);
+            binding.clInfoClose.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initListeners() {
         binding.details.findViewById(R.id.ivClose).setOnClickListener(v -> {
             closeSearchOnClick();
         });
+        binding.ivBack.setOnClickListener(v -> getActivity().onBackPressed());
         binding.clBtnAddNewPersonal.setOnClickListener(
                 v -> {
                     Intent intent = new Intent(requireActivity(), AddNewPersonalActivity.class);
