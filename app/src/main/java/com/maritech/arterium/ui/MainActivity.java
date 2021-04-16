@@ -110,21 +110,25 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private final Observer<Boolean> onRecreateFragmentObserver = new Observer<Boolean>() {
         @Override
         public void onChanged(Boolean aBoolean) {
+//            if(true) return;
             String TAG = DashboardViewModel.TAG;
             Log.i(TAG, "onChanged: recreate");
             if (aBoolean) {
                 viewModel.onRecreateFragment.setValue(false);
                 int currentId = navController.getCurrentDestination().getId();
+                int prevId = navController.getCurrentBackStackEntry().getDestination().getId();
                 Log.i(DashboardViewModel.TAG, "onChanged: " + ROLE);
                 Bundle bundle = new Bundle();
                 bundle.putString("role", ROLE);
                 bundle.putString(DashboardMpFragment.NAME_KEY_BUNDLE, MP_NAME);
                 bundle.putInt(DashboardMpFragment.ID_KEY_BUNDLE, MP_ID);
+                navController.popBackStack();
                 navController.navigate(
                         currentId,
-                        bundle,
+                        bundle
+                        ,
                         new NavOptions.Builder()
-                                .setPopUpTo(currentId, true)
+                                .setPopUpTo(R.id.mainFragment, true)
                                 .build()
                 );
 //                recreate();
@@ -138,8 +142,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             String TAG = DashboardViewModel.TAG;
             Log.i(TAG, "onChanged: recreate");
             if (aBoolean) {
-                viewModel.onRecreate.setValue(false );
-              recreate();
+                viewModel.onRecreate.setValue(false);
+                recreate();
             }
         }
     };
@@ -149,9 +153,27 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         super.changeTheme(drugProgramId);
     }
 
+    public void goBackFromDashboard() {
+        Bundle bundle = new Bundle();
+        bundle.putString(DashboardMpFragment.NAME_KEY_BUNDLE, MP_NAME);
+        bundle.putInt(DashboardMpFragment.ID_KEY_BUNDLE, MP_ID);
+        MP_NAME = null;
+        MP_ID = -1;
+        openMpDashboardFromRM(bundle);
+    }
+
     @Override
     public void onBackPressed() {
         Log.i(TAG, "onBackPressed: ");
+        if (ROLE.equals(UserType.VIEW_ONLY_DOCTOR.toString())) {
+            Log.i(DashboardViewModel.TAG, "onBackPressed: ");
+//            recreate();
+//            Pref.getInstance().setDrugProgramId(this, 1);
+//            setThemeDefault();
+//            navController.popBackStack();
+            viewModel.doctorDashboardOnBackPressed.setValue(true);
+            return;
+        }
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
         if (navHostFragment != null) {
             FragmentManager navHostChildFragmentManager = navHostFragment.getChildFragmentManager();

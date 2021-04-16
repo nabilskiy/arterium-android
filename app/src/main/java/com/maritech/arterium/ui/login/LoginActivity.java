@@ -133,7 +133,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                         builder.setMessage(getString(R.string.account_session_error));
                         builder.show();
                     } else {
-                        ToastUtil.show(this, error);
+                        if (error.contains("422")) {
+                            ToastUtil.show(this, getString(R.string.login_response_error));
+                        } else
+                            ToastUtil.show(this, "Something wrong");
                     }
                 });
     }

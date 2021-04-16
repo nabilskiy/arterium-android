@@ -85,10 +85,11 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     private ApiService provideClient() {
+        int time = BuildConfig.DEBUG ? 5 : 20;
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
-                .client(provideHttpClient(20))
+                .client(provideHttpClient(time))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ApiService.class);

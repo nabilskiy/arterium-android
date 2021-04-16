@@ -40,19 +40,19 @@ public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
         binding.tvUa.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), ua);
             setLangSelected(ua);
-            actionViewModel.onRecreate.setValue(false);
+            actionViewModel.onRecreate.setValue(true);
         });
 
         binding.tvRu.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), ru);
             setLangSelected(ru);
-            actionViewModel.onRecreate.setValue(false);
+            actionViewModel.onRecreate.setValue(true);
         });
 
         binding.tvEn.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), en);
             setLangSelected(en);
-            actionViewModel.onRecreate.setValue(false);
+            actionViewModel.onRecreate.setValue(true);
         });
 
         binding.interfaceToolbar.ivArrow.setOnClickListener(v -> requireActivity().onBackPressed());

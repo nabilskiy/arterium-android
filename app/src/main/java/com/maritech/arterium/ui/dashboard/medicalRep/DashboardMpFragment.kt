@@ -14,6 +14,7 @@ import com.maritech.arterium.data.models.Profile
 import com.maritech.arterium.databinding.FragmentDashboardMpBinding
 import com.maritech.arterium.ui.MainActivity
 import com.maritech.arterium.ui.base.BaseFragment
+import com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel
 import com.maritech.arterium.ui.dashboard.medicalRep.MPViewModel.Companion.TAG
 
@@ -37,6 +38,8 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
 
     override fun onViewCreated(root: View, savedInstanceState: Bundle?) {
         super.onViewCreated(root, savedInstanceState)
+        Log.i(DashboardViewModel.TAG, "onViewCreated: MP")
+        (requireActivity() as MainActivity).changeTheme(1)
         viewModel = ViewModelProvider(this).get(MPViewModel::class.java)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 

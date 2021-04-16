@@ -22,6 +22,7 @@ import com.maritech.arterium.data.models.DoctorsModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
+import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
@@ -96,6 +97,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         if (profileViewModel == null) {
             profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
         }
+        actionViewModel = ((MainActivity) requireActivity()).getViewModel();
         if (viewModel == null)
             viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
@@ -194,6 +196,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         binding.clInfoClose.setOnClickListener(
                 v -> getActivity().onBackPressed()
         );
+
     }
 
     private void searchOnClick() {
@@ -263,8 +266,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             binding.tvUserName.setText(profileData.getName());
                             binding.tvPost.setText(profileData.getInstitutionType());
                             programModels = profileData.getDrugPrograms();
-                            if (!isFromMP)
-                                initDrugPrograms();
+//                            if (!isFromMP)
+//                                initDrugPrograms();
 //                            ((MainActivity) getActivity()).changeTheme(drugProgramId);
                         });
 
@@ -279,6 +282,29 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                     }
                 });
         viewModel.getDoctorLiveData().observe(lifecycleOwner, this::observeDoctorLiveData);
+//        actionViewModel.onRecreateFragment.observe(lifecycleOwner, b->{
+//            Log.i(TAG, "observeViewModel: recreate");
+//            if (b) {
+//                Log.i(TAG, "observeViewModel: recreate true");
+//                getParentFragmentManager()
+//                        .beginTransaction()
+//                        .detach(DashboardFragment.this)
+//                        .attach(DashboardFragment.this)
+//                        .addToBackStack(null)
+//                        .commit();
+//            }
+//        });
+        actionViewModel.doctorDashboardOnBackPressed.observe(lifecycleOwner, b -> {
+
+            if(isFromMP && b) {
+                Log.i(TAG, "observeViewModel: onback");
+                actionViewModel.doctorDashboardOnBackPressed.setValue(false);
+                requireActivity().recreate();
+            }
+//            ((MainActivity) requireActivity()).changeTheme(1);
+//            navController.popBackStack();
+//            getParentFragmentManager().popBackStack();
+        });
     }
 
     private void initDrugPrograms() {
@@ -293,9 +319,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
             if (model == null && programModels != null) {
                 model = programModels.get(0);
+                Log.i(TAG, "initDrugPrograms: PROGRAMM NULL");
 //                Pref.getInstance().setDrugProgramId(requireContext(), programModels.get(0).getId());
-                drugProgramId = programModels.get(0).getId();
-
+                drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
+                ((MainActivity) requireActivity()).changeTheme(drugProgramId);
 //                ((MainActivity) requireActivity()).setTheme();
             }
 
@@ -318,9 +345,9 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(isFromMP){
-            ((MainActivity) requireActivity()).changeTheme(1);
-        }
+//        if(isFromMP){
+//            ((MainActivity) requireActivity()).changeTheme(1);
+//        }
 
     }
 

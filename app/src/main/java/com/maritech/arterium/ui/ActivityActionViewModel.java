@@ -12,4 +12,6 @@ public class ActivityActionViewModel extends ViewModel {
 
     public MutableLiveData<Integer> changeTheme = new MutableLiveData<>();
 
+    public MutableLiveData<Boolean> doctorDashboardOnBackPressed = new MutableLiveData<>(false);
+
 }
