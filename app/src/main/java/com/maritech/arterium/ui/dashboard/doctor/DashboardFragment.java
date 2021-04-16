@@ -22,7 +22,6 @@ import com.maritech.arterium.data.models.DoctorsModel;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
-import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
@@ -62,6 +61,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
     private int drugProgramId;
 
+
     private final String[] dates = new String[2];
     private final Calendar calendar = Calendar.getInstance();
     private final Calendar calendarCurrent = Calendar.getInstance();
@@ -77,7 +77,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             if (getArguments().containsKey(DashboardMpFragment.ID_KEY_BUNDLE)) {
                 isFromMP = true;
                 id = getArguments().getInt(DashboardMpFragment.ID_KEY_BUNDLE, -1);
-                binding.clProgram.setVisibility(View.GONE);
+//                binding.clProgram.setVisibility(View.GONE);
                 binding.emptyView.setVisibility(View.VISIBLE);
             }
         }
@@ -88,7 +88,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     public void onViewCreated(@NonNull View root, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(root, savedInstanceState);
         initBundle();
-        actionViewModel = new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
 
         if (sharedViewModel == null && getParentFragment() != null) {
             sharedViewModel =
@@ -193,7 +192,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             searchOnClick();
         });
         binding.clInfoClose.setOnClickListener(
-                v -> actionViewModel.onRecreate.setValue(true)
+                v -> getActivity().onBackPressed()
         );
     }
 
@@ -225,9 +224,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     private void drugProgramOnClick() {
         DrugProgramsFragment customDialog = DrugProgramsFragment.getInstance(programModels);
         customDialog.setListener(content -> {
-            ((MainActivity) requireActivity()).setTheme();
+            drugProgramId = content;
+            Log.i(TAG, "drugProgramOnClick: " + drugProgramId);
             customDialog.dismiss();
-            actionViewModel.onRecreate.setValue(true);
+            initDrugPrograms();
         });
 
         customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
@@ -252,7 +252,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         binding.tvAllBuy.setText(getString(R.string.total_sold, doctor.getTotalSold()));
         binding.tvLvlLitter.setText(doctor.getPrograms().get(0).getLevel().toUpperCase());
         programModels = new ArrayList<>(doctor.getPrograms());
-//        initDrugPrograms();
+        Log.i(TAG, "observeDoctorLiveData: " + programModels.size());
+        initDrugPrograms();
     }
 
     private void observeViewModel() {
@@ -262,7 +263,9 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             binding.tvUserName.setText(profileData.getName());
                             binding.tvPost.setText(profileData.getInstitutionType());
                             programModels = profileData.getDrugPrograms();
-                            initDrugPrograms();
+                            if (!isFromMP)
+                                initDrugPrograms();
+//                            ((MainActivity) getActivity()).changeTheme(drugProgramId);
                         });
 
         profileViewModel.errorMessage
@@ -290,9 +293,10 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 
             if (model == null && programModels != null) {
                 model = programModels.get(0);
-                Pref.getInstance().setDrugProgramId(requireContext(), programModels.get(0).getId());
-                ((MainActivity) requireActivity()).setTheme();
-                actionViewModel.onRecreate.setValue(true);
+//                Pref.getInstance().setDrugProgramId(requireContext(), programModels.get(0).getId());
+                drugProgramId = programModels.get(0).getId();
+
+//                ((MainActivity) requireActivity()).setTheme();
             }
 
             if (model != null) {
@@ -308,6 +312,16 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                 binding.tvLvl.setText(getString(R.string.level_value, model.getLevel()));
             }
         }
+        ((MainActivity) requireActivity()).changeTheme(drugProgramId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(isFromMP){
+            ((MainActivity) requireActivity()).changeTheme(1);
+        }
+
     }
 
     private final TextWatcher textWatcher = new TextWatcher() {

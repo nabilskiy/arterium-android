@@ -38,7 +38,7 @@
                         android:id="@+id/clInfoClose"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:background="@color/purple"
+                        android:background="?colorPrimary"
                         android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

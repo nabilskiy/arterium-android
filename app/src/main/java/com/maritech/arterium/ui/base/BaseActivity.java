@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,12 +25,19 @@ import android.view.WindowManager;
 import com.maritech.arterium.BuildConfig;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
+import com.maritech.arterium.ui.ActivityActionViewModel;
+import com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel;
 
 import java.util.Locale;
 
 public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatActivity {
 
     public T binding;
+    private ActivityActionViewModel viewModel;
+
+    public ActivityActionViewModel getViewModel() {
+        return viewModel;
+    }
 
     @LayoutRes
     protected abstract int getLayoutId();
@@ -38,29 +49,42 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme();
+//        setThemeDefault();
         setupLocale();
         super.onCreate(savedInstanceState);
+        if (viewModel == null) {
+            viewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
+        }
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setLifecycleOwner(this);
+        viewModel.changeTheme.observe(this, this::changeTheme);
     }
 
-    public void setTheme() {
-        int drugProgramId = Pref.getInstance().getDrugProgramId(this);
 
+
+    public void changeTheme(int drugProgramId) {
+        int currentDrugProgramId = Pref.getInstance().getDrugProgramId(this);
+        Log.i(DashboardViewModel.TAG, "setTheme: " + drugProgramId + " " + currentDrugProgramId);
+        if(currentDrugProgramId == drugProgramId)
+            return;
+        String TAG = DashboardViewModel.TAG;
+
+
+        Pref.getInstance().setDrugProgramId(this, drugProgramId);
         if (drugProgramId == PROGRAM_RENIAL) {
+            Log.i(TAG, "setTheme: RENIAL");
             setThemeDefault();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
-        }
-        if (drugProgramId == PROGRAM_GLIPTAR) {
+        } else if (drugProgramId == PROGRAM_GLIPTAR) {
+            Log.i(TAG, "setTheme: GLIPTAR");
             setThemeBlue();
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
-        }
-        int sagradaId = PROGRAM_SAGRADA;
-        if (drugProgramId == sagradaId) {
+        } else if (drugProgramId == PROGRAM_SAGRADA) {
+            Log.i(TAG, "setTheme: SAGRADA");
             setThemeRed();
+            setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
-        setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
+        viewModel.onRecreateFragment.setValue(true);
     }
 
     public static void setStatusBarGradient(Activity activity, int color) {

@@ -84,7 +84,7 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
                 }
                 object.setSelected(true);
                 if (onChooseItem != null) {
-                    Pref.getInstance().setDrugProgramId(requireContext(), object.getId());
+//                    Pref.getInstance().setDrugProgramId(requireContext(), object.getId());
                     onChooseItem.onChoose(object.getId());
                 }
             }
@@ -136,6 +136,9 @@ public class DrugProgramsFragment extends BottomSheetDialogFragment {
 
     private void initSelectedProgram() {
         int selectedId = Pref.getInstance().getDrugProgramId(requireContext());
+        if(listContent == null){
+            return;
+        }
         for (int i = 0; i < listContent.size(); i++) {
             listContent.get(i).setSelected(false);
             if (selectedId == listContent.get(i).getId()) {
