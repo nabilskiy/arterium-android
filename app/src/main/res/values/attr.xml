@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="themeName" format="string"/>
+
     <declare-styleable name="CustomProgressBar">
         <attr name="cp_value" format="integer"/>
     </declare-styleable>

@@ -86,33 +86,23 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setNextTheme();
         super.onCreate(savedInstanceState);
-
-        viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
-
-        isEditMode = getIntent().getBooleanExtra(EDIT_EXTRA_KEY, false);
         programId = Pref.getInstance().getDrugProgramId(this);
-
+        viewModel = new ViewModelProvider(this).get(PatientsViewModel.class);
+        isEditMode = getIntent().getBooleanExtra(EDIT_EXTRA_KEY, false);
         binding.toolbar.tvHint.setVisibility(View.VISIBLE);
         binding.toolbar.tvHint.setText(getString(R.string.medical_data));
-
         binding.toolbar.viewOne.setActivated(true);
-
         binding.btnNextOne.setOnClickListener(v -> {
             validateFieldsOne();
         });
-
         binding.btnNextTwo.setOnClickListener(v -> validateFieldsTwo());
-
         binding.ivAvatar.setOnClickListener(v -> selectImage());
-
         binding.toolbar.ivLeft.setOnClickListener(v -> {
             binding.toolbar.viewTwo.setActivated(true);
-
             isTwoStep = true;
-
             binding.tooltip.setVisibility(View.GONE);
-
             if (programId == PROGRAM_RENIAL) {
                 autoFillRenialData();
             }
@@ -122,7 +112,6 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
             if (programId == PROGRAM_SAGRADA) {
                 autoFillSagradaData();
             }
-
             binding.ccInputWeight.setInput(
                     getString(R.string.weight), getString(R.string.weight_value)
             );
@@ -151,9 +140,7 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
                 isTwoStep = false;
                 binding.toolbar.viewTwo.setActivated(false);
                 binding.toolbar.viewOne.setActivated(true);
-
                 binding.clProgressStepOne.setVisibility(View.VISIBLE);
-
                 if (programId == PROGRAM_RENIAL) {
                     binding.renialLayout.setVisibility(View.GONE);
                 }

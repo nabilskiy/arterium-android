@@ -109,7 +109,8 @@ public class PharmacyFragment extends BaseFragment<FragmentPharmacyBinding> {
         public void afterTextChanged(Editable s) {
             ArrayList<PharmacyModel> newModel = new ArrayList<>();
             for (int i = 0; i < models.size(); i++) {
-                if (models.get(i).getName().toLowerCase().contains(s.toString())) {
+                if (models.get(i).getName().toLowerCase().contains(s.toString().toLowerCase()) ||
+                        models.get(i).getAddress().toLowerCase().contains(s.toString().toLowerCase()) ) {
                     newModel.add(models.get(i));
                 }
             }

@@ -30,6 +30,7 @@ public class Pref {
     private static final String PIN_CODE_KEY = "pinCodeKey";
     private static final String PIN_CODE_ENABLE_KEY = "pinCodeEnableKey";
     private static final String BIO_ENABLE_KEY = "bioEnableKey";
+    private static final String PUSH_ENABLE_KEY = "bioEnableKey";
     private static final String LANGUAGE = "language";
     private static final String ROLE = "role";
 
@@ -185,6 +186,17 @@ public class Pref {
     public boolean isFingerPrintEnabled(Context context) {
         return getPrefs(context).getBoolean(BIO_ENABLE_KEY, false);
     }
+
+    public void setPushEnable(Context context, boolean enable) {
+        SharedPreferences.Editor prefsEditor = getPrefs(context).edit();
+        prefsEditor.putBoolean(PUSH_ENABLE_KEY, enable);
+        prefsEditor.apply();
+    }
+
+    public boolean isPushEnabled(Context context) {
+        return getPrefs(context).getBoolean(PUSH_ENABLE_KEY, true);
+    }
+
 
     public void setLanguage(Context context, String lang) {
         SharedPreferences.Editor prefsEditor = getPrefs(context).edit();

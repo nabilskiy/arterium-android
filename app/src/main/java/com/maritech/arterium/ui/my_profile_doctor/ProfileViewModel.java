@@ -4,6 +4,7 @@ import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
+import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.ui.base.BaseViewModel;
 import com.maritech.arterium.ui.base.SingleLiveEvent;
 

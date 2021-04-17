@@ -6,6 +6,10 @@
     <string name="title_profile">Profile</string>
 
 
+    <string name="theme_renial" translatable="false">renial</string>
+    <string name="theme_gliptar" translatable="false">gliptar</string>
+    <string name="theme_sagrada" translatable="false">sagrada</string>
+
     <!--Login Strings-->
     <string name="login_title">Введіть Ваш <br /> логін та пароль</string>
     <string name="login">Логін</string>

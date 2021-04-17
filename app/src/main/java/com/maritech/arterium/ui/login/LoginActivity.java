@@ -68,7 +68,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 v -> {
                     String loginStr = login.getText().toString().trim();
                     String pass = password.getText().toString().trim();
-
                     if (!loginStr.isEmpty() && !pass.isEmpty()) {
                         loginViewModel.login(loginStr, password.getText().toString());
                     } else {
@@ -192,6 +191,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         Intent intent = new Intent(this, MainActivity.class);
         if (role.equals(UserType.DOCTOR.toString())) {
             intent.putExtra(BUNDLE_KEY, UserType.DOCTOR.toString());
+            Pref.getInstance().setDrugProgramId(this, profile.getDrugPrograms().get(0).getId());
 //            navigator.goToDoctorDashboard(navController);
         } else if (role.equals(UserType.REGIONAL.toString())) {
             intent.putExtra(BUNDLE_KEY, UserType.REGIONAL.toString());

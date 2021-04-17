@@ -58,18 +58,36 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setLifecycleOwner(this);
         viewModel.changeTheme.observe(this, this::changeTheme);
+        TypedValue outValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.themeName, outValue, true);
+        if(outValue.string.equals(getString(R.string.theme_renial))){
+            Log.i(DashboardViewModel.TAG, "onCreate: " + getString(R.string.theme_renial));
+        }else if(outValue.string.equals(getString(R.string.theme_gliptar))){
+            Log.i(DashboardViewModel.TAG, "onCreate: " + getString(R.string.theme_gliptar));
+        }else if(outValue.string.equals(getString(R.string.theme_sagrada))){
+            Log.i(DashboardViewModel.TAG, "onCreate: " + getString(R.string.theme_sagrada));
+        }
     }
 
-
+    private String getThemeName(int id){
+        if(id == PROGRAM_RENIAL){
+            return getString(R.string.theme_renial);
+        } else if(id == PROGRAM_GLIPTAR){
+            return getString(R.string.theme_gliptar);
+        }else if(id == PROGRAM_SAGRADA){
+            return getString(R.string.theme_sagrada);
+        } else return getString(R.string.theme_renial);
+    }
 
     public void changeTheme(int drugProgramId) {
         int currentDrugProgramId = Pref.getInstance().getDrugProgramId(this);
         Log.i(DashboardViewModel.TAG, "setTheme: " + drugProgramId + " " + currentDrugProgramId);
-        if(currentDrugProgramId == drugProgramId)
+        TypedValue outValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.themeName, outValue, true);
+        String currentTheme = outValue.string.toString();
+        if(getThemeName(drugProgramId).equals(currentTheme))
             return;
         String TAG = DashboardViewModel.TAG;
-
-
         Pref.getInstance().setDrugProgramId(this, drugProgramId);
         if (drugProgramId == PROGRAM_RENIAL) {
             Log.i(TAG, "setTheme: RENIAL");
@@ -85,6 +103,24 @@ public abstract class BaseActivity<T extends ViewDataBinding> extends AppCompatA
             setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
         }
         viewModel.onRecreateFragment.setValue(true);
+    }
+
+    public void setNextTheme(){
+        String TAG = DashboardViewModel.TAG;
+        int currentDrugProgramId = Pref.getInstance().getDrugProgramId(this);
+        if (currentDrugProgramId == PROGRAM_RENIAL) {
+            Log.i(TAG, "setTheme: RENIAL");
+            setThemeDefault();
+            setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
+        } else if (currentDrugProgramId == PROGRAM_GLIPTAR) {
+            Log.i(TAG, "setTheme: GLIPTAR");
+            setThemeBlue();
+            setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
+        } else if (currentDrugProgramId == PROGRAM_SAGRADA) {
+            Log.i(TAG, "setTheme: SAGRADA");
+            setThemeRed();
+            setStatusBarGradientDrawable(this, R.drawable.gradient_primary);
+        }
     }
 
     public static void setStatusBarGradient(Activity activity, int color) {

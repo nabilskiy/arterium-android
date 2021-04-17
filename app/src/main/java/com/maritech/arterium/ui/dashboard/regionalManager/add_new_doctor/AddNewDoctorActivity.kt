@@ -32,7 +32,6 @@ class AddNewDoctorActivity : BaseActivity<ActivityAddNewDoctorBinding?>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         init()
         initListeners()
     }

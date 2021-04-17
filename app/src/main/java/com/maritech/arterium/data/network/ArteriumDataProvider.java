@@ -85,7 +85,7 @@ public class ArteriumDataProvider implements DataProvider {
     }
 
     private ApiService provideClient() {
-        int time = BuildConfig.DEBUG ? 5 : 20;
+        int time = BuildConfig.DEBUG ? 60 : 90;
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .baseUrl(BASE_URL)
@@ -98,7 +98,6 @@ public class ArteriumDataProvider implements DataProvider {
     private OkHttpClient provideHttpClient(@IntRange(from = 0, to = 1000) int waitingTime) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         return new OkHttpClient.Builder()
                 .addInterceptor(new AuthenticationInterceptor())
                 .addInterceptor(new ChuckInterceptor(App.getInstance()))

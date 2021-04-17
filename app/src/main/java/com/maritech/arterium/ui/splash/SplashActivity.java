@@ -29,9 +29,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         super.onCreate(savedInstanceState);
 
         isPinEnabled = Pref.getInstance().isPinCodeEnabled(this);
-
         biometricManager = BiometricManager.from(this);
-
         boolean isFirstLaunch =
                 Pref.getInstance().isUserFirstLaunch(SplashActivity.this);
 
@@ -40,6 +38,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
             finishAffinity();
             startActivity(intent);
         } else {
+           // setNextTheme();
             if (isFingerPrintEnabled()) {
                 initBiometricPrompt();
             } else {
@@ -49,9 +48,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
     }
 
     private boolean isFingerPrintEnabled() {
-        boolean isFingerPrintEnabled =
-                Pref.getInstance().isFingerPrintEnabled(this);
-
+        boolean isFingerPrintEnabled = Pref.getInstance().isFingerPrintEnabled(this);
         return isFingerPrintEnabled && biometricManager.canAuthenticate(
                 BiometricManager.Authenticators.BIOMETRIC_STRONG
         ) == BiometricManager.BIOMETRIC_SUCCESS;
@@ -59,10 +56,8 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
     private void initBiometricPrompt() {
         BiometricPrompt biometricPrompt = new BiometricPrompt(this, callback);
-
         BiometricPrompt.PromptInfo.Builder builder = new BiometricPrompt.PromptInfo.Builder();
         builder.setTitle(getString(R.string.bio_lock_title));
-
         if (isPinEnabled) {
             builder.setNegativeButtonText(getString(R.string.pin_code_button));
         } else {
@@ -76,7 +71,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         @Override
         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
             super.onAuthenticationSucceeded(result);
-
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             finishAffinity();
             startActivity(intent);
@@ -98,7 +92,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         @Override
         public void onAuthenticationFailed() {
             super.onAuthenticationFailed();
-
             initBiometricPrompt();
         }
     };
@@ -116,7 +109,6 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }, 1000);
-
         }
     }
 

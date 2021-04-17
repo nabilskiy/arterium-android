@@ -1,18 +1,19 @@
 package com.maritech.arterium.ui.dashboard.regionalManager
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.maritech.arterium.common.ContentState
 import com.maritech.arterium.data.models.AgentModel
 import com.maritech.arterium.data.models.AgentResponseModel
 import com.maritech.arterium.data.network.ArteriumDataProvider
+import com.maritech.arterium.ui.base.SingleLiveEvent
 
 class DashboardRmViewModel : ViewModel() {
 
     val agentsLiveData: MutableLiveData<List<AgentModel>> = MutableLiveData()
     val agentsStateViewModel: MutableLiveData<ContentState> = MutableLiveData()
     val agentsLiveDataError: MutableLiveData<String> = MutableLiveData()
+    var searchQuery = SingleLiveEvent<String>()
 
     val dataProvider = ArteriumDataProvider.getInstance()
 

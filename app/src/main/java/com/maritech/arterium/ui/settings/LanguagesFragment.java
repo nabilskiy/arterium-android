@@ -33,10 +33,8 @@ public class LanguagesFragment extends BaseFragment<FragmentLanguagesBinding> {
                 new ViewModelProvider(requireActivity()).get(ActivityActionViewModel.class);
 
         binding.interfaceToolbar.ivRight.setVisibility(View.INVISIBLE);
-
         String lang = Pref.getInstance().getLanguage(requireContext());
         setLangSelected(lang);
-
         binding.tvUa.setOnClickListener(v -> {
             Pref.getInstance().setLanguage(requireContext(), ua);
             setLangSelected(ua);

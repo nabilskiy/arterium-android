@@ -12,6 +12,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="themeName">@string/theme_renial</item>
     </style>
 
     <style name="MyNoActionBarShadowTheme" parent="Theme.Arterium">
@@ -44,7 +45,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
+        <item name="themeName">@string/theme_sagrada</item>
     </style>
 
     <style name="Theme.Arterium.Blue" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -59,6 +60,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="themeName">@string/theme_gliptar</item>
     </style>
 
 

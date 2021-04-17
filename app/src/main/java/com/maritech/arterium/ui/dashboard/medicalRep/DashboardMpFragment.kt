@@ -1,6 +1,8 @@
 package com.maritech.arterium.ui.dashboard.medicalRep
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -9,14 +11,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maritech.arterium.R
 import com.maritech.arterium.common.ContentState
+import com.maritech.arterium.data.models.AgentModel
 import com.maritech.arterium.data.models.DoctorsModel
 import com.maritech.arterium.data.models.Profile
+import com.maritech.arterium.data.sharePref.Pref
 import com.maritech.arterium.databinding.FragmentDashboardMpBinding
 import com.maritech.arterium.ui.MainActivity
 import com.maritech.arterium.ui.base.BaseFragment
 import com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel
 import com.maritech.arterium.ui.my_profile_doctor.ProfileViewModel
 import com.maritech.arterium.ui.dashboard.medicalRep.MPViewModel.Companion.TAG
+import java.util.ArrayList
 
 class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
 
@@ -32,6 +37,10 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
 
     private var adapter: DoctorsAdapter
 
+    private var searchQuery: String? = null
+    private var allList = ArrayList<DoctorsModel>()
+    private var filteredList = ArrayList<DoctorsModel>()
+
     override fun getContentView(): Int {
         return R.layout.fragment_dashboard_mp
     }
@@ -39,14 +48,12 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
     override fun onViewCreated(root: View, savedInstanceState: Bundle?) {
         super.onViewCreated(root, savedInstanceState)
         Log.i(DashboardViewModel.TAG, "onViewCreated: MP")
-        (requireActivity() as MainActivity).changeTheme(1)
+        Pref.getInstance().setDrugProgramId(requireActivity(), 1);
         viewModel = ViewModelProvider(this).get(MPViewModel::class.java)
         profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
-
         init()
         initListeners()
     }
-
 
     private fun init() {
         if (arguments != null && arguments?.containsKey(ID_KEY_BUNDLE) == true) {
@@ -72,7 +79,30 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
     private fun initListeners() {
         viewModel.doctorsViewStateLiveData.observe(lifecycleOwner, this::observeContentState)
         viewModel.doctorsLiveData.observe(lifecycleOwner, this::observeDoctorsList)
+        viewModel.searchQuery.observe(lifecycleOwner, this::search)
         profileViewModel.responseLiveData.observe(lifecycleOwner, this::observeProfileResponse)
+        binding!!.details.ivSearch.setOnClickListener { v: View? ->
+            binding!!.details.ivSearch.visibility = View.GONE
+            binding!!.details.tvDoctors.visibility = View.GONE
+            binding!!.details.ivClose.visibility = View.VISIBLE
+            binding!!.details.clSearch.visibility = View.VISIBLE
+        }
+        binding!!.details.ivClose.setOnClickListener { v: View? ->
+            binding!!.details.ivSearch.visibility = View.VISIBLE
+            binding!!.details.tvDoctors.visibility = View.VISIBLE
+            binding!!.details.ivClose.visibility = View.GONE
+            binding!!.details.clSearch.visibility = View.GONE
+            binding!!.details.etSearch.setText("")
+        }
+        binding!!.details.etSearch.addTextChangedListener(textWatcher)
+    }
+
+    private val textWatcher: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        override fun afterTextChanged(s: Editable) {
+            viewModel.searchQuery.value = s.toString()
+        }
     }
 
     private fun observeContentState(state: ContentState) {
@@ -92,7 +122,13 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
 
     private fun observeDoctorsList(doctors: List<DoctorsModel>) {
         binding!!.details.tvDoctors.text = getString(R.string.constraint_doctors)
-        adapter.doctors = doctors
+        allList = doctors as ArrayList<DoctorsModel>
+        filteredList = doctors
+        setAdapter(allList)
+    }
+
+    private fun setAdapter(doctors: List<DoctorsModel>){
+        adapter.doctors = doctors.asReversed()
     }
 
     private val adapterOnClickListener =
@@ -105,6 +141,22 @@ class DashboardMpFragment : BaseFragment<FragmentDashboardMpBinding?>() {
 
     init {
         adapter = DoctorsAdapter(adapterOnClickListener)
+    }
+
+
+    private fun search(query: String){
+        searchQuery = query
+        if (searchQuery!!.isEmpty()) {
+            setAdapter(allList)
+        } else {
+            val models = ArrayList<DoctorsModel>()
+            for (model in filteredList) {
+                if (model.name.toLowerCase().contains(searchQuery!!.toLowerCase())) {
+                    models.add(model)
+                }
+            }
+            setAdapter(models)
+        }
     }
 
     companion object {

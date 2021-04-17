@@ -24,6 +24,7 @@ import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentDashboardBinding;
 import com.maritech.arterium.ui.ActivityActionViewModel;
 import com.maritech.arterium.ui.MainActivity;
+import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.calendar.CalendarBottomSheetDialog;
 import com.maritech.arterium.ui.dashboard.doctor.levels.LevelsContainerDialog;
@@ -101,7 +102,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         if (viewModel == null)
             viewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
 
-        if (!isFromMP)
+     //   if (!isFromMP)
             drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
 
         getChildFragmentManager().beginTransaction()
@@ -147,11 +148,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         sharedViewModel.purchasesFilter.setValue(PurchasesType.ALL);
 
 
-//        dates[1] = dateFormat.format(calendar.getTime());
-//        dates[0] = Calendar.getInstance().get(Calendar.YEAR) + "-01-01";
+        dates[1] = dateFormat.format(calendar.getTime());
+        dates[0] = Calendar.getInstance().get(Calendar.YEAR) + "-01-01";
 
-        dates[1] = null;
-        dates[0] = null;
+   //     dates[1] = null;
+    //    dates[0] = null;
 
 
         sharedViewModel.dates.setValue(dates);
@@ -167,6 +168,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             profileViewModel.getProfile();
         else
             viewModel.getDoctor(id);
+
         initListeners();
 
         if (isFromMP) {
@@ -228,11 +230,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
         DrugProgramsFragment customDialog = DrugProgramsFragment.getInstance(programModels);
         customDialog.setListener(content -> {
             drugProgramId = content;
+//            Pref.getInstance().setDrugProgramId(requireActivity(), drugProgramId);
             Log.i(TAG, "drugProgramOnClick: " + drugProgramId);
             customDialog.dismiss();
             initDrugPrograms();
         });
-
         customDialog.show(getChildFragmentManager(), "DrugProgramsFragment");
     }
 
@@ -246,7 +248,6 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     private void observeDoctorLiveData(DoctorsModel doctor) {
@@ -266,8 +267,8 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
                             binding.tvUserName.setText(profileData.getName());
                             binding.tvPost.setText(profileData.getInstitutionType());
                             programModels = profileData.getDrugPrograms();
-//                            if (!isFromMP)
-//                                initDrugPrograms();
+                            if (!isFromMP)
+                                initDrugPrograms();
 //                            ((MainActivity) getActivity()).changeTheme(drugProgramId);
                         });
 
@@ -295,11 +296,11 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
 //            }
 //        });
         actionViewModel.doctorDashboardOnBackPressed.observe(lifecycleOwner, b -> {
-
             if(isFromMP && b) {
                 Log.i(TAG, "observeViewModel: onback");
                 actionViewModel.doctorDashboardOnBackPressed.setValue(false);
-                requireActivity().recreate();
+                ((MainActivity)getActivity()).transitionRecreate(Pref.getInstance().getRole(requireActivity()));
+//                requireActivity().recreate();
             }
 //            ((MainActivity) requireActivity()).changeTheme(1);
 //            navController.popBackStack();
@@ -308,6 +309,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
     }
 
     private void initDrugPrograms() {
+        Log.i(TAG, "initDrugPrograms: "+ drugProgramId);
         if (programModels != null && programModels.size() != 0) {
             DrugProgramModel model = null;
             for (DrugProgramModel m : programModels) {
@@ -320,7 +322,7 @@ public class DashboardFragment extends BaseFragment<FragmentDashboardBinding> {
             if (model == null && programModels != null) {
                 model = programModels.get(0);
                 Log.i(TAG, "initDrugPrograms: PROGRAMM NULL");
-//                Pref.getInstance().setDrugProgramId(requireContext(), programModels.get(0).getId());
+                Pref.getInstance().setDrugProgramId(requireContext(), programModels.get(0).getId());
                 drugProgramId = Pref.getInstance().getDrugProgramId(requireContext());
                 ((MainActivity) requireActivity()).changeTheme(drugProgramId);
 //                ((MainActivity) requireActivity()).setTheme();

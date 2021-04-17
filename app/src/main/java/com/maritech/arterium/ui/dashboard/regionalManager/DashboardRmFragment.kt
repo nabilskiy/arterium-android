@@ -2,6 +2,8 @@ package com.maritech.arterium.ui.dashboard.regionalManager
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.maritech.arterium.R
 import com.maritech.arterium.common.ContentState
 import com.maritech.arterium.data.models.AgentModel
+import com.maritech.arterium.data.models.PatientModel
 import com.maritech.arterium.data.models.Profile
 import com.maritech.arterium.databinding.FragmentDashboardRmBinding
 import com.maritech.arterium.ui.MainActivity
@@ -31,6 +34,9 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var agentsAdapter: AgentsAdapter
 
+    private var searchQuery: String? = null
+    private var allList = ArrayList<AgentModel>()
+    private var filteredList = ArrayList<AgentModel>()
 
     override fun getContentView(): Int {
         return R.layout.fragment_dashboard_rm
@@ -65,8 +71,18 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
             binding!!.details.tvDoctors.visibility = View.VISIBLE
             binding!!.details.ivClose.visibility = View.GONE
             binding!!.details.clSearch.visibility = View.GONE
+            binding!!.details.etSearch.setText("")
         }
         binding!!.clBtnAddNewAccount.setOnClickListener { v: View? -> addAgentDialog.show() }
+        binding!!.details.etSearch.addTextChangedListener(textWatcher)
+    }
+
+    private val textWatcher: TextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        override fun afterTextChanged(s: Editable) {
+            dashboardViewModel.searchQuery.value = s.toString()
+        }
     }
 
     private val dialogListener: DialogListener = object : DialogListener {
@@ -94,6 +110,7 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
     private fun observeViewModel() {
         dashboardViewModel.agentsLiveData.observe(lifecycleOwner, this::initRecycler)
         dashboardViewModel.agentsStateViewModel.observe(lifecycleOwner, this::changeUIState)
+        dashboardViewModel.searchQuery.observe(lifecycleOwner, this::search)
         profileViewModel.responseLiveData.observe(lifecycleOwner, this::handleProfileResponse)
     }
 
@@ -120,11 +137,32 @@ class DashboardRmFragment : BaseFragment<FragmentDashboardRmBinding?>() {
     }
 
     private fun initRecycler(agentModels: List<AgentModel>) {
+        allList = agentModels as ArrayList<AgentModel>
+        filteredList = agentModels
+        setAdapter(allList)
+    }
+
+    private fun setAdapter(agentModels: List<AgentModel>) {
         agentsAdapter = AgentsAdapter(agentModels, agentsOnClickListener, requireContext())
         binding?.details?.rvDoctors?.layoutManager =
                 LinearLayoutManager(requireContext(),
                         LinearLayoutManager.VERTICAL,
                         false)
         binding?.details?.rvDoctors?.adapter = agentsAdapter
+    }
+
+    private fun search(query: String){
+        searchQuery = query
+        if (searchQuery!!.isEmpty()) {
+            setAdapter(allList)
+        } else {
+            val models = ArrayList<AgentModel>()
+            for (model in filteredList) {
+                if (model.name.toLowerCase().contains(searchQuery!!.toLowerCase())) {
+                    models.add(model)
+                }
+            }
+            setAdapter(models)
+        }
     }
 }

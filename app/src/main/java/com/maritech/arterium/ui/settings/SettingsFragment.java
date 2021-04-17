@@ -11,6 +11,7 @@ import androidx.biometric.BiometricManager;
 import com.maritech.arterium.R;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.maritech.arterium.databinding.FragmentSettingsBinding;
+import com.maritech.arterium.ui.MainActivity;
 import com.maritech.arterium.ui.base.BaseFragment;
 import com.maritech.arterium.ui.lock.pinCode.PinCodeActivity;
 
@@ -36,7 +37,6 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
         binding.switchAskPinCode.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 Pref.getInstance().setPinCode(requireContext(), "");
-
                 Intent intent = new Intent(requireContext(), PinCodeActivity.class);
                 intent.putExtra(PinCodeActivity.SETTINGS_EXTRA_KEY, true);
                 startActivity(intent);
@@ -54,13 +54,17 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
             binding.tvUseBio.setVisibility(View.VISIBLE);
             binding.switchUseBio.setVisibility(View.VISIBLE);
             binding.viewLineOne.setVisibility(View.VISIBLE);
-
             binding.switchUseBio.setOnCheckedChangeListener((buttonView, isChecked) ->
                     Pref.getInstance().setFingerPrintEnable(requireContext(), isChecked));
         }
 
+        boolean isPushEnabled = Pref.getInstance().isPushEnabled(requireContext());
+        if (isPushEnabled) {
+            binding.switchGetPushNotifications.setChecked(true);
+        }
         binding.switchGetPushNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
+            Pref.getInstance().setPushEnable(requireActivity(), isChecked);
+            ((MainActivity) getActivity()).sendFirebaseToken();
         });
 
         binding.tvSetLanguage.setOnClickListener(
@@ -81,4 +85,5 @@ public class SettingsFragment extends BaseFragment<FragmentSettingsBinding> {
                 .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG) ==
                 BiometricManager.BIOMETRIC_SUCCESS;
     }
+
 }

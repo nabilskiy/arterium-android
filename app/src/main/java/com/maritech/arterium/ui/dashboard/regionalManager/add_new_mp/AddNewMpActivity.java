@@ -21,6 +21,7 @@ import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectDoctorsAdapter;
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectedDoctorsAdapter;
 
+import java.util.Collections;
 import java.util.List;
 
 import kotlin.Unit;
@@ -185,20 +186,22 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
             };
 
     private void doctorsObserver(List<DoctorsModel> doctors) {
+        Collections.reverse(doctors);
         selectDoctorsAdapter.setDoctors(doctors);
-
     }
 
     private void selectedDoctorsObserver(List<DoctorsModel> doctors) {
         selectedDoctorAdapter.setDoctors(doctors);
         changeSecStepNextButState();
-        if (doctors.size() > 0) {
-            binding.toolbar.ivDone.setVisibility(View.VISIBLE);
-            binding.tvChooseDoctors.setVisibility(View.GONE);
-        } else {
-            binding.toolbar.ivDone.setVisibility(View.GONE);
-            binding.tvChooseDoctors.setVisibility(View.VISIBLE);
-        }
+        if (currentStep == 1) {
+            if (doctors.size() > 0) {
+                binding.toolbar.ivDone.setVisibility(View.VISIBLE);
+                binding.tvChooseDoctors.setVisibility(View.GONE);
+            } else {
+                binding.toolbar.ivDone.setVisibility(View.GONE);
+                binding.tvChooseDoctors.setVisibility(View.VISIBLE);
+            }
+        } else binding.tvChooseDoctors.setVisibility(View.GONE);
     }
 
     private void doctorsContentStateObserver(ContentState state) {

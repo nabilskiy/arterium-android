@@ -1,6 +1,7 @@
 package com.maritech.arterium.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setNextTheme();
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ActivityActionViewModel.class);
         firebaseViewModel = new ViewModelProvider(this).get(FirebaseViewModel.class);
@@ -85,7 +87,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 //        navController.setGraph(navController.getGraph(), bundle);
         navController.navigate(R.id.mainFragment, bundle);
     }
-
 
     public void openDoctorDashboardFromMP(Bundle bundle) {
         bundle.putString("role", UserType.VIEW_ONLY_DOCTOR.toString());
@@ -143,7 +144,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             Log.i(TAG, "onChanged: recreate");
             if (aBoolean) {
                 viewModel.onRecreate.setValue(false);
-                recreate();
+            //    recreate();
+                transitionRecreate(Pref.getInstance().getRole(MainActivity.this));
             }
         }
     };
@@ -167,10 +169,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         Log.i(TAG, "onBackPressed: ");
         if (ROLE.equals(UserType.VIEW_ONLY_DOCTOR.toString())) {
             Log.i(DashboardViewModel.TAG, "onBackPressed: ");
-//            recreate();
-//            Pref.getInstance().setDrugProgramId(this, 1);
-//            setThemeDefault();
-//            navController.popBackStack();
             viewModel.doctorDashboardOnBackPressed.setValue(true);
             return;
         }
@@ -185,7 +183,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                     bundle.putInt(DashboardMpFragment.ID_KEY_BUNDLE, MP_ID);
                     MP_NAME = null;
                     MP_ID = -1;
-                    // openMpDashboardFromRM(bundle);
                     navController.navigateUp();
                 } else {
                     navController.navigateUp();
@@ -212,16 +209,33 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         }
     }
 
-    private void sendFirebaseToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        return;
-                    }
-                    String token = task.getResult();
-                    JsonObject body = new JsonObject();
-                    body.addProperty("fcm_token", token);
-                    firebaseViewModel.sendFirebaseToken(body);
-                });
+    public void transitionRecreate(String role){
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(this, getClass());
+        bundle.putString("login", role);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        overridePendingTransition(R.anim.bottom_in, R.anim.top_out);
+    }
+
+
+    public void sendFirebaseToken() {
+        boolean isPushEnabled = Pref.getInstance().isPushEnabled(this);
+        if (isPushEnabled){
+            FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        String token = task.getResult();
+                        JsonObject body = new JsonObject();
+                        body.addProperty("fcm_token", token);
+                        firebaseViewModel.sendFirebaseToken(body);
+                    });
+        }else {
+            JsonObject body = new JsonObject();
+            body.addProperty("fcm_token", "");
+            firebaseViewModel.sendFirebaseToken(body);
+        }
+
     }
 }

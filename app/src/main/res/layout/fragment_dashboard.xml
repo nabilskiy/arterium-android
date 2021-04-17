@@ -52,7 +52,7 @@
                             android:layout_marginStart="24dp"
                             android:layout_marginTop="16dp"
                             android:text="@string/doctor_page_title"
-                            android:textAppearance="@style/sf_pro_semibold_13"
+                            android:textAppearance="@style/sf_pro_semibold_12"
                             android:textColor="@color/white"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

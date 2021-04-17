@@ -123,7 +123,6 @@ public class PatientsFragment extends BaseFragment<FragmentPatientsBinding> {
 
         sharedViewModel.searchQuery.observe(getViewLifecycleOwner(), query -> {
             searchQuery = query;
-
             if (searchQuery.isEmpty()) {
                 adapter.setData(allList);
             } else {

@@ -64,7 +64,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     private ProgressDialog dialog;
 
     public void showProgressDialog() {
-        if (dialog == null) {
+        if (dialog == null && isVisible()) {
             dialog = new ProgressDialog(requireContext());
             dialog.setMessage(getString(R.string.wait));
             dialog.show();

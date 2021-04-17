@@ -7,6 +7,7 @@ import com.maritech.arterium.common.ContentState
 import com.maritech.arterium.data.models.DoctorsModel
 import com.maritech.arterium.data.models.DoctorsResponseModel
 import com.maritech.arterium.data.network.ArteriumDataProvider
+import com.maritech.arterium.ui.base.SingleLiveEvent
 
 class MPViewModel : ViewModel() {
 
@@ -19,6 +20,7 @@ class MPViewModel : ViewModel() {
 
     val doctorsLiveData = MutableLiveData<List<DoctorsModel>>()
     val doctorsViewStateLiveData = MutableLiveData<ContentState>()
+    var searchQuery = SingleLiveEvent<String>()
 
     fun getDoctors() {
         doctorsViewStateLiveData.value = ContentState.LOADING

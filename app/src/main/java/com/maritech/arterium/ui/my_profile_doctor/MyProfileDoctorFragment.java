@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.maritech.arterium.R;
+import com.maritech.arterium.common.UserType;
 import com.maritech.arterium.data.models.DrugProgramModel;
 import com.maritech.arterium.data.models.Profile;
 import com.maritech.arterium.data.sharePref.Pref;
@@ -39,7 +40,14 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
         super.onViewCreated(root, savedInstanceState);
         binding.clLogOut.setOnClickListener(v -> showLogOutDialog());
         binding.myProfileToolbar.ivRight.setVisibility(View.INVISIBLE);
-        binding.myProfileToolbar.tvToolbarTitle.setText(getString(R.string.doctor_profile));
+        String role = Pref.getInstance().getRole(requireActivity());
+        if (role.equals(UserType.DOCTOR.toString()))
+            binding.myProfileToolbar.tvToolbarTitle.setText(getString(R.string.doctor_profile));
+        else if (role.equals(UserType.REGIONAL.toString()))
+            binding.myProfileToolbar.tvToolbarTitle.setText(getString(R.string.rm));
+        else if (role.equals(UserType.MEDICAL.toString()))
+            binding.myProfileToolbar.tvToolbarTitle.setText(getString(R.string.mp));
+
         binding.myProfileToolbar.ivArrow.setVisibility(View.INVISIBLE);
         binding.myProfileMainContentSettings.getRoot().setOnClickListener(v -> navigator.goToSettings(navController));
         binding.pharmacyList.getRoot().setOnClickListener(v -> navigator.goToMap(navController));
@@ -73,7 +81,6 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
                                         model = m;
                                     }
                                 }
-
                             if (model == null && profileData.getDrugPrograms() != null) {
                                 model = profileData.getDrugPrograms().get(0);
                             }
