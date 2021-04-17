@@ -1,5 +1,7 @@
 package com.maritech.arterium.data.network;
 
+import android.util.Log;
+
 import androidx.annotation.IntRange;
 
 import com.google.gson.Gson;
@@ -30,9 +32,11 @@ import com.maritech.arterium.data.models.PurchasesResponse;
 import com.maritech.arterium.data.models.RegionsResponseModel;
 import com.maritech.arterium.data.models.StatisticsResponse;
 import com.maritech.arterium.data.network.interceptors.AuthenticationInterceptor;
+import com.maritech.arterium.data.network.interceptors.ErrorModel;
 import com.maritech.arterium.data.sharePref.Pref;
 import com.readystatesoftware.chuck.ChuckInterceptor;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

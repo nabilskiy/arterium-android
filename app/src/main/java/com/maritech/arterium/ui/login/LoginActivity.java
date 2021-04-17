@@ -135,7 +135,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                         if (error.contains("422")) {
                             ToastUtil.show(this, getString(R.string.login_response_error));
                         } else
-                            ToastUtil.show(this, "Something wrong");
+                            ToastUtil.show(this, error);
                     }
                 });
     }
