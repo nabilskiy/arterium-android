@@ -20,6 +20,7 @@ import com.maritech.arterium.databinding.ActivityAddNewMpBinding;
 import com.maritech.arterium.ui.base.BaseActivity;
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectDoctorsAdapter;
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_mp.holder.SelectedDoctorsAdapter;
+import com.maritech.arterium.utils.ToastUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -47,15 +48,12 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
         viewModel = new ViewModelProvider(this).get(AddNewMpViewModel.class);
 
         binding.toolbar.viewOne.setActivated(true);
-
-
 //        binding.clChooseMp.setOnClickListener(v -> navigator.goAddDoctor(navController));
-
-
         binding.btnNextTwo.setAlpha(0.7f);
         binding.btnNextTwo.setClickable(false);
         init();
         initListeners();
+        changeFirstStepNextButState();
         viewModel.getDoctorsList();
     }
 
@@ -95,6 +93,10 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
         viewModel.getDoctorsStateLiveData().observe(this, this::doctorsContentStateObserver);
         viewModel.getContentState().observe(this, this::observeContentState);
         viewModel.getSaveResponseLiveData().observe(this, this::saveRequestObserver);
+        viewModel.getErrorMessage().observe(
+                this,
+                error -> ToastUtil.show(this, error)
+        );
     }
 
     private void observeContentState(ContentState state) {
@@ -261,7 +263,6 @@ public class AddNewMpActivity extends BaseActivity<ActivityAddNewMpBinding> {
                 !binding.ccInputPhoneNumber.getRawText().isEmpty()) &&
                 binding.ccInputPhoneNumber.getRawText().length() >= 9;
     }
-
 
     @Override
     protected int getLayoutId() {

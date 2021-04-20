@@ -6,6 +6,7 @@ import com.maritech.arterium.common.ContentState;
 import com.maritech.arterium.data.models.LoginData;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
+import com.maritech.arterium.data.network.interceptors.ErrorModel;
 import com.maritech.arterium.ui.base.BaseViewModel;
 
 public class LoginViewModel extends BaseViewModel {
@@ -31,7 +32,7 @@ public class LoginViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             contentState.postValue(ContentState.ERROR);
-                            error.postValue(throwable.getMessage());
+                            error.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -47,7 +48,7 @@ public class LoginViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             contentState.postValue(ContentState.ERROR);
-                            error.postValue(throwable.getMessage());
+                            error.postValue(ErrorModel.showErrorBody(throwable));
                             logout.postValue(true);
                         }
                 );

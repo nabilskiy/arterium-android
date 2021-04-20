@@ -65,7 +65,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         if (getIntent() != null) {
             patientId = getIntent().getIntExtra(PATIENT_ID_KEY, -1);
             doctorId = getIntent().getIntExtra(DashboardMpFragment.ID_KEY_BUNDLE, -1);
-            if (doctorId>0)
+            if (doctorId > 0)
                 binding.patientCardToolbar.ivRight.setVisibility(View.GONE);
         }
         binding.patientCardToolbar.tvToolbarTitle.setText(R.string.patient_card);
@@ -96,7 +96,8 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
 
         viewModel.patientById.observe(this, patientResponse -> {
             model = patientResponse.getData();
-            loadImage();
+            if (model.getHasImg())
+                loadImage();
             setPersonalCardData();
             if (programId == PROGRAM_RENIAL) {
                 binding.clPatientMedicalDataRenial.setVisibility(View.VISIBLE);
@@ -287,7 +288,7 @@ public class PatientCardActivity extends BaseActivity<ActivityPatientCardBinding
         if (model.getHearthAttackDate() != null) {
             long millis = model.getHearthAttackDate() * 1000;
             heartAttackValue.setText(dateFormat.format(new Date(millis)));
-        }else {
+        } else {
             heartAttackValue.setText("");
         }
 

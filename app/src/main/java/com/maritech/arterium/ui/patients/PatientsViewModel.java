@@ -8,14 +8,17 @@ import com.maritech.arterium.data.models.PatientListResponse;
 import com.maritech.arterium.data.models.PatientResponse;
 import com.maritech.arterium.data.network.ArteriumDataProvider;
 import com.maritech.arterium.data.network.DataProvider;
+import com.maritech.arterium.data.network.interceptors.ErrorModel;
 import com.maritech.arterium.ui.base.BaseViewModel;
 import com.maritech.arterium.ui.base.SingleLiveEvent;
 
+import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 import static com.maritech.arterium.ui.dashboard.doctor.DashboardViewModel.TAG;
 
@@ -62,7 +65,7 @@ public class PatientsViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             allPatientsState.postValue(ContentState.ERROR);
-                            allPatientsMessage.postValue(throwable.getMessage());
+                            allPatientsMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -87,7 +90,7 @@ public class PatientsViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             allPatientsState.postValue(ContentState.ERROR);
-                            allPatientsMessage.postValue(throwable.getMessage());
+                            allPatientsMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -109,7 +112,7 @@ public class PatientsViewModel extends BaseViewModel {
                         throwable -> {
                             Log.i(TAG, "getPatientById: " + throwable.getMessage());
                             patientByIdState.postValue(ContentState.ERROR);
-                            patientByIdMessage.postValue(throwable.getMessage());
+                            patientByIdMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -131,7 +134,7 @@ public class PatientsViewModel extends BaseViewModel {
                         throwable -> {
                             Log.i(TAG, "getPatientById: " + throwable.getMessage());
                             patientByIdState.postValue(ContentState.ERROR);
-                            patientByIdMessage.postValue(throwable.getMessage());
+                            patientByIdMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -151,7 +154,7 @@ public class PatientsViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             imageState.postValue(ContentState.ERROR);
-                            imageErrorMessage.postValue(throwable.getMessage());
+                            imageErrorMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -170,7 +173,7 @@ public class PatientsViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             deleteImageState.postValue(ContentState.ERROR);
-                            deleteImageErrorMessage.postValue(throwable.getMessage());
+                            deleteImageErrorMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -190,7 +193,7 @@ public class PatientsViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             createPatientState.postValue(ContentState.ERROR);
-                            createErrorMessage.postValue(throwable.getMessage());
+                            createErrorMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }
@@ -212,7 +215,7 @@ public class PatientsViewModel extends BaseViewModel {
                         },
                         throwable -> {
                             createPatientState.postValue(ContentState.ERROR);
-                            createErrorMessage.postValue(throwable.getMessage());
+                            createErrorMessage.postValue(ErrorModel.showErrorBody(throwable));
                         }
                 );
     }

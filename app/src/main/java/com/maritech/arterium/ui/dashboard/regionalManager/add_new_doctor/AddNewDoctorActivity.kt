@@ -16,6 +16,7 @@ import com.maritech.arterium.data.models.CreateDoctorRequestModel
 import com.maritech.arterium.data.models.RegionModel
 import com.maritech.arterium.databinding.ActivityAddNewDoctorBinding
 import com.maritech.arterium.ui.base.BaseActivity
+import com.maritech.arterium.utils.ToastUtil
 
 class AddNewDoctorActivity : BaseActivity<ActivityAddNewDoctorBinding?>() {
 
@@ -67,6 +68,7 @@ class AddNewDoctorActivity : BaseActivity<ActivityAddNewDoctorBinding?>() {
         viewModel.agentsListLiveData.observe(this, this::observeAgentsList)
         viewModel.regionsStateLiveData.observe(this, this::observeRegionsContentState)
         viewModel.regionsListLiveData.observe(this, this::observeRegionsList)
+        viewModel.errorMessage.observe(this, { error: String? -> ToastUtil.show(this, error) })
 
         binding!!.ccInputCity.addTextChangeListener(textWatcher)
         binding!!.ccInputName.addTextChangeListener(textWatcher)

@@ -6,20 +6,19 @@ import androidx.lifecycle.ViewModel
 import com.maritech.arterium.common.ContentState
 import com.maritech.arterium.data.models.*
 import com.maritech.arterium.data.network.ArteriumDataProvider
+import com.maritech.arterium.data.network.interceptors.ErrorModel
 import com.maritech.arterium.ui.base.SingleLiveEvent
 
 class AddNewMpViewModel : ViewModel() {
 
-    private val TAG = "AddNewMpActivity_TAG";
-
-
-    private val dataProvider = ArteriumDataProvider.getInstance()
+    private val TAG = "AddNewMpActivity_TAG"; private val dataProvider = ArteriumDataProvider.getInstance()
 
     val doctorsStateLiveData = MutableLiveData<ContentState>()
     val doctors = MutableLiveData<List<DoctorsModel>>(listOf())
     val selectedDoctors = MutableLiveData<List<DoctorsModel>>(listOf())
     val saveResponseLiveData = MutableLiveData<Unit>()
     val contentState = MutableLiveData<ContentState>()
+    val errorMessage = MutableLiveData<String>()
 
     fun getDoctorsList() {
         doctorsStateLiveData.value = ContentState.LOADING
@@ -34,6 +33,7 @@ class AddNewMpViewModel : ViewModel() {
                 },
                 { throwable: Throwable ->
                     // TODO: 08.04.2021 add exception message
+                    errorMessage.postValue(ErrorModel.showErrorBody(throwable))
                     doctorsStateLiveData.postValue(ContentState.ERROR)
                 }
         )
@@ -57,6 +57,7 @@ class AddNewMpViewModel : ViewModel() {
                 },
                 { throwable: Throwable ->
                     Log.i(TAG, "save: ERROR" + throwable.printStackTrace())
+                    errorMessage.postValue(ErrorModel.showErrorBody(throwable))
                     contentState.postValue(ContentState.ERROR)
                 }
         )
@@ -73,6 +74,7 @@ class AddNewMpViewModel : ViewModel() {
                 },
                 { throwable: Throwable ->
                     Log.i(TAG, "addDoctors: ERROR " + throwable.message)
+                    errorMessage.postValue(ErrorModel.showErrorBody(throwable))
                     contentState.postValue(ContentState.ERROR)
                 }
         )

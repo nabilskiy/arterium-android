@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.maritech.arterium.common.ContentState
 import com.maritech.arterium.data.models.*
 import com.maritech.arterium.data.network.ArteriumDataProvider
+import com.maritech.arterium.data.network.interceptors.ErrorModel
 import com.maritech.arterium.ui.dashboard.regionalManager.add_new_doctor.AddNewDoctorActivity.Companion.TAG
 
 class AddNewDoctorViewModel : ViewModel() {
@@ -23,7 +24,7 @@ class AddNewDoctorViewModel : ViewModel() {
     val agentsListLiveData = MutableLiveData<List<AgentModel>>()
     val regionsListLiveData = MutableLiveData<List<RegionModel>>()
     val regionsStateLiveData = MutableLiveData<ContentState>()
-
+    val errorMessage = MutableLiveData<String>()
 
     fun create(doctor: CreateDoctorRequestModel) {
         contentStateLiveData.value = ContentState.LOADING
@@ -39,6 +40,7 @@ class AddNewDoctorViewModel : ViewModel() {
                 },
                 { throwable: Throwable ->
                     // TODO: 08.04.2021 add exception message
+                    errorMessage.postValue(ErrorModel.showErrorBody(throwable))
                     Log.i(TAG, "create: EROR: ${throwable.message}")
                     contentStateLiveData.postValue(ContentState.ERROR)
                 }
@@ -58,6 +60,7 @@ class AddNewDoctorViewModel : ViewModel() {
                     regionsListLiveData.postValue(data.data)
                 },
                 { throwable: Throwable ->
+                    errorMessage.postValue(ErrorModel.showErrorBody(throwable))
                     Log.i(TAG, "getRegionsList: EROR: ${throwable.message}")
                     regionsStateLiveData.postValue(ContentState.ERROR)
                 }
@@ -77,6 +80,7 @@ class AddNewDoctorViewModel : ViewModel() {
                 },
                 { throwable: Throwable ->
                     // TODO: 08.04.2021 add exception message
+                    errorMessage.postValue(ErrorModel.showErrorBody(throwable))
                     agentsContentStateLiveData.postValue(ContentState.ERROR)
                 }
         )

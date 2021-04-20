@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">K4L</string>
+    <string name="app_name" translatable="false">key 4 life</string>
 
     <string name="title_home">Profile</string>
     <string name="title_dashboard">Dashboard</string>

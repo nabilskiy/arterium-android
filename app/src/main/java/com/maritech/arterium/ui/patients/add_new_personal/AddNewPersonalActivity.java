@@ -385,12 +385,12 @@ public class AddNewPersonalActivity extends BaseActivity<ActivityAddNewPersonalB
 
         if (binding.ccInputFecesStart.getText() != null &&
                 !binding.ccInputFecesStart.getText().isEmpty()) {
-            map.put("initial_potassium", toRequestBody(binding.ccInputFecesStart.getText()));
+            map.put("initial_potassium", toRequestBody(binding.ccInputFecesStart.getText().replaceAll(",",".")));
         }
 
         if (binding.ccInputFecesEnd.getText() != null &&
                 !binding.ccInputFecesEnd.getText().isEmpty()) {
-            map.put("final_potassium", toRequestBody(binding.ccInputFecesEnd.getText()));
+            map.put("final_potassium", toRequestBody(binding.ccInputFecesEnd.getText().replaceAll(",",".")));
         }
 
         if (binding.ccInputDateOks.getText() != null &&

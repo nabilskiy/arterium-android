@@ -1,5 +1,7 @@
 package com.maritech.arterium.data.network.interceptors;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
@@ -68,40 +70,47 @@ public class ErrorModel {
 
     public static String showErrorBody(Throwable throwable) {
         HttpException httpException = (HttpException) throwable;
-        String result = null;
-        try {
-            result = httpException.response().errorBody().string();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (result.equals(""))
-            return "Ошибка сервера";
-        Gson gson = new Gson();
         String errors = "";
-        try {
-            ErrorModel errorModel = gson.fromJson(result, ErrorModel.class);
-            switch (errorModel.tag){
-                case "validation_failed":// брать информацию из массива errors
-                    errors = getErrors(errorModel);
-                    break;
-                case "server_error":
-                    errors = "Ошибка сервера";
-                    break;
-                case "forbidden"://нет доступа к запрашиваемому контенту
-                    errors = "Нет доступа к запрашиваемому контенту";
-                    break;
-                case "invalid_credentials"://не верный логин или пароль
-                    errors = "Не верный логин или пароль";
-                    break;
-                case "logged_in_from_another_device":
-                    errors = "Вхід був проведений за допомогою іншого пристрою";
-                    break;
+        if (httpException.code()==404){
+            return "Ошибка сервера";
+        }else {
+            String result = null;
+            try {
+                result = httpException.response().errorBody().string();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IllegalStateException e) {
-            errors = "Ошибка данных";
-        } catch (JsonSyntaxException e){
-            errors = "Ошибка данных";
+            Log.d("TAG", "showErrorBody: "+result);
+            if (result.equals(""))
+                return "Ошибка сервера";
+            Gson gson = new Gson();
+
+            try {
+                ErrorModel errorModel = gson.fromJson(result, ErrorModel.class);
+                switch (errorModel.tag){
+                    case "validation_failed":// брать информацию из массива errors
+                        errors = getErrors(errorModel);
+                        break;
+                    case "server_error":
+                        errors = "Ошибка сервера";
+                        break;
+                    case "forbidden"://нет доступа к запрашиваемому контенту
+                        errors = "Нет доступа к запрашиваемому контенту";
+                        break;
+                    case "invalid_credentials"://не верный логин или пароль
+                        errors = "Не верный логин или пароль";
+                        break;
+                    case "logged_in_from_another_device":
+                        errors = "Вхід був проведений за допомогою іншого пристрою";
+                        break;
+                }
+            } catch (IllegalStateException e) {
+                errors = "Ошибка данных";
+            } catch (JsonSyntaxException e){
+                errors = "Ошибка данных";
+            }
         }
+
         return errors;
     }
 

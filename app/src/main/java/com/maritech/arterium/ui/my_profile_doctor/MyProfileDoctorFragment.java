@@ -2,6 +2,8 @@ package com.maritech.arterium.ui.my_profile_doctor;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -60,11 +62,23 @@ public class MyProfileDoctorFragment extends BaseFragment<FragmentMyProfileBindi
             startActivity(intent);
         });
 
+        binding.version.setText(getString(R.string.app_name) + getAppVersion());
+
         setMyProfileContentList();
 
         observeViewModel();
 
         viewModel.getProfile();
+    }
+
+    private String getAppVersion() {
+        try {
+            PackageInfo pInfo = requireActivity().getPackageManager().getPackageInfo(requireActivity().getPackageName(), 0);
+            return " " + pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private void observeViewModel() {

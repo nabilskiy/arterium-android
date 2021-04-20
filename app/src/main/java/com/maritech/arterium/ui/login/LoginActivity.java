@@ -99,15 +99,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         profileViewModel.errorMessage.observe(this,
                 error -> {
-                    if (error.contains("logged_in_from_another_device")) {
-                        MaterialAlertDialogBuilder builder =
-                                new MaterialAlertDialogBuilder(this);
-                        builder.setTitle(getString(R.string.account_title));
-                        builder.setMessage(getString(R.string.account_session_error));
-                        builder.show();
-                    } else {
-                        ToastUtil.show(this, getString(R.string.login_response_error));
-                    }
+                    ToastUtil.show(this, error);
+//                    if (error.contains("logged_in_from_another_device")) {
+//                        MaterialAlertDialogBuilder builder =
+//                                new MaterialAlertDialogBuilder(this);
+//                        builder.setTitle(getString(R.string.account_title));
+//                        builder.setMessage(getString(R.string.account_session_error));
+//                        builder.show();
+//                    } else {
+//                        ToastUtil.show(this, getString(R.string.login_response_error));
+//                    }
                 });
 
         loginViewModel.login
@@ -125,18 +126,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
         loginViewModel.error.observe(this,
                 error -> {
-                    if (error.contains("logged_in_from_another_device")) {
-                        MaterialAlertDialogBuilder builder =
-                                new MaterialAlertDialogBuilder(this);
-                        builder.setTitle(getString(R.string.account_title));
-                        builder.setMessage(getString(R.string.account_session_error));
-                        builder.show();
-                    } else {
-                        if (error.contains("422")) {
-                            ToastUtil.show(this, getString(R.string.login_response_error));
-                        } else
-                            ToastUtil.show(this, error);
-                    }
+                    ToastUtil.show(this, error);
+//                    if (error.contains("logged_in_from_another_device")) {
+//                        MaterialAlertDialogBuilder builder =
+//                                new MaterialAlertDialogBuilder(this);
+//                        builder.setTitle(getString(R.string.account_title));
+//                        builder.setMessage(getString(R.string.account_session_error));
+//                        builder.show();
+//                    } else {
+//                        if (error.contains("422")) {
+//                            ToastUtil.show(this, getString(R.string.login_response_error));
+//                        } else
+//                            ToastUtil.show(this, error);
+//                    }
                 });
     }
 
