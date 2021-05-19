@@ -37,11 +37,16 @@ public class ErrorModel {
     public class Errors {
 
         private List<String> code;
+        private List<String> card_code;
         private List<String> name;
         private List<String> email;
         private List<String> phone;
         private List<String> current_password;
         private List<String> new_password;
+
+        public List<String> getCard_code() {
+            return card_code;
+        }
 
         public List<String> getName() {
             return name;
@@ -144,6 +149,11 @@ public class ErrorModel {
             }
             if (errorModel.getErrors().getCode() != null) {
                 for (String errorString : errorModel.getErrors().getCode()) {
+                    errors = errors + errorString + "\n";
+                }
+            }
+            if (errorModel.getErrors().getCard_code() != null) {
+                for (String errorString : errorModel.getErrors().getCard_code()) {
                     errors = errors + errorString + "\n";
                 }
             }
